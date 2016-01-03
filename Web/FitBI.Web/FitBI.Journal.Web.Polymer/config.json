@@ -1,0 +1,10 @@
+{
+  "AppSettings": {
+    "SiteTitle": "FitBI.Journal.Web"
+  },
+  "Data": {
+    "DefaultConnection": {
+      "ConnectionString": "Server=(localdb)\\mssqllocaldb;Database=aspnet5-FitBI.Journal.Web-21e31ef8-3a6a-400e-aa0e-6bb97254d102;Trusted_Connection=True;MultipleActiveResultSets=true"
+    }
+  }
+}

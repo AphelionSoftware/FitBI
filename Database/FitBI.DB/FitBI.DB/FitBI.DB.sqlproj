@@ -73,14 +73,16 @@
     <Build Include="Security\Settings.sql" />
     <Build Include="Security\Core.sql" />
     <Build Include="Security\Access.sql" />
-    <Build Include="Core\PostDeploymentScripts\PDS.Active.sql" />
-    <Build Include="Core\PostDeploymentScripts\PDS.Dates.sql" />
-    <Build Include="Core\PostDeploymentScripts\PDS.Time.sql" />
+    <None Include="Core\PostDeploymentScripts\PDS.Active.sql" />
+    <None Include="Core\PostDeploymentScripts\PDS.Dates.sql" />
+    <None Include="Core\PostDeploymentScripts\PDS.Time.sql" />
     <Build Include="Stats\Tables\WeightMeasurement.sql" />
     <Build Include="Stats\Tables\TapeMeasurement.sql" />
     <Build Include="Stats\Tables\Metric.sql" />
     <Build Include="Core\Tables\MeasurementTypeCategory.sql" />
     <Build Include="Core\Tables\MeasurementType.sql" />
+    <Build Include="Core\Tables\BodyPartType.sql" />
+    <Build Include="Core\Tables\BodyPart.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />
@@ -88,5 +90,6 @@
   <ItemGroup>
     <None Include="Core\PostDeploymentScripts\PDS.MeasurementTypeCategory.sql" />
     <None Include="Core\PostDeploymentScripts\PDS.MeasurementType.sql" />
+    <None Include="LocalToProject.scmp" />
   </ItemGroup>
 </Project>

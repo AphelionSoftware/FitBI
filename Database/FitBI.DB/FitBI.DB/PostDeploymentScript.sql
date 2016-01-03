@@ -11,4 +11,6 @@ Post-Deployment Script Template
 */
 :r .\Core\PostDeploymentScripts\PDS.Active.sql
 :r .\Core\PostDeploymentScripts\PDS.Dates.sql
+:r .\Core\PostDeploymentScripts\PDS.MeasurementType.sql
+:r .\Core\PostDeploymentScripts\PDS.MeasurementTypeCategory.sql
 :r .\Core\PostDeploymentScripts\PDS.Time.sql

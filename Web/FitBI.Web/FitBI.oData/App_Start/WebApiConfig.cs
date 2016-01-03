@@ -42,6 +42,7 @@ namespace FitBI.oData
             config.MapODataServiceRoute("FitBIData", "FitBIData", builder.GetEdmModel());
 
             
+
         }
     }
 }

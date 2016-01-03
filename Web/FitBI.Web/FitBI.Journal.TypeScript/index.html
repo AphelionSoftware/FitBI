@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>fitBI Journal</title>
+    <!-- 1. Load libraries -->
+    <!--data-main="app/AppConfig"-->
+    <!--<script  type="text/javascript" src="JSScripts/lib/require.js"></script>-->
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    
+    <!--<link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="app.js"></script>-->
+    <!-- 2. Configure SystemJS -->
+    <script>
+      System.config({
+        packages: {
+          app: {
+            format: 'register',
+            defaultExtension: 'js'
+          }
+        }
+      });
+      System.import('app/boot')
+            .then(null, console.error.bind(console));
+    </script>
+
+
+    <!-- This is the javascript code for ag-Grid -->
+    <!--<script src="pathToGrid/ag-grid.js"></script>-->
+    <!-- This is the core css required for ag-Grid, manages the layout -->
+    <!--<link rel="stylesheet" type="text/css" href="pathToGrid/ag-grid.css">-->
+</head>
+<body>
+    <!--<h1>TypeScript HTML App</h1>
+
+    <div id="content"></div>
+        -->
+    <my-app>Loading...</my-app>
+</body>
+</html>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  IgnorableNamespaces="uap mp">
+
+  <Identity
+    Name="7f9b7c73-7058-4421-83ca-5be591c72d16"
+    Version="1.0.0.0"
+    Publisher="CN=MarkGStacey" />
+
+  <mp:PhoneIdentity PhoneProductId="7f9b7c73-7058-4421-83ca-5be591c72d16" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+
+  <Properties>
+    <DisplayName>FitBI.Journal.Web</DisplayName>
+    <PublisherDisplayName>MarkGStacey</PublisherDisplayName>
+    <Logo>images\storelogo.png</Logo>
+  </Properties>
+
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+  </Dependencies>
+
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+
+  <Applications>
+    <Application 
+      Id="App"
+      StartPage="index.html">
+
+      <uap:VisualElements
+        DisplayName="FitBI.Journal.Web"
+        Description="FitBI.Journal.Web"
+        BackgroundColor="transparent"
+        Square150x150Logo="content\images\Square150x150Logo.png"
+        Square44x44Logo="content\images\Square44x44Logo.png">
+
+        <uap:DefaultTile Wide310x150Logo="content\images\Wide310x150Logo.png" />
+        <uap:SplashScreen Image="content\images\splashscreen.png" />
+
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+
+</Package>

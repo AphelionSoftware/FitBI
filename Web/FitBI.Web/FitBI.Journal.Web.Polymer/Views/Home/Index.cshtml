@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Journal";
+}
+
+<div id="home">
+    <!--<div id="grid" class="ag-fresh"></div>-->
+    <ag-grid id="grid" class="ag-fresh"></ag-grid>
+        <script>
+            var page = fitBI.journal.weight();
+            page.renderInitial();
+            page.renderData();
+        </script>
+</div>

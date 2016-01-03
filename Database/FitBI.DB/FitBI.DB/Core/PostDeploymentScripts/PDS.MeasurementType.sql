@@ -31,7 +31,11 @@
 	 UNION ALL
 	 SELECT 'AVG' Code, 'Average ' Name, 'SIDE' CatCode
 	 
-	 
+	 UNION ALL
+	 SELECT 'CIRC' Code, 'Circumference' Name, 'CIRC' CatCode
+	 UNION ALL
+	 SELECT 'SKINFOLD' Code, 'Skinfold Thickness' Name, 'SKINFOLD' CatCode
+	  
 	 
 	 ) Src
 	 INNER JOIN Core.MeasurementTypeCategory MTC

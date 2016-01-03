@@ -4,12 +4,15 @@ namespace FitBI.oData.Models
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using System.Data.Entity.ModelConfiguration.Conventions;
 
     public partial class FitBIData : DbContext
     {
         public FitBIData()
             : base("name=FitBIData")
         {
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual DbSet<Active> Actives { get; set; }
@@ -24,125 +27,10 @@ namespace FitBI.oData.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Active>()
-                .Property(e => e.Code)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Active>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Active>()
-                .HasMany(e => e.TapeMeasurements)
-                .WithRequired(e => e.Active1)
-                .HasForeignKey(e => e.Active)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Active>()
-                .HasMany(e => e.MeasurementTypes)
-                .WithRequired(e => e.Active1)
-                .HasForeignKey(e => e.Active)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Active>()
-                .HasMany(e => e.MeasurementTypeCategories)
-                .WithRequired(e => e.Active1)
-                .HasForeignKey(e => e.Active)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Active>()
-                .HasMany(e => e.Metrics)
-                .WithRequired(e => e.Active1)
-                .HasForeignKey(e => e.Active)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Active>()
-                .HasMany(e => e.People)
-                .WithRequired(e => e.Active1)
-                .HasForeignKey(e => e.Active)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Active>()
-                .HasMany(e => e.WeightMeasurements)
-                .WithRequired(e => e.Active1)
-                .HasForeignKey(e => e.Active)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.DaySuffix)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.DayOfWeek)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.WeekOfMonthName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.WeekOfYearName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.ShortMonthName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.MonthName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.QuarterName)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.YearName)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Date>()
-                .Property(e => e.YearMonth)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MeasurementType>()
-                .Property(e => e.Code)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MeasurementType>()
-                .Property(e => e.Name)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MeasurementType>()
-                .Property(e => e.Description)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MeasurementType>()
-                .Property(e => e.sysCreatedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MeasurementType>()
-                .Property(e => e.sysModifiedBy)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<MeasurementType>()
-                .Property(e => e.sysTimestamp)
-                .IsFixedLength();
-
-            modelBuilder.Entity<MeasurementType>()
-                .HasOptional(e => e.MeasurementType1)
-                .WithRequired(e => e.MeasurementType2);
-
-            modelBuilder.Entity<MeasurementType>()
-                .HasMany(e => e.TapeMeasurements)
-                .WithOptional(e => e.MeasurementType)
-                .HasForeignKey(e => e.SideMeasurementTypeID);
-
-            modelBuilder.Entity<MeasurementType>()
-                .HasMany(e => e.WeightMeasurements)
-                .WithOptional(e => e.MeasurementType)
-                .HasForeignKey(e => e.PercentMeasurementTypeID);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            ConfigureActive(modelBuilder);
+            ConfigureDate(modelBuilder);
+            ConfigureMeasurementTypes(modelBuilder);
 
             modelBuilder.Entity<MeasurementTypeCategory>()
                 .Property(e => e.Code)
@@ -150,7 +38,7 @@ namespace FitBI.oData.Models
 
             modelBuilder.Entity<MeasurementTypeCategory>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(false);   
 
             modelBuilder.Entity<MeasurementTypeCategory>()
                 .Property(e => e.sysCreatedBy)
@@ -264,6 +152,135 @@ namespace FitBI.oData.Models
             modelBuilder.Entity<WeightMeasurement>()
                 .HasOptional(e => e.WeightMeasurement1)
                 .WithRequired(e => e.WeightMeasurement2);
+        }
+
+        private static void ConfigureMeasurementTypes(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<MeasurementType>()
+                            .Property(e => e.Code)
+                            .IsUnicode(false);
+
+            modelBuilder.Entity<MeasurementType>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MeasurementType>()
+                .Property(e => e.Description)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MeasurementType>()
+                .Property(e => e.sysCreatedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MeasurementType>()
+                .Property(e => e.sysModifiedBy)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<MeasurementType>()
+                .Property(e => e.sysTimestamp)
+                .IsFixedLength();
+
+            modelBuilder.Entity<MeasurementType>()
+                .HasOptional(e => e.MeasurementType1)
+                .WithRequired(e => e.MeasurementType2);
+
+            modelBuilder.Entity<MeasurementType>()
+                .HasMany(e => e.TapeMeasurements)
+                .WithOptional(e => e.MeasurementType)
+                .HasForeignKey(e => e.SideMeasurementTypeID);
+
+            modelBuilder.Entity<MeasurementType>()
+                .HasMany(e => e.WeightMeasurements)
+                .WithOptional(e => e.MeasurementType)
+                .HasForeignKey(e => e.PercentMeasurementTypeID);
+        }
+
+        private static void ConfigureDate(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Date>()
+                            .Property(e => e.DaySuffix)
+                            .IsUnicode(false);
+
+            modelBuilder.Entity<Date>()
+                .Property(e => e.DayOfWeek)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Date>()
+                .Property(e => e.WeekOfMonthName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Date>()
+                .Property(e => e.WeekOfYearName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Date>()
+                .Property(e => e.ShortMonthName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Date>()
+                .Property(e => e.MonthName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Date>()
+                .Property(e => e.QuarterName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Date>()
+                .Property(e => e.YearName)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Date>()
+                .Property(e => e.YearMonth)
+                .IsUnicode(false);
+        }
+
+        private static void ConfigureActive(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Active>()
+                            .Property(e => e.Code)
+                            .IsFixedLength()
+                            .IsUnicode(false);
+
+            modelBuilder.Entity<Active>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Active>()
+                .HasMany(e => e.TapeMeasurements)
+                .WithRequired(e => e.Active1)
+                .HasForeignKey(e => e.Active)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Active>()
+                .HasMany(e => e.MeasurementTypes)
+                .WithRequired(e => e.Active1)
+                .HasForeignKey(e => e.Active)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Active>()
+                .HasMany(e => e.MeasurementTypeCategories)
+                .WithRequired(e => e.Active1)
+                .HasForeignKey(e => e.Active)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Active>()
+                .HasMany(e => e.Metrics)
+                .WithRequired(e => e.Active1)
+                .HasForeignKey(e => e.Active)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Active>()
+                .HasMany(e => e.People)
+                .WithRequired(e => e.Active1)
+                .HasForeignKey(e => e.Active)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Active>()
+                .HasMany(e => e.WeightMeasurements)
+                .WithRequired(e => e.Active1)
+                .HasForeignKey(e => e.Active)
+                .WillCascadeOnDelete(false);
         }
     }
 }
