@@ -14,3 +14,27 @@
 
 
 
+
+
+
+GO
+-- =============================================
+-- Author:		Mark Stacey
+-- Create date: 2018-01-04
+-- Description:	Populating UpdatedAt
+-- =============================================
+CREATE TRIGGER Core.trg_Active_Update
+   ON  Core.Active 
+   AFTER UPDATE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	UPDATE Active 
+	SET Active.UpdatedAt = CONVERT (DATETIMEOFFSET, sysutcdatetime())    
+	FROM Active INNER JOIN inserted 
+	ON Active.ActiveID = inserted.ActiveID
+	-- Insert statements for trigger here
+
+END

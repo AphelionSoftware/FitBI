@@ -75,6 +75,8 @@
     <Folder Include="Utility\" />
     <Folder Include="Utility\Stored Procedures\" />
     <Folder Include="UserSettings\Stored Procedures\" />
+    <Folder Include="API\" />
+    <Folder Include="API\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Stats\Tables\Person.sql" />
@@ -112,14 +114,20 @@
     <Build Include="Security\RoleMemberships.sql" />
     <Build Include="Utility\Stored Procedures\GetInitObject.sql" />
     <Build Include="Utility\Stored Procedures\GetAttributes.sql" />
-    <Build Include="UserSettings\Stored Procedures\sp_Core.sql" />
-    <Build Include="UserSettings\Stored Procedures\sp_Init.sql" />
     <Build Include="Security\Utility.sql" />
     <Build Include="Security\UserSettings.sql" />
     <Build Include="Security\Security.sql" />
     <Build Include="Security\Program.sql" />
     <Build Include="Security\Exercise.sql" />
     <Build Include="Utility\Stored Procedures\GetStoreObject.sql" />
+    <Build Include="Exercise\Tables\Sport.sql" />
+    <Build Include="Exercise\Tables\Exercise_Sport.sql" />
+    <Build Include="Utility\Stored Procedures\UpdatedAt_TriggerCreate.sql" />
+    <Build Include="Utility\Stored Procedures\GetStoreObject_BySchema.sql" />
+    <Build Include="API\Stored Procedures\sp_LatestTimestamps.sql" />
+    <Build Include="API\Stored Procedures\sp_Init.sql" />
+    <Build Include="API\Stored Procedures\sp_Core.sql" />
+    <Build Include="Security\API.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

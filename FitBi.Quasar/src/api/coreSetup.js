@@ -1,6 +1,5 @@
 import store from 'vuex/store'
 export default function (coreValues) {
-  debugger
   store.commit('Core/Set_BodyPart', coreValues.BodyPart)
   store.commit('Core/Set_BodyPartType', coreValues.BodyPartType)
   store.commit('Core/Set_MeasurementType', coreValues.MeasurementType)

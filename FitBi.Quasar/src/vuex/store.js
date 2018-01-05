@@ -7,11 +7,15 @@ Vue.use(Vuex)
 import WeightMeasurement from './modules/weight-measurement'
 import Core from './modules/core'
 import Exercise from './modules/exercise'
+import Program from './modules/program'
+import Stats from './modules/stats'
 
 export default new Vuex.Store({
   modules: {
     WeightMeasurement: WeightMeasurement,
     Core: Core,
-    Exercise: Exercise
+    Exercise: Exercise,
+    Program: Program,
+    Stats: Stats
   }
 })

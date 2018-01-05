@@ -6,7 +6,7 @@
     [Description]      VARCHAR (MAX)      NULL,
     [ParentBodyPartID] INT                NULL,
     [Active]           SMALLINT           CONSTRAINT [DF_BodyPart_Active] DEFAULT ((1)) NOT NULL,
-    [ID]               VARCHAR (38)       NOT NULL,
+    [ID]               VARCHAR (38)       CONSTRAINT [DF_BodyPart_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]        DATETIMEOFFSET (7) CONSTRAINT [DF_BodyPart_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
     [UpdatedAt]        DATETIMEOFFSET (7) NULL,
     [Deleted]          BIT                CONSTRAINT [DF_BodyPart_Deleted] DEFAULT ((0)) NOT NULL,
@@ -22,3 +22,30 @@
 
 
 
+
+
+
+
+
+GO
+
+-- =============================================
+-- Author:		Mark Stacey
+-- Create date: 2018-01-04
+-- Description:	Populating UpdatedAt
+-- =============================================
+CREATE TRIGGER [Core].trg_BodyPart_Update
+   ON  [Core].[BodyPart] 
+   AFTER UPDATE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	UPDATE [Core].[BodyPart]  
+	SET [Core].[BodyPart] .UpdatedAt = CONVERT (DATETIMEOFFSET, sysutcdatetime())    
+	FROM [Core].[BodyPart]  INNER JOIN inserted 
+	ON [Core].[BodyPart] .BodyPartID = inserted.BodyPartID
+	-- Insert statements for trigger here
+
+END

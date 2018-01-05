@@ -1,5 +1,5 @@
 export const config = {
-  API: 'http://localhost:7071/api',
+  API: 'http://10.0.0.18:7071/api',
   coreURL: '/setup/Core/',
   initURL: '/setup/Init/',
   latestTimestampsURL: '/setup/LatestTimestamps/',

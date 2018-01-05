@@ -1,5 +1,7 @@
 ﻿CREATE SCHEMA [UserSettings]
-    AUTHORIZATION dbo;
+    AUTHORIZATION [dbo];
+
+
 
 
 

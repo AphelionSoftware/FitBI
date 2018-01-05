@@ -1,9 +1,10 @@
-﻿-- =============================================
+﻿
+-- =============================================
 -- Author:		Mark Stacey
 -- Create date: 2018-01-02
 -- Description:	Gets an initialisation load set
 -- =============================================
-create PROCEDURE [UserSettings].[sp_Core]
+CREATE PROCEDURE [API].[sp_Core]
 	
 	@UserID int
 AS
@@ -22,10 +23,8 @@ BEGIN
 	
 	SELECT * FROM [Core].[BodyPart] Tbl   WHERE Active = 1   
 	SELECT * FROM [Core].[BodyPartType] Tbl   WHERE Active = 1   
-	SELECT * FROM [Core].[Dates] Tbl  
 	SELECT * FROM [Core].[MeasurementType] Tbl   WHERE Active = 1   
 	SELECT * FROM [Core].[MeasurementTypeCategory] Tbl   WHERE Active = 1   
-	SELECT * FROM [Core].[Time] Tbl   
 	SELECT * FROM [Core].[Unit] Tbl   WHERE Active = 1   
 	SELECT * FROM [Core].[UnitType] Tbl   WHERE Active = 1   
     

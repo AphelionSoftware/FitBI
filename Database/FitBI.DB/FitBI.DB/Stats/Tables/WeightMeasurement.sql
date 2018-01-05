@@ -9,7 +9,7 @@
     [PercentMeasurementTypeID] INT                NULL,
     [UnitID]                   INT                NULL,
     [Active]                   SMALLINT           CONSTRAINT [DF_WeightMeasurement_Active] DEFAULT ((1)) NOT NULL,
-    [ID]                       VARCHAR (38)       NOT NULL,
+    [ID]                       VARCHAR (38)       CONSTRAINT [DF_WeightMeasurement_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]                DATETIMEOFFSET (7) CONSTRAINT [DF_WeightMeasurement_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
     [UpdatedAt]                DATETIMEOFFSET (7) NULL,
     [Deleted]                  BIT                CONSTRAINT [DF_WeightMeasurement_Deleted] DEFAULT ((0)) NOT NULL,
@@ -24,3 +24,30 @@
 
 
 
+
+
+
+
+
+GO
+
+-- =============================================
+-- Author:		Mark Stacey
+-- Create date: 2018-01-04
+-- Description:	Populating UpdatedAt
+-- =============================================
+CREATE TRIGGER [Stats].trg_WeightMeasurement_Update
+   ON  [Stats].[WeightMeasurement] 
+   AFTER UPDATE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	UPDATE [Stats].[WeightMeasurement]  
+	SET [Stats].[WeightMeasurement] .UpdatedAt = CONVERT (DATETIMEOFFSET, sysutcdatetime())    
+	FROM [Stats].[WeightMeasurement]  INNER JOIN inserted 
+	ON [Stats].[WeightMeasurement] .WeightMeasurementID = inserted.WeightMeasurementID
+	-- Insert statements for trigger here
+
+END

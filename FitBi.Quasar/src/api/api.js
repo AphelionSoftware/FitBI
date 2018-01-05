@@ -1,6 +1,7 @@
 
 import axios from 'axios'
 import coreSetup from './coreSetup'
+import initSetup from './initSetup'
 
 export default class {
   constructor (config) {
@@ -23,6 +24,15 @@ export default class {
       this.axios.get(this.config.coreURL + this.config.UserID).then(
         function (response) {
           coreSetup(JSON.parse(response.data))
+        }
+      )
+    }
+    var flagInit = true
+    // ///TODO: Do checks to see if it exists in localForage and if there are newer items
+    if (flagInit) {
+      this.axios.get(this.config.initURL + this.config.UserID).then(
+        function (response) {
+          initSetup(JSON.parse(response.data))
         }
       )
     }

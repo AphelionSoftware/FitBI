@@ -1,5 +1,7 @@
 ﻿CREATE SCHEMA [Security]
-    AUTHORIZATION dbo;
+    AUTHORIZATION [dbo];
+
+
 
 
 

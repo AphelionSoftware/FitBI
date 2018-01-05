@@ -15,3 +15,28 @@
 
 
 
+
+
+
+GO
+
+-- =============================================
+-- Author:		Mark Stacey
+-- Create date: 2018-01-04
+-- Description:	Populating UpdatedAt
+-- =============================================
+CREATE TRIGGER [Security].trg_User_Update
+   ON  [Security].[User] 
+   AFTER UPDATE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	UPDATE [Security].[User]  
+	SET [Security].[User] .UpdatedAt = CONVERT (DATETIMEOFFSET, sysutcdatetime())    
+	FROM [Security].[User]  INNER JOIN inserted 
+	ON [Security].[User] .UserID = inserted.UserID
+	-- Insert statements for trigger here
+
+END

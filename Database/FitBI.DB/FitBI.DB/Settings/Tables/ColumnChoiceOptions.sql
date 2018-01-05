@@ -14,3 +14,28 @@
 
 
 
+
+
+
+GO
+
+-- =============================================
+-- Author:		Mark Stacey
+-- Create date: 2018-01-04
+-- Description:	Populating UpdatedAt
+-- =============================================
+CREATE TRIGGER [Settings].trg_ColumnChoiceOptions_Update
+   ON  [Settings].[ColumnChoiceOptions] 
+   AFTER UPDATE
+AS 
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	UPDATE [Settings].[ColumnChoiceOptions]  
+	SET [Settings].[ColumnChoiceOptions] .UpdatedAt = CONVERT (DATETIMEOFFSET, sysutcdatetime())    
+	FROM [Settings].[ColumnChoiceOptions]  INNER JOIN inserted 
+	ON [Settings].[ColumnChoiceOptions] .ColumnChoiceOptionsID = inserted.ColumnChoiceOptionsID
+	-- Insert statements for trigger here
+
+END
