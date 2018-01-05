@@ -1,0 +1,32 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+    "name": "Quasar",
+    "type": "node",
+    "stopOnEntry": false,
+    "args": ["dev"], 
+    "sourceMaps": true,
+    "cwd": "${workspaceRoot}",
+    // as you have noted, this is also important:
+    "runtimeExecutable": "quasar"
+}, 
+        
+       
+{
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceRoot}"
+        },
+        {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "webRoot": "${workspaceRoot}"
+        }
+    ]
+}

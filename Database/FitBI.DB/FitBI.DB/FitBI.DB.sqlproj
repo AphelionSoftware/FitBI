@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>FitBI.DB</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{0bd410cd-fa8b-4cdf-8939-584b766572ea}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>FitBI.DB</RootNamespace>
+    <AssemblyName>FitBI.DB</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Stats\" />
+    <Folder Include="Stats\Tables\" />
+    <Folder Include="Core\" />
+    <Folder Include="Core\Tables\" />
+    <Folder Include="Security\" />
+    <Folder Include="Core\PostDeploymentScripts" />
+    <Folder Include="Settings\" />
+    <Folder Include="Settings\Tables\" />
+    <Folder Include="UserSettings\" />
+    <Folder Include="UserSettings\Tables\" />
+    <Folder Include="Security\Tables\" />
+    <Folder Include="Program\" />
+    <Folder Include="Program\Tables\" />
+    <Folder Include="Exercise\" />
+    <Folder Include="Exercise\Tables\" />
+    <Folder Include="Utility\" />
+    <Folder Include="Utility\Stored Procedures\" />
+    <Folder Include="UserSettings\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Stats\Tables\Person.sql" />
+    <Build Include="Core\Tables\Dates.sql" />
+    <Build Include="Core\Tables\Time.sql" />
+    <Build Include="Core\Tables\Active.sql" />
+    <Build Include="Security\Stats.sql" />
+    <Build Include="Security\Settings.sql" />
+    <Build Include="Security\Core.sql" />
+    <Build Include="Security\Access.sql" />
+    <None Include="Core\PostDeploymentScripts\PDS.Active.sql" />
+    <None Include="Core\PostDeploymentScripts\PDS.Dates.sql" />
+    <None Include="Core\PostDeploymentScripts\PDS.Time.sql" />
+    <Build Include="Stats\Tables\WeightMeasurement.sql" />
+    <Build Include="Stats\Tables\TapeMeasurement.sql" />
+    <Build Include="Stats\Tables\Metric.sql" />
+    <Build Include="Core\Tables\MeasurementTypeCategory.sql" />
+    <Build Include="Core\Tables\MeasurementType.sql" />
+    <Build Include="Core\Tables\BodyPartType.sql" />
+    <Build Include="Core\Tables\BodyPart.sql" />
+    <Build Include="Core\Tables\Unit.sql" />
+    <Build Include="Core\Tables\UnitType.sql" />
+    <Build Include="Stats\Tables\SkinfoldMeasurement.sql" />
+    <Build Include="Settings\Tables\ColumnChoiceOptions.sql" />
+    <Build Include="UserSettings\Tables\ColumnChoice.sql" />
+    <Build Include="Security\Tables\User.sql" />
+    <Build Include="Program\Tables\Workout.sql" />
+    <Build Include="Program\Tables\Plan.sql" />
+    <Build Include="Program\Tables\WorkoutStage.sql" />
+    <Build Include="Program\Tables\Workout_Exercise.sql" />
+    <Build Include="Exercise\Tables\ExerciseType.sql" />
+    <Build Include="Exercise\Tables\Exercise.sql" />
+    <Build Include="Security\svc-fit.sql" />
+    <Build Include="Security\fitbi.sql" />
+    <Build Include="Security\RoleMemberships.sql" />
+    <Build Include="Utility\Stored Procedures\GetInitObject.sql" />
+    <Build Include="Utility\Stored Procedures\GetAttributes.sql" />
+    <Build Include="UserSettings\Stored Procedures\sp_Core.sql" />
+    <Build Include="UserSettings\Stored Procedures\sp_Init.sql" />
+    <Build Include="Security\Utility.sql" />
+    <Build Include="Security\UserSettings.sql" />
+    <Build Include="Security\Security.sql" />
+    <Build Include="Security\Program.sql" />
+    <Build Include="Security\Exercise.sql" />
+    <Build Include="Utility\Stored Procedures\GetStoreObject.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeploymentScript.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core\PostDeploymentScripts\PDS.MeasurementTypeCategory.sql" />
+    <None Include="Core\PostDeploymentScripts\PDS.MeasurementType.sql" />
+    <None Include="LocalToProject.scmp" />
+    <None Include="AzurePublish.publish.xml" />
+    <None Include="LocalPublish.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\AzureV12\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\AzureV12\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>True</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+  </ItemGroup>
+</Project>

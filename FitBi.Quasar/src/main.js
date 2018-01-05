@@ -1,0 +1,60 @@
+// === DEFAULT / CUSTOM STYLE ===
+// WARNING! always comment out ONE of the two require() calls below.
+// 1. use next line to activate CUSTOM STYLE (./src/themes)
+// require(`./themes/app.${__THEME}.styl`)
+// 2. or, use next line to activate DEFAULT QUASAR STYLE
+require(`quasar/dist/quasar.${__THEME}.css`)
+// ==============================
+
+import Vue from 'vue'
+import Vuex, {mapState, mapGetters} from 'vuex'
+import router from './router'
+import Quasar, {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile} from 'quasar'
+import 'quasar-extras/material-icons'
+import 'quasar-extras/ionicons'
+import 'quasar-extras/fontawesome'
+// main.js, before all the router stuff:
+// Configuration
+// import vueConfig from 'vue-config'
+
+import {config} from 'config'
+
+// API
+import API from './api/api'
+
+// Components
+import SingleMeasure from './components/single-measure'
+// Layouts
+import Weight from './components/pages/fit-weight'
+import Measurements from './components/pages/fit-measurements'
+
+import store from './vuex/store'
+
+// Vue.use(vueConfig, config)
+Vue.api = new API(config)
+
+Vue.use(Quasar, {
+  components: {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile}
+}) // Install Quasar Framework
+
+Vue.use(Vuex, {
+  components: {mapState, mapGetters}
+})
+
+Vue.component('fit-weight', Weight)
+Vue.component('fit-measurements', Measurements)
+Vue.component('single-measure', SingleMeasure)
+
+Quasar.start(() => {
+  /* eslint-disable no-new */
+  new Vue({
+    el: '#q-app',
+    store,
+    router,
+    render: h => h(require('./App')),
+    mounted: function () {
+      Vue.api.Initialize()
+    }
+  })
+})
+
