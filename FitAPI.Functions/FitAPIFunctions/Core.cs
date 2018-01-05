@@ -52,8 +52,9 @@ namespace FitAPIFunctions
             }
             catch (System.Exception ex)
             {
-                log.Error("C# HTTP trigger function encountered an error ", ex);
+                log.Error("C# HTTP trigger function encountered an error " , ex);
                 statusCode = HttpStatusCode.InternalServerError;
+                
             }
             //Always return to not leave the client hanging
             return req.CreateResponse(statusCode, JSON);

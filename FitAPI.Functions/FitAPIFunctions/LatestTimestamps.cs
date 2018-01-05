@@ -26,15 +26,21 @@ namespace FitAPIFunctions
             var sp_LatestTimestamps = ConfigurationManager.AppSettings["sp_LatestTimestamps"];
             string JSON = "Error occurred";
             HttpStatusCode statusCode = HttpStatusCode.OK;
+            string step = "1";
             try
             {
+                
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
+                    step = "2";
                     conn.Open();
+                    step = "3";
                     using (var multi = conn.QueryMultiple(sp_LatestTimestamps, new { UserID = System.Convert.ToInt32(pUserID) },
                                          commandType: CommandType.StoredProcedure))
                     {
+                        step = "4";
                         objUpdates.LatestTimestamps = multi.Read<dynamic>().ToList();
+                        step = "5";
                         JSON = JsonConvert.SerializeObject(objUpdates);
                     }
                 }
@@ -46,6 +52,7 @@ namespace FitAPIFunctions
             {
                 log.Error("C# HTTP trigger function encountered an error ", ex);
                 statusCode = HttpStatusCode.InternalServerError;
+                JSON = ex.Message + " " + step + " " + sqlConnectionString + " " + sp_LatestTimestamps;
             }
             //Always return to not leave the client hanging
             return req.CreateResponse(statusCode, JSON);
