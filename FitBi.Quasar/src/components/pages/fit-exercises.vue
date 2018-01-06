@@ -4,8 +4,9 @@
  <div class="layout-padding">
    <q-list>
        <q-list-header>Exercises</q-list-header>
-        <q-item v-for="(Name, index) in exercises" :key=index>
-            <q-item-main label="Weight">
+        <q-item v-for="(Exercise, index) in exercises" :key=index>
+            <q-icon class='cursor-pointer' name="edit" @click="$router.push('/kb/exercise.edit/3')"/>
+            <q-item-main :label=Exercise.Name>
                 <q-item-tile sublabel>
                 </q-item-tile>
             </q-item-main>
@@ -27,7 +28,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      'exercises': 'Exercise/Get_Exercise'
+      'exercises': 'Exercise/Get_Exercise_All'
     })
   }
 }

@@ -43,6 +43,11 @@ export default new VueRouter({
         {
           path: 'exercises',
           component: load('pages/fit-exercises')
+        },
+        {
+          path: 'exercise.edit/:exerciseid',
+          component: load('pages/kb/exercise.edit'),
+          props: true
         }
       ]
     },

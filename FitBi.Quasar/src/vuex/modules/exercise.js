@@ -1,33 +1,48 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// Import the `getField` getter and the `updateField`
+// mutation function from the `vuex-map-fields` module.
+import { getField, updateField } from '../../helpers/vuex-map-fields/index'
 
 Vue.use(Vuex)
 
 const state = {
-  Exercise: [],
-  Exercise_Sport: [],
-  ExerciseType: [],
-  Sport: []
+  Exercise: {},
+  ExerciseList: [],
+  Exercise_Sport: {},
+  Exercise_SportList: [],
+  ExerciseType: {},
+  ExerciseTypeList: [],
+  Sport: {},
+  SportList: []
 }
 
 const getters = {
-  Get_Exercise: function () {
+  getField,
+  Get_Exercise_Current: function (state, getters, rootState) {
+    return state.Exercise[+rootState.route.params.exerciseid]
+  },
+  Get_Exercise_All: function () {
     return state.Exercise
   },
-  Get_Exercise_Sport: function () {
+  Get_Exercise_Sport_All: function () {
     return state.Exercise_Sport
   },
-  Get_ExerciseType: function () {
+  Get_ExerciseType_All: function () {
     return state.ExerciseType
   },
-  Get_Sport: function () {
+  Get_Sport_All: function () {
     return state.Sport
   }
 }
 
 const mutations = {
+  updateField,
   Set_Exercise: function (state, fullList) {
-    state.Exercise = fullList
+    fullList.forEach(function (element) {
+      state.Exercise[element.ExerciseID] = element
+      state.ExerciseList.push(element.ExerciseID)
+    }, this)
   },
   Set_Exercise_Sport: function (state, fullList) {
     state.Exercise_Sport = fullList

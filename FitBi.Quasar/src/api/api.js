@@ -20,7 +20,6 @@ export default class {
     var flagCore = true
     // ///TODO: Do checks to see if it exists in localForage and if there are newer items
     if (flagCore) {
-      debugger
       console.log(this.config.API + this.config.coreURL + this.config.UserID + '?' + this.config.coreToken)
       this.axios.get(this.config.coreURL + this.config.UserID + '?' + this.config.coreToken).then(
         function (response) {
@@ -66,10 +65,8 @@ export default class {
     this.axios.defaults.baseURL = this.config.API
     var api = this
     console.log(this.config.API + this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken)
-    debugger
     this.axios.get(this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken).then(
       function (response) {
-        debugger
         api.LatestTimestamps = response.LatestTimestamps
         api.OnlineOfflineLoad()
       }

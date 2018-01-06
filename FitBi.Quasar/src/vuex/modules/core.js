@@ -13,22 +13,22 @@ const state = {
 }
 
 const getters = {
-  Get_BodyPart: function () {
+  Get_BodyPart_All: function () {
     return state.BodyPart
   },
-  Get_BodyPartType: function () {
+  Get_BodyPartType_All: function () {
     return state.BodyPartType
   },
-  Get_MeasurementType: function () {
+  Get_MeasurementType_All: function () {
     return state.MeasurementType
   },
-  Get_MeasurementTypeCategory: function () {
+  Get_MeasurementTypeCategory_All: function () {
     return state.MeasurementTypeCategory
   },
-  Get_Unit: function () {
+  Get_Unit_All: function () {
     return state.Unit
   },
-  Get_UnitType: function () {
+  Get_UnitType_All: function () {
     return state.UnitType
   }
 }
@@ -37,23 +37,18 @@ const mutations = {
   Set_BodyPart: function (state, fullList) {
     state.BodyPart = fullList
   },
-
   Set_BodyPartType: function (state, fullList) {
     state.BodyPartType = fullList
   },
-
   Set_MeasurementType: function (state, fullList) {
     state.MeasurementType = fullList
   },
-
   Set_MeasurementTypeCategory: function (state, fullList) {
     state.MeasurementTypeCategory = fullList
   },
-
   Set_Unit: function (state, fullList) {
     state.Unit = fullList
   },
-
   Set_UnitType: function (state, fullList) {
     state.UnitType = fullList
   }

@@ -11,16 +11,16 @@ const state = {
 }
 
 const getters = {
-  Get_Plan: function () {
+  Get_Plan_All: function () {
     return state.Plan
   },
-  Get_Workout: function () {
+  Get_Workout_All: function () {
     return state.Workout
   },
-  Get_Workout_Exercise: function () {
+  Get_Workout_Exercise_All: function () {
     return state.Workout_Exercise
   },
-  Get_WorkoutStage: function () {
+  Get_WorkoutStage_All: function () {
     return state.WorkoutStage
   }
 }

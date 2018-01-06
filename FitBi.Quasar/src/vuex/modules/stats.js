@@ -12,19 +12,19 @@ const state = {
 }
 
 const getters = {
-  Get_Metric: function () {
+  Get_Metric_All: function () {
     return state.Metric
   },
-  Get_Person: function () {
+  Get_Person_All: function () {
     return state.Person
   },
-  Get_SkinfoldMeasurement: function () {
+  Get_SkinfoldMeasurement_All: function () {
     return state.SkinfoldMeasurement
   },
-  Get_TapeMeasurement: function () {
+  Get_TapeMeasurement_All: function () {
     return state.TapeMeasurement
   },
-  Get_WeightMeasurement: function () {
+  Get_WeightMeasurement_All: function () {
     return state.WeightMeasurement
   }
 }

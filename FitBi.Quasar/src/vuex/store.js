@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { getField, updateField } from '../helpers/vuex-map-fields/index'
 
 Vue.use(Vuex)
 
@@ -17,5 +18,13 @@ export default new Vuex.Store({
     Exercise: Exercise,
     Program: Program,
     Stats: Stats
+  },
+  getters: {
+    // Add the `getField` getter to the
+    // `getters` of your Vuex store instance.
+    getField
+  },
+  mutations: {
+    updateField
   }
 })

@@ -9,7 +9,7 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 import Vue from 'vue'
 import Vuex, {mapState, mapGetters} from 'vuex'
 import router from './router'
-import Quasar, {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile} from 'quasar'
+import Quasar, {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField} from 'quasar'
 import 'quasar-extras/material-icons'
 import 'quasar-extras/ionicons'
 import 'quasar-extras/fontawesome'
@@ -22,6 +22,9 @@ import {config} from 'config'
 // API
 import API from './api/api'
 
+// Vuelidation
+import Vuelidate from 'vuelidate'
+
 // Components
 import SingleMeasure from './components/single-measure'
 // Layouts
@@ -30,11 +33,15 @@ import Measurements from './components/pages/fit-measurements'
 
 import store from './vuex/store'
 
+import { sync } from 'vuex-router-sync' // Access via store.state.route.params
+sync(store, router) // done. Returns an unsync callback fn
 // Vue.use(vueConfig, config)
 Vue.api = new API(config)
 
+Vue.use(Vuelidate)
+
 Vue.use(Quasar, {
-  components: {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile}
+  components: {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField}
 }) // Install Quasar Framework
 
 Vue.use(Vuex, {

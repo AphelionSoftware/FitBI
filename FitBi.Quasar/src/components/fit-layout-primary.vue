@@ -1,8 +1,8 @@
 <template>
    <!-- Navigation -->
-   <q-layout>
+   <q-layout ref="primary_layout">
     <q-toolbar slot="header">
-    <q-btn flat @click="$refs.layout.toggleLeft()">
+    <q-btn flat @click="$refs.primary_layout.toggleLeft()">
       <q-icon name="menu" />
     </q-btn>
     <q-toolbar-title>
@@ -10,7 +10,7 @@
       <span slot="subtitle">Your fitness companion</span>
     </q-toolbar-title>
     <q-btn flat @click="$refs.layout.toggleRight()">
-      <q-icon name="fa-save" />
+      <!--<q-icon name="fa-save" />-->
     </q-btn>
   </q-toolbar>
     <div slot="left">
