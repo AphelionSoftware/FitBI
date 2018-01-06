@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getField, updateField } from '../helpers/vuex-map-fields/index'
+// import { getField, updateField } from 'vuex-map-fields'
 
 Vue.use(Vuex)
 

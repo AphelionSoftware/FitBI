@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../helpers/vuex-map-fields/index'
+// import { getField, updateField } from 'vuex-map-fields'
 
 Vue.use(Vuex)
 

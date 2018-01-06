@@ -1,4 +1,5 @@
 import arrayToObject from './lib/array-to-object'
+// import _ from 'underscore'
 
 export function getField (state) {
   return function (path) {
@@ -8,7 +9,8 @@ export function getField (state) {
       }, state)
     }
     catch (ex) {
-      debugger
+      console.log(path + ' has failed to be found in the store')
+      // debugger
     }
   }
   // return path => path.split(/[.[\]]+/).reduce((prev, key) => prev[key], state)
@@ -26,17 +28,26 @@ export function updateField (state, { path, value }) {
 }
 
 export function mapFields (fields, getterType = `getField`, mutationType = `updateField`) {
-  debugger
+  // debugger
   const fieldsObject = Array.isArray(fields) ? arrayToObject(fields) : fields
 
   return Object.keys(fieldsObject).reduce((prev, key) => {
+    // debugger
     const path = fieldsObject[key]
     const field = {
       get () {
         return this.$store.getters[getterType](path)
       },
       set (value) {
+        // debugger
         this.$store.commit(mutationType, { path, value })
+        /* let storeClosure = this.$store
+        var fnCommit = _.debounce(function () {
+          debugger
+          storeClosure.commit(mutationType, { path, value })
+        }, 300)
+        fnCommit()
+        */
       }
     }
 
