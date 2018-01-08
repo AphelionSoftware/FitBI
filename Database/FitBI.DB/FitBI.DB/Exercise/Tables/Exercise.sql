@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [Exercise].[Exercise] (
     [ExerciseID]       INT                IDENTITY (1, 1) NOT NULL,
-    [ExerciseTypeID]   INT                NOT NULL,
+    [ExerciseTypeID]   INT                CONSTRAINT [DF_Exercise_ExerciseTypeID] DEFAULT ((1)) NOT NULL,
     [Code]             VARCHAR (50)       NOT NULL,
     [Name]             VARCHAR (255)      NOT NULL,
     [Description]      VARCHAR (MAX)      NULL,
@@ -19,6 +19,8 @@
     CONSTRAINT [FK_Exercise_ExerciseType] FOREIGN KEY ([ExerciseTypeID]) REFERENCES [Exercise].[ExerciseType] ([ExerciseTypeID]),
     CONSTRAINT [FK_Exercise_Person] FOREIGN KEY ([PersonID]) REFERENCES [Stats].[Person] ([PersonID])
 );
+
+
 
 
 

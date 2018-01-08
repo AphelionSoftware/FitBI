@@ -26,15 +26,18 @@ SET @page = @page + @line + '}
 const getters = {
 '
 SET @line= ''
-select @line = @line +  '  Get_' + table_name + ': function () {
+select @line = @line +  '  Get_' + table_name + '_All: function () {
     return state.' + table_name + '
-  }'  + case when ROW_NUMBER() over(order by table_schema desc, table_name desc) = 1 THEN '
+  }' 
+   + case when ROW_NUMBER() over(order by table_schema desc, table_name desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS
 where   TABLE_SCHEMA   like @table_schema
 and COLUMN_NAME= 'Active'
 ORDER BY TABLE_SCHEMA, TABLE_Name
+
+
 
 SET @Page = @page + @line + '}
 
@@ -61,8 +64,7 @@ const ' + lower(@table_schema) + ' = {
   mutations
 }
 
-export default ' + lower(@table_schema) + '
-'
+export default ' + lower(@table_schema) + ''
 
 --SELECT 
 ----	table_schema as objectName
