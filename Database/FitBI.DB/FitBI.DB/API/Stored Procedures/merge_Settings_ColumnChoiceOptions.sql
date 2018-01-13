@@ -22,7 +22,7 @@ dest.[PageID] = ISNULL(src.[PageID], dest.[PageID])
  PageID
 )
 VALUES(  src.Code,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.Name,
  src.PageID
 )

@@ -28,7 +28,7 @@ dest.[PlanID] = ISNULL(src.[PlanID], dest.[PlanID])
 )
 VALUES(  src.Deleted,
  src.GoalNarrative,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.isTemplate,
  src.Name,
  src.PersonID,

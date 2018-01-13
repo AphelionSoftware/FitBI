@@ -21,7 +21,7 @@ namespace FitAPIFunctions
     public static class mergeExerciseType
     {
 	    [FunctionName("mergeExerciseType")]
-        public static async Task Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/ExerciseType")]HttpRequestMessage req, TraceWriter log)
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/ExerciseType")]HttpRequestMessage req, TraceWriter log)
 		{
 		StreamContent content = (StreamContent)req.Content;
             var postData = await content.ReadAsStringAsync();
@@ -32,7 +32,7 @@ namespace FitAPIFunctions
             var sqlConnectionString =
                 ConfigurationManager
                    .ConnectionStrings["FitDB_conn"].ConnectionString;
-            string JSON = "Error occurred";
+            string JSON = "Running API call";
             HttpStatusCode statusCode = HttpStatusCode.OK;
             try
             {
@@ -51,13 +51,14 @@ namespace FitAPIFunctions
 			}
             catch (System.Exception ex)
             {
+				JSON = "Error occurred";
                 log.Error("C# HTTP trigger function encountered an error ", ex);
                 statusCode = HttpStatusCode.InternalServerError;
 
             }
             //Always return to not leave the client hanging
-            //return req.CreateResponse(statusCode, JSON);
-            return;
+            return req.CreateResponse(statusCode, JSON);
+            //  return;
 		}
 	}
 }

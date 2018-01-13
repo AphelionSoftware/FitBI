@@ -27,7 +27,7 @@ dest.[SportID] = ISNULL(src.[SportID], dest.[SportID])
 VALUES(  src.Deleted,
  src.ExerciseID,
  src.GoalNarrative,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.PersonID,
  src.SportID
 )

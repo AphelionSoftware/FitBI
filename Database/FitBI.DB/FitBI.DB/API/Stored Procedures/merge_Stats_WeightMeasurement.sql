@@ -35,7 +35,7 @@ dest.[Weight] = ISNULL(src.[Weight], dest.[Weight])
 VALUES(  src.BodyFatPercentage,
  src.BonePercentage,
  src.Deleted,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.MusclePercentage,
  src.PercentMeasurementTypeID,
  src.PersonID,

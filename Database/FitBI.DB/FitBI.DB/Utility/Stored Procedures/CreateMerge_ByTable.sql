@@ -95,10 +95,10 @@ VALUES( '
 
 	SET @line= ''
 select @line = @line +  
-CASE WHEN COLUMN_NAME = 'ID' THEN ' ISNULL(src.' + COLUMN_NAME + ', newid())' ELSE
+--CASE WHEN COLUMN_NAME = 'ID' THEN ' ISNULL(src.' + COLUMN_NAME + ', newid())' ELSE
 ' src.' + column_name
 
-END
+--END
    + case when ROW_NUMBER() over(order by table_schema desc, table_name desc,column_name desc) = 1 THEN '
 ' ELSE ',
 ' END

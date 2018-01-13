@@ -30,7 +30,7 @@ dest.[StartDate] = ISNULL(src.[StartDate], dest.[StartDate])
 )
 VALUES(  src.Deleted,
  src.GoalNarrative,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.isTemplate,
  src.Name,
  src.PersonID,

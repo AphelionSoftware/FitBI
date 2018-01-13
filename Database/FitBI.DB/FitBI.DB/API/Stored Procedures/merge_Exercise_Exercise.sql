@@ -32,7 +32,7 @@ VALUES(  src.Code,
  src.Deleted,
  src.Description,
  src.ExerciseTypeID,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.Name,
  src.ParentExerciseID,
  src.PersonID

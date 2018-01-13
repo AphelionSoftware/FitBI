@@ -29,7 +29,7 @@ VALUES(  src.DateOfBirth,
  src.Deleted,
  src.FirstName,
  src.Height,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.Surname
 )
 ;

@@ -26,7 +26,7 @@ dest.[SkinfoldThickness] = ISNULL(src.[SkinfoldThickness], dest.[SkinfoldThickne
 )
 VALUES(  src.BodyPartID,
  src.Deleted,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.PersonID,
  src.SideMeasurementTypeID,
  src.SkinfoldThickness

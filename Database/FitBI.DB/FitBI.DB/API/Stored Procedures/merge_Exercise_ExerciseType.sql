@@ -26,7 +26,7 @@ dest.[ParentExerciseTypeID] = ISNULL(src.[ParentExerciseTypeID], dest.[ParentExe
 )
 VALUES(  src.Code,
  src.Deleted,
- ISNULL(src.ID, newid()),
+ src.ID,
  src.Name,
  src.ParentExerciseTypeID,
  src.PersonID
