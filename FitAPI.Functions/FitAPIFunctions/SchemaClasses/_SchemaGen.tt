@@ -1,0 +1,140 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>	
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Data" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+
+#>
+<#
+    foreach (Table tTable in database.Tables)
+    {
+		if ( (tTable.Schema == "Exercise" || tTable.Schema == "Program" || tTable.Schema == "Stats")
+		
+		) {
+			string fileName = tTable.Name;
+			var lt = new ValuesTemplate(tTable, fileName);
+			lt.RenderToFile(fileName + ".cs");
+		}
+    }
+#>
+<#+
+private class ValuesTemplate : Template
+{
+    public ValuesTemplate(Table pTable, string className)
+    {
+        string strFile =  @"
+using System;		
+
+using System.Collections.Generic;
+
+		namespace FitAPIFunctions.Schema
+{
+    public class " + className + @"
+    {";
+	var sorted = (from Column o in pTable.Columns orderby o.Name select o).ToList();                
+	foreach (Column cColumn in sorted)
+    {
+		if ( 1 == 1
+		/* cColumn.Name != "Active" &&
+		 cColumn.Name != "CreatedAt" &&
+		 cColumn.Name != "UpdatedAt" &&
+		 cColumn.Name != "Deleted" && 
+		 cColumn.Name != "Version"*/
+		 ) {
+			strFile += @"
+			public " ;
+			switch (cColumn.DataType.SqlDataType)
+        {
+            case SqlDataType.BigInt:
+                strFile += "long?";
+				break;
+            case SqlDataType.Binary:
+            case SqlDataType.Image:
+            case SqlDataType.Timestamp:
+            case SqlDataType.VarBinary:
+                strFile += "byte[]";
+				break;
+            case SqlDataType.Bit:
+                strFile += "bool?";
+				break;
+            case SqlDataType.Char:
+            case SqlDataType.NChar:
+            case SqlDataType.NText:
+            case SqlDataType.NVarChar:
+            case SqlDataType.Text:
+            case SqlDataType.VarChar:
+            case SqlDataType.Xml:
+                strFile += "string";
+				break;
+            case SqlDataType.DateTime:
+            case SqlDataType.SmallDateTime:
+            case SqlDataType.Date:
+            case SqlDataType.Time:
+            case SqlDataType.DateTime2:
+                strFile += "DateTime?";
+				break;
+            case SqlDataType.Decimal:
+            case SqlDataType.Money:
+            case SqlDataType.SmallMoney:
+                strFile += "decimal?";
+				break;
+            case SqlDataType.Float:
+                strFile += "double?";
+				break;
+            case SqlDataType.Int:
+                strFile += "int?";
+				break;
+            case SqlDataType.Real:
+                strFile += "float?";
+				break;
+            case SqlDataType.UniqueIdentifier:
+                strFile += "Guid?";
+				break;
+            case SqlDataType.SmallInt:
+                strFile += "short?";
+				break;
+            case SqlDataType.TinyInt:
+                strFile += "byte?";
+				break;
+            case SqlDataType.DateTimeOffset:
+                strFile += "DateTimeOffset?";
+				break;
+			default:
+			 strFile += "string";
+				break;
+        }
+			strFile += " " +  cColumn.Name + @";";
+		}
+	}
+	strFile +=  @"
+	}
+
+	public class " + className + @"Container
+    {
+        public List<" + className + @"> " + className + @";
+    }
+}";
+	this.FileName  = strFile;
+
+    }
+    private string FileName {get; set;}
+    public override string TransformText()
+    {
+        #><#=this.FileName#><#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

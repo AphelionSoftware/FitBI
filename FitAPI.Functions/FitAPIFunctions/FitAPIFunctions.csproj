@@ -22,5 +22,69 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
+    <None Update="Manager.ttInclude">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Manager.cs</LastGenOutput>
+    </None>
+    <None Update="mergeClasses\_mergeClassCreate.tt">
+      <LastOutputs>
+.\_mergeClassCreate.cs
+.\mergeExercise.cs
+.\mergeExercise_Sport.cs
+.\mergeExerciseType.cs
+.\mergeMetric.cs
+.\mergePerson.cs
+.\mergePlan.cs
+.\mergeSkinfoldMeasurement.cs
+.\mergeSport.cs
+.\mergeTapeMeasurement.cs
+.\mergeWeightMeasurement.cs
+.\mergeWorkout.cs
+.\mergeWorkout_Exercise.cs
+.\mergeWorkoutStage.cs
+</LastOutputs>
+      <LastGenOutput>_mergeClassCreate.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="SchemaClasses\_SchemaGen.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_SchemaGen.cs</LastGenOutput>
+      <LastOutputs>
+.\_SchemaGen.cs
+.\Exercise.cs
+.\Exercise_Sport.cs
+.\ExerciseType.cs
+.\Metric.cs
+.\Person.cs
+.\Plan.cs
+.\SkinfoldMeasurement.cs
+.\Sport.cs
+.\TapeMeasurement.cs
+.\WeightMeasurement.cs
+.\Workout.cs
+.\Workout_Exercise.cs
+.\WorkoutStage.cs
+</LastOutputs>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Manager.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Manager.ttInclude</DependentUpon>
+    </Compile>
+    <Compile Update="mergeClasses\_mergeClassCreate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_mergeClassCreate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="SchemaClasses\_SchemaGen.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_SchemaGen.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

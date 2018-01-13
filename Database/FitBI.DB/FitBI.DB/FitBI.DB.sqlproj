@@ -77,6 +77,14 @@
     <Folder Include="UserSettings\Stored Procedures\" />
     <Folder Include="API\" />
     <Folder Include="API\Stored Procedures\" />
+    <Folder Include="Exercise\User Defined Types\" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Database Triggers\" />
+    <Folder Include="UserSettings\User Defined Types\" />
+    <Folder Include="Stats\User Defined Types\" />
+    <Folder Include="Settings\User Defined Types\" />
+    <Folder Include="Program\User Defined Types\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Stats\Tables\Person.sql" />
@@ -128,6 +136,44 @@
     <Build Include="API\Stored Procedures\sp_Init.sql" />
     <Build Include="API\Stored Procedures\sp_Core.sql" />
     <Build Include="Security\API.sql" />
+    <Build Include="Utility\Stored Procedures\GetTVP_ByTable.sql" />
+    <Build Include="Utility\Stored Procedures\GetStoreObject_BySchema_All.sql" />
+    <Build Include="Exercise\User Defined Types\tvp_exercise.sql" />
+    <Build Include="Utility\Stored Procedures\CreateTVP_ByTable_All.sql" />
+    <Build Include="Utility\Stored Procedures\CreateMerge_ByTable.sql" />
+    <Build Include="Utility\Stored Procedures\Create_TVP_ByTable.sql" />
+    <Build Include="dbo\Stored Procedures\usp_Generate_Merge_For_Table.sql" />
+    <Build Include="API\Stored Procedures\merge_UserSettings_ColumnChoice.sql" />
+    <Build Include="API\Stored Procedures\merge_Stats_WeightMeasurement.sql" />
+    <Build Include="API\Stored Procedures\merge_Stats_TapeMeasurement.sql" />
+    <Build Include="API\Stored Procedures\merge_Stats_SkinfoldMeasurement.sql" />
+    <Build Include="API\Stored Procedures\merge_Stats_Person.sql" />
+    <Build Include="API\Stored Procedures\merge_Stats_Metric.sql" />
+    <Build Include="API\Stored Procedures\merge_Settings_ColumnChoiceOptions.sql" />
+    <Build Include="API\Stored Procedures\merge_Program_WorkoutStage.sql" />
+    <Build Include="API\Stored Procedures\merge_Program_Workout_Exercise.sql" />
+    <Build Include="API\Stored Procedures\merge_Program_Workout.sql" />
+    <Build Include="API\Stored Procedures\merge_Program_Plan.sql" />
+    <Build Include="API\Stored Procedures\merge_Exercise_Sport.sql" />
+    <Build Include="API\Stored Procedures\merge_Exercise_ExerciseType.sql" />
+    <Build Include="API\Stored Procedures\merge_Exercise_Exercise_Sport.sql" />
+    <Build Include="API\Stored Procedures\merge_Exercise_Exercise.sql" />
+    <Build Include="Database Triggers\trg_Drop_MergeProc.sql" />
+    <Build Include="Database Triggers\trg_Create_MergeProc.sql" />
+    <Build Include="UserSettings\User Defined Types\tvp_ColumnChoice.sql" />
+    <Build Include="Stats\User Defined Types\tvp_WeightMeasurement.sql" />
+    <Build Include="Stats\User Defined Types\tvp_TapeMeasurement.sql" />
+    <Build Include="Stats\User Defined Types\tvp_SkinfoldMeasurement.sql" />
+    <Build Include="Stats\User Defined Types\tvp_Person.sql" />
+    <Build Include="Stats\User Defined Types\tvp_Metric.sql" />
+    <Build Include="Settings\User Defined Types\tvp_ColumnChoiceOptions.sql" />
+    <Build Include="Program\User Defined Types\tvp_WorkoutStage.sql" />
+    <Build Include="Program\User Defined Types\tvp_Workout_Exercise.sql" />
+    <Build Include="Program\User Defined Types\tvp_Workout.sql" />
+    <Build Include="Program\User Defined Types\tvp_Plan.sql" />
+    <Build Include="Exercise\User Defined Types\tvp_Sport.sql" />
+    <Build Include="Exercise\User Defined Types\tvp_ExerciseType.sql" />
+    <Build Include="Exercise\User Defined Types\tvp_Exercise_Sport.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

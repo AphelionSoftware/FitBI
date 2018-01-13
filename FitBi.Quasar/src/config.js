@@ -1,6 +1,6 @@
 export const config = {
-  APIProd: 'https://fitapifunctions.azurewebsites.net/api',
-  API: 'http://localhost:7071/api',
+  API: 'https://fitapifunctions.azurewebsites.net/api',
+  APITest: 'http://localhost:7071/api',
   coreURL: '/setup/Core/',
   coreToken: 'code=pkiVK8tel8UWZRhvYaJtAeQm0bhoGwQNEpmL9ZWg9Jg1ECzNPaLWZQ==',
   initURL: '/setup/Init/',

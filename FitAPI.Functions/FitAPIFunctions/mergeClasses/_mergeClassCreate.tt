@@ -1,0 +1,117 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+
+#>
+<#
+    foreach (Table tTable in database.Tables)
+    {
+		if ( (tTable.Schema == "Exercise" || tTable.Schema == "Program" || tTable.Schema == "Stats")
+		) {
+			string fileName = tTable.Name;
+			var lt = new ValuesTemplate(tTable, fileName);
+			lt.RenderToFile("merge" + fileName + ".cs");
+		}
+    }
+#>
+<#+
+private class ValuesTemplate : Template
+{
+    public ValuesTemplate(Table pTable, string className)
+    {
+        string strFile  = @"
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using Dapper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Azure.WebJobs.Host;
+using System.Threading.Tasks;
+using FitAPIFunctions.Schema;
+using System.Collections.Generic;
+
+
+namespace FitAPIFunctions
+{
+    public static class merge" + className + @"
+    {
+	    [FunctionName(""merge" + className + @""")]
+        public static async Task Run([HttpTrigger(AuthorizationLevel.Function, ""get"", ""post"", Route = ""merge/" + className + @""")]HttpRequestMessage req, TraceWriter log)
+		{
+		StreamContent content = (StreamContent)req.Content;
+            var postData = await content.ReadAsStringAsync();
+            
+            var container = JsonConvert.DeserializeObject<FitAPIFunctions.Schema." + className + @"Container>(postData);
+
+		log.Info(""C# HTTP trigger function processed a request."");
+            var sqlConnectionString =
+                ConfigurationManager
+                   .ConnectionStrings[""FitDB_conn""].ConnectionString;
+            string JSON = ""Error occurred"";
+            HttpStatusCode statusCode = HttpStatusCode.OK;
+            try
+            {
+			using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+                {
+                    conn.Open();
+                    conn.Execute(""API.merge_" + pTable.Schema  + "_" + pTable.Name  + @""",
+                    new
+                    {
+                        tvp_" + pTable.Name  + @" = container." + pTable.Name  + @".AsTableValuedParameter(""" + pTable.Schema  + @".tvp_" + pTable.Name  + @"""
+						, new List<string>(new string[] {";
+		var sorted = (from Column o in pTable.Columns orderby o.Name select o).ToList();   
+			int iLoop = 0;
+			foreach (Column cColumn in sorted)
+			{
+				strFile +=  (iLoop == 0 ? "" : ",") + @" """ + cColumn.Name + @"""";
+				iLoop++;
+			}
+			strFile += @" })
+						)
+                    },
+                    commandType: CommandType.StoredProcedure);                    
+                }
+			}
+            catch (System.Exception ex)
+            {
+                log.Error(""C# HTTP trigger function encountered an error "", ex);
+                statusCode = HttpStatusCode.InternalServerError;
+
+            }
+            //Always return to not leave the client hanging
+            //return req.CreateResponse(statusCode, JSON);
+            return;
+		}
+	}
+}
+	";
+	this.FileName = strFile;
+    }
+    private string FileName {get; set;}
+    public override string TransformText()
+    {
+        #><#=this.FileName#><#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>
