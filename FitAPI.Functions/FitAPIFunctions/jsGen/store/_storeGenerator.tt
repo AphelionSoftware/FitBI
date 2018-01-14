@@ -106,7 +106,7 @@ const mutations = {
   SET_" + tTable.Name.ToUpper() + @"_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state." + tTable.Name + @"[element." + tTable.Name + @"ID] = element
+        Vue.set(state." + tTable.Name + @", element." + tTable.Name + @"ID, element)
         state." + tTable.Name + @"List.push(element." + tTable.Name + @"ID)
       }, this)
     }

@@ -94,7 +94,7 @@ const mutations = {
   SET_METRIC_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Metric[element.MetricID] = element
+        Vue.set(state.Metric, element.MetricID, element)
         state.MetricList.push(element.MetricID)
       }, this)
     }
@@ -102,7 +102,7 @@ const mutations = {
   SET_PERSON_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Person[element.PersonID] = element
+        Vue.set(state.Person, element.PersonID, element)
         state.PersonList.push(element.PersonID)
       }, this)
     }
@@ -110,7 +110,7 @@ const mutations = {
   SET_SKINFOLDMEASUREMENT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.SkinfoldMeasurement[element.SkinfoldMeasurementID] = element
+        Vue.set(state.SkinfoldMeasurement, element.SkinfoldMeasurementID, element)
         state.SkinfoldMeasurementList.push(element.SkinfoldMeasurementID)
       }, this)
     }
@@ -118,7 +118,7 @@ const mutations = {
   SET_TAPEMEASUREMENT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.TapeMeasurement[element.TapeMeasurementID] = element
+        Vue.set(state.TapeMeasurement, element.TapeMeasurementID, element)
         state.TapeMeasurementList.push(element.TapeMeasurementID)
       }, this)
     }
@@ -126,7 +126,7 @@ const mutations = {
   SET_WEIGHTMEASUREMENT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.WeightMeasurement[element.WeightMeasurementID] = element
+        Vue.set(state.WeightMeasurement, element.WeightMeasurementID, element)
         state.WeightMeasurementList.push(element.WeightMeasurementID)
       }, this)
     }

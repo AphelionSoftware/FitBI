@@ -79,7 +79,7 @@ const mutations = {
   SET_PLAN_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Plan[element.PlanID] = element
+        Vue.set(state.Plan, element.PlanID, element)
         state.PlanList.push(element.PlanID)
       }, this)
     }
@@ -87,7 +87,7 @@ const mutations = {
   SET_WORKOUT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Workout[element.WorkoutID] = element
+        Vue.set(state.Workout, element.WorkoutID, element)
         state.WorkoutList.push(element.WorkoutID)
       }, this)
     }
@@ -95,7 +95,7 @@ const mutations = {
   SET_WORKOUT_EXERCISE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Workout_Exercise[element.Workout_ExerciseID] = element
+        Vue.set(state.Workout_Exercise, element.Workout_ExerciseID, element)
         state.Workout_ExerciseList.push(element.Workout_ExerciseID)
       }, this)
     }
@@ -103,7 +103,7 @@ const mutations = {
   SET_WORKOUTSTAGE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.WorkoutStage[element.WorkoutStageID] = element
+        Vue.set(state.WorkoutStage, element.WorkoutStageID, element)
         state.WorkoutStageList.push(element.WorkoutStageID)
       }, this)
     }

@@ -79,7 +79,7 @@ const mutations = {
   SET_EXERCISE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Exercise[element.ExerciseID] = element
+        Vue.set(state.Exercise, element.ExerciseID, element)
         state.ExerciseList.push(element.ExerciseID)
       }, this)
     }
@@ -87,7 +87,7 @@ const mutations = {
   SET_EXERCISE_SPORT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Exercise_Sport[element.Exercise_SportID] = element
+        Vue.set(state.Exercise_Sport, element.Exercise_SportID, element)
         state.Exercise_SportList.push(element.Exercise_SportID)
       }, this)
     }
@@ -95,7 +95,7 @@ const mutations = {
   SET_EXERCISETYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.ExerciseType[element.ExerciseTypeID] = element
+        Vue.set(state.ExerciseType, element.ExerciseTypeID, element)
         state.ExerciseTypeList.push(element.ExerciseTypeID)
       }, this)
     }
@@ -103,7 +103,7 @@ const mutations = {
   SET_SPORT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Sport[element.SportID] = element
+        Vue.set(state.Sport, element.SportID, element)
         state.SportList.push(element.SportID)
       }, this)
     }

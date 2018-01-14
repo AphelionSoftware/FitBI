@@ -65,12 +65,15 @@ export default class {
     this.axios.defaults.baseURL = this.config.API
     var api = this
     console.log(this.config.API + this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken)
+    api.OnlineOfflineLoad()
+    /*
     this.axios.get(this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken).then(
       function (response) {
         api.LatestTimestamps = response.LatestTimestamps
         api.OnlineOfflineLoad()
       }
     ).catch(api.ErrorHandler)
+    */
   }
 }
 

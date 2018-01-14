@@ -154,7 +154,7 @@ const mutations = {
   SET_ACTIVE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Active[element.ActiveID] = element
+        Vue.set(state.Active, element.ActiveID, element)
         state.ActiveList.push(element.ActiveID)
       }, this)
     }
@@ -162,7 +162,7 @@ const mutations = {
   SET_BODYPART_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.BodyPart[element.BodyPartID] = element
+        Vue.set(state.BodyPart, element.BodyPartID, element)
         state.BodyPartList.push(element.BodyPartID)
       }, this)
     }
@@ -170,7 +170,7 @@ const mutations = {
   SET_BODYPARTTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.BodyPartType[element.BodyPartTypeID] = element
+        Vue.set(state.BodyPartType, element.BodyPartTypeID, element)
         state.BodyPartTypeList.push(element.BodyPartTypeID)
       }, this)
     }
@@ -178,7 +178,7 @@ const mutations = {
   SET_DATES_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Dates[element.DatesID] = element
+        Vue.set(state.Dates, element.DatesID, element)
         state.DatesList.push(element.DatesID)
       }, this)
     }
@@ -186,7 +186,7 @@ const mutations = {
   SET_MEASUREMENTTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.MeasurementType[element.MeasurementTypeID] = element
+        Vue.set(state.MeasurementType, element.MeasurementTypeID, element)
         state.MeasurementTypeList.push(element.MeasurementTypeID)
       }, this)
     }
@@ -194,7 +194,7 @@ const mutations = {
   SET_MEASUREMENTTYPECATEGORY_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.MeasurementTypeCategory[element.MeasurementTypeCategoryID] = element
+        Vue.set(state.MeasurementTypeCategory, element.MeasurementTypeCategoryID, element)
         state.MeasurementTypeCategoryList.push(element.MeasurementTypeCategoryID)
       }, this)
     }
@@ -202,7 +202,7 @@ const mutations = {
   SET_TIME_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Time[element.TimeID] = element
+        Vue.set(state.Time, element.TimeID, element)
         state.TimeList.push(element.TimeID)
       }, this)
     }
@@ -210,7 +210,7 @@ const mutations = {
   SET_UNIT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.Unit[element.UnitID] = element
+        Vue.set(state.Unit, element.UnitID, element)
         state.UnitList.push(element.UnitID)
       }, this)
     }
@@ -218,7 +218,7 @@ const mutations = {
   SET_UNITTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        state.UnitType[element.UnitTypeID] = element
+        Vue.set(state.UnitType, element.UnitTypeID, element)
         state.UnitTypeList.push(element.UnitTypeID)
       }, this)
     }
