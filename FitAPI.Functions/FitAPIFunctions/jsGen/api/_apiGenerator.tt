@@ -1,0 +1,78 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Io" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+
+#>
+<#
+	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\api\\";
+	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\api\\";
+	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" orderby s.Name select s).ToArray();
+    string fileName =  "coreSetup.js";
+    var lt = new APITemplate(database, sorted, "Core");
+	lt.RenderToFile(fileName);
+				
+	sorted = (from Schema s in database.Schemas where s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
+	fileName =  "initSetup.js";
+	lt = new APITemplate(database, sorted, "Init");
+	lt.RenderToFile(fileName);
+
+	File.Copy( jsGenPath + "coreSetup.js",
+						 basePath  + "coreSetup.js",
+						 true);
+	
+	File.Copy( jsGenPath + "initSetup.js",
+						 basePath  + "initSetup.js",
+						 true);
+			
+
+#>
+<#+
+private class APITemplate : Template
+{
+    public APITemplate(Database db, Schema[] sorted, string className)
+        {
+            string strFile = @"import store from 'vuex/store'
+export default function (" + className.ToLower() + @"Values) {";
+            foreach (Schema sSchema in sorted)
+            {
+                Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
+                foreach (Table tTable in tTables)
+                {
+                    if (!(tTable.Name == "Active" || tTable.Name == "Dates" || tTable.Name == "Time"))
+                    {
+
+                        strFile += @"
+  store.commit('" +  sSchema.Name + @"/SET_" + tTable.Name.ToUpper() + @"_LIST', " + className.ToLower() + @"Values." + tTable.Name + @")";
+                    }
+                }
+            }
+            strFile += @"
+}
+";
+            this.FileName = strFile;
+
+        }
+    private string FileName {get; set;}
+    public override string TransformText()
+    {
+        #><#=this.FileName#><#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

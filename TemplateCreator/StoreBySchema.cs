@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Common;
 using System.Data.Sql;
 using Microsoft.SqlServer.Management.Smo;
-
+using System.IO;
 
 namespace TemplateCreator
 {
@@ -24,6 +24,11 @@ namespace TemplateCreator
             {
                 string fileName = sSchema.Name + ".js";
                 var lt = new ValuesTemplate(database, sSchema, fileName);
+                if (!Directory.Exists(""))
+                {
+                    
+                }
+
             }
         }
     }
@@ -60,13 +65,16 @@ const getters = {
             foreach (Table tTable in tTables)
             {
                 strFile += @",
-   Get_Exercise_ByRouteID: function (state, getters, rootState) {
-    return state.Exercise[+rootState.route.params." + tTable.Name.ToLower() + @"id]
-  },Get_" + tTable.Name + @"_All: function () {
-    return state.{0}
-  },Get_" + tTable.Name + @"_List: function () {
-    return state.{0}
-  },Get_" + tTable.Name + @"_Item: function () {
+  Get_" + tTable.Name + @"_ByRouteID: function (state, getters, rootState) {
+    return state." + tTable.Name + @"[+rootState.route.params." + tTable.Name.ToLower() + @"id]
+  },
+  Get_" + tTable.Name + @"_All: function () {
+    return state." + tTable.Name + @"
+  },
+  Get_" + tTable.Name + @"_List: function () {
+    return state." + tTable.Name + @"
+  },
+  Get_" + tTable.Name + @"_Item: function () {
     return state." + tTable.Name + @"Item
   }";
             }
@@ -78,13 +86,12 @@ const mutations = {
             foreach (Table tTable in tTables)
             {
                 strFile += @",
-  SET_" + tTable.Name + @"_LIST: function (state, fullList) {
+  SET_" + tTable.Name.ToUpper() + @"_LIST: function (state, fullList) {
     fullList.forEach(function (element) {
       state." + tTable.Name + @"[element." + tTable.Name + @"ID] = element
       state." + tTable.Name + @"List.push(element." + tTable.Name + @"ID)
     }, this)
-  }
-";
+  }";
             }
 
             strFile += @"

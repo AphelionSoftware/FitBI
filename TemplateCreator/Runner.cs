@@ -22,5 +22,10 @@ namespace TemplateCreator
         {
             StoreBySchema.testFile(".\\SQL2017", "FitBI");
         }
-}
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            APIBySchema.testFile(".\\SQL2017", "FitBI");
+        }
+    }
 }

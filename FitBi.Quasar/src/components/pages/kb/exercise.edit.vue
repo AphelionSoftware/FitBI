@@ -35,7 +35,7 @@ export default {
     ]), /*,
     ...mapGetters({
       'getExercise': 'Exercise/Get_Exercise_Current'
-    })*/
+    }) */
     getExercise: function () {
       return this.$store.getters.Exercise.Get_Exercise_ByID(this.$route.params.exerciseid)
     }

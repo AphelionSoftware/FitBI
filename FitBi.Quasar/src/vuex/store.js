@@ -7,10 +7,10 @@ Vue.use(Vuex)
 
 // Separate Module States
 import WeightMeasurement from './modules/weight-measurement'
-import Core from './modules/core'
-import Exercise from './modules/exercise'
-import Program from './modules/program'
-import Stats from './modules/stats'
+import Core from './modules/core/coreStore'
+import Exercise from './modules/exercise/exerciseStore'
+import Program from './modules/program/programStore'
+import Stats from './modules/stats/statsStore'
 
 export default new Vuex.Store({
   modules: {
