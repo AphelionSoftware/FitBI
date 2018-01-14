@@ -28,7 +28,7 @@ export function updateField (state, { path, value }) {
 }
 
 export function mapFields (fields, getterType = `getField`, mutationType = `updateField`) {
-  // debugger
+  debugger
   const fieldsObject = Array.isArray(fields) ? arrayToObject(fields) : fields
 
   return Object.keys(fieldsObject).reduce((prev, key) => {

@@ -1,0 +1,109 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data.Common;
+using System.Data.Sql;
+using Microsoft.SqlServer.Management.Smo;
+
+
+namespace TemplateCreator
+{
+    static class StoreBySchema
+    {
+        public static void testFile(string pServer, string pDatabase)
+        {
+            var server = new Server(pServer);
+            var database = new Database(server, pDatabase);
+            database.Refresh();
+
+
+            Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" || s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
+            foreach (Schema sSchema in sorted)
+            {
+                string fileName = sSchema.Name + ".js";
+                var lt = new ValuesTemplate(database, sSchema, fileName);
+            }
+        }
+    }
+
+    public class ValuesTemplate
+    {
+        public ValuesTemplate(Database db, Schema sSchema, string className)
+        {
+            string strFile = @"import Vue from 'vue'
+import Vuex from 'vuex'
+// Import the `getField` getter and the `updateField`
+// mutation function from the `vuex-map-fields` module.
+import { getField, updateField } from '../../helpers/vuex-map-fields/index'
+// import { getField, updateField } from 'vuex-map-fields'
+
+Vue.use(Vuex)
+
+const state = {";
+            Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
+            foreach (Table tTable in tTables)
+            {
+                strFile += @"
+  " + tTable.Name + @": { },
+  " + tTable.Name + @"List: [],
+  " + tTable.Name + @"Item: {},";
+            }
+            strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing space
+
+            strFile += @"
+}
+
+const getters = {
+  getField";
+            foreach (Table tTable in tTables)
+            {
+                strFile += @",
+   Get_Exercise_ByRouteID: function (state, getters, rootState) {
+    return state.Exercise[+rootState.route.params." + tTable.Name.ToLower() + @"id]
+  },Get_" + tTable.Name + @"_All: function () {
+    return state.{0}
+  },Get_" + tTable.Name + @"_List: function () {
+    return state.{0}
+  },Get_" + tTable.Name + @"_Item: function () {
+    return state." + tTable.Name + @"Item
+  }";
+            }
+            strFile += @"
+}
+
+const mutations = {
+  updateField";
+            foreach (Table tTable in tTables)
+            {
+                strFile += @",
+  SET_" + tTable.Name + @"_LIST: function (state, fullList) {
+    fullList.forEach(function (element) {
+      state." + tTable.Name + @"[element." + tTable.Name + @"ID] = element
+      state." + tTable.Name + @"List.push(element." + tTable.Name + @"ID)
+    }, this)
+  }
+";
+            }
+
+            strFile += @"
+}
+
+const exercise = {
+  namespaced: true,
+  state,
+  getters,
+  mutations
+}
+
+export default exercise
+";
+
+            this.FileName = strFile;
+
+        }
+        public string FileName { get; set; }
+
+    }
+}

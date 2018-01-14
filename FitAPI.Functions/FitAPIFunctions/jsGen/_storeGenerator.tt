@@ -1,0 +1,46 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+
+#>
+<#
+
+	foreach (Schema sSchema in database.Schemas)    
+    {
+		string fileName = sSchema.Name;
+		var lt = new ValuesTemplate(sSchema, fileName);
+		lt.RenderToFile("merge" + fileName + ".cs");
+		
+    }
+#>
+<#+
+private class ValuesTemplate : Template
+{
+    public ValuesTemplate(Schema sSchema, string className)
+    {
+        string strFile  = @"
+	";
+	this.FileName = strFile;
+    }
+    private string FileName {get; set;}
+    public override string TransformText()
+    {
+        #><#=this.FileName#><#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>
