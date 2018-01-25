@@ -29,6 +29,16 @@
 .\Stats\StatsStore.js
 </LastOutputs>
     </None>
+    <None Update="jsGen\api\_mergePaths.tt">
+      <LastOutputs>
+.\_mergePaths.cs
+.\mergeExercise.js
+.\mergeProgram.js
+.\mergeStats.js
+</LastOutputs>
+      <LastGenOutput>_mergePaths.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="jsGen\api\_apiGenerator.tt">
       <LastOutputs>
 .\_apiGenerator.cs
@@ -37,6 +47,17 @@
 </LastOutputs>
       <LastGenOutput>_apiGenerator.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="jsGen\store\_actionGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_actionGenerator.cs</LastGenOutput>
+      <LastOutputs>
+.\_actionGenerator.cs
+.\Core\CoreActions.js
+.\Exercise\ExerciseActions.js
+.\Program\ProgramActions.js
+.\Stats\StatsActions.js
+</LastOutputs>
     </None>
     <None Update="jsGen\store\_storeGenerator.tt">
       <LastOutputs>
@@ -102,10 +123,20 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="jsGen\api\_mergePaths.cs">
+      <DependentUpon>_mergePaths.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="jsGen\api\_apiGenerator.cs">
       <DependentUpon>_apiGenerator.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="jsGen\store\_actionGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_actionGenerator.tt</DependentUpon>
     </Compile>
     <Compile Update="jsGen\store\_storeGenerator.cs">
       <DependentUpon>_storeGenerator.tt</DependentUpon>

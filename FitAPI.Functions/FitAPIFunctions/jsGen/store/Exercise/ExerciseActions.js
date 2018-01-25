@@ -1,13 +1,10 @@
-﻿// import API from '../../../api/api'
-import Vue from 'vue'
-const actions = {
+﻿const actions = {
   saveExercise (context) {
     let item = context.state.ExerciseItem
     item.UpdateAt = (new Date()).toUTCString()
-    // item.NeedsSync = true
-    Vue.$API.mergeExercise.mergeExercise(item)
-    context.commit('SET_EXERCISE', item)
-    context.commit('GET_EXERCISE', {})
+    item.NeedsSync = true
+    context.commit('Exercise/SET_EXERCISE', item)
+    context.commit('Exercise/GET_EXERCISE', {})
   },
   saveExercise_Sport (context) {
     let item = context.state.Exercise_SportItem

@@ -12,39 +12,33 @@
 </template>
 <script>
 
-// import { mapGetters } from 'vuex'
 // import { required } from 'vuelidate/lib/validators'
 import { mapFields } from '../../../helpers/vuex-map-fields/index'
-// import { mapFields } from 'vuex-map-fields'
-// debugger
 export default {
-  props: {
-    exerciseid: {
-      type: String
-    }
-  },
   computed: {
-    testFunc: function () {
-      debugger
-      console.log(this.exerciseid)
-    },
     ...mapFields([
-      'Exercise.Exercise.' +/* this.exerciseid */ '3' + '.Name',
-      'Exercise.Exercise.' +/* this.exerciseid */ '3' + '.Code',
-      'Exercise.Exercise.' + /* this.exerciseid */ '3' + '.Description'
-    ]), /*,
-    ...mapGetters({
-      'getExercise': 'Exercise/Get_Exercise_Current'
-    }) */
-    getExercise: function () {
-      return this.$store.getters.Exercise.Get_Exercise_ByID(this.$route.params.exerciseid)
+      'Exercise.ExerciseItem.Name',
+      'Exercise.ExerciseItem.Code',
+      'Exercise.ExerciseItem.Description'
+    ])
+  },
+  beforeRouteLeave (to, from, next) {
+    if (typeof (this.$store.state.Exercise.ExerciseItem.ExerciseID) === 'undefined' ||
+    this.$_.isEqual(this.$store.state.Exercise.Exercise[this.$store.state.Exercise.ExerciseItem.ExerciseID],
+      this.$store.state.Exercise.ExerciseItem)) {
+      next()
     }
-  } /* ,
-  validations: {
-    getExercise: {
-      Name: { required }
+    else {
+      const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+      if (answer) {
+        this.$store.dispatch('Exercise/saveExercise', this.$store.state.Exercise.ExerciseItem)
+        next()
+      }
+      else {
+        next(false)
+      }
     }
-  } */
+  }
 }
 </script>
 <style>

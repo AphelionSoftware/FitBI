@@ -60,6 +60,7 @@ import Vuex from 'vuex'
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 // import { getField, updateField } from 'vuex-map-fields'
+import actions from './" + className + @"Actions'
 
 Vue.use(Vuex)
 
@@ -76,7 +77,7 @@ const state = {";
 
             strFile += @"
 }
-
+// #region Getters
 const getters = {
   getField";
             foreach (Table tTable in tTables)
@@ -84,6 +85,9 @@ const getters = {
                 strFile += @",
   Get_" + tTable.Name + @"_ByRouteID: function (state, getters, rootState) {
     return state." + tTable.Name + @"[+rootState.route.params." + tTable.Name.ToLower() + @"id]
+  },
+  Get_" + tTable.Name + @"Item: function () {
+    return state." + tTable.Name + @"Item
   },
   Get_" + tTable.Name + @"_All: function () {
     return state." + tTable.Name + @"
@@ -97,12 +101,19 @@ const getters = {
             }
             strFile += @"
 }
-
+// #endregion
+// #region Mutations
 const mutations = {
   updateField";
             foreach (Table tTable in tTables)
             {
                 strFile += @",
+  GET_" + tTable.Name.ToUpper() + @" (state, payload) {
+    state." + tTable.Name + @"Item = state." + tTable.Name + @"[payload." + tTable.Name.ToLower() + @"id]
+  },
+  SET_" + tTable.Name.ToUpper() + @" (state, payload) {
+    state." + tTable.Name + @"[payload." + tTable.Name + @"ID] = payload
+  },
   SET_" + tTable.Name.ToUpper() + @"_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -115,15 +126,17 @@ const mutations = {
 
             strFile += @"
 }
+// #endregion
 
-const exercise = {
+const store = {
   namespaced: true,
   state,
   getters,
-  mutations
+  mutations,
+  actions
 }
 
-export default exercise
+export default store
 ";
 
             this.FileName = strFile;

@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 // import { getField, updateField } from 'vuex-map-fields'
+import actions from './ExerciseActions'
 
 Vue.use(Vuex)
 
@@ -21,11 +22,14 @@ const state = {
   SportList: [],
   SportItem: {}
 }
-
+// #region Getters
 const getters = {
   getField,
   Get_Exercise_ByRouteID: function (state, getters, rootState) {
     return state.Exercise[+rootState.route.params.exerciseid]
+  },
+  Get_ExerciseItem: function () {
+    return state.ExerciseItem
   },
   Get_Exercise_All: function () {
     return state.Exercise
@@ -39,6 +43,9 @@ const getters = {
   Get_Exercise_Sport_ByRouteID: function (state, getters, rootState) {
     return state.Exercise_Sport[+rootState.route.params.exercise_sportid]
   },
+  Get_Exercise_SportItem: function () {
+    return state.Exercise_SportItem
+  },
   Get_Exercise_Sport_All: function () {
     return state.Exercise_Sport
   },
@@ -50,6 +57,9 @@ const getters = {
   },
   Get_ExerciseType_ByRouteID: function (state, getters, rootState) {
     return state.ExerciseType[+rootState.route.params.exercisetypeid]
+  },
+  Get_ExerciseTypeItem: function () {
+    return state.ExerciseTypeItem
   },
   Get_ExerciseType_All: function () {
     return state.ExerciseType
@@ -63,6 +73,9 @@ const getters = {
   Get_Sport_ByRouteID: function (state, getters, rootState) {
     return state.Sport[+rootState.route.params.sportid]
   },
+  Get_SportItem: function () {
+    return state.SportItem
+  },
   Get_Sport_All: function () {
     return state.Sport
   },
@@ -73,9 +86,16 @@ const getters = {
     return state.SportItem
   }
 }
-
+// #endregion
+// #region Mutations
 const mutations = {
   updateField,
+  GET_EXERCISE (state, payload) {
+    state.ExerciseItem = state.Exercise[payload.exerciseid]
+  },
+  SET_EXERCISE (state, payload) {
+    state.Exercise[payload.ExerciseID] = payload
+  },
   SET_EXERCISE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -83,6 +103,12 @@ const mutations = {
         state.ExerciseList.push(element.ExerciseID)
       }, this)
     }
+  },
+  GET_EXERCISE_SPORT (state, payload) {
+    state.Exercise_SportItem = state.Exercise_Sport[payload.exercise_sportid]
+  },
+  SET_EXERCISE_SPORT (state, payload) {
+    state.Exercise_Sport[payload.Exercise_SportID] = payload
   },
   SET_EXERCISE_SPORT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
@@ -92,6 +118,12 @@ const mutations = {
       }, this)
     }
   },
+  GET_EXERCISETYPE (state, payload) {
+    state.ExerciseTypeItem = state.ExerciseType[payload.exercisetypeid]
+  },
+  SET_EXERCISETYPE (state, payload) {
+    state.ExerciseType[payload.ExerciseTypeID] = payload
+  },
   SET_EXERCISETYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -99,6 +131,12 @@ const mutations = {
         state.ExerciseTypeList.push(element.ExerciseTypeID)
       }, this)
     }
+  },
+  GET_SPORT (state, payload) {
+    state.SportItem = state.Sport[payload.sportid]
+  },
+  SET_SPORT (state, payload) {
+    state.Sport[payload.SportID] = payload
   },
   SET_SPORT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
@@ -109,12 +147,14 @@ const mutations = {
     }
   }
 }
+// #endregion
 
-const exercise = {
+const store = {
   namespaced: true,
   state,
   getters,
-  mutations
+  mutations,
+  actions
 }
 
-export default exercise
+export default store
