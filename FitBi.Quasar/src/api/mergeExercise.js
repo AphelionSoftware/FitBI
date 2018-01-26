@@ -1,16 +1,7 @@
 ﻿/* eslint camelcase: 0 */
 import Vue from 'vue'
 function mergeExercise (payload) {
-  let postData = {}
-  debugger
-  if (payload.Exercise) {
-    postData = payload
-  }
-  else {
-    postData.Exercise = []
-    postData.Exercise.push(payload)
-  }
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, postData).then(
+  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
       function (response) {
         debugger
       })
