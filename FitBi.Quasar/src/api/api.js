@@ -2,6 +2,9 @@
 import axios from 'axios'
 import coreSetup from './coreSetup'
 import initSetup from './initSetup'
+import * as mergeExercise from './mergeExercise'
+import * as mergeProgram from './mergeProgram'
+import * as mergeStats from './mergeStats'
 
 export default class {
   constructor (config) {
@@ -14,6 +17,24 @@ export default class {
     })
     this.config = config
     this.LatestTimestamps = []
+    // this._mergeExercise = mergeExercise
+    // this.mergeProgram = mergeProgram
+    // this._mergeStats = mergeStats
+  }
+
+  get http () {
+    return this.axios
+  }
+  get mergeExercise () {
+    return mergeExercise
+  }
+
+  get mergeProgram () {
+    return mergeProgram
+  }
+
+  get mergeStats () {
+    return mergeStats
   }
 
   OnlineOfflineLoad () {
@@ -65,12 +86,15 @@ export default class {
     this.axios.defaults.baseURL = this.config.API
     var api = this
     console.log(this.config.API + this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken)
+    api.OnlineOfflineLoad()
+    /*
     this.axios.get(this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken).then(
       function (response) {
         api.LatestTimestamps = response.LatestTimestamps
         api.OnlineOfflineLoad()
       }
     ).catch(api.ErrorHandler)
+    */
   }
 }
 

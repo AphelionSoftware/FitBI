@@ -1,0 +1,87 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Io" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+
+#>
+<#
+	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\api\\";
+	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\api\\";
+	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
+            foreach (Schema sSchema in sorted)
+            {
+                string fileName = sSchema.Name ;
+				
+				if (!File.Exists(basePath + @"\\merge" + fileName + ".js")){
+					File.Create(basePath + @"\\merge" + fileName + ".js");
+				}
+
+                var lt = new ValuesTemplate(database, sSchema, fileName);
+				lt.RenderToFile(@"merge" + fileName + ".js");
+								
+				
+				
+            }
+			foreach (Schema sSchema in sorted)
+            {
+			string fileName = sSchema.Name ;
+			File.Copy( jsGenPath +  @"merge" + fileName + ".js",
+						 basePath + @"merge" + fileName + ".js",
+						 true);
+            }
+
+#>
+<#+
+private class ValuesTemplate : Template
+{
+    public ValuesTemplate(Database db, Schema sSchema, string className)
+    {
+     string strFile = @"/* eslint camelcase: 0 */
+import Vue from 'vue'
+";
+            Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
+            foreach (Table tTable in tTables)
+            {
+                strFile += @"function merge" + tTable.Name + @" (payload) {
+  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
+      function (response) {
+        debugger
+      })
+}
+";			
+			}
+            strFile += @"export {";
+			foreach (Table tTable in tTables)
+            {
+			    strFile += "merge" + tTable.Name + @", ";
+			}
+
+			strFile = strFile.Substring(0, strFile.Length -2)  + @"}
+";
+            this.FileName = strFile;
+
+	}
+    private string FileName {get; set;}
+    public override string TransformText()
+    {
+        #><#=this.FileName#><#+
+        return this.GenerationEnvironment.ToString();
+    }
+	
+}
+#>

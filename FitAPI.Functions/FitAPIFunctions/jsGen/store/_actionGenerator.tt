@@ -1,0 +1,89 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Io" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+
+#>
+<#
+	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\vuex\\modules\\";
+	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\store\\";
+	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" || s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
+            foreach (Schema sSchema in sorted)
+            {
+                string fileName = sSchema.Name ;
+
+				if (!Directory.Exists(basePath + fileName )){
+					Directory.CreateDirectory(basePath + fileName );
+				}
+				var lt = new ValuesTemplate(database, sSchema, fileName);
+				lt.RenderToFile(fileName + @"\\" + fileName + "Actions.js");
+								
+				
+				
+            }
+			foreach (Schema sSchema in sorted)
+            {
+			string fileName = sSchema.Name ;
+			File.Copy( jsGenPath + fileName + @"\\" + fileName + "Actions.js",
+						 basePath + fileName + @"\\" + fileName + "Actions.js",
+						 true);
+            }
+
+#>
+<#+
+private class ValuesTemplate : Template
+{
+    public ValuesTemplate(Database db, Schema sSchema, string className)
+    {
+     string strFile = @"const actions = {"
+  // Save the current item to the master store
+  // Then, set the current store item to empty by getting an empty object
+  // Finally, attempt to commit to the API
+    ;
+            Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
+            foreach (Table tTable in tTables)
+            {
+                strFile += @"
+  save" + tTable.Name + @" (context) {
+    let item = context.state." + tTable.Name + @"Item
+    item.UpdateAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    context.commit('" + tTable.Name + @"/SET_" + tTable.Name.ToUpper() + @"', item)
+    context.commit('Exercise/GET_" + tTable.Name.ToUpper() + @"', {})
+  },";
+            }
+            strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing space
+
+            strFile += @"
+}
+
+export default actions
+
+";
+
+            this.FileName = strFile;
+
+	}
+    private string FileName {get; set;}
+    public override string TransformText()
+    {
+        #><#=this.FileName#><#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

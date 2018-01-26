@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './vuex/store'
 
 Vue.use(VueRouter)
 
@@ -47,7 +48,14 @@ export default new VueRouter({
         {
           path: 'exercise.edit/:exerciseid',
           component: load('pages/kb/exercise.edit'),
-          props: true
+          props: true,
+          beforeEnter: (to, from, next) => {
+            let payload = {
+              exerciseid: to.params['exerciseid']
+            }
+            store.commit('Exercise/GET_EXERCISE', payload)
+            next()
+          }
         }
       ]
     },

@@ -56,6 +56,7 @@
     <Compile Include="Runner.Designer.cs">
       <DependentUpon>Runner.cs</DependentUpon>
     </Compile>
+    <Compile Include="APIBySchema.cs" />
     <Compile Include="StoreBySchema.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

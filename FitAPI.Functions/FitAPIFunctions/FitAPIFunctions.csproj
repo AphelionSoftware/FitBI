@@ -18,32 +18,54 @@
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="jsGen\_storeGenerator.tt">
+    <None Update="jsGenStore\_storeGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_storeGenerator.cs</LastGenOutput>
       <LastOutputs>
 .\_storeGenerator.cs
-.\mergeAccess.cs
-.\mergeAPI.cs
-.\mergeCore.cs
-.\mergedb_accessadmin.cs
-.\mergedb_backupoperator.cs
-.\mergedb_datareader.cs
-.\mergedb_datawriter.cs
-.\mergedb_ddladmin.cs
-.\mergedb_denydatareader.cs
-.\mergedb_denydatawriter.cs
-.\mergedb_owner.cs
-.\mergedb_securityadmin.cs
-.\mergedbo.cs
-.\mergeExercise.cs
-.\mergeguest.cs
-.\mergeINFORMATION_SCHEMA.cs
-.\mergeProgram.cs
-.\mergeSecurity.cs
-.\mergeSettings.cs
-.\mergeStats.cs
-.\mergesys.cs
-.\mergeUserSettings.cs
-.\mergeUtility.cs
+.\Core\CoreStore.js
+.\Exercise\ExerciseStore.js
+.\Program\ProgramStore.js
+.\Stats\StatsStore.js
+</LastOutputs>
+    </None>
+    <None Update="jsGen\api\_mergePaths.tt">
+      <LastOutputs>
+.\_mergePaths.cs
+.\mergeExercise.js
+.\mergeProgram.js
+.\mergeStats.js
+</LastOutputs>
+      <LastGenOutput>_mergePaths.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="jsGen\api\_apiGenerator.tt">
+      <LastOutputs>
+.\_apiGenerator.cs
+.\coreSetup.js
+.\initSetup.js
+</LastOutputs>
+      <LastGenOutput>_apiGenerator.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="jsGen\store\_actionGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_actionGenerator.cs</LastGenOutput>
+      <LastOutputs>
+.\_actionGenerator.cs
+.\Core\CoreActions.js
+.\Exercise\ExerciseActions.js
+.\Program\ProgramActions.js
+.\Stats\StatsActions.js
+</LastOutputs>
+    </None>
+    <None Update="jsGen\store\_storeGenerator.tt">
+      <LastOutputs>
+.\_storeGenerator.cs
+.\Core\CoreStore.js
+.\Exercise\ExerciseStore.js
+.\Program\ProgramStore.js
+.\Stats\StatsStore.js
 </LastOutputs>
       <LastGenOutput>_storeGenerator.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -101,7 +123,22 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="jsGen\_storeGenerator.cs">
+    <Compile Update="jsGen\api\_mergePaths.cs">
+      <DependentUpon>_mergePaths.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="jsGen\api\_apiGenerator.cs">
+      <DependentUpon>_apiGenerator.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="jsGen\store\_actionGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_actionGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="jsGen\store\_storeGenerator.cs">
       <DependentUpon>_storeGenerator.tt</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
