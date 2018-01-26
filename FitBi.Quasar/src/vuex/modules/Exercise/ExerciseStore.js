@@ -91,7 +91,7 @@ const getters = {
 const mutations = {
   updateField,
   GET_EXERCISE (state, payload) {
-    state.ExerciseItem = { ...state.Exercise[payload.exerciseid] }
+    state.ExerciseItem = state.Exercise[payload.exerciseid]
   },
   SET_EXERCISE (state, payload) {
     state.Exercise[payload.ExerciseID] = payload

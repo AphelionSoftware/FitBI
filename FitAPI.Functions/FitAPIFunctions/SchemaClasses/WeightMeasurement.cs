@@ -13,6 +13,7 @@ using System.Collections.Generic;
 			public DateTimeOffset? CreatedAt;
 			public bool? Deleted;
 			public string ID;
+			public DateTime? MeasurementDate;
 			public decimal? MusclePercentage;
 			public int? PercentMeasurementTypeID;
 			public int? PersonID;

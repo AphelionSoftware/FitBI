@@ -9,7 +9,9 @@ namespace FitAPIFunctions
     class InitValues
     {
         public object Exercise;
+        public object Exercise_Sport;
         public object ExerciseType;
+        public object Sport;
         public object Plan;
         public object Workout;
         public object Workout_Exercise;

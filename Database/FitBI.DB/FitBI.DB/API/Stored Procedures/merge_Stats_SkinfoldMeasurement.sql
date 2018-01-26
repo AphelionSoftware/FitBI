@@ -12,6 +12,7 @@ USING @tvp_SkinfoldMeasurement As Src
 	THEN UPDATE SET dest.[BodyPartID] = ISNULL(src.[BodyPartID], dest.[BodyPartID]),
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
 dest.[ID] = ISNULL(src.[ID], dest.[ID]),
+dest.[MeasurementDate] = ISNULL(src.[MeasurementDate], dest.[MeasurementDate]),
 dest.[SideMeasurementTypeID] = ISNULL(src.[SideMeasurementTypeID], dest.[SideMeasurementTypeID]),
 dest.[SkinfoldThickness] = ISNULL(src.[SkinfoldThickness], dest.[SkinfoldThickness])
 
@@ -20,6 +21,7 @@ dest.[SkinfoldThickness] = ISNULL(src.[SkinfoldThickness], dest.[SkinfoldThickne
   BodyPartID,
  Deleted,
  ID,
+ MeasurementDate,
  PersonID,
  SideMeasurementTypeID,
  SkinfoldThickness
@@ -27,6 +29,7 @@ dest.[SkinfoldThickness] = ISNULL(src.[SkinfoldThickness], dest.[SkinfoldThickne
 VALUES(  src.BodyPartID,
  src.Deleted,
  src.ID,
+ src.MeasurementDate,
  src.PersonID,
  src.SideMeasurementTypeID,
  src.SkinfoldThickness

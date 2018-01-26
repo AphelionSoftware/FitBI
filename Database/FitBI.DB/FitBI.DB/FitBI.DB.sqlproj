@@ -145,8 +145,6 @@
     <Build Include="dbo\Stored Procedures\usp_Generate_Merge_For_Table.sql" />
     <Build Include="API\Stored Procedures\merge_UserSettings_ColumnChoice.sql" />
     <Build Include="API\Stored Procedures\merge_Stats_WeightMeasurement.sql" />
-    <Build Include="API\Stored Procedures\merge_Stats_TapeMeasurement.sql" />
-    <Build Include="API\Stored Procedures\merge_Stats_SkinfoldMeasurement.sql" />
     <Build Include="API\Stored Procedures\merge_Stats_Person.sql" />
     <Build Include="API\Stored Procedures\merge_Stats_Metric.sql" />
     <Build Include="API\Stored Procedures\merge_Settings_ColumnChoiceOptions.sql" />
@@ -162,8 +160,6 @@
     <Build Include="Database Triggers\trg_Create_MergeProc.sql" />
     <Build Include="UserSettings\User Defined Types\tvp_ColumnChoice.sql" />
     <Build Include="Stats\User Defined Types\tvp_WeightMeasurement.sql" />
-    <Build Include="Stats\User Defined Types\tvp_TapeMeasurement.sql" />
-    <Build Include="Stats\User Defined Types\tvp_SkinfoldMeasurement.sql" />
     <Build Include="Stats\User Defined Types\tvp_Person.sql" />
     <Build Include="Stats\User Defined Types\tvp_Metric.sql" />
     <Build Include="Settings\User Defined Types\tvp_ColumnChoiceOptions.sql" />
@@ -174,6 +170,10 @@
     <Build Include="Exercise\User Defined Types\tvp_Sport.sql" />
     <Build Include="Exercise\User Defined Types\tvp_ExerciseType.sql" />
     <Build Include="Exercise\User Defined Types\tvp_Exercise_Sport.sql" />
+    <Build Include="API\Stored Procedures\merge_Stats_TapeMeasurement.sql" />
+    <Build Include="API\Stored Procedures\merge_Stats_SkinfoldMeasurement.sql" />
+    <Build Include="Stats\User Defined Types\tvp_TapeMeasurement.sql" />
+    <Build Include="Stats\User Defined Types\tvp_SkinfoldMeasurement.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

@@ -100,6 +100,12 @@ const getters = {
   Get_Dates_Item: function () {
     return state.DatesItem
   },
+  Get_Dates_ByLatest_FullDate: function () {
+    return Vue.$_.chain(state.Dates)
+      .sortBy(function (item) { return item.FullDate })
+      .first()
+      .value()
+  },
   Get_MeasurementType_ByRouteID: function (state, getters, rootState) {
     return state.MeasurementType[+rootState.route.params.measurementtypeid]
   },

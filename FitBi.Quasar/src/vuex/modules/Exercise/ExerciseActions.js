@@ -4,7 +4,7 @@ const actions = {
   saveExercise (context) {
     let item = context.state.ExerciseItem
     item.UpdateAt = (new Date()).toUTCString()
-    // item.NeedsSync = true
+    item.NeedsSync = true
     Vue.$API.mergeExercise.mergeExercise(item)
     context.commit('SET_EXERCISE', item)
     context.commit('GET_EXERCISE', {})

@@ -12,6 +12,7 @@ USING @tvp_TapeMeasurement As Src
 	THEN UPDATE SET dest.[BodyPartID] = ISNULL(src.[BodyPartID], dest.[BodyPartID]),
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
 dest.[ID] = ISNULL(src.[ID], dest.[ID]),
+dest.[MeasurementDate] = ISNULL(src.[MeasurementDate], dest.[MeasurementDate]),
 dest.[SideMeasurementTypeID] = ISNULL(src.[SideMeasurementTypeID], dest.[SideMeasurementTypeID]),
 dest.[TapeLength] = ISNULL(src.[TapeLength], dest.[TapeLength])
 
@@ -20,6 +21,7 @@ dest.[TapeLength] = ISNULL(src.[TapeLength], dest.[TapeLength])
   BodyPartID,
  Deleted,
  ID,
+ MeasurementDate,
  PersonID,
  SideMeasurementTypeID,
  TapeLength
@@ -27,6 +29,7 @@ dest.[TapeLength] = ISNULL(src.[TapeLength], dest.[TapeLength])
 VALUES(  src.BodyPartID,
  src.Deleted,
  src.ID,
+ src.MeasurementDate,
  src.PersonID,
  src.SideMeasurementTypeID,
  src.TapeLength

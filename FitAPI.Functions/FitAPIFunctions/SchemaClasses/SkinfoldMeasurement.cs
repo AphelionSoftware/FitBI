@@ -12,6 +12,7 @@ using System.Collections.Generic;
 			public DateTimeOffset? CreatedAt;
 			public bool? Deleted;
 			public string ID;
+			public DateTime? MeasurementDate;
 			public int? PersonID;
 			public int? SideMeasurementTypeID;
 			public int? SkinfoldMeasurementID;

@@ -73,6 +73,12 @@ const getters = {
   Get_SkinfoldMeasurement_Item: function () {
     return state.SkinfoldMeasurementItem
   },
+  Get_SkinfoldMeasurement_ByLatest_MeasurementDate: function () {
+    return Vue.$_.chain(state.SkinfoldMeasurement)
+      .sortBy(function (item) { return item.MeasurementDate })
+      .first()
+      .value()
+  },
   Get_TapeMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.TapeMeasurement[+rootState.route.params.tapemeasurementid]
   },
@@ -88,6 +94,12 @@ const getters = {
   Get_TapeMeasurement_Item: function () {
     return state.TapeMeasurementItem
   },
+  Get_TapeMeasurement_ByLatest_MeasurementDate: function () {
+    return Vue.$_.chain(state.TapeMeasurement)
+      .sortBy(function (item) { return item.MeasurementDate })
+      .first()
+      .value()
+  },
   Get_WeightMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.WeightMeasurement[+rootState.route.params.weightmeasurementid]
   },
@@ -102,6 +114,12 @@ const getters = {
   },
   Get_WeightMeasurement_Item: function () {
     return state.WeightMeasurementItem
+  },
+  Get_WeightMeasurement_ByLatest_MeasurementDate: function () {
+    return Vue.$_.chain(state.WeightMeasurement)
+      .sortBy(function (item) { return item.MeasurementDate })
+      .first()
+      .value()
   }
 }
 // #endregion

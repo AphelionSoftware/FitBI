@@ -23,8 +23,7 @@ namespace FitAPIFunctions
 	    [FunctionName("mergeTapeMeasurement")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/TapeMeasurement")]HttpRequestMessage req, TraceWriter log)
 		{
-		StreamContent content = (StreamContent)req.Content;
-            var postData = await content.ReadAsStringAsync();
+            var postData = await req.Content.ReadAsStringAsync();
             
             var container = JsonConvert.DeserializeObject<FitAPIFunctions.Schema.TapeMeasurementContainer>(postData);
 
@@ -43,7 +42,7 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_TapeMeasurement = container.TapeMeasurement.AsTableValuedParameter("Stats.tvp_TapeMeasurement"
-						, new List<string>(new string[] { "Active", "BodyPartID", "CreatedAt", "Deleted", "ID", "PersonID", "SideMeasurementTypeID", "TapeLength", "TapeMeasurementID", "UpdatedAt", "Version" })
+						, new List<string>(new string[] { "Active", "BodyPartID", "CreatedAt", "Deleted", "ID", "MeasurementDate", "PersonID", "SideMeasurementTypeID", "TapeLength", "TapeMeasurementID", "UpdatedAt", "Version" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    
@@ -51,7 +50,7 @@ namespace FitAPIFunctions
 			}
             catch (System.Exception ex)
             {
-				JSON = "Error occurred";
+				JSON = "Error occurred: " + ex.Message;
                 log.Error("C# HTTP trigger function encountered an error ", ex);
                 statusCode = HttpStatusCode.InternalServerError;
 
