@@ -105,6 +105,7 @@ Column[] cColDates = (from Column cCol in tTable.Columns where cCol.DataType.Sql
                 {
                     strFile += @"
   Get_" + tTable.Name + @"_ByLatest_" + col.Name + @": function () {
+    if (state." + tTable.Name + @"List.length === 0) return {}
     return _.chain(state." + tTable.Name + @")
       .sortBy(function (item) { return item." + col.Name + @" })
       .first()

@@ -103,6 +103,7 @@ const getters = {
     return state.DatesItem
   },
   Get_Dates_ByLatest_FullDate: function () {
+    if (state.DatesList.length === 0) return {}
     return _.chain(state.Dates)
       .sortBy(function (item) { return item.FullDate })
       .first()

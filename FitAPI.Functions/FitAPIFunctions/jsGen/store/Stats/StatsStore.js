@@ -76,6 +76,7 @@ const getters = {
     return state.SkinfoldMeasurementItem
   },
   Get_SkinfoldMeasurement_ByLatest_MeasurementDate: function () {
+    if (state.SkinfoldMeasurementList.length === 0) return {}
     return _.chain(state.SkinfoldMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()
@@ -97,6 +98,7 @@ const getters = {
     return state.TapeMeasurementItem
   },
   Get_TapeMeasurement_ByLatest_MeasurementDate: function () {
+    if (state.TapeMeasurementList.length === 0) return {}
     return _.chain(state.TapeMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()
@@ -118,6 +120,7 @@ const getters = {
     return state.WeightMeasurementItem
   },
   Get_WeightMeasurement_ByLatest_MeasurementDate: function () {
+    if (state.WeightMeasurementList.length === 0) return {}
     return _.chain(state.WeightMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()

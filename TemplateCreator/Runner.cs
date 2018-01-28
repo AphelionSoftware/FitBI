@@ -27,5 +27,10 @@ namespace TemplateCreator
         {
             APIBySchema.testFile(".\\SQL2017", "FitBI");
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Enum.testFile("Core", "Active");
+        }
     }
 }

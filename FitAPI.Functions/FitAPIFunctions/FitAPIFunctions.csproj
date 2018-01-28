@@ -48,6 +48,14 @@
       <LastGenOutput>_apiGenerator.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
+    <None Update="jsGen\enum\_enumGenerator.tt">
+      <LastOutputs>
+.\_enumGenerator.cs
+.\enumCore.js
+</LastOutputs>
+      <LastGenOutput>_enumGenerator.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="jsGen\store\_actionGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_actionGenerator.cs</LastGenOutput>
@@ -133,10 +141,20 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="jsGen\enum\_enumGenerator.cs">
+      <DependentUpon>_enumGenerator.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="jsGen\store\_actionGenerator.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>_actionGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="jsGen\store\_storeGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_storeGenerator.tt</DependentUpon>
     </Compile>
     <Compile Update="Manager.cs">
       <DesignTime>True</DesignTime>

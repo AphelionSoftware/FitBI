@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {_} from 'vue-underscore'
-
+import venum from '../../../helpers/enum/enumCore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField } from '../../../helpers/vuex-map-fields/index'
@@ -40,12 +40,29 @@ const actions = {
   Set_NewDailyMeasurement ({commit, getters, rootState, rootGetters}, payload) {
     debugger
     var weight = rootGetters['Stats/Get_WeightMeasurement_ByLatest_MeasurementDate']
-    var tape = weight = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
+    var tapeNeck = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
+    .filter(function (item) {
+      debugger
+      var x = venum.BodyPart.NECK
+      var y = x
+      x = y
+      return item.BodyPartID === venum.BodyPart.enumValues[0].name['NECK'].intID
+    })
     .sortBy(function (item) { return item.MeasurementDate })
     .first()
     .value()
+    var tapeBelly = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
+    .filter(function (item) {
+      debugger
+      return item.BodyPartID === venum.BodyPart.enumValues[0].name['BELLYBUTTON_CIRC'].intID
+    })
+    .sortBy(function (item) { return item.MeasurementDate })
+    .first()
+    .value()
+    debugger
     var x = weight
-    x = tape
+    x = tapeNeck
+    x = tapeBelly
     var y = x
     x = y
   }
