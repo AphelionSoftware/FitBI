@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue'
 import Vuex from 'vuex'
+import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
@@ -7,6 +8,7 @@ import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 import actions from './StatsActions'
 
 Vue.use(Vuex)
+Vue.use(_)
 
 const state = {
   Metric: { },
@@ -74,7 +76,7 @@ const getters = {
     return state.SkinfoldMeasurementItem
   },
   Get_SkinfoldMeasurement_ByLatest_MeasurementDate: function () {
-    return Vue.$_.chain(state.SkinfoldMeasurement)
+    return _.chain(state.SkinfoldMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()
       .value()
@@ -95,7 +97,7 @@ const getters = {
     return state.TapeMeasurementItem
   },
   Get_TapeMeasurement_ByLatest_MeasurementDate: function () {
-    return Vue.$_.chain(state.TapeMeasurement)
+    return _.chain(state.TapeMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()
       .value()
@@ -116,7 +118,7 @@ const getters = {
     return state.WeightMeasurementItem
   },
   Get_WeightMeasurement_ByLatest_MeasurementDate: function () {
-    return Vue.$_.chain(state.WeightMeasurement)
+    return _.chain(state.WeightMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()
       .value()

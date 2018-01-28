@@ -12,5 +12,6 @@ export default function (initValues) {
   store.commit('Stats/SET_PERSON_LIST', initValues.Person)
   store.commit('Stats/SET_SKINFOLDMEASUREMENT_LIST', initValues.SkinfoldMeasurement)
   store.commit('Stats/SET_TAPEMEASUREMENT_LIST', initValues.TapeMeasurement)
+  debugger
   store.commit('Stats/SET_WEIGHTMEASUREMENT_LIST', initValues.WeightMeasurement)
 }

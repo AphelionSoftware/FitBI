@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseName>FitBI</TargetDatabaseName>
+    <DeployScriptFileName>FitBI.DB.sql</DeployScriptFileName>
+    <TargetConnectionString>Data Source=xps13\sql2017;Integrated Security=True;Persist Security Info=False;Pooling=False;MultipleActiveResultSets=False;Connect Timeout=60;Encrypt=False;TrustServerCertificate=True</TargetConnectionString>
+    <ProfileVersionNumber>1</ProfileVersionNumber>
+    <BlockOnPossibleDataLoss>True</BlockOnPossibleDataLoss>
+    <DropStatisticsNotInSource>False</DropStatisticsNotInSource>
+    <PopulateFilesOnFileGroups>False</PopulateFilesOnFileGroups>
+    <DropConstraintsNotInSource>False</DropConstraintsNotInSource>
+    <DropExtendedPropertiesNotInSource>False</DropExtendedPropertiesNotInSource>
+    <DropIndexesNotInSource>False</DropIndexesNotInSource>
+    <ExcludeUsers>True</ExcludeUsers>
+    <IgnoreRoleMembership>True</IgnoreRoleMembership>
+    <ExcludeCertificates>True</ExcludeCertificates>
+    <ExcludeColumnEncryptionKeys>True</ExcludeColumnEncryptionKeys>
+    <ExcludeColumnMasterKeys>True</ExcludeColumnMasterKeys>
+    <ExcludeCredentials>True</ExcludeCredentials>
+    <ExcludeCryptographicProviders>True</ExcludeCryptographicProviders>
+    <ExcludeDatabaseScopedCredentials>True</ExcludeDatabaseScopedCredentials>
+    <ExcludeLogins>True</ExcludeLogins>
+    <IgnorePermissions>True</IgnorePermissions>
+    <ExcludeSecurityPolicies>True</ExcludeSecurityPolicies>
+  </PropertyGroup>
+</Project>

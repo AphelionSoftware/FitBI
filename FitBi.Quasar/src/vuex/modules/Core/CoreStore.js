@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue'
 import Vuex from 'vuex'
+import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
@@ -7,6 +8,7 @@ import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 import actions from './CoreActions'
 
 Vue.use(Vuex)
+Vue.use(_)
 
 const state = {
   Active: { },
@@ -101,7 +103,7 @@ const getters = {
     return state.DatesItem
   },
   Get_Dates_ByLatest_FullDate: function () {
-    return Vue.$_.chain(state.Dates)
+    return _.chain(state.Dates)
       .sortBy(function (item) { return item.FullDate })
       .first()
       .value()

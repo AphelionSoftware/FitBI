@@ -6,8 +6,9 @@ import {_} from 'vue-underscore'
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 // import { getField, updateField } from 'vuex-map-fields'
 import actions from './StatsActions'
-// import _ from 'underscore'
+
 Vue.use(Vuex)
+Vue.use(_)
 
 const state = {
   Metric: { },
@@ -75,7 +76,7 @@ const getters = {
     return state.SkinfoldMeasurementItem
   },
   Get_SkinfoldMeasurement_ByLatest_MeasurementDate: function () {
-    return Vue.$_.chain(state.SkinfoldMeasurement)
+    return _.chain(state.SkinfoldMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()
       .value()
@@ -96,7 +97,7 @@ const getters = {
     return state.TapeMeasurementItem
   },
   Get_TapeMeasurement_ByLatest_MeasurementDate: function () {
-    return Vue.$_.chain(state.TapeMeasurement)
+    return _.chain(state.TapeMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()
       .value()
@@ -116,12 +117,13 @@ const getters = {
   Get_WeightMeasurement_Item: function () {
     return state.WeightMeasurementItem
   },
-  Get_WeightMeasurement_ByLatest_MeasurementDate: function (state, getters) {
+  Get_WeightMeasurement_ByLatest_MeasurementDate: function () {
     debugger
     var x = _
     var y = x
     x = y
-    return Vue.$_.chain(state.WeightMeasurement)
+    if (state.WeightMeasurementList.length === 0) return {}
+    return _.chain(state.WeightMeasurement)
       .sortBy(function (item) { return item.MeasurementDate })
       .first()
       .value()
@@ -194,7 +196,6 @@ const mutations = {
     state.WeightMeasurement[payload.WeightMeasurementID] = payload
   },
   SET_WEIGHTMEASUREMENT_LIST: function (state, fullList) {
-    debugger
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.WeightMeasurement, element.WeightMeasurementID, element)

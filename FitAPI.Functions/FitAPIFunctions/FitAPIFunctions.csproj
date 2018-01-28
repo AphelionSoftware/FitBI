@@ -138,11 +138,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>_actionGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Update="jsGen\store\_storeGenerator.cs">
-      <DependentUpon>_storeGenerator.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Update="Manager.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

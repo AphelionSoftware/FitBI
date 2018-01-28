@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {_} from 'vue-underscore'
+
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField } from '../../../helpers/vuex-map-fields/index'
 // import { getField, updateField } from 'vuex-map-fields'
 
 Vue.use(Vuex)
+Vue.use(_)
 
 const state = {
   WeightMeasurement: {},
@@ -36,10 +39,15 @@ const mutations = {
 const actions = {
   Set_NewDailyMeasurement ({commit, getters, rootState, rootGetters}, payload) {
     debugger
-    var x = rootState.getters
-    var y = rootGetters['Stats/Get_WeightMeasurement_ByLatest_MeasurementDate']
+    var weight = rootGetters['Stats/Get_WeightMeasurement_ByLatest_MeasurementDate']
+    var tape = weight = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
+    .sortBy(function (item) { return item.MeasurementDate })
+    .first()
+    .value()
+    var x = weight
+    x = tape
+    var y = x
     x = y
-    y = x
   }
 }
 // #endregion
