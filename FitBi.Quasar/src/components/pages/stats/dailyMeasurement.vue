@@ -2,7 +2,27 @@
    <!-- Navigation -->
    <q-layout>
  <div class="layout-padding">   
-   
+   <q-list inset-separator class="no-border">
+    <q-item>
+        <q-item-main label="Weight">
+        <q-item-tile sublabel>
+        <q-knob color="primary"
+            v-model="Weight"
+        />    
+        </q-item-tile>
+        </q-item-main>
+    </q-item>
+    <q-item>
+        <q-item-main label="Neck">
+        <q-item-tile sublabel>
+          <q-knob color="primary"
+            v-model="TapeLength"
+        />      
+          
+        </q-item-tile>
+        </q-item-main>
+    </q-item>
+    </q-list>
    <q-input v-model="Code" stack-label="Code" />
    <q-input v-model="Name" stack-label="Name" />   
    <q-input v-model.lazy="Description" stack-label="Description" type="textarea"/>
@@ -17,9 +37,8 @@ import { mapFields } from '../../../helpers/vuex-map-fields/index'
 export default {
   computed: {
     ...mapFields([
-      'Exercise.ExerciseItem.Name',
-      'Exercise.ExerciseItem.Code',
-      'Exercise.ExerciseItem.Description'
+      'DailyMeasurement.WeightMeasurement.Weight',
+      'DailyMeasurement.NeckTapeMeasurement.TapeLength'
     ])
   },
   beforeRouteLeave (to, from, next) {

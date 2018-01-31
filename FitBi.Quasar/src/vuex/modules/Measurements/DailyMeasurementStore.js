@@ -41,7 +41,6 @@ const actions = {
     var weight = rootGetters['Stats/Get_WeightMeasurement_ByLatest_MeasurementDate']
     var tapeNeck = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
     .filter(function (item) {
-      debugger
       return item.BodyPartID === BodyPart.NECK.intID
     })
     .sortBy(function (item) { return item.MeasurementDate })
@@ -59,7 +58,6 @@ const actions = {
     commit('SET_WEIGHTMEASUREMENT', weight)
     commit('SET_NECKTAPEMEASUREMENT', tapeNeck)
     commit('SET_WAISTMEASUREMENT', tapeBelly)
-    debugger
   }
 }
 // #endregion
