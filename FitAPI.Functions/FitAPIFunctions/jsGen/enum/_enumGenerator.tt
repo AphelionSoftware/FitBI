@@ -63,7 +63,7 @@ private class ValuesTemplate : Template
   " + tTable.Name + ",";
                 strFile += @"
 class " + tTable.Name + @" extends Enum {}
-" + tTable.Name + @".initEnum([{";
+" + tTable.Name + @".initEnum({";
 			var sqlConnectionString = "Data Source=xps13\\sql2017;Initial Catalog=FitBI;Persist Security Info=True;User ID=svc-fit;Password=F1t@1024";
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
@@ -86,7 +86,7 @@ class " + tTable.Name + @" extends Enum {}
                 strFile = strFile.Substring(0, strFile.Length - 1) + @"
 ";
             }
-		strFile += @"}])";	
+		strFile += @"})";	
 		} // If end
 		
 		
@@ -95,7 +95,7 @@ class " + tTable.Name + @" extends Enum {}
         strExport = strExport.Substring(0, strExport.Length - 1);
 		strFile += @"
 
-export default {" + strExport + @"
+export {" + strExport + @"
 }
 ";
             this.FileName = strFile;

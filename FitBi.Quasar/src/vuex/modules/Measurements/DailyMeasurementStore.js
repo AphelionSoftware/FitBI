@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {_} from 'vue-underscore'
-import venum from '../../../helpers/enum/enumCore'
+import {BodyPart} from '../../../helpers/enum/enumCore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField } from '../../../helpers/vuex-map-fields/index'
@@ -38,33 +38,28 @@ const mutations = {
 // #region
 const actions = {
   Set_NewDailyMeasurement ({commit, getters, rootState, rootGetters}, payload) {
-    debugger
     var weight = rootGetters['Stats/Get_WeightMeasurement_ByLatest_MeasurementDate']
     var tapeNeck = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
     .filter(function (item) {
       debugger
-      var x = venum.BodyPart.NECK
-      var y = x
-      x = y
-      return item.BodyPartID === venum.BodyPart.enumValues[0].name['NECK'].intID
+      return item.BodyPartID === BodyPart.NECK.intID
     })
     .sortBy(function (item) { return item.MeasurementDate })
     .first()
     .value()
+    if (typeof (tapeNeck) === 'undefined') tapeNeck = {}
     var tapeBelly = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
     .filter(function (item) {
-      debugger
-      return item.BodyPartID === venum.BodyPart.enumValues[0].name['BELLYBUTTON_CIRC'].intID
+      return item.BodyPartID === BodyPart.BELLYBUTTON_CIRC.intID
     })
     .sortBy(function (item) { return item.MeasurementDate })
     .first()
     .value()
+    if (typeof (tapeBelly) === 'undefined') tapeBelly = {}
+    commit('SET_WEIGHTMEASUREMENT', weight)
+    commit('SET_NECKTAPEMEASUREMENT', tapeNeck)
+    commit('SET_WAISTMEASUREMENT', tapeBelly)
     debugger
-    var x = weight
-    x = tapeNeck
-    x = tapeBelly
-    var y = x
-    x = y
   }
 }
 // #endregion

@@ -89,7 +89,6 @@ const getters = {
     return state.TapeMeasurementItem
   },
   Get_TapeMeasurement_All: function () {
-    debugger
     return state.TapeMeasurement
   },
   Get_TapeMeasurement_List: function () {

@@ -42,7 +42,6 @@ export function mapFields (fields, getterType = `getField`, mutationType = `upda
         this.$store.commit(mutationType, { path, value })
         /* let storeClosure = this.$store
         var fnCommit = _.debounce(function () {
-          debugger
           storeClosure.commit(mutationType, { path, value })
         }, 300)
         fnCommit()
