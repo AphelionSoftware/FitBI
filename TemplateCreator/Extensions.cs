@@ -5,7 +5,6 @@ using System.Linq;
 using System.Reflection;
 using System;
 
-using FitAPIFunctions.Schema;
 public static class Extensions
 {
     /// <summary>
@@ -37,8 +36,6 @@ public static class Extensions
                 (BindingFlags.Public | BindingFlags.Instance);
             PropertyInfo[] readableProperties = properties.Where
                 (w => w.CanRead).ToArray();
-            if (readableProperties.Length == 0)
-                throw new System.ArgumentException(@"No properties found. Data objects must be defined as properties ({get; set;}) not fields ");
             if (readableProperties.Length > 1 && orderedColumnNames == null)
                 throw new System.ArgumentException(@"Ordered list of column names 
                 must be provided when TVP contains more than one column");

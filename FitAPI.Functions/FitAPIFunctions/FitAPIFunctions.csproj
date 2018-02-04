@@ -87,6 +87,8 @@
       <LastGenOutput>Manager.cs</LastGenOutput>
     </None>
     <None Update="mergeClasses\_mergeClassCreate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_mergeClassCreate.cs</LastGenOutput>
       <LastOutputs>
 .\_mergeClassCreate.cs
 .\mergeExercise.cs
@@ -103,8 +105,6 @@
 .\mergeWorkout_Exercise.cs
 .\mergeWorkoutStage.cs
 </LastOutputs>
-      <LastGenOutput>_mergeClassCreate.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
     </None>
     <None Update="SchemaClasses\_SchemaGen.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -12,7 +12,7 @@
     <!-- <q-btn flat @click="$refs.layout.toggleRight()">
       <q-icon name="fa-square" />
     </q-btn> -->
-     <slot name="toolButtons" :text="defaultSlotText"></slot>
+     <slot name="toolButtons" ></slot>
   </q-toolbar>
     <div slot="left">
     <q-list no-border link inset-separator>

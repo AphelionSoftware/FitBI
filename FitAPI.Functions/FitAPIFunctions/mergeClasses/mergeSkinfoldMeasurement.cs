@@ -42,7 +42,7 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_SkinfoldMeasurement = container.SkinfoldMeasurement.AsTableValuedParameter("Stats.tvp_SkinfoldMeasurement"
-						, new List<string>(new string[] { "Active", "BodyPartID", "CreatedAt", "Deleted", "ID", "MeasurementDate", "PersonID", "SideMeasurementTypeID", "SkinfoldMeasurementID", "SkinfoldThickness", "UpdatedAt", "Version" })
+						, (new string[] { "Active", "BodyPartID", "CreatedAt", "Deleted", "ID", "MeasurementDate", "PersonID", "SideMeasurementTypeID", "SkinfoldMeasurementID", "SkinfoldThickness", "UpdatedAt", "Version" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    

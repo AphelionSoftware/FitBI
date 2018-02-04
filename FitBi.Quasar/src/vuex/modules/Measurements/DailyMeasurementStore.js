@@ -13,7 +13,7 @@ Vue.use(_)
 const state = {
   WeightMeasurement: {},
   NeckTapeMeasurement: {},
-  WaistMeasurement: {}
+  BellyTapeMeasurement: {}
 }
 
 // #region Getters
@@ -26,12 +26,15 @@ const getters = {
 const mutations = {
   SET_WEIGHTMEASUREMENT (state, payload) {
     state.WeightMeasurement = payload
+    state.WeightMeasurement.MeasurementDate = new Date().toUTCString()
   },
   SET_NECKTAPEMEASUREMENT (state, payload) {
     state.NeckTapeMeasurement = payload
+    state.NeckTapeMeasurement.MeasurementDate = new Date().toUTCString()
   },
-  SET_WAISTMEASUREMENT (state, payload) {
-    state.WaistMeasurement = payload
+  SET_BELLYTAPEMEASUREMENT (state, payload) {
+    state.BellyTapeMeasurement = payload
+    state.BellyTapeMeasurement.MeasurementDate = new Date().toUTCString()
   }
 }
 // #endregion
@@ -47,6 +50,7 @@ const actions = {
     .first()
     .value()
     if (typeof (tapeNeck) === 'undefined') tapeNeck = {}
+    tapeNeck.NeckTapeLength = tapeNeck.TapeLength
     var tapeBelly = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
     .filter(function (item) {
       return item.BodyPartID === BodyPart.BELLYBUTTON_CIRC.intID
@@ -55,9 +59,16 @@ const actions = {
     .first()
     .value()
     if (typeof (tapeBelly) === 'undefined') tapeBelly = {}
+    tapeBelly.BellyTapeLength = tapeBelly.TapeLength
     commit('SET_WEIGHTMEASUREMENT', weight)
     commit('SET_NECKTAPEMEASUREMENT', tapeNeck)
-    commit('SET_WAISTMEASUREMENT', tapeBelly)
+    commit('SET_BELLYTAPEMEASUREMENT', tapeBelly)
+  },
+  Save_DailyMeasurement ({commit, dispatch, getters, rootState, rootGetters, state}, payload) {
+  // Save_DailyMeasurement (context, payload) {
+    dispatch('Stats/saveWeightMeasurement', state.WeightMeasurement, {root: true})
+    dispatch('Stats/saveTapeMeasurement', state.BellyTapeMeasurement, {root: true})
+    dispatch('Stats/saveTapeMeasurement', state.NeckTapeMeasurement, {root: true})
   }
 }
 // #endregion

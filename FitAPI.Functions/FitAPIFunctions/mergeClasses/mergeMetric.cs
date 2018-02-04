@@ -42,7 +42,7 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_Metric = container.Metric.AsTableValuedParameter("Stats.tvp_Metric"
-						, new List<string>(new string[] { "Active", "BodyFatPercentage", "BonePercentage", "CreatedAt", "Deleted", "ID", "MetricID", "MusclePercentage", "PercentMeasurementTypeID", "PersonID", "UpdatedAt", "Version", "WaterPercentage", "Weight" })
+						, (new string[] { "Active", "BodyFatPercentage", "BonePercentage", "CreatedAt", "Deleted", "ID", "MetricID", "MusclePercentage", "PercentMeasurementTypeID", "PersonID", "UpdatedAt", "Version", "WaterPercentage", "Weight" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    

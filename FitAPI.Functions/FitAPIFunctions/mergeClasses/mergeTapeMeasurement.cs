@@ -42,7 +42,7 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_TapeMeasurement = container.TapeMeasurement.AsTableValuedParameter("Stats.tvp_TapeMeasurement"
-						, new List<string>(new string[] { "Active", "BodyPartID", "CreatedAt", "Deleted", "ID", "MeasurementDate", "PersonID", "SideMeasurementTypeID", "TapeLength", "TapeMeasurementID", "UpdatedAt", "Version" })
+						, (new string[] { "Active", "BodyPartID", "CreatedAt", "Deleted", "ID", "MeasurementDate", "PersonID", "SideMeasurementTypeID", "TapeLength", "TapeMeasurementID", "UpdatedAt", "Version" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    

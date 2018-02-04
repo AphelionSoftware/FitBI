@@ -50,7 +50,8 @@ private class ValuesTemplate : Template
 {
     public ValuesTemplate(Database db, Schema sSchema, string className)
     {
-     string strFile = @"const actions = {"
+     string strFile = @"import Vue from 'vue'
+const actions = {"
   // Save the current item to the master store
   // Then, set the current store item to empty by getting an empty object
   // Finally, attempt to commit to the API
@@ -59,12 +60,18 @@ private class ValuesTemplate : Template
             foreach (Table tTable in tTables)
             {
                 strFile += @"
-  save" + tTable.Name + @" (context) {
-    let item = context.state." + tTable.Name + @"Item
+  save" + tTable.Name + @" (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state." + tTable.Name + @"Item
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('" + tTable.Name + @"/SET_" + tTable.Name.ToUpper() + @"', item)
-    context.commit('Exercise/GET_" + tTable.Name.ToUpper() + @"', {})
+    context.commit('SET_" + tTable.Name.ToUpper() + @"', item)
+    Vue.$API.merge" + tTable.Schema + @".merge" + tTable.Name + @"(item)
   },";
             }
             strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing space

@@ -42,7 +42,7 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_Exercise_Sport = container.Exercise_Sport.AsTableValuedParameter("Exercise.tvp_Exercise_Sport"
-						, new List<string>(new string[] { "Active", "CreatedAt", "Deleted", "Exercise_SportID", "ExerciseID", "GoalNarrative", "ID", "PersonID", "SportID", "UpdatedAt", "Version" })
+						, (new string[] { "Active", "CreatedAt", "Deleted", "Exercise_SportID", "ExerciseID", "GoalNarrative", "ID", "PersonID", "SportID", "UpdatedAt", "Version" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    

@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TemplateCreator;
+using Dapper;
+using Newtonsoft.Json;
 
 namespace TemplateCreator
 {
@@ -31,6 +33,15 @@ namespace TemplateCreator
         private void button3_Click(object sender, EventArgs e)
         {
             Enum.testFile("Core", "Active");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var container = JsonConvert.DeserializeObject<WeightMeasurementContainer>(txtJson.Text);
+
+            var tvp_WeightMeasurement = container.WeightMeasurement.AsTableValuedParameter( "Stats.tvp_WeightMeasurement"
+                        , (new string[] { "Active", "BodyFatPercentage", "BonePercentage", "CreatedAt", "Deleted", "ID", "MeasurementDate", "MusclePercentage", "PercentMeasurementTypeID", "PersonID", "UnitID", "UpdatedAt", "Version", "WaterPercentage", "Weight", "WeightMeasurementID" })
+                        );
         }
     }
 }

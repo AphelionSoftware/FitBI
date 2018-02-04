@@ -7,22 +7,22 @@ using System.Collections.Generic;
 {
     public class WeightMeasurement
     {
-			public short? Active;
-			public decimal? BodyFatPercentage;
-			public decimal? BonePercentage;
-			public DateTimeOffset? CreatedAt;
-			public bool? Deleted;
-			public string ID;
-			public DateTime? MeasurementDate;
-			public decimal? MusclePercentage;
-			public int? PercentMeasurementTypeID;
-			public int? PersonID;
-			public int? UnitID;
-			public DateTimeOffset? UpdatedAt;
-			public byte[] Version;
-			public decimal? WaterPercentage;
-			public decimal? Weight;
-			public int? WeightMeasurementID;
+			public short? Active  { get; set; }
+			public decimal? BodyFatPercentage  { get; set; }
+			public decimal? BonePercentage  { get; set; }
+			public DateTimeOffset? CreatedAt  { get; set; }
+			public bool? Deleted  { get; set; }
+			public string ID  { get; set; }
+			public DateTime? MeasurementDate3  { get; set; }
+			public decimal? MusclePercentage  { get; set; }
+			public int? PercentMeasurementTypeID  { get; set; }
+			public int? PersonID  { get; set; }
+			public int? UnitID  { get; set; }
+			public DateTimeOffset? UpdatedAt  { get; set; }
+			public byte[] Version  { get; set; }
+			public decimal? WaterPercentage  { get; set; }
+			public decimal? Weight  { get; set; }
+			public int? WeightMeasurementID  { get; set; }
 	}
 
 	public class WeightMeasurementContainer

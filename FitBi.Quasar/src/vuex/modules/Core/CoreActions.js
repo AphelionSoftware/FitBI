@@ -1,66 +1,121 @@
-﻿const actions = {
-  saveActive (context) {
-    let item = context.state.ActiveItem
+﻿import Vue from 'vue'
+const actions = {
+  saveActive (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.ActiveItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Active/SET_ACTIVE', item)
-    context.commit('Exercise/GET_ACTIVE', {})
+    context.commit('SET_ACTIVE', item)
+    Vue.$API.mergeCore.mergeActive(item)
   },
-  saveBodyPart (context) {
-    let item = context.state.BodyPartItem
+  saveBodyPart (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.BodyPartItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('BodyPart/SET_BODYPART', item)
-    context.commit('Exercise/GET_BODYPART', {})
+    context.commit('SET_BODYPART', item)
+    Vue.$API.mergeCore.mergeBodyPart(item)
   },
-  saveBodyPartType (context) {
-    let item = context.state.BodyPartTypeItem
+  saveBodyPartType (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.BodyPartTypeItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('BodyPartType/SET_BODYPARTTYPE', item)
-    context.commit('Exercise/GET_BODYPARTTYPE', {})
+    context.commit('SET_BODYPARTTYPE', item)
+    Vue.$API.mergeCore.mergeBodyPartType(item)
   },
-  saveDates (context) {
-    let item = context.state.DatesItem
+  saveDates (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.DatesItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Dates/SET_DATES', item)
-    context.commit('Exercise/GET_DATES', {})
+    context.commit('SET_DATES', item)
+    Vue.$API.mergeCore.mergeDates(item)
   },
-  saveMeasurementType (context) {
-    let item = context.state.MeasurementTypeItem
+  saveMeasurementType (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MeasurementTypeItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('MeasurementType/SET_MEASUREMENTTYPE', item)
-    context.commit('Exercise/GET_MEASUREMENTTYPE', {})
+    context.commit('SET_MEASUREMENTTYPE', item)
+    Vue.$API.mergeCore.mergeMeasurementType(item)
   },
-  saveMeasurementTypeCategory (context) {
-    let item = context.state.MeasurementTypeCategoryItem
+  saveMeasurementTypeCategory (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MeasurementTypeCategoryItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('MeasurementTypeCategory/SET_MEASUREMENTTYPECATEGORY', item)
-    context.commit('Exercise/GET_MEASUREMENTTYPECATEGORY', {})
+    context.commit('SET_MEASUREMENTTYPECATEGORY', item)
+    Vue.$API.mergeCore.mergeMeasurementTypeCategory(item)
   },
-  saveTime (context) {
-    let item = context.state.TimeItem
+  saveTime (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.TimeItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Time/SET_TIME', item)
-    context.commit('Exercise/GET_TIME', {})
+    context.commit('SET_TIME', item)
+    Vue.$API.mergeCore.mergeTime(item)
   },
-  saveUnit (context) {
-    let item = context.state.UnitItem
+  saveUnit (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.UnitItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Unit/SET_UNIT', item)
-    context.commit('Exercise/GET_UNIT', {})
+    context.commit('SET_UNIT', item)
+    Vue.$API.mergeCore.mergeUnit(item)
   },
-  saveUnitType (context) {
-    let item = context.state.UnitTypeItem
+  saveUnitType (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.UnitTypeItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('UnitType/SET_UNITTYPE', item)
-    context.commit('Exercise/GET_UNITTYPE', {})
+    context.commit('SET_UNITTYPE', item)
+    Vue.$API.mergeCore.mergeUnitType(item)
   }
 }
 
