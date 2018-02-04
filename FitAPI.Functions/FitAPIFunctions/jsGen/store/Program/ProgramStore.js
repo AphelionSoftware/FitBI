@@ -93,7 +93,7 @@ const getters = {
 const mutations = {
   updateField,
   GET_PLAN (state, payload) {
-    state.PlanItem = state.Plan[payload.planid]
+    state.PlanItem = state.Plan[payload.PlanID]
   },
   SET_PLAN (state, payload) {
     state.Plan[payload.PlanID] = payload
@@ -107,7 +107,7 @@ const mutations = {
     }
   },
   GET_WORKOUT (state, payload) {
-    state.WorkoutItem = state.Workout[payload.workoutid]
+    state.WorkoutItem = state.Workout[payload.WorkoutID]
   },
   SET_WORKOUT (state, payload) {
     state.Workout[payload.WorkoutID] = payload
@@ -121,7 +121,7 @@ const mutations = {
     }
   },
   GET_WORKOUT_EXERCISE (state, payload) {
-    state.Workout_ExerciseItem = state.Workout_Exercise[payload.workout_exerciseid]
+    state.Workout_ExerciseItem = state.Workout_Exercise[payload.Workout_ExerciseID]
   },
   SET_WORKOUT_EXERCISE (state, payload) {
     state.Workout_Exercise[payload.Workout_ExerciseID] = payload
@@ -135,7 +135,7 @@ const mutations = {
     }
   },
   GET_WORKOUTSTAGE (state, payload) {
-    state.WorkoutStageItem = state.WorkoutStage[payload.workoutstageid]
+    state.WorkoutStageItem = state.WorkoutStage[payload.WorkoutStageID]
   },
   SET_WORKOUTSTAGE (state, payload) {
     state.WorkoutStage[payload.WorkoutStageID] = payload

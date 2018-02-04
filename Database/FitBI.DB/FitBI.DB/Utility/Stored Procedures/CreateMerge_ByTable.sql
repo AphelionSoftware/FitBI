@@ -27,7 +27,16 @@ AND COLUMN_NAME = 'Active'
 
 SET @MergeStmnt = 'MERGE INTO [' + @Table_Schema + '].[' + @Table_Name + '] AS dest
 USING @tvp_' + @Table_Name + ' As Src
-	ON ' + @JoinClause + '
+	ON ' + @JoinClause 
+	IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS C
+	WHERE C.TABLE_SCHEMA = @Table_Schema
+	AND C.TABLE_NAME = @Table_Name
+	AND C.COLUMN_NAME = 'MeasurementDate'
+	)
+		SET @MergeStmnt = @MergeStmnt  + '
+		AND CAST(Src.MeasurementDate as DATE) <> CAST(Dest.MeasurementDate as DATE)'
+
+SET @MergeStmnt = @MergeStmnt  + '
 	WHEN MATCHED 
 	AND 
 		(ISNULL(CONVERT(timestamp,Src.Version), dest.Version) = dest.Version 
@@ -51,6 +60,7 @@ where   TABLE_SCHEMA = @table_schema
 AND TABLE_NAME = @TABLE_NAME
 and COLUMN_NAME NOT IN (
 'Active'
+,'ID'
 ,'CreatedAt'
 ,'Version'
 , 'PersonID' --Can't update the person
@@ -81,6 +91,7 @@ where   TABLE_SCHEMA   = @table_schema
 AND TABLE_NAME = @TABLE_NAME
 and COLUMN_NAME NOT IN (
  'Active'
+,'Deleted'
 ,'CreatedAt'
 ,'Version'
 , 'UpdatedAt' --Handled by trigger
@@ -97,7 +108,7 @@ VALUES( '
 	SET @line= ''
 select @line = @line +  
 --CASE WHEN COLUMN_NAME = 'ID' THEN ' ISNULL(src.' + COLUMN_NAME + ', newid())' ELSE
-' src.' + column_name
+IIF( column_name = 'ID' , ' ISNULL(src.ID, newid())', ' src.' + column_name)
 
 --END
    + case when ROW_NUMBER() over(order by table_schema desc, table_name desc,column_name desc) = 1 THEN '
@@ -114,6 +125,7 @@ where   TABLE_SCHEMA   = @table_schema
 AND TABLE_NAME = @TABLE_NAME
 and COLUMN_NAME NOT IN (
  'Active'
+,'Deleted'
 ,'CreatedAt'
 ,'Version'
 , 'UpdatedAt' --Handled by trigger

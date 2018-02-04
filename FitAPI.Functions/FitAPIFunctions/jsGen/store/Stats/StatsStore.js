@@ -132,7 +132,7 @@ const getters = {
 const mutations = {
   updateField,
   GET_METRIC (state, payload) {
-    state.MetricItem = state.Metric[payload.metricid]
+    state.MetricItem = state.Metric[payload.MetricID]
   },
   SET_METRIC (state, payload) {
     state.Metric[payload.MetricID] = payload
@@ -146,7 +146,7 @@ const mutations = {
     }
   },
   GET_PERSON (state, payload) {
-    state.PersonItem = state.Person[payload.personid]
+    state.PersonItem = state.Person[payload.PersonID]
   },
   SET_PERSON (state, payload) {
     state.Person[payload.PersonID] = payload
@@ -160,7 +160,7 @@ const mutations = {
     }
   },
   GET_SKINFOLDMEASUREMENT (state, payload) {
-    state.SkinfoldMeasurementItem = state.SkinfoldMeasurement[payload.skinfoldmeasurementid]
+    state.SkinfoldMeasurementItem = state.SkinfoldMeasurement[payload.SkinfoldMeasurementID]
   },
   SET_SKINFOLDMEASUREMENT (state, payload) {
     state.SkinfoldMeasurement[payload.SkinfoldMeasurementID] = payload
@@ -174,7 +174,7 @@ const mutations = {
     }
   },
   GET_TAPEMEASUREMENT (state, payload) {
-    state.TapeMeasurementItem = state.TapeMeasurement[payload.tapemeasurementid]
+    state.TapeMeasurementItem = state.TapeMeasurement[payload.TapeMeasurementID]
   },
   SET_TAPEMEASUREMENT (state, payload) {
     state.TapeMeasurement[payload.TapeMeasurementID] = payload
@@ -188,7 +188,7 @@ const mutations = {
     }
   },
   GET_WEIGHTMEASUREMENT (state, payload) {
-    state.WeightMeasurementItem = state.WeightMeasurement[payload.weightmeasurementid]
+    state.WeightMeasurementItem = state.WeightMeasurement[payload.WeightMeasurementID]
   },
   SET_WEIGHTMEASUREMENT (state, payload) {
     state.WeightMeasurement[payload.WeightMeasurementID] = payload

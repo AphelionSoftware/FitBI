@@ -176,6 +176,7 @@
     <Build Include="Stats\User Defined Types\tvp_SkinfoldMeasurement.sql" />
     <Build Include="Utility\Stored Procedures\RecreateTVP_and_Merge.sql" />
     <Build Include="Database Triggers\trg_Alter_MergeProc.sql" />
+    <Build Include="Utility\Stored Procedures\RecreateTVP_and_MergeAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

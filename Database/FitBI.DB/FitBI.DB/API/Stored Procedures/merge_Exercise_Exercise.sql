@@ -13,14 +13,12 @@ USING @tvp_Exercise As Src
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
 dest.[Description] = ISNULL(src.[Description], dest.[Description]),
 dest.[ExerciseTypeID] = ISNULL(src.[ExerciseTypeID], dest.[ExerciseTypeID]),
-dest.[ID] = ISNULL(src.[ID], dest.[ID]),
 dest.[Name] = ISNULL(src.[Name], dest.[Name]),
 dest.[ParentExerciseID] = ISNULL(src.[ParentExerciseID], dest.[ParentExerciseID])
 
  WHEN NOT MATCHED THEN
  INSERT (
   Code,
- Deleted,
  Description,
  ExerciseTypeID,
  ID,
@@ -29,10 +27,9 @@ dest.[ParentExerciseID] = ISNULL(src.[ParentExerciseID], dest.[ParentExerciseID]
  PersonID
 )
 VALUES(  src.Code,
- src.Deleted,
  src.Description,
  src.ExerciseTypeID,
- src.ID,
+ ISNULL(src.ID, newid()),
  src.Name,
  src.ParentExerciseID,
  src.PersonID

@@ -126,7 +126,7 @@ const mutations = {
             {
                 strFile += @",
   GET_" + tTable.Name.ToUpper() + @" (state, payload) {
-    state." + tTable.Name + @"Item = state." + tTable.Name + @"[payload." + tTable.Name.ToLower() + @"id]
+    state." + tTable.Name + @"Item = state." + tTable.Name + @"[payload." + tTable.Name + @"ID]
   },
   SET_" + tTable.Name.ToUpper() + @" (state, payload) {
     state." + tTable.Name + @"[payload." + tTable.Name + @"ID] = payload

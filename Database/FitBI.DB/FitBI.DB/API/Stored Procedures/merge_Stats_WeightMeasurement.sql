@@ -1,9 +1,10 @@
-﻿CREATE PROC [API].merge_stats_WeightMeasurement
-	@tvp_WeightMeasurement [stats].[tvp_WeightMeasurement] READONLY
+﻿CREATE PROC [API].merge_Stats_WeightMeasurement
+	@tvp_WeightMeasurement [Stats].[tvp_WeightMeasurement] READONLY
 AS
-MERGE INTO [stats].[WeightMeasurement] AS dest
+MERGE INTO [Stats].[WeightMeasurement] AS dest
 USING @tvp_WeightMeasurement As Src
 	ON dest.[WeightMeasurementID] = src.[WeightMeasurementID]
+		AND CAST(Src.MeasurementDate as DATE) <> CAST(Dest.MeasurementDate as DATE)
 	WHEN MATCHED 
 	AND 
 		(ISNULL(CONVERT(timestamp,Src.Version), dest.Version) = dest.Version 
@@ -12,7 +13,6 @@ USING @tvp_WeightMeasurement As Src
 	THEN UPDATE SET dest.[BodyFatPercentage] = ISNULL(src.[BodyFatPercentage], dest.[BodyFatPercentage]),
 dest.[BonePercentage] = ISNULL(src.[BonePercentage], dest.[BonePercentage]),
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
-dest.[ID] = ISNULL(src.[ID], dest.[ID]),
 dest.[MeasurementDate] = ISNULL(src.[MeasurementDate], dest.[MeasurementDate]),
 dest.[MusclePercentage] = ISNULL(src.[MusclePercentage], dest.[MusclePercentage]),
 dest.[PercentMeasurementTypeID] = ISNULL(src.[PercentMeasurementTypeID], dest.[PercentMeasurementTypeID]),
@@ -24,7 +24,6 @@ dest.[Weight] = ISNULL(src.[Weight], dest.[Weight])
  INSERT (
   BodyFatPercentage,
  BonePercentage,
- Deleted,
  ID,
  MeasurementDate,
  MusclePercentage,
@@ -36,8 +35,7 @@ dest.[Weight] = ISNULL(src.[Weight], dest.[Weight])
 )
 VALUES(  src.BodyFatPercentage,
  src.BonePercentage,
- src.Deleted,
- src.ID,
+ ISNULL(src.ID, newid()),
  src.MeasurementDate,
  src.MusclePercentage,
  src.PercentMeasurementTypeID,
