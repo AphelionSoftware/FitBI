@@ -1,4 +1,5 @@
 ﻿
+
 CREATE PROC [Utility].[CreateMerge_ByTable] 
 	@Table_Schema varchar(max),
 	@Table_Name varchar(max)
@@ -40,8 +41,8 @@ select @line = @line +  'dest.[' + column_name + '] = ISNULL(src.[' + column_nam
    + case when ROW_NUMBER() over(order by table_schema desc, table_name desc,column_name desc) = 1 THEN '
 ' ELSE ',
 ' END
-from INFORMATION_SCHEMA.COLUMNS c
-inner join sys.columns  sc
+from INFORMATION_SCHEMA.COLUMNS c (nolock)
+inner join sys.columns  sc (nolock)
 on c.TABLE_NAME  = OBJECT_NAME(object_id)
 and c.TABLE_SCHEMA = OBJECT_SCHEMA_NAME(object_id)
 and c.COLUMN_NAME = sc.name

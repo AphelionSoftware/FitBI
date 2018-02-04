@@ -53,7 +53,6 @@ function mergeTapeMeasurement (payload) {
       })
 }
 function mergeWeightMeasurement (payload) {
-  debugger
   let postData = {}
   if (payload.WeightMeasurement) {
     postData = payload

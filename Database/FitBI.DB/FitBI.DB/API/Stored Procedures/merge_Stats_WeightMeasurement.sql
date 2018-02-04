@@ -1,7 +1,7 @@
-﻿CREATE PROC [API].merge_Stats_WeightMeasurement
-	@tvp_WeightMeasurement [Stats].[tvp_WeightMeasurement] READONLY
+﻿CREATE PROC [API].merge_stats_WeightMeasurement
+	@tvp_WeightMeasurement [stats].[tvp_WeightMeasurement] READONLY
 AS
-MERGE INTO [Stats].[WeightMeasurement] AS dest
+MERGE INTO [stats].[WeightMeasurement] AS dest
 USING @tvp_WeightMeasurement As Src
 	ON dest.[WeightMeasurementID] = src.[WeightMeasurementID]
 	WHEN MATCHED 
@@ -13,6 +13,7 @@ USING @tvp_WeightMeasurement As Src
 dest.[BonePercentage] = ISNULL(src.[BonePercentage], dest.[BonePercentage]),
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
 dest.[ID] = ISNULL(src.[ID], dest.[ID]),
+dest.[MeasurementDate] = ISNULL(src.[MeasurementDate], dest.[MeasurementDate]),
 dest.[MusclePercentage] = ISNULL(src.[MusclePercentage], dest.[MusclePercentage]),
 dest.[PercentMeasurementTypeID] = ISNULL(src.[PercentMeasurementTypeID], dest.[PercentMeasurementTypeID]),
 dest.[UnitID] = ISNULL(src.[UnitID], dest.[UnitID]),
@@ -25,6 +26,7 @@ dest.[Weight] = ISNULL(src.[Weight], dest.[Weight])
  BonePercentage,
  Deleted,
  ID,
+ MeasurementDate,
  MusclePercentage,
  PercentMeasurementTypeID,
  PersonID,
@@ -36,6 +38,7 @@ VALUES(  src.BodyFatPercentage,
  src.BonePercentage,
  src.Deleted,
  src.ID,
+ src.MeasurementDate,
  src.MusclePercentage,
  src.PercentMeasurementTypeID,
  src.PersonID,

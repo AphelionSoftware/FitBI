@@ -6,7 +6,7 @@
     [Description]  VARCHAR (MAX)      NULL,
     [ParentUnitID] INT                NULL,
     [Active]       SMALLINT           CONSTRAINT [DF_Unit_Active] DEFAULT ((1)) NOT NULL,
-    [ID]           VARCHAR (38)       NOT NULL,
+    [ID]           VARCHAR (38)       CONSTRAINT [DF_Unit_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]    DATETIMEOFFSET (7) CONSTRAINT [DF_Unit_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
     [UpdatedAt]    DATETIMEOFFSET (7) NULL,
     [Deleted]      BIT                CONSTRAINT [DF_Unit_Deleted] DEFAULT ((0)) NOT NULL,
@@ -17,6 +17,8 @@
     CONSTRAINT [FK_Unit_Unit1] FOREIGN KEY ([ParentUnitID]) REFERENCES [Core].[Unit] ([UnitID]),
     CONSTRAINT [FK_Unit_UnitType] FOREIGN KEY ([UnitTypeID]) REFERENCES [Core].[UnitType] ([UnitTypeID])
 );
+
+
 
 
 
