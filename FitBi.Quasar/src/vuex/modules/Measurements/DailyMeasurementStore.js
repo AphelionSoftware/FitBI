@@ -18,7 +18,28 @@ const state = {
 
 // #region Getters
 const getters = {
-  getField
+  getField,
+  getLatestNeckTapeMeasurement: function (state, getters, rootState, rootGetters) {
+    return _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
+    .filter(function (item) {
+      return item.BodyPartID === BodyPart.NECK.intID
+    })
+    .sortBy(function (item) { return item.MeasurementDate })
+    .last()
+    .value()
+  },
+  getLatestBellyTapeMeasurement: function (state, getters, rootState, rootGetters) {
+    return _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
+    .filter(function (item) {
+      return item.BodyPartID === BodyPart.BELLYBUTTON_CIRC.intID
+    })
+    .sortBy(function (item) { return item.MeasurementDate })
+    .last()
+    .value()
+  },
+  getLatestWeightMeasurement: function (state, getters, rootState, rootGetters) {
+    return rootGetters['Stats/Get_WeightMeasurement_ByLatest_MeasurementDate']
+  }
 }
 // #endregion
 
@@ -45,14 +66,8 @@ const actions = {
     if (typeof (person.PersonID) === 'undefined') {
       Vue.$API.Initialize()
     }
-    var weight = rootGetters['Stats/Get_WeightMeasurement_ByLatest_MeasurementDate']
-    var tapeNeck = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
-    .filter(function (item) {
-      return item.BodyPartID === BodyPart.NECK.intID
-    })
-    .sortBy(function (item) { return item.MeasurementDate })
-    .last()
-    .value()
+    var weight = getters['getLatestWeightMeasurement']
+    var tapeNeck = getters['getLatestNeckTapeMeasurement']
     if (typeof (tapeNeck) === 'undefined') {
       tapeNeck = {
         BodyPartID: BodyPart.NECK.intID,
@@ -61,13 +76,7 @@ const actions = {
       }
     }
     tapeNeck.NeckTapeLength = tapeNeck.TapeLength
-    var tapeBelly = _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
-    .filter(function (item) {
-      return item.BodyPartID === BodyPart.BELLYBUTTON_CIRC.intID
-    })
-    .sortBy(function (item) { return item.MeasurementDate })
-    .last()
-    .value()
+    var tapeBelly = getters['getLatestBellyTapeMeasurement']
     if (typeof (tapeBelly) === 'undefined') {
       tapeBelly = {
         BodyPartID: BodyPart.BELLYBUTTON_CIRC.intID,

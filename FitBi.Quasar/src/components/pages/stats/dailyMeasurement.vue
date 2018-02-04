@@ -40,6 +40,7 @@
 // import { required } from 'vuelidate/lib/validators'
 import { mapFields } from '../../../helpers/vuex-map-fields/index'
 // import Vue from 'vue'
+import { ActionSheet } from 'quasar'
 export default {
   computed: {
     ...mapFields([
@@ -62,14 +63,75 @@ export default {
     //   next()
     // }
     // else {
-    const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
-    if (answer) {
-      this.$store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+    if (this.$_.isEqual(
+      this.$store.getters['DailyMeasurement/getLatestNeckTapeMeasurement'],
+      this.$store.state.DailyMeasurement.NeckTapeMeasurement
+    ) && this.$_.isEqual(
+      this.$store.getters['DailyMeasurement/getLatestBellyTapeMeasurement'],
+      this.$store.state.DailyMeasurement.BellyTapeMeasurement
+    ) && this.$_.isEqual(
+      this.$store.getters['DailyMeasurement/getLatestWeightMeasurement'],
+      this.$store.state.DailyMeasurement.WeightMeasurement
+    )) {
       next()
     }
     else {
-      // next(false)
-      next()
+      /* const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+      if (answer) {
+        this.$store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+        next()
+      }
+      else {
+        // next(false)
+        next(false)
+      } */
+      let store = this.$store
+      ActionSheet.create({
+        title: 'Save action',
+        gallery: true,
+        actions: [
+          {
+            label: 'Save and exit',
+            // Choose one of the following two:
+            icon: 'fa-save', // specify ONLY IF using icon
+            handler: function () {
+              store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+              next()
+            }
+          },
+          {
+            label: 'Save but stay',
+            icon: 'fa-bookmark',
+            handler: function () {
+              store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+            }
+          },
+          {
+            label: 'Cancel',
+            icon: 'fa-ban',
+            handler: function () {
+              next(false)
+            }
+          },
+          {
+            label: 'Exit without saving',
+            icon: 'fa-times-circle',
+            handler: function () {
+              next()
+            }
+          }
+        ],
+        // optional:
+        dismiss: {
+          // tell what to do when Action Sheet
+          // is dismised (doesn't trigger when
+          // any of the actions above are clicked/tapped)
+          handler: function () {
+            // console.log('Cancelled...')
+            next(false)
+          }
+        }
+      })
     }
     // }
   }
