@@ -28,7 +28,7 @@ select @line = @line +  ' ' + COLUMN_NAME + ' ' + DATA_TYPE
 + case when DATA_TYPE in ('varchar', 'char','text','nvarchar', 'nchar','ntext') THEN '(' + ISNULL(NULLIF(cast(c.CHARACTER_MAXIMUM_LENGTH  as varchar(10)),'-1'), 'max')+ ')'
 when DATA_TYPE in ('decimal', 'numeric') THEN '(' + cast(c.NUMERIC_PRECISION  as varchar(10)) + ',' + cast(c.NUMERIC_SCALE  as varchar(10)) + ')'
 else '' END
-   + case when ROW_NUMBER() over(order by table_schema desc, table_name desc, column_name desc) = 1 THEN '
+   + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc, COLUMN_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS c
@@ -40,7 +40,7 @@ and COLUMN_NAME NOT IN (
 ,'Deleted'
 ,'Version'
 )
-ORDER BY TABLE_SCHEMA, TABLE_Name, column_name asc
+ORDER BY TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME asc
 
 
 

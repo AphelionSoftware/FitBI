@@ -47,8 +47,8 @@ SELECT
 --  },
 --' Mutation
 --,
- '  Get_' + table_name + ': function () {
-    return state.' + table_name + '
+ '  Get_' + TABLE_NAME + ': function () {
+    return state.' + TABLE_NAME + '
   },' Getters
 --,
 --'  store.dispatch(''core/Set_' + table_name + ''', coreValues.' + table_name + ')'
@@ -56,4 +56,4 @@ SELECT
  from INFORMATION_SCHEMA.COLUMNS
 where   TABLE_SCHEMA   like '%exercise%'
 and COLUMN_NAME= 'Active'
-ORDER BY TABLE_SCHEMA, TABLE_Name
+ORDER BY TABLE_SCHEMA, TABLE_NAME

@@ -21,7 +21,7 @@ select @page = 'CREATE TYPE [' + @Table_schema +'].[tvp_' + @table_name + '] AS 
 from INFORMATION_SCHEMA.TABLES
 where   TABLE_SCHEMA   = @table_schema
 and TABLE_NAME = @Table_name
-ORDER BY TABLE_SCHEMA, TABLE_Name
+ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 SET @line= ''
 select @line = @line +  ' ' + COLUMN_NAME + ' ' +
@@ -34,7 +34,7 @@ when DATA_TYPE in ('decimal', 'numeric') THEN '(' + cast(c.NUMERIC_PRECISION  as
 else '' END
 
 END
-   + case when ROW_NUMBER() over(order by table_schema desc, table_name desc, column_name desc) = 1 THEN '
+   + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc, COLUMN_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS c
@@ -44,7 +44,7 @@ and COLUMN_NAME NOT IN (
  
 ''
 )
-ORDER BY TABLE_SCHEMA, TABLE_Name, column_name asc
+ORDER BY TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME asc
 
 
 
