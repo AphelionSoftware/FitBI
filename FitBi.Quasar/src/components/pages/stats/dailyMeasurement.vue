@@ -8,6 +8,8 @@
         <q-item-tile sublabel>
         <q-knob color="primary"
             v-model="Weight"
+            :min="minWeight"
+            :max="maxWeight"
         />    
         </q-item-tile>
         </q-item-main>
@@ -17,6 +19,8 @@
         <q-item-tile sublabel>
           <q-knob color="primary"
             v-model="NeckTapeLength"
+            :min="minNeck"
+            :max="maxNeck"
         />                
         </q-item-tile>
         </q-item-main>
@@ -26,6 +30,8 @@
         <q-item-tile sublabel>
           <q-knob color="primary"
             v-model="BellyTapeLength"
+            :min="minBelly"
+            :max="maxBelly"
         />                
         </q-item-tile>
         </q-item-main>
@@ -41,19 +47,43 @@
 import { mapFields } from '../../../helpers/vuex-map-fields/index'
 // import Vue from 'vue'
 import { ActionSheet } from 'quasar'
+var minNeck = 0, maxNeck = 0, minBelly = 0, maxBelly = 0, minWeight = 0, maxWeight = 0
 export default {
   computed: {
-    ...mapFields([
-      'DailyMeasurement.WeightMeasurement.Weight',
-      'DailyMeasurement.NeckTapeMeasurement.NeckTapeLength',
-      'DailyMeasurement.BellyTapeMeasurement.BellyTapeLength'
-    ])
+    ...mapFields({
+      Weight: 'DailyMeasurement.WeightMeasurement.Weight',
+      NeckTapeLength: 'DailyMeasurement.NeckTapeMeasurement.TapeLength',
+      BellyTapeLength: 'DailyMeasurement.BellyTapeMeasurement.TapeLength'
+    }),
+    minNeck: function () {
+      if (minNeck === 0) minNeck = this.$store.state.DailyMeasurement.NeckTapeMeasurement.TapeLength - 20
+      return minNeck
+    },
+    maxNeck: function () {
+      if (maxNeck === 0) maxNeck = this.$store.state.DailyMeasurement.NeckTapeMeasurement.TapeLength + 15
+      return maxNeck
+    },
+    minBelly: function () {
+      if (minBelly === 0) minBelly = this.$store.state.DailyMeasurement.BellyTapeMeasurement.TapeLength - 40
+      return
+    },
+    maxBelly: function () {
+      if (maxBelly === 0) maxBelly = this.$store.state.DailyMeasurement.BellyTapeMeasurement.TapeLength + 25
+      return maxBelly
+    },
+    minWeight: function () {
+      if (minWeight === 0) minWeight = this.$store.state.DailyMeasurement.WeightMeasurement.Weight - 40
+      return minWeight
+    },
+    maxWeight: function () {
+      if (maxWeight === 0) maxWeight = this.$store.state.DailyMeasurement.WeightMeasurement.Weight + 25
+      return maxWeight
+    }
   },
   mounted () {
-    // debugger
-    // Vue.$API.Initialize()
   },
-  beforeRouteLeave (to, from, next) {
+  beforeRouteUpdate (to, from, next) {
+    debugger
     // if (typeof (this.$store.state.Exercise.ExerciseItem.ExerciseID) === 'undefined'
     // /* ||
     // this.$_.isEqual(this.$store.state.Exercise.Exercise[this.$store.state.Exercise.ExerciseItem.ExerciseID],
@@ -63,6 +93,7 @@ export default {
     //   next()
     // }
     // else {
+    debugger
     if (this.$_.isEqual(
       this.$store.getters['DailyMeasurement/getLatestNeckTapeMeasurement'],
       this.$store.state.DailyMeasurement.NeckTapeMeasurement

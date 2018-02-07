@@ -4,7 +4,7 @@ import {_} from 'vue-underscore'
 import {BodyPart} from '../../../helpers/enum/enumCore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
-import { getField } from '../../../helpers/vuex-map-fields/index'
+import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 // import { getField, updateField } from 'vuex-map-fields'
 
 Vue.use(Vuex)
@@ -45,6 +45,7 @@ const getters = {
 
 // #region Mutations
 const mutations = {
+  updateField,
   SET_WEIGHTMEASUREMENT (state, payload) {
     state.WeightMeasurement = payload
     state.WeightMeasurement.MeasurementDate = new Date().toUTCString()
@@ -75,7 +76,8 @@ const actions = {
         PersonID: person.PersonID
       }
     }
-    tapeNeck.NeckTapeLength = tapeNeck.TapeLength
+    tapeNeck.min = tapeNeck.min || tapeNeck.TapeLength - 10
+    tapeNeck.max = tapeNeck.max || tapeNeck.TapeLength + 10
     var tapeBelly = getters['getLatestBellyTapeMeasurement']
     if (typeof (tapeBelly) === 'undefined') {
       tapeBelly = {
@@ -84,7 +86,8 @@ const actions = {
         PersonID: person.PersonID
       }
     }
-    tapeBelly.BellyTapeLength = tapeBelly.TapeLength
+    tapeBelly.min = tapeBelly.min || tapeBelly.TapeLength - 10
+    tapeBelly.max = tapeBelly.max || tapeBelly.TapeLength + 10
     commit('SET_WEIGHTMEASUREMENT', weight)
     commit('SET_NECKTAPEMEASUREMENT', tapeNeck)
     commit('SET_BELLYTAPEMEASUREMENT', tapeBelly)
