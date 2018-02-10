@@ -11,22 +11,19 @@ USING @tvp_ExerciseType As Src
 	
 	THEN UPDATE SET dest.[Code] = ISNULL(src.[Code], dest.[Code]),
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
-dest.[ID] = ISNULL(src.[ID], dest.[ID]),
 dest.[Name] = ISNULL(src.[Name], dest.[Name]),
 dest.[ParentExerciseTypeID] = ISNULL(src.[ParentExerciseTypeID], dest.[ParentExerciseTypeID])
 
  WHEN NOT MATCHED THEN
  INSERT (
   Code,
- Deleted,
  ID,
  Name,
  ParentExerciseTypeID,
  PersonID
 )
 VALUES(  src.Code,
- src.Deleted,
- src.ID,
+ ISNULL(src.ID, newid()),
  src.Name,
  src.ParentExerciseTypeID,
  src.PersonID

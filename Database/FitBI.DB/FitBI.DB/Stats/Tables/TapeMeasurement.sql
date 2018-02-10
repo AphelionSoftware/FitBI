@@ -4,17 +4,17 @@
     [TapeLength]            DECIMAL (10, 6)    NULL,
     [SideMeasurementTypeID] INT                NULL,
     [BodyPartID]            INT                NULL,
+    [MeasurementDate]       DATETIME           CONSTRAINT [DF_TapeMeasurement_MeasurementDate] DEFAULT (getdate()) NOT NULL,
     [Active]                SMALLINT           CONSTRAINT [DF_TapeMeasurement_Active] DEFAULT ((1)) NOT NULL,
     [ID]                    VARCHAR (38)       CONSTRAINT [DF_TapeMeasurement_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]             DATETIMEOFFSET (7) CONSTRAINT [DF_TapeMeasurement_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
     [UpdatedAt]             DATETIMEOFFSET (7) NULL,
     [Deleted]               BIT                CONSTRAINT [DF_TapeMeasurement_Deleted] DEFAULT ((0)) NOT NULL,
     [Version]               ROWVERSION         NOT NULL,
-    CONSTRAINT [PK_TapeMeasurement] PRIMARY KEY CLUSTERED ([TapeMeasurementID] ASC),
-    CONSTRAINT [Active] FOREIGN KEY ([Active]) REFERENCES [Core].[Active] ([ActiveID]),
-    CONSTRAINT [FK_TapeMeasurement_BodyPart] FOREIGN KEY ([BodyPartID]) REFERENCES [Core].[BodyPart] ([BodyPartID]),
-    CONSTRAINT [FK_TapeMeasurement_MeasurementType] FOREIGN KEY ([SideMeasurementTypeID]) REFERENCES [Core].[MeasurementType] ([MeasurementTypeID])
+    CONSTRAINT [PK_TapeMeasurement] PRIMARY KEY CLUSTERED ([TapeMeasurementID] ASC)
 );
+
+
 
 
 

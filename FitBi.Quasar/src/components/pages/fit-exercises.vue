@@ -5,7 +5,7 @@
    <q-list>
        <q-list-header>Exercises</q-list-header>
         <q-item v-for="(Exercise, index) in exercises" :key=index>
-            <q-icon class='cursor-pointer' name="edit" @click="$router.push('/kb/exercise.edit/3')"/>
+            <q-icon class='cursor-pointer' name="edit" @click="$router.push('/kb/exercise.edit/'+ Exercise.ExerciseID)"/>
             <q-item-main :label=Exercise.Name>
                 <q-item-tile sublabel>
                 </q-item-tile>

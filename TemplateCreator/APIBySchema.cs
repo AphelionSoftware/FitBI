@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data.Common;
 using System.Data.Sql;
 using Microsoft.SqlServer.Management.Smo;
-
+using System.Data.SqlClient;
 
 namespace TemplateCreator
 {
@@ -56,5 +56,29 @@ export default function (" + className.ToLower() + @"Values) {";
         }
         public string FileName { get; set; }
 
+    }
+
+    public static class Enum
+    {
+        public static void testFile(string TableSchema, string TableName)
+        {
+            var sqlConnectionString = "Data Source=xps13\\sql2017;Initial Catalog=FitBI;Persist Security Info=True;User ID=svc-fit;Password=F1t@1024";
+            string strFile = "";
+            using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+            {
+                conn.Open();
+                SqlCommand comm = new SqlCommand(string.Format("SELECT Code, Name, {1}Id As intID FROM [{0}].[{1}]", TableSchema, TableName), conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    string sCode = dr.GetString(0);
+                    string sName = dr.GetString(1);
+                    string sID = dr.GetInt16(2).ToString();
+                    strFile += @"
+{" + string.Format(@"Code: '{0}', Name: '{1}', intID: {2}", sCode, sName, sID) + @"},";
+                }
+                strFile = strFile.Substring(0, strFile.Length - 1);
+            }
+        }
     }
 }

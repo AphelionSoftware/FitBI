@@ -30,7 +30,7 @@ BEGIN
 	SELECT Tbl.* FROM [Program].[Workout] Tbl   INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID   WHERE U.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [Program].[Workout] Tbl WHERE PersonID IS NULL   
 	SELECT Tbl.* FROM [Program].[Workout_Exercise] Tbl   INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID   WHERE U.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [Program].[Workout_Exercise] Tbl WHERE PersonID IS NULL   
 	SELECT Tbl.* FROM [Program].[WorkoutStage] Tbl   INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID   WHERE U.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [Program].[WorkoutStage] Tbl WHERE PersonID IS NULL   
-	SELECT Tbl.* FROM [Security].[User] Tbl   INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID   WHERE U.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [Security].[User] Tbl WHERE PersonID IS NULL   
+	/*SELECT Tbl.* FROM [Security].[User] Tbl   INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID   WHERE U.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [Security].[User] Tbl WHERE PersonID IS NULL   */
 	SELECT Tbl.* FROM [Stats].[Metric] Tbl   INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID   WHERE U.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [Stats].[Metric] Tbl WHERE PersonID IS NULL   
 	SELECT Tbl.* FROM [Stats].[Person] Tbl   INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID   WHERE U.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [Stats].[Person] Tbl WHERE PersonID IS NULL   
 	SELECT Tbl.* FROM [Stats].[SkinfoldMeasurement] Tbl   INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID   WHERE U.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [Stats].[SkinfoldMeasurement] Tbl WHERE PersonID IS NULL   

@@ -23,8 +23,7 @@ namespace FitAPIFunctions
 	    [FunctionName("mergeWorkout")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/Workout")]HttpRequestMessage req, TraceWriter log)
 		{
-		StreamContent content = (StreamContent)req.Content;
-            var postData = await content.ReadAsStringAsync();
+            var postData = await req.Content.ReadAsStringAsync();
             
             var container = JsonConvert.DeserializeObject<FitAPIFunctions.Schema.WorkoutContainer>(postData);
 
@@ -43,7 +42,7 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_Workout = container.Workout.AsTableValuedParameter("Program.tvp_Workout"
-						, new List<string>(new string[] { "Active", "CreatedAt", "Deleted", "GoalNarrative", "ID", "isTemplate", "Name", "PersonID", "PlanID", "UpdatedAt", "Version", "WorkoutID" })
+						, (new string[] { "Active", "CreatedAt", "Deleted", "GoalNarrative", "ID", "isTemplate", "Name", "PersonID", "PlanID", "UpdatedAt", "Version", "WorkoutID" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    
@@ -51,7 +50,7 @@ namespace FitAPIFunctions
 			}
             catch (System.Exception ex)
             {
-				JSON = "Error occurred";
+				JSON = "Error occurred: " + ex.Message;
                 log.Error("C# HTTP trigger function encountered an error ", ex);
                 statusCode = HttpStatusCode.InternalServerError;
 

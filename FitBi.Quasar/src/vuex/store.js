@@ -11,6 +11,7 @@ import Core from './modules/core/coreStore'
 import Exercise from './modules/exercise/exerciseStore'
 import Program from './modules/program/programStore'
 import Stats from './modules/stats/statsStore'
+import DailyMeasurement from './modules/Measurements/DailyMeasurementStore'
 
 export default new Vuex.Store({
   modules: {
@@ -18,7 +19,8 @@ export default new Vuex.Store({
     Core: Core,
     Exercise: Exercise,
     Program: Program,
-    Stats: Stats
+    Stats: Stats,
+    DailyMeasurement: DailyMeasurement
   },
   getters: {
     // Add the `getField` getter to the

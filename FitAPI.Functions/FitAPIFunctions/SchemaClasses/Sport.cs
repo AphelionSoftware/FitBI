@@ -7,18 +7,18 @@ using System.Collections.Generic;
 {
     public class Sport
     {
-			public short? Active;
-			public string Code;
-			public DateTimeOffset? CreatedAt;
-			public bool? Deleted;
-			public string Description;
-			public string ID;
-			public string Name;
-			public int? ParentSportID;
-			public int? PersonID;
-			public int? SportID;
-			public DateTimeOffset? UpdatedAt;
-			public byte[] Version;
+			public short? Active  { get; set; }
+			public string Code  { get; set; }
+			public DateTimeOffset? CreatedAt  { get; set; }
+			public bool? Deleted  { get; set; }
+			public string Description  { get; set; }
+			public string ID  { get; set; }
+			public string Name  { get; set; }
+			public int? ParentSportID  { get; set; }
+			public int? PersonID  { get; set; }
+			public int? SportID  { get; set; }
+			public DateTimeOffset? UpdatedAt  { get; set; }
+			public byte[] Version  { get; set; }
 	}
 
 	public class SportContainer

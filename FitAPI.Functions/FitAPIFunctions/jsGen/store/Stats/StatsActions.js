@@ -1,38 +1,69 @@
-﻿const actions = {
-  saveMetric (context) {
-    let item = context.state.MetricItem
+﻿import Vue from 'vue'
+const actions = {
+  saveMetric (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MetricItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Metric/SET_METRIC', item)
-    context.commit('Exercise/GET_METRIC', {})
+    context.commit('SET_METRIC', item)
+    Vue.$API.mergeStats.mergeMetric(item)
   },
-  savePerson (context) {
-    let item = context.state.PersonItem
+  savePerson (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.PersonItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Person/SET_PERSON', item)
-    context.commit('Exercise/GET_PERSON', {})
+    context.commit('SET_PERSON', item)
+    Vue.$API.mergeStats.mergePerson(item)
   },
-  saveSkinfoldMeasurement (context) {
-    let item = context.state.SkinfoldMeasurementItem
+  saveSkinfoldMeasurement (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.SkinfoldMeasurementItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SkinfoldMeasurement/SET_SKINFOLDMEASUREMENT', item)
-    context.commit('Exercise/GET_SKINFOLDMEASUREMENT', {})
+    context.commit('SET_SKINFOLDMEASUREMENT', item)
+    Vue.$API.mergeStats.mergeSkinfoldMeasurement(item)
   },
-  saveTapeMeasurement (context) {
-    let item = context.state.TapeMeasurementItem
+  saveTapeMeasurement (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.TapeMeasurementItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('TapeMeasurement/SET_TAPEMEASUREMENT', item)
-    context.commit('Exercise/GET_TAPEMEASUREMENT', {})
+    context.commit('SET_TAPEMEASUREMENT', item)
+    Vue.$API.mergeStats.mergeTapeMeasurement(item)
   },
-  saveWeightMeasurement (context) {
-    let item = context.state.WeightMeasurementItem
+  saveWeightMeasurement (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.WeightMeasurementItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('WeightMeasurement/SET_WEIGHTMEASUREMENT', item)
-    context.commit('Exercise/GET_WEIGHTMEASUREMENT', {})
+    context.commit('SET_WEIGHTMEASUREMENT', item)
+    Vue.$API.mergeStats.mergeWeightMeasurement(item)
   }
 }
 

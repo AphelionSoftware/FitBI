@@ -1,31 +1,56 @@
-﻿const actions = {
-  savePlan (context) {
-    let item = context.state.PlanItem
+﻿import Vue from 'vue'
+const actions = {
+  savePlan (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.PlanItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Plan/SET_PLAN', item)
-    context.commit('Exercise/GET_PLAN', {})
+    context.commit('SET_PLAN', item)
+    Vue.$API.mergeProgram.mergePlan(item)
   },
-  saveWorkout (context) {
-    let item = context.state.WorkoutItem
+  saveWorkout (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.WorkoutItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Workout/SET_WORKOUT', item)
-    context.commit('Exercise/GET_WORKOUT', {})
+    context.commit('SET_WORKOUT', item)
+    Vue.$API.mergeProgram.mergeWorkout(item)
   },
-  saveWorkout_Exercise (context) {
-    let item = context.state.Workout_ExerciseItem
+  saveWorkout_Exercise (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.Workout_ExerciseItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('Workout_Exercise/SET_WORKOUT_EXERCISE', item)
-    context.commit('Exercise/GET_WORKOUT_EXERCISE', {})
+    context.commit('SET_WORKOUT_EXERCISE', item)
+    Vue.$API.mergeProgram.mergeWorkout_Exercise(item)
   },
-  saveWorkoutStage (context) {
-    let item = context.state.WorkoutStageItem
+  saveWorkoutStage (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.WorkoutStageItem
+    }
+    else {
+      item = payload
+    }
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('WorkoutStage/SET_WORKOUTSTAGE', item)
-    context.commit('Exercise/GET_WORKOUTSTAGE', {})
+    context.commit('SET_WORKOUTSTAGE', item)
+    Vue.$API.mergeProgram.mergeWorkoutStage(item)
   }
 }
 

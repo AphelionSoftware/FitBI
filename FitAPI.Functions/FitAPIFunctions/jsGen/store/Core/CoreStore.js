@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue'
 import Vuex from 'vuex'
+import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
@@ -7,6 +8,7 @@ import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 import actions from './CoreActions'
 
 Vue.use(Vuex)
+Vue.use(_)
 
 const state = {
   Active: { },
@@ -100,6 +102,13 @@ const getters = {
   Get_Dates_Item: function () {
     return state.DatesItem
   },
+  Get_Dates_ByLatest_FullDate: function () {
+    if (state.DatesList.length === 0) return {}
+    return _.chain(state.Dates)
+      .sortBy(function (item) { return item.FullDate })
+      .first()
+      .value()
+  },
   Get_MeasurementType_ByRouteID: function (state, getters, rootState) {
     return state.MeasurementType[+rootState.route.params.measurementtypeid]
   },
@@ -181,7 +190,7 @@ const getters = {
 const mutations = {
   updateField,
   GET_ACTIVE (state, payload) {
-    state.ActiveItem = state.Active[payload.activeid]
+    state.ActiveItem = state.Active[payload.ActiveID]
   },
   SET_ACTIVE (state, payload) {
     state.Active[payload.ActiveID] = payload
@@ -195,7 +204,7 @@ const mutations = {
     }
   },
   GET_BODYPART (state, payload) {
-    state.BodyPartItem = state.BodyPart[payload.bodypartid]
+    state.BodyPartItem = state.BodyPart[payload.BodyPartID]
   },
   SET_BODYPART (state, payload) {
     state.BodyPart[payload.BodyPartID] = payload
@@ -209,7 +218,7 @@ const mutations = {
     }
   },
   GET_BODYPARTTYPE (state, payload) {
-    state.BodyPartTypeItem = state.BodyPartType[payload.bodyparttypeid]
+    state.BodyPartTypeItem = state.BodyPartType[payload.BodyPartTypeID]
   },
   SET_BODYPARTTYPE (state, payload) {
     state.BodyPartType[payload.BodyPartTypeID] = payload
@@ -223,7 +232,7 @@ const mutations = {
     }
   },
   GET_DATES (state, payload) {
-    state.DatesItem = state.Dates[payload.datesid]
+    state.DatesItem = state.Dates[payload.DatesID]
   },
   SET_DATES (state, payload) {
     state.Dates[payload.DatesID] = payload
@@ -237,7 +246,7 @@ const mutations = {
     }
   },
   GET_MEASUREMENTTYPE (state, payload) {
-    state.MeasurementTypeItem = state.MeasurementType[payload.measurementtypeid]
+    state.MeasurementTypeItem = state.MeasurementType[payload.MeasurementTypeID]
   },
   SET_MEASUREMENTTYPE (state, payload) {
     state.MeasurementType[payload.MeasurementTypeID] = payload
@@ -251,7 +260,7 @@ const mutations = {
     }
   },
   GET_MEASUREMENTTYPECATEGORY (state, payload) {
-    state.MeasurementTypeCategoryItem = state.MeasurementTypeCategory[payload.measurementtypecategoryid]
+    state.MeasurementTypeCategoryItem = state.MeasurementTypeCategory[payload.MeasurementTypeCategoryID]
   },
   SET_MEASUREMENTTYPECATEGORY (state, payload) {
     state.MeasurementTypeCategory[payload.MeasurementTypeCategoryID] = payload
@@ -265,7 +274,7 @@ const mutations = {
     }
   },
   GET_TIME (state, payload) {
-    state.TimeItem = state.Time[payload.timeid]
+    state.TimeItem = state.Time[payload.TimeID]
   },
   SET_TIME (state, payload) {
     state.Time[payload.TimeID] = payload
@@ -279,7 +288,7 @@ const mutations = {
     }
   },
   GET_UNIT (state, payload) {
-    state.UnitItem = state.Unit[payload.unitid]
+    state.UnitItem = state.Unit[payload.UnitID]
   },
   SET_UNIT (state, payload) {
     state.Unit[payload.UnitID] = payload
@@ -293,7 +302,7 @@ const mutations = {
     }
   },
   GET_UNITTYPE (state, payload) {
-    state.UnitTypeItem = state.UnitType[payload.unittypeid]
+    state.UnitTypeItem = state.UnitType[payload.UnitTypeID]
   },
   SET_UNITTYPE (state, payload) {
     state.UnitType[payload.UnitTypeID] = payload

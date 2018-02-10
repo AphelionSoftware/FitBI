@@ -35,7 +35,9 @@ namespace FitAPIFunctions
                                          commandType: CommandType.StoredProcedure))
                     {
                         objInit.Exercise = multi.Read<dynamic>().ToList();
+                        objInit.Exercise_Sport = multi.Read<dynamic>().ToList();
                         objInit.ExerciseType = multi.Read<dynamic>().ToList();
+                        objInit.Sport = multi.Read<dynamic>().ToList();
                         objInit.Plan = multi.Read<dynamic>().ToList();
                         objInit.Workout = multi.Read<dynamic>().ToList();
                         objInit.Workout_Exercise = multi.Read<dynamic>().ToList();

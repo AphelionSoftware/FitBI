@@ -54,6 +54,8 @@ const state = {";
   " + tTable.Name + @": { },
   " + tTable.Name + @"List: [],
   " + tTable.Name + @"Item: {},";
+                
+
             }
             strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing space
 
@@ -64,7 +66,7 @@ const getters = {
   getField";
             foreach (Table tTable in tTables)
             {
-                strFile += @",
+                strFile += @"
   Get_" + tTable.Name + @"_ByRouteID: function (state, getters, rootState) {
     return state." + tTable.Name + @"[+rootState.route.params." + tTable.Name.ToLower() + @"id]
   },
@@ -76,8 +78,31 @@ const getters = {
   },
   Get_" + tTable.Name + @"_Item: function () {
     return state." + tTable.Name + @"Item
-  }";
+  },";
+
+                foreach (Column col in tTable.Columns)
+                {
+                    var x = col.DataType;
+                    if ( col.DataType == DataType.DateTime)
+                    {
+                        var y = DataType.DateTime;
+                    }
+                }
+                Column[] cColDates = (from Column cCol in tTable.Columns where cCol.DataType.SqlDataType == SqlDataType.DateTime select cCol).ToArray();
+
+                foreach (Column col in cColDates)
+                {
+                    strFile += @"
+  Get_" + tTable.Name + @"_ByLatest_" + col.Name + @": function() {
+    return Vue.$_.chain(state." + tTable.Name + @")
+      .sortBy(function(item) { return item." + col.Name + @" }
+      .first()
+      .value()
+  },
+";
+                }
             }
+            strFile = strFile.Substring(strFile.Length - 2);
             strFile += @"
 }
 

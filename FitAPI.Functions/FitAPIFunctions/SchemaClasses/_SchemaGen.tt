@@ -116,7 +116,7 @@ using System.Collections.Generic;
 			 strFile += "string";
 				break;
         }
-			strFile += " " +  cColumn.Name + @";";
+			strFile += " " +  cColumn.Name + @"  { get; set; }";
 		}
 	}
 	strFile +=  @"

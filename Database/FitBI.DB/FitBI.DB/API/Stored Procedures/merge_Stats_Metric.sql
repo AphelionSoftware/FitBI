@@ -12,7 +12,6 @@ USING @tvp_Metric As Src
 	THEN UPDATE SET dest.[BodyFatPercentage] = ISNULL(src.[BodyFatPercentage], dest.[BodyFatPercentage]),
 dest.[BonePercentage] = ISNULL(src.[BonePercentage], dest.[BonePercentage]),
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
-dest.[ID] = ISNULL(src.[ID], dest.[ID]),
 dest.[MusclePercentage] = ISNULL(src.[MusclePercentage], dest.[MusclePercentage]),
 dest.[PercentMeasurementTypeID] = ISNULL(src.[PercentMeasurementTypeID], dest.[PercentMeasurementTypeID]),
 dest.[WaterPercentage] = ISNULL(src.[WaterPercentage], dest.[WaterPercentage]),
@@ -22,7 +21,6 @@ dest.[Weight] = ISNULL(src.[Weight], dest.[Weight])
  INSERT (
   BodyFatPercentage,
  BonePercentage,
- Deleted,
  ID,
  MusclePercentage,
  PercentMeasurementTypeID,
@@ -32,8 +30,7 @@ dest.[Weight] = ISNULL(src.[Weight], dest.[Weight])
 )
 VALUES(  src.BodyFatPercentage,
  src.BonePercentage,
- src.Deleted,
- src.ID,
+ ISNULL(src.ID, newid()),
  src.MusclePercentage,
  src.PercentMeasurementTypeID,
  src.PersonID,
