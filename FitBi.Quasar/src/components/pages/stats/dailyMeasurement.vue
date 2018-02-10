@@ -82,7 +82,7 @@ export default {
   },
   mounted () {
   },
-  beforeRouteUpdate (to, from, next) {
+  beforeRouteLeave (to, from, next) {
     debugger
     // if (typeof (this.$store.state.Exercise.ExerciseItem.ExerciseID) === 'undefined'
     // /* ||
