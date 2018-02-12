@@ -1,7 +1,10 @@
 <template>
    <!-- Navigation -->
+   
    <q-layout>
+  
  <div class="layout-padding">   
+   <q-icon name="fa-save" @click="saveMeasurement" class="cursor-pointer" style="font-sizeL:28px;margin-left:84px"/>
    <q-list inset-separator class="no-border">
     <q-item>
         <q-item-main label="Weight">
@@ -46,7 +49,7 @@
 // import { required } from 'vuelidate/lib/validators'
 import { mapFields } from '../../../helpers/vuex-map-fields/index'
 // import Vue from 'vue'
-import { ActionSheet } from 'quasar'
+import { ActionSheet, Toast } from 'quasar'
 var minNeck = 0, maxNeck = 0, minBelly = 0, maxBelly = 0, minWeight = 0, maxWeight = 0
 export default {
   computed: {
@@ -82,8 +85,19 @@ export default {
   },
   mounted () {
   },
+  methods: {
+    saveMeasurement: function () {
+      this.$store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+      Toast.create({
+        html: 'Measurements saved',
+        icon: 'fa-thumbs-up',
+        timeout: 2400,
+        color: '#99d8c9',
+        bgColor: 'white'
+      })
+    }
+  },
   beforeRouteLeave (to, from, next) {
-    debugger
     // if (typeof (this.$store.state.Exercise.ExerciseItem.ExerciseID) === 'undefined'
     // /* ||
     // this.$_.isEqual(this.$store.state.Exercise.Exercise[this.$store.state.Exercise.ExerciseItem.ExerciseID],
@@ -93,7 +107,6 @@ export default {
     //   next()
     // }
     // else {
-    debugger
     if (this.$_.isEqual(
       this.$store.getters['DailyMeasurement/getLatestNeckTapeMeasurement'],
       this.$store.state.DailyMeasurement.NeckTapeMeasurement

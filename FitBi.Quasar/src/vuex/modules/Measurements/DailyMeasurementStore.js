@@ -94,8 +94,8 @@ const actions = {
   },
   Save_DailyMeasurement ({commit, dispatch, getters, rootState, rootGetters, state}, payload) {
   // Save_DailyMeasurement (context, payload) {
-    state.BellyTapeMeasurement.TapeLength = +state.BellyTapeMeasurement.BellyTapeLength
-    state.NeckTapeMeasurement.TapeLength = +state.NeckTapeMeasurement.NeckTapeLength
+    // state.BellyTapeMeasurement.TapeLength = +state.BellyTapeMeasurement.TapeLength
+    // state.NeckTapeMeasurement.TapeLength = +state.NeckTapeMeasurement.TapeLength
     dispatch('Stats/saveWeightMeasurement', state.WeightMeasurement, {root: true})
     dispatch('Stats/saveTapeMeasurement', state.BellyTapeMeasurement, {root: true})
     dispatch('Stats/saveTapeMeasurement', state.NeckTapeMeasurement, {root: true})
