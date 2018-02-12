@@ -18,7 +18,7 @@ using System.Collections.Generic;
 
 namespace FitAPIFunctions
 {
-    public static class mergeTapeMeasurement
+    public static class MergeTapeMeasurement
     {
 	    [FunctionName("mergeTapeMeasurement")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/TapeMeasurement")]HttpRequestMessage req, TraceWriter log)
