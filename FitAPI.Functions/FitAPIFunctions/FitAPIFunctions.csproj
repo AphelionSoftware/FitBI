@@ -8,7 +8,7 @@
   <ItemGroup>    
     <PackageReference Include="Dapper" Version="1.50.4" />    
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.2" />    
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -123,6 +123,11 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="jsGen\api\_mergePaths.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_mergePaths.tt</DependentUpon>
+    </Compile>
     <Compile Update="Manager.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

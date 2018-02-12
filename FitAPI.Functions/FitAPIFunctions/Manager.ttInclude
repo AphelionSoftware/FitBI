@@ -144,11 +144,11 @@ class Manager {
         internal VSManager(ITextTemplatingEngineHost host, StringBuilder template)
             : base(host, template) {
             var hostServiceProvider = (IServiceProvider)host;
-            if (hostServiceProvider == null)
-                throw new ArgumentNullException("Could not obtain IServiceProvider");
             dte = (EnvDTE.DTE) hostServiceProvider.GetService(typeof(EnvDTE.DTE));
             if (dte == null)
-                throw new ArgumentNullException("Could not obtain DTE from host");
+            if (hostServiceProvider == null)
+                throw new ArgumentNullException("Could not obtain IServiceProvider");
+                //throw new ArgumentNullException("Could not obtain DTE from host");
             templateProjectItem = dte.Solution.FindProjectItem(host.TemplateFile);
             checkOutAction = fileName => dte.SourceControl.CheckOutItem(fileName);
             projectSyncAction = keepFileNames => ProjectSync(templateProjectItem, keepFileNames);
