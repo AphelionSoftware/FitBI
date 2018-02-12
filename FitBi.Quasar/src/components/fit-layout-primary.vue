@@ -6,12 +6,13 @@
       <q-icon name="menu" />
     </q-btn>
     <q-toolbar-title>
-      Fit-Track
-      <span slot="subtitle">Your fitness companion</span>
+      Q-Fit - fitness test bed.
+      <span slot="subtitle"> Private pre-alpha only</span>
     </q-toolbar-title>
-    <q-btn flat @click="$refs.layout.toggleRight()">
-      <!--<q-icon name="fa-save" />-->
-    </q-btn>
+    <!-- <q-btn flat @click="$refs.layout.toggleRight()">
+      <q-icon name="fa-square" />
+    </q-btn> -->
+     <slot name="toolButtons" ></slot>
   </q-toolbar>
     <div slot="left">
     <q-list no-border link inset-separator>

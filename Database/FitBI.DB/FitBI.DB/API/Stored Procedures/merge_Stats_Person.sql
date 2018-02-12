@@ -13,23 +13,20 @@ USING @tvp_Person As Src
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
 dest.[FirstName] = ISNULL(src.[FirstName], dest.[FirstName]),
 dest.[Height] = ISNULL(src.[Height], dest.[Height]),
-dest.[ID] = ISNULL(src.[ID], dest.[ID]),
 dest.[Surname] = ISNULL(src.[Surname], dest.[Surname])
 
  WHEN NOT MATCHED THEN
  INSERT (
   DateOfBirth,
- Deleted,
  FirstName,
  Height,
  ID,
  Surname
 )
 VALUES(  src.DateOfBirth,
- src.Deleted,
  src.FirstName,
  src.Height,
- src.ID,
+ ISNULL(src.ID, newid()),
  src.Surname
 )
 ;

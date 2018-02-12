@@ -58,9 +58,16 @@ import Vue from 'vue'
             foreach (Table tTable in tTables)
             {
                 strFile += @"function merge" + tTable.Name + @" (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
+  let postData = {}
+  if (payload." + tTable.Name + @") {
+    postData = payload
+  }
+  else {
+    postData." + tTable.Name + @" = []
+    postData." + tTable.Name + @".push(payload)
+  }
+  Vue.$API.http.post('/merge/" + tTable.Name + @"?' + Vue.$API.config.token.merge" + tTable.Name + @"Token, postData).then(
       function (response) {
-        debugger
       })
 }
 ";			

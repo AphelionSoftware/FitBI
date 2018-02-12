@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="txtJson.Text" xml:space="preserve">
+    <value>{"WeightMeasurement":[{"WeightMeasurementID":1,"PersonID":4,"Weight":87,"BodyFatPercentage":null,"MusclePercentage":null,"WaterPercentage":null,"BonePercentage":null,"PercentMeasurementTypeID":null,"UnitID":null,"MeasurementDate":"Sun, 04 Feb 2018 10:32:34 GMT","Active":1,"ID":"C600EA0B-8E23-4EA4-B6F8-0067E10B5DCA","CreatedAt":"2017-11-26T16:43:15.3885336+00:00","UpdatedAt":"2018-01-26T17:19:10.4920696+00:00","Deleted":false,"Version":"AAAAAAACt78=","UpdateAt":"Sun, 04 Feb 2018 10:32:40 GMT","NeedsSync":true}]}</value>
+  </data>
 </root>

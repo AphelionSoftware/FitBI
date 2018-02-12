@@ -30,7 +30,12 @@ export default new VueRouter({
       children: [
         {
           path: 'weigh-in',
-          component: load('pages/fit-weight')
+          component: load('pages/stats/dailyMeasurement'),
+          props: true,
+          beforeEnter: (to, from, next) => {
+            store.dispatch('DailyMeasurement/Set_NewDailyMeasurement')
+            next()
+          }
         },
         {
           path: 'workout',

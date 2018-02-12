@@ -62,7 +62,12 @@ export default function (" + className.ToLower() + @"Values) {";
                     }
                 }
             }
+			if (className.ToLower() == "init") {
             strFile += @"
+  // Assuming only a single person value
+  store.commit('Stats/GET_PERSON', initValues.Person[0])";
+  }
+  strFile += @"
 }
 ";
             this.FileName = strFile;

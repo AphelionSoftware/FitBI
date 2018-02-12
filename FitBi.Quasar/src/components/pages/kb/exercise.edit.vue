@@ -1,6 +1,10 @@
 <template>
    <!-- Navigation -->
    <q-layout>
+     <div slot="toolButtons"> <q-btn flat @click="$refs.layout.toggleRight()">
+      <q-icon name="fa-close" />
+    </q-btn>
+     </div>
  <div class="layout-padding">   
    
    <q-input v-model="Code" stack-label="Code" />

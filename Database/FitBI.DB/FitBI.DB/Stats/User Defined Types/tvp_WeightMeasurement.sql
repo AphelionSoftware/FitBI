@@ -5,6 +5,7 @@
     [CreatedAt]                DATETIMEOFFSET (7) NULL,
     [Deleted]                  BIT                NULL,
     [ID]                       VARCHAR (38)       NULL,
+    [MeasurementDate]          DATETIME           NULL,
     [MusclePercentage]         DECIMAL (10, 6)    NULL,
     [PercentMeasurementTypeID] INT                NULL,
     [PersonID]                 INT                NULL,
@@ -14,6 +15,8 @@
     [WaterPercentage]          DECIMAL (10, 6)    NULL,
     [Weight]                   DECIMAL (10, 6)    NULL,
     [WeightMeasurementID]      INT                NULL);
+
+
 
 
 

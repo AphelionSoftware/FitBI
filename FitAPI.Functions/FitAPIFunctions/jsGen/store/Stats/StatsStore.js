@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue'
 import Vuex from 'vuex'
+import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
@@ -7,6 +8,7 @@ import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 import actions from './StatsActions'
 
 Vue.use(Vuex)
+Vue.use(_)
 
 const state = {
   Metric: { },
@@ -73,6 +75,13 @@ const getters = {
   Get_SkinfoldMeasurement_Item: function () {
     return state.SkinfoldMeasurementItem
   },
+  Get_SkinfoldMeasurement_ByLatest_MeasurementDate: function () {
+    if (state.SkinfoldMeasurementList.length === 0) return {}
+    return _.chain(state.SkinfoldMeasurement)
+      .sortBy(function (item) { return item.MeasurementDate })
+      .first()
+      .value()
+  },
   Get_TapeMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.TapeMeasurement[+rootState.route.params.tapemeasurementid]
   },
@@ -88,6 +97,13 @@ const getters = {
   Get_TapeMeasurement_Item: function () {
     return state.TapeMeasurementItem
   },
+  Get_TapeMeasurement_ByLatest_MeasurementDate: function () {
+    if (state.TapeMeasurementList.length === 0) return {}
+    return _.chain(state.TapeMeasurement)
+      .sortBy(function (item) { return item.MeasurementDate })
+      .first()
+      .value()
+  },
   Get_WeightMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.WeightMeasurement[+rootState.route.params.weightmeasurementid]
   },
@@ -102,6 +118,13 @@ const getters = {
   },
   Get_WeightMeasurement_Item: function () {
     return state.WeightMeasurementItem
+  },
+  Get_WeightMeasurement_ByLatest_MeasurementDate: function () {
+    if (state.WeightMeasurementList.length === 0) return {}
+    return _.chain(state.WeightMeasurement)
+      .sortBy(function (item) { return item.MeasurementDate })
+      .first()
+      .value()
   }
 }
 // #endregion
@@ -109,7 +132,7 @@ const getters = {
 const mutations = {
   updateField,
   GET_METRIC (state, payload) {
-    state.MetricItem = state.Metric[payload.metricid]
+    state.MetricItem = state.Metric[payload.MetricID]
   },
   SET_METRIC (state, payload) {
     state.Metric[payload.MetricID] = payload
@@ -123,7 +146,7 @@ const mutations = {
     }
   },
   GET_PERSON (state, payload) {
-    state.PersonItem = state.Person[payload.personid]
+    state.PersonItem = state.Person[payload.PersonID]
   },
   SET_PERSON (state, payload) {
     state.Person[payload.PersonID] = payload
@@ -137,7 +160,7 @@ const mutations = {
     }
   },
   GET_SKINFOLDMEASUREMENT (state, payload) {
-    state.SkinfoldMeasurementItem = state.SkinfoldMeasurement[payload.skinfoldmeasurementid]
+    state.SkinfoldMeasurementItem = state.SkinfoldMeasurement[payload.SkinfoldMeasurementID]
   },
   SET_SKINFOLDMEASUREMENT (state, payload) {
     state.SkinfoldMeasurement[payload.SkinfoldMeasurementID] = payload
@@ -151,7 +174,7 @@ const mutations = {
     }
   },
   GET_TAPEMEASUREMENT (state, payload) {
-    state.TapeMeasurementItem = state.TapeMeasurement[payload.tapemeasurementid]
+    state.TapeMeasurementItem = state.TapeMeasurement[payload.TapeMeasurementID]
   },
   SET_TAPEMEASUREMENT (state, payload) {
     state.TapeMeasurement[payload.TapeMeasurementID] = payload
@@ -165,7 +188,7 @@ const mutations = {
     }
   },
   GET_WEIGHTMEASUREMENT (state, payload) {
-    state.WeightMeasurementItem = state.WeightMeasurement[payload.weightmeasurementid]
+    state.WeightMeasurementItem = state.WeightMeasurement[payload.WeightMeasurementID]
   },
   SET_WEIGHTMEASUREMENT (state, payload) {
     state.WeightMeasurement[payload.WeightMeasurementID] = payload

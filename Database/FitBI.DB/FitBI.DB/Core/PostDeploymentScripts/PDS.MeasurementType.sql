@@ -23,7 +23,7 @@
 	 /*http://www.davedraper.com/bodyfat-calculation.html*/
 	 
 	 UNION ALL
-	 SELECT 'N/A' Code, 'Not applicable' Name, 'SIDE' CatCode
+	 SELECT 'NA' Code, 'Not applicable' Name, 'SIDE' CatCode
 	 UNION ALL
 	 SELECT 'LEFT' Code, 'Left side' Name, 'SIDE' CatCode
 	 UNION ALL

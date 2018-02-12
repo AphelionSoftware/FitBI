@@ -1,0 +1,15 @@
+﻿{
+  "IsEncrypted": false,
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*"
+  },
+  "ConnectionStrings": {
+    "FitDB_conn": "Data Source=xps13\\sql2017;Initial Catalog=FitBI;Persist Security Info=True;User ID=svc-fit;Password=F1t@1024"
+  },
+  "Values": {
+    "sp_Init": "API.sp_init",
+    "sp_Core": "API.sp_core",
+    "sp_LatestTimestamps": "API.sp_LatestTimestamps"
+  }
+}

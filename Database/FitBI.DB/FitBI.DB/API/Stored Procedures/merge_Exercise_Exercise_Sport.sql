@@ -12,22 +12,19 @@ USING @tvp_Exercise_Sport As Src
 	THEN UPDATE SET dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
 dest.[ExerciseID] = ISNULL(src.[ExerciseID], dest.[ExerciseID]),
 dest.[GoalNarrative] = ISNULL(src.[GoalNarrative], dest.[GoalNarrative]),
-dest.[ID] = ISNULL(src.[ID], dest.[ID]),
 dest.[SportID] = ISNULL(src.[SportID], dest.[SportID])
 
  WHEN NOT MATCHED THEN
  INSERT (
-  Deleted,
- ExerciseID,
+  ExerciseID,
  GoalNarrative,
  ID,
  PersonID,
  SportID
 )
-VALUES(  src.Deleted,
- src.ExerciseID,
+VALUES(  src.ExerciseID,
  src.GoalNarrative,
- src.ID,
+ ISNULL(src.ID, newid()),
  src.PersonID,
  src.SportID
 )

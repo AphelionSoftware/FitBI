@@ -7,18 +7,18 @@ using System.Collections.Generic;
 {
     public class Person
     {
-			public short? Active;
-			public DateTimeOffset? CreatedAt;
-			public DateTime? DateOfBirth;
-			public int? DateOfBirthID;
-			public bool? Deleted;
-			public string FirstName;
-			public short? Height;
-			public string ID;
-			public int? PersonID;
-			public string Surname;
-			public DateTimeOffset? UpdatedAt;
-			public byte[] Version;
+			public short? Active  { get; set; }
+			public DateTimeOffset? CreatedAt  { get; set; }
+			public DateTime? DateOfBirth  { get; set; }
+			public int? DateOfBirthID  { get; set; }
+			public bool? Deleted  { get; set; }
+			public string FirstName  { get; set; }
+			public short? Height  { get; set; }
+			public string ID  { get; set; }
+			public int? PersonID  { get; set; }
+			public string Surname  { get; set; }
+			public DateTimeOffset? UpdatedAt  { get; set; }
+			public byte[] Version  { get; set; }
 	}
 
 	public class PersonContainer

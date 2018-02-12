@@ -8,6 +8,7 @@
     [BonePercentage]           DECIMAL (10, 6)    NULL,
     [PercentMeasurementTypeID] INT                NULL,
     [UnitID]                   INT                NULL,
+    [MeasurementDate]          DATETIME           CONSTRAINT [DF_WeightMeasurement_MeasurementDate] DEFAULT (getdate()) NOT NULL,
     [Active]                   SMALLINT           CONSTRAINT [DF_WeightMeasurement_Active] DEFAULT ((1)) NOT NULL,
     [ID]                       VARCHAR (38)       CONSTRAINT [DF_WeightMeasurement_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]                DATETIMEOFFSET (7) CONSTRAINT [DF_WeightMeasurement_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
@@ -17,8 +18,11 @@
     CONSTRAINT [PK_WeightMeasurement] PRIMARY KEY CLUSTERED ([WeightMeasurementID] ASC),
     CONSTRAINT [FK_WeightMeasurement_Active] FOREIGN KEY ([Active]) REFERENCES [Core].[Active] ([ActiveID]),
     CONSTRAINT [FK_WeightMeasurement_MeasurementType] FOREIGN KEY ([PercentMeasurementTypeID]) REFERENCES [Core].[MeasurementType] ([MeasurementTypeID]),
+    CONSTRAINT [FK_WeightMeasurement_Person] FOREIGN KEY ([PersonID]) REFERENCES [Stats].[Person] ([PersonID]),
     CONSTRAINT [FK_WeightMeasurement_WeightMeasurement] FOREIGN KEY ([WeightMeasurementID]) REFERENCES [Stats].[WeightMeasurement] ([WeightMeasurementID])
 );
+
+
 
 
 

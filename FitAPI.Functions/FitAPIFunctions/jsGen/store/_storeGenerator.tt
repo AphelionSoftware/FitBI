@@ -56,6 +56,7 @@ private class ValuesTemplate : Template
     {
      string strFile = @"import Vue from 'vue'
 import Vuex from 'vuex'
+import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
@@ -63,6 +64,7 @@ import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 import actions from './" + className + @"Actions'
 
 Vue.use(Vuex)
+Vue.use(_)
 
 const state = {";
             Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
@@ -79,10 +81,10 @@ const state = {";
 }
 // #region Getters
 const getters = {
-  getField";
+  getField,";
             foreach (Table tTable in tTables)
             {
-                strFile += @",
+                strFile += @"
   Get_" + tTable.Name + @"_ByRouteID: function (state, getters, rootState) {
     return state." + tTable.Name + @"[+rootState.route.params." + tTable.Name.ToLower() + @"id]
   },
@@ -97,8 +99,23 @@ const getters = {
   },
   Get_" + tTable.Name + @"_Item: function () {
     return state." + tTable.Name + @"Item
-  }";
+  },";
+Column[] cColDates = (from Column cCol in tTable.Columns where cCol.DataType.SqlDataType == SqlDataType.DateTime select cCol).ToArray();
+                foreach (Column col in cColDates)
+                {
+                    strFile += @"
+  Get_" + tTable.Name + @"_ByLatest_" + col.Name + @": function () {
+    if (state." + tTable.Name + @"List.length === 0) return {}
+    return _.chain(state." + tTable.Name + @")
+      .sortBy(function (item) { return item." + col.Name + @" })
+      .first()
+      .value()
+  },";
+                }
+
             }
+			strFile = strFile.Substring(0, strFile.Length - 1);
+            
             strFile += @"
 }
 // #endregion
@@ -109,7 +126,7 @@ const mutations = {
             {
                 strFile += @",
   GET_" + tTable.Name.ToUpper() + @" (state, payload) {
-    state." + tTable.Name + @"Item = state." + tTable.Name + @"[payload." + tTable.Name.ToLower() + @"id]
+    state." + tTable.Name + @"Item = state." + tTable.Name + @"[payload." + tTable.Name + @"ID]
   },
   SET_" + tTable.Name.ToUpper() + @" (state, payload) {
     state." + tTable.Name + @"[payload." + tTable.Name + @"ID] = payload

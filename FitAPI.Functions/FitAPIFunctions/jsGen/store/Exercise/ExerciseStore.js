@@ -1,5 +1,6 @@
 ﻿import Vue from 'vue'
 import Vuex from 'vuex'
+import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
@@ -7,6 +8,7 @@ import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
 import actions from './ExerciseActions'
 
 Vue.use(Vuex)
+Vue.use(_)
 
 const state = {
   Exercise: { },
@@ -91,7 +93,7 @@ const getters = {
 const mutations = {
   updateField,
   GET_EXERCISE (state, payload) {
-    state.ExerciseItem = state.Exercise[payload.exerciseid]
+    state.ExerciseItem = state.Exercise[payload.ExerciseID]
   },
   SET_EXERCISE (state, payload) {
     state.Exercise[payload.ExerciseID] = payload
@@ -105,7 +107,7 @@ const mutations = {
     }
   },
   GET_EXERCISE_SPORT (state, payload) {
-    state.Exercise_SportItem = state.Exercise_Sport[payload.exercise_sportid]
+    state.Exercise_SportItem = state.Exercise_Sport[payload.Exercise_SportID]
   },
   SET_EXERCISE_SPORT (state, payload) {
     state.Exercise_Sport[payload.Exercise_SportID] = payload
@@ -119,7 +121,7 @@ const mutations = {
     }
   },
   GET_EXERCISETYPE (state, payload) {
-    state.ExerciseTypeItem = state.ExerciseType[payload.exercisetypeid]
+    state.ExerciseTypeItem = state.ExerciseType[payload.ExerciseTypeID]
   },
   SET_EXERCISETYPE (state, payload) {
     state.ExerciseType[payload.ExerciseTypeID] = payload
@@ -133,7 +135,7 @@ const mutations = {
     }
   },
   GET_SPORT (state, payload) {
-    state.SportItem = state.Sport[payload.sportid]
+    state.SportItem = state.Sport[payload.SportID]
   },
   SET_SPORT (state, payload) {
     state.Sport[payload.SportID] = payload

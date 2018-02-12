@@ -1,0 +1,111 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Io" #>
+<#@ assembly name="System.Data" #>
+
+
+<#@ import namespace="System.Data.SqlClient" #>
+
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+
+#>
+<#
+	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\helpers\\enum\\";
+	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\enum\\";
+	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core"  orderby s.Name select s).ToArray();
+            foreach (Schema sSchema in sorted)
+            {
+                string fileName = sSchema.Name ;
+
+				
+                var lt = new ValuesTemplate(database, sSchema, fileName);
+				lt.RenderToFile(@"enum" +fileName +  ".js");
+								
+				
+				
+            }
+			foreach (Schema sSchema in sorted)
+            {
+			string fileName = sSchema.Name ;
+			File.Copy( jsGenPath + "enum" + fileName + ".js",
+						 basePath + "enum" + fileName + ".js",
+						 true);
+            }
+
+#>
+<#+
+private class ValuesTemplate : Template
+{
+    public ValuesTemplate(Database db, Schema sSchema, string className)
+    {
+	string strExport = "";
+     string strFile = @"import {Enum} from 'enumify'";
+        Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
+        foreach (Table tTable in tTables)
+        {
+		if (tTable.Name != "Dates" && tTable.Name != "Time") {
+			strExport += @"
+  " + tTable.Name + ",";
+                strFile += @"
+class " + tTable.Name + @" extends Enum {}
+" + tTable.Name + @".initEnum({";
+			var sqlConnectionString = "Data Source=xps13\\sql2017;Initial Catalog=FitBI;Persist Security Info=True;User ID=svc-fit;Password=F1t@1024";
+            using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+            {
+                conn.Open();
+                SqlCommand comm = new SqlCommand(string.Format("SELECT Code, Name, {1}Id As intID FROM [{0}].[{1}]", tTable.Schema, tTable.Name), conn);
+                SqlDataReader dr = comm.ExecuteReader();
+                while (dr.Read())
+                {
+                    string sCode = dr.GetString(0);
+                    string sName = dr.GetString(1);
+					string sID;
+					if (tTable.Name == "Active") {
+						sID = dr.GetInt16(2).ToString();
+					} else {
+						sID = dr.GetInt32(2).ToString();
+					}
+                    strFile += @"
+  " + sCode + ": {" + string.Format(@"Code: '{0}', Name: '{1}', intID: {2}", sCode, sName, sID) + @"},";
+                }
+                strFile = strFile.Substring(0, strFile.Length - 1) + @"
+";
+            }
+		strFile += @"})";	
+		} // If end
+		
+		
+		}
+        
+        strExport = strExport.Substring(0, strExport.Length - 1);
+		strFile += @"
+
+export {" + strExport + @"
+}
+";
+            this.FileName = strFile;
+
+	}
+    private string FileName {get; set;}
+    public override string TransformText()
+    {
+        #><#=this.FileName#><#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>

@@ -39,10 +39,10 @@ import { sync } from 'vuex-router-sync' // Access via store.state.route.params
 sync(store, router) // done. Returns an unsync callback fn
 // Vue.use(vueConfig, config)
 config.token = token
+Vue.use(underscore)
 Vue.$API = new API(config)
 
 Vue.use(Vuelidate)
-Vue.use(underscore)
 Vue.use(Quasar, {
   components: {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField}
 }) // Install Quasar Framework
