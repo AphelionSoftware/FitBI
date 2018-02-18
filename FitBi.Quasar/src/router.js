@@ -53,14 +53,15 @@ export default new VueRouter({
         {
           path: 'exercise.edit/:exerciseid',
           component: load('pages/kb/exercise.edit'),
-          props: true,
-          beforeEnter: (to, from, next) => {
-            let payload = {
-              exerciseid: to.params['exerciseid']
-            }
-            store.commit('Exercise/GET_EXERCISE', payload)
-            next()
-          }
+          props: true
+          // ,
+          // beforeEnter: (to, from, next) => {
+          //   let payload = {
+          //     exerciseid: to.params['exerciseid']
+          //   }
+          //   store.commit('Exercise/GET_EXERCISE', payload)
+          //   next()
+          // }
         }
       ]
     },

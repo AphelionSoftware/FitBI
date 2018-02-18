@@ -6,6 +6,7 @@ import { getField, updateField } from '../helpers/vuex-map-fields/index'
 Vue.use(Vuex)
 
 // Separate Module States
+import AppState from './modules/AppState/AppStateStore'
 import WeightMeasurement from './modules/weight-measurement'
 import Core from './modules/core/coreStore'
 import Exercise from './modules/exercise/exerciseStore'
@@ -15,6 +16,7 @@ import DailyMeasurement from './modules/Measurements/DailyMeasurementStore'
 
 export default new Vuex.Store({
   modules: {
+    AppState: AppState,
     WeightMeasurement: WeightMeasurement,
     Core: Core,
     Exercise: Exercise,

@@ -41,6 +41,7 @@ sync(store, router) // done. Returns an unsync callback fn
 config.token = token
 Vue.use(underscore)
 Vue.$API = new API(config)
+// Vue.$UI = new UI()
 
 Vue.use(Vuelidate)
 Vue.use(Quasar, {
@@ -55,15 +56,18 @@ Vue.component('fit-weight', Weight)
 Vue.component('fit-measurements', Measurements)
 Vue.component('single-measure', SingleMeasure)
 
-Quasar.start(() => {
-  /* eslint-disable no-new */
-  new Vue({
-    el: '#q-app',
-    store,
-    router,
-    render: h => h(require('./App')),
-    mounted: function () {
-      Vue.$API.Initialize()
-    }
-  })
+/* eslint-disable no-new */
+let vueInstance = new Vue({
+  el: '#q-app',
+  store,
+  router,
+  render: h => h(require('./App')),
+  mounted: function () {
+    Vue.$API.Initialize()
+  }
 })
+
+Quasar.start(() => {
+  vueInstance
+})
+

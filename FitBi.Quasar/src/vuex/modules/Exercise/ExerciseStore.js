@@ -92,6 +92,14 @@ const getters = {
 // #region Mutations
 const mutations = {
   updateField,
+  SET_EXERCISEITEM_DESCRIPTION (state, payload) {
+    if (typeof payload === 'string') {
+      state.ExerciseItem.Description = payload
+    }
+    else {
+      state.ExerciseItem.Description = payload.Description
+    }
+  },
   GET_EXERCISE (state, payload) {
     state.ExerciseItem = state.Exercise[payload.ExerciseID]
   },

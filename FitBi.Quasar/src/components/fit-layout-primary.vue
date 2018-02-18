@@ -12,7 +12,9 @@
     <!-- <q-btn flat @click="$refs.layout.toggleRight()">
       <q-icon name="fa-square" />
     </q-btn> -->
-     <slot name="toolButtons" ></slot>
+     <q-fixed-position corner="top-right" :offset="[18, 18]">
+    <q-btn round color="secondary" @click="fnSaveAction" icon="fa-save" />
+  </q-fixed-position>
   </q-toolbar>
     <div slot="left">
     <q-list no-border link inset-separator>
@@ -38,9 +40,11 @@
       <q-side-link item to="/kb/exercises">
         <q-item-side icon="directions bike" />
         <q-item-main label="Exercises" />
-      </q-side-link>
-      
+      </q-side-link>      
      </q-list>
+     <div slot="right">
+
+       </div>
   </div>
   <router-view/>
    </q-layout>
@@ -53,12 +57,24 @@
 // import { QKnob, QBtn, QIcon } from 'quasar'
 // import { QKnob, QIcon, QBtn } from 'quasar'
 // import { QTab, QTabs, QTabPane } from 'quasar'
-
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
       // initializing for second tab to be selected by default
       selectedTab: 'tab-weight'
+    }
+  },
+  computed: mapState({
+    // arrow functions can make the code very succinct!
+    ...mapState(
+      'AppState', ['SaveAction']
+    )
+  }),
+  methods: {
+    fnSaveAction: function () {
+      debugger
+      this.$store.getters['AppState/Save']()
     }
   }
 }
