@@ -114,6 +114,14 @@ export default {
     }
     this.$store.commit('Exercise/GET_EXERCISE', payload)
     // Set the save action to enable the toolbar save button
+    var store = this.$store
+    let fnSave = function () {
+      store.dispatch('Exercise/saveExercise', store.state.Exercise.ExerciseItem)
+    }
+    this.$store.commit('AppState/SET_SAVE', fnSave)
+  },
+  beforeDestroy () {
+    this.$store.commit('AppState/CLEAR_SAVE')
   }
 }
 </script>

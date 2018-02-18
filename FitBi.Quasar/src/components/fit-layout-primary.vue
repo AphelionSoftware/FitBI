@@ -12,9 +12,9 @@
     <!-- <q-btn flat @click="$refs.layout.toggleRight()">
       <q-icon name="fa-square" />
     </q-btn> -->
-     <q-fixed-position corner="top-right" :offset="[18, 18]">
-    <q-btn round color="secondary" @click="fnSaveAction" icon="fa-save" />
-  </q-fixed-position>
+     <q-fixed-position v-if="typeof this.SaveAction === 'function'" corner="top-right" :offset="[18, 18]">
+      <q-btn round color="secondary" @click="fnSaveAction" icon="fa-save" />
+    </q-fixed-position>
   </q-toolbar>
     <div slot="left">
     <q-list no-border link inset-separator>
@@ -62,7 +62,8 @@ export default {
   data () {
     return {
       // initializing for second tab to be selected by default
-      selectedTab: 'tab-weight'
+      selectedTab: 'tab-weight',
+      showSave: typeof this.SaveAction === 'function'
     }
   },
   computed: mapState({

@@ -9,7 +9,7 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 import Vue from 'vue'
 import Vuex, {mapState, mapGetters} from 'vuex'
 import router from './router'
-import Quasar, {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField} from 'quasar'
+import Quasar, {QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea} from 'quasar'
 import underscore from 'vue-underscore'
 import 'quasar-extras/material-icons'
 import 'quasar-extras/ionicons'
@@ -45,7 +45,7 @@ Vue.$API = new API(config)
 
 Vue.use(Vuelidate)
 Vue.use(Quasar, {
-  components: {QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField}
+  components: {QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea}
 }) // Install Quasar Framework
 
 Vue.use(Vuex, {

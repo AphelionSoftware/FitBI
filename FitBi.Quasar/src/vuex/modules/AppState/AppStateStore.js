@@ -28,6 +28,7 @@ const mutations = {
     state.SaveAction = payload
   },
   CLEAR_SAVE (state) {
+    debugger
     state.SaveAction = {}
   }
 }
