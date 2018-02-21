@@ -33,11 +33,24 @@ const getters = {
   Get_Metric_ByRouteID: function (state, getters, rootState) {
     return state.Metric[+rootState.route.params.metricid]
   },
+  Get_Metric_ByMetricID: function (state) {
+    return function (metricID) {
+      return state.Metric[metricID]
+    }
+  },
   Get_MetricItem: function () {
     return state.MetricItem
   },
   Get_Metric_All: function () {
     return state.Metric
+  },
+  Get_Metric_Select: function () {
+    return _.map(state.Metric, item => {
+      return {
+        label: item.Name,
+        value: item.MetricID
+      }
+    })
   },
   Get_Metric_List: function () {
     return state.Metric
@@ -48,11 +61,24 @@ const getters = {
   Get_Person_ByRouteID: function (state, getters, rootState) {
     return state.Person[+rootState.route.params.personid]
   },
+  Get_Person_ByPersonID: function (state) {
+    return function (personID) {
+      return state.Person[personID]
+    }
+  },
   Get_PersonItem: function () {
     return state.PersonItem
   },
   Get_Person_All: function () {
     return state.Person
+  },
+  Get_Person_Select: function () {
+    return _.map(state.Person, item => {
+      return {
+        label: item.Name,
+        value: item.PersonID
+      }
+    })
   },
   Get_Person_List: function () {
     return state.Person
@@ -63,11 +89,24 @@ const getters = {
   Get_SkinfoldMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.SkinfoldMeasurement[+rootState.route.params.skinfoldmeasurementid]
   },
+  Get_SkinfoldMeasurement_BySkinfoldMeasurementID: function (state) {
+    return function (skinfoldmeasurementID) {
+      return state.SkinfoldMeasurement[skinfoldmeasurementID]
+    }
+  },
   Get_SkinfoldMeasurementItem: function () {
     return state.SkinfoldMeasurementItem
   },
   Get_SkinfoldMeasurement_All: function () {
     return state.SkinfoldMeasurement
+  },
+  Get_SkinfoldMeasurement_Select: function () {
+    return _.map(state.SkinfoldMeasurement, item => {
+      return {
+        label: item.Name,
+        value: item.SkinfoldMeasurementID
+      }
+    })
   },
   Get_SkinfoldMeasurement_List: function () {
     return state.SkinfoldMeasurement
@@ -85,11 +124,24 @@ const getters = {
   Get_TapeMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.TapeMeasurement[+rootState.route.params.tapemeasurementid]
   },
+  Get_TapeMeasurement_ByTapeMeasurementID: function (state) {
+    return function (tapemeasurementID) {
+      return state.TapeMeasurement[tapemeasurementID]
+    }
+  },
   Get_TapeMeasurementItem: function () {
     return state.TapeMeasurementItem
   },
   Get_TapeMeasurement_All: function () {
     return state.TapeMeasurement
+  },
+  Get_TapeMeasurement_Select: function () {
+    return _.map(state.TapeMeasurement, item => {
+      return {
+        label: item.Name,
+        value: item.TapeMeasurementID
+      }
+    })
   },
   Get_TapeMeasurement_List: function () {
     return state.TapeMeasurement
@@ -107,11 +159,24 @@ const getters = {
   Get_WeightMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.WeightMeasurement[+rootState.route.params.weightmeasurementid]
   },
+  Get_WeightMeasurement_ByWeightMeasurementID: function (state) {
+    return function (weightmeasurementID) {
+      return state.WeightMeasurement[weightmeasurementID]
+    }
+  },
   Get_WeightMeasurementItem: function () {
     return state.WeightMeasurementItem
   },
   Get_WeightMeasurement_All: function () {
     return state.WeightMeasurement
+  },
+  Get_WeightMeasurement_Select: function () {
+    return _.map(state.WeightMeasurement, item => {
+      return {
+        label: item.Name,
+        value: item.WeightMeasurementID
+      }
+    })
   },
   Get_WeightMeasurement_List: function () {
     return state.WeightMeasurement
@@ -137,6 +202,9 @@ const mutations = {
   SET_METRIC (state, payload) {
     state.Metric[payload.MetricID] = payload
   },
+  SET_METRICITEM (state, payload) {
+    state.MetricItem = payload
+  },
   SET_METRIC_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -150,6 +218,9 @@ const mutations = {
   },
   SET_PERSON (state, payload) {
     state.Person[payload.PersonID] = payload
+  },
+  SET_PERSONITEM (state, payload) {
+    state.PersonItem = payload
   },
   SET_PERSON_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
@@ -165,6 +236,9 @@ const mutations = {
   SET_SKINFOLDMEASUREMENT (state, payload) {
     state.SkinfoldMeasurement[payload.SkinfoldMeasurementID] = payload
   },
+  SET_SKINFOLDMEASUREMENTITEM (state, payload) {
+    state.SkinfoldMeasurementItem = payload
+  },
   SET_SKINFOLDMEASUREMENT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -179,6 +253,9 @@ const mutations = {
   SET_TAPEMEASUREMENT (state, payload) {
     state.TapeMeasurement[payload.TapeMeasurementID] = payload
   },
+  SET_TAPEMEASUREMENTITEM (state, payload) {
+    state.TapeMeasurementItem = payload
+  },
   SET_TAPEMEASUREMENT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -192,6 +269,9 @@ const mutations = {
   },
   SET_WEIGHTMEASUREMENT (state, payload) {
     state.WeightMeasurement[payload.WeightMeasurementID] = payload
+  },
+  SET_WEIGHTMEASUREMENTITEM (state, payload) {
+    state.WeightMeasurementItem = payload
   },
   SET_WEIGHTMEASUREMENT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {

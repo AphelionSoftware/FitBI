@@ -132,6 +132,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>_enumGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Update="jsGen\store\_storeGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_storeGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Update="Manager.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

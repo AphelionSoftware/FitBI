@@ -7,6 +7,12 @@
      </div>
  <div class="layout-padding">   
    <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
+     <q-select float-label="Exercise type" 
+     :value="ExerciseTypeName" 
+     :options="Get_ExerciseType_Select" 
+     :searchable="true" 
+     v-model="ExerciseTypeName"
+     @input="setExerciseTypeID"></q-select>
    <q-input v-model="Code" stack-label="Code" />
    <q-input v-model="Name" stack-label="Name" />   
    <!--<q-input v-model.lazy="Description" stack-label="Description" type="textarea"/>-->
@@ -30,6 +36,8 @@ import hljs from 'highlight.js'
 import VueQuillEditor, { Quill } from 'vue-quill-editor'
 import Vue from 'vue'
 import uiMixin from '../../../mixins/ui/ui'
+import { mapState, mapGetters } from 'vuex'
+
 // import { ImageDrop } from 'quill-image-drop-module'
 
 Vue.use(VueQuillEditor, {
@@ -50,22 +58,48 @@ export default {
       Code: 'Exercise.ExerciseItem.Code',
       Description: 'Exercise.ExerciseItem.Description'
     }),
+    ...mapState(
+      'Exercise', ['ExerciseType']
+    ),
+    ...mapGetters(
+      'Exercise', ['Get_ExerciseType_Select']
+    ),
     editor () {
       return this.$refs.quillExercise.quill
+    },
+    ExerciseTypeName: function () {
+      let store = this.$store
+      if (typeof store.getters['Exercise/Get_Exercise_Item'] !== 'undefined' &&
+          typeof store.getters['Exercise/Get_Exercise_Item'].ExerciseTypeID !== 'undefined' &&
+          typeof store.getters['Exercise/Get_ExerciseType_ByExerciseTypeID'](store.getters['Exercise/Get_Exercise_Item'].ExerciseTypeID) !== 'undefined') {
+        let ret = store.getters['Exercise/Get_ExerciseType_ByExerciseTypeID'](store.getters['Exercise/Get_Exercise_Item'].ExerciseTypeID).Name
+        return ret
+      }
+      else {
+        return ''
+      }
     }
   },
   methods: {
     onEditorChange ({ editor, html, text }) {
         // console.log('editor change!', editor, html, text)
-      // debugger
-      this.$store.commit('Exercise/SET_EXERCISEITEM_DESCRIPTION', html)
+      let exercise = this.$store.getters['Exercise/Get_Exercise_Item']
+      exercise.Description = html
+      this.$store.commit('Exercise/SET_EXERCISEITEM', exercise)
     },
     saveAction () {
       this.$store.dispatch('Exercise/saveExercise', this.$store.state.Exercise.ExerciseItem)
+    },
+    setExerciseTypeID (exerciseTypeID) {
+      let exercise = this.$store.getters['Exercise/Get_Exercise_Item']
+      exercise.ExerciseTypeID = exerciseTypeID
+      this.$store.commit('Exercise/SET_EXERCISE_ITEM', exercise)
     }
   },
   data () {
     return {
+      selectOptions: ['bw', 'kb'],
+      value: 'Stretches',
       editorOption: {
         modules: {
           toolbar: [
@@ -125,9 +159,10 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-@import '/src/static/css/quill.snow.css'
-</style>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
+<!-- <style src='/src/static/css/quill.snow.css'></style>-->
 <style lang="scss" scoped>
   .quill-code {
     border: none;

@@ -1,15 +1,15 @@
 // === DEFAULT / CUSTOM STYLE ===
 // WARNING! always comment out ONE of the two require() calls below.
 // 1. use next line to activate CUSTOM STYLE (./src/themes)
-// require(`./themes/app.${__THEME}.styl`)
+require(`./themes/app.${__THEME}.styl`)
 // 2. or, use next line to activate DEFAULT QUASAR STYLE
-require(`quasar/dist/quasar.${__THEME}.css`)
+// require(`quasar/dist/quasar.${__THEME}.css`)
 // ==============================
 
 import Vue from 'vue'
 import Vuex, {mapState, mapGetters} from 'vuex'
 import router from './router'
-import Quasar, {QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea} from 'quasar'
+import Quasar, {QSelect, QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea} from 'quasar'
 import underscore from 'vue-underscore'
 import 'quasar-extras/material-icons'
 import 'quasar-extras/ionicons'
@@ -45,7 +45,7 @@ Vue.$API = new API(config)
 
 Vue.use(Vuelidate)
 Vue.use(Quasar, {
-  components: {QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea}
+  components: {QSelect, QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea}
 }) // Install Quasar Framework
 
 Vue.use(Vuex, {

@@ -45,11 +45,24 @@ const getters = {
   Get_Active_ByRouteID: function (state, getters, rootState) {
     return state.Active[+rootState.route.params.activeid]
   },
+  Get_Active_ByActiveID: function (state) {
+    return function (activeID) {
+      return state.Active[activeID]
+    }
+  },
   Get_ActiveItem: function () {
     return state.ActiveItem
   },
   Get_Active_All: function () {
     return state.Active
+  },
+  Get_Active_Select: function () {
+    return _.map(state.Active, item => {
+      return {
+        label: item.Name,
+        value: item.ActiveID
+      }
+    })
   },
   Get_Active_List: function () {
     return state.Active
@@ -60,11 +73,24 @@ const getters = {
   Get_BodyPart_ByRouteID: function (state, getters, rootState) {
     return state.BodyPart[+rootState.route.params.bodypartid]
   },
+  Get_BodyPart_ByBodyPartID: function (state) {
+    return function (bodypartID) {
+      return state.BodyPart[bodypartID]
+    }
+  },
   Get_BodyPartItem: function () {
     return state.BodyPartItem
   },
   Get_BodyPart_All: function () {
     return state.BodyPart
+  },
+  Get_BodyPart_Select: function () {
+    return _.map(state.BodyPart, item => {
+      return {
+        label: item.Name,
+        value: item.BodyPartID
+      }
+    })
   },
   Get_BodyPart_List: function () {
     return state.BodyPart
@@ -75,11 +101,24 @@ const getters = {
   Get_BodyPartType_ByRouteID: function (state, getters, rootState) {
     return state.BodyPartType[+rootState.route.params.bodyparttypeid]
   },
+  Get_BodyPartType_ByBodyPartTypeID: function (state) {
+    return function (bodyparttypeID) {
+      return state.BodyPartType[bodyparttypeID]
+    }
+  },
   Get_BodyPartTypeItem: function () {
     return state.BodyPartTypeItem
   },
   Get_BodyPartType_All: function () {
     return state.BodyPartType
+  },
+  Get_BodyPartType_Select: function () {
+    return _.map(state.BodyPartType, item => {
+      return {
+        label: item.Name,
+        value: item.BodyPartTypeID
+      }
+    })
   },
   Get_BodyPartType_List: function () {
     return state.BodyPartType
@@ -90,11 +129,24 @@ const getters = {
   Get_Dates_ByRouteID: function (state, getters, rootState) {
     return state.Dates[+rootState.route.params.datesid]
   },
+  Get_Dates_ByDatesID: function (state) {
+    return function (datesID) {
+      return state.Dates[datesID]
+    }
+  },
   Get_DatesItem: function () {
     return state.DatesItem
   },
   Get_Dates_All: function () {
     return state.Dates
+  },
+  Get_Dates_Select: function () {
+    return _.map(state.Dates, item => {
+      return {
+        label: item.Name,
+        value: item.DatesID
+      }
+    })
   },
   Get_Dates_List: function () {
     return state.Dates
@@ -112,11 +164,24 @@ const getters = {
   Get_MeasurementType_ByRouteID: function (state, getters, rootState) {
     return state.MeasurementType[+rootState.route.params.measurementtypeid]
   },
+  Get_MeasurementType_ByMeasurementTypeID: function (state) {
+    return function (measurementtypeID) {
+      return state.MeasurementType[measurementtypeID]
+    }
+  },
   Get_MeasurementTypeItem: function () {
     return state.MeasurementTypeItem
   },
   Get_MeasurementType_All: function () {
     return state.MeasurementType
+  },
+  Get_MeasurementType_Select: function () {
+    return _.map(state.MeasurementType, item => {
+      return {
+        label: item.Name,
+        value: item.MeasurementTypeID
+      }
+    })
   },
   Get_MeasurementType_List: function () {
     return state.MeasurementType
@@ -127,11 +192,24 @@ const getters = {
   Get_MeasurementTypeCategory_ByRouteID: function (state, getters, rootState) {
     return state.MeasurementTypeCategory[+rootState.route.params.measurementtypecategoryid]
   },
+  Get_MeasurementTypeCategory_ByMeasurementTypeCategoryID: function (state) {
+    return function (measurementtypecategoryID) {
+      return state.MeasurementTypeCategory[measurementtypecategoryID]
+    }
+  },
   Get_MeasurementTypeCategoryItem: function () {
     return state.MeasurementTypeCategoryItem
   },
   Get_MeasurementTypeCategory_All: function () {
     return state.MeasurementTypeCategory
+  },
+  Get_MeasurementTypeCategory_Select: function () {
+    return _.map(state.MeasurementTypeCategory, item => {
+      return {
+        label: item.Name,
+        value: item.MeasurementTypeCategoryID
+      }
+    })
   },
   Get_MeasurementTypeCategory_List: function () {
     return state.MeasurementTypeCategory
@@ -142,11 +220,24 @@ const getters = {
   Get_Time_ByRouteID: function (state, getters, rootState) {
     return state.Time[+rootState.route.params.timeid]
   },
+  Get_Time_ByTimeID: function (state) {
+    return function (timeID) {
+      return state.Time[timeID]
+    }
+  },
   Get_TimeItem: function () {
     return state.TimeItem
   },
   Get_Time_All: function () {
     return state.Time
+  },
+  Get_Time_Select: function () {
+    return _.map(state.Time, item => {
+      return {
+        label: item.Name,
+        value: item.TimeID
+      }
+    })
   },
   Get_Time_List: function () {
     return state.Time
@@ -157,11 +248,24 @@ const getters = {
   Get_Unit_ByRouteID: function (state, getters, rootState) {
     return state.Unit[+rootState.route.params.unitid]
   },
+  Get_Unit_ByUnitID: function (state) {
+    return function (unitID) {
+      return state.Unit[unitID]
+    }
+  },
   Get_UnitItem: function () {
     return state.UnitItem
   },
   Get_Unit_All: function () {
     return state.Unit
+  },
+  Get_Unit_Select: function () {
+    return _.map(state.Unit, item => {
+      return {
+        label: item.Name,
+        value: item.UnitID
+      }
+    })
   },
   Get_Unit_List: function () {
     return state.Unit
@@ -172,11 +276,24 @@ const getters = {
   Get_UnitType_ByRouteID: function (state, getters, rootState) {
     return state.UnitType[+rootState.route.params.unittypeid]
   },
+  Get_UnitType_ByUnitTypeID: function (state) {
+    return function (unittypeID) {
+      return state.UnitType[unittypeID]
+    }
+  },
   Get_UnitTypeItem: function () {
     return state.UnitTypeItem
   },
   Get_UnitType_All: function () {
     return state.UnitType
+  },
+  Get_UnitType_Select: function () {
+    return _.map(state.UnitType, item => {
+      return {
+        label: item.Name,
+        value: item.UnitTypeID
+      }
+    })
   },
   Get_UnitType_List: function () {
     return state.UnitType
@@ -195,6 +312,9 @@ const mutations = {
   SET_ACTIVE (state, payload) {
     state.Active[payload.ActiveID] = payload
   },
+  SET_ACTIVEITEM (state, payload) {
+    state.ActiveItem = payload
+  },
   SET_ACTIVE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -208,6 +328,9 @@ const mutations = {
   },
   SET_BODYPART (state, payload) {
     state.BodyPart[payload.BodyPartID] = payload
+  },
+  SET_BODYPARTITEM (state, payload) {
+    state.BodyPartItem = payload
   },
   SET_BODYPART_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
@@ -223,6 +346,9 @@ const mutations = {
   SET_BODYPARTTYPE (state, payload) {
     state.BodyPartType[payload.BodyPartTypeID] = payload
   },
+  SET_BODYPARTTYPEITEM (state, payload) {
+    state.BodyPartTypeItem = payload
+  },
   SET_BODYPARTTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -236,6 +362,9 @@ const mutations = {
   },
   SET_DATES (state, payload) {
     state.Dates[payload.DatesID] = payload
+  },
+  SET_DATESITEM (state, payload) {
+    state.DatesItem = payload
   },
   SET_DATES_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
@@ -251,6 +380,9 @@ const mutations = {
   SET_MEASUREMENTTYPE (state, payload) {
     state.MeasurementType[payload.MeasurementTypeID] = payload
   },
+  SET_MEASUREMENTTYPEITEM (state, payload) {
+    state.MeasurementTypeItem = payload
+  },
   SET_MEASUREMENTTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -264,6 +396,9 @@ const mutations = {
   },
   SET_MEASUREMENTTYPECATEGORY (state, payload) {
     state.MeasurementTypeCategory[payload.MeasurementTypeCategoryID] = payload
+  },
+  SET_MEASUREMENTTYPECATEGORYITEM (state, payload) {
+    state.MeasurementTypeCategoryItem = payload
   },
   SET_MEASUREMENTTYPECATEGORY_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
@@ -279,6 +414,9 @@ const mutations = {
   SET_TIME (state, payload) {
     state.Time[payload.TimeID] = payload
   },
+  SET_TIMEITEM (state, payload) {
+    state.TimeItem = payload
+  },
   SET_TIME_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -293,6 +431,9 @@ const mutations = {
   SET_UNIT (state, payload) {
     state.Unit[payload.UnitID] = payload
   },
+  SET_UNITITEM (state, payload) {
+    state.UnitItem = payload
+  },
   SET_UNIT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
@@ -306,6 +447,9 @@ const mutations = {
   },
   SET_UNITTYPE (state, payload) {
     state.UnitType[payload.UnitTypeID] = payload
+  },
+  SET_UNITTYPEITEM (state, payload) {
+    state.UnitTypeItem = payload
   },
   SET_UNITTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {

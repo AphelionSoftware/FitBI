@@ -53,7 +53,8 @@ export default new VueRouter({
         {
           path: 'exercise.edit/:exerciseid',
           component: load('pages/kb/exercise.edit'),
-          props: true
+          props: true,
+          name: 'editExercise'
           // ,
           // beforeEnter: (to, from, next) => {
           //   let payload = {

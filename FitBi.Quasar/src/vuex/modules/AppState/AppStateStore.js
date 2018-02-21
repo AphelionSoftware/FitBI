@@ -10,6 +10,7 @@
 // Vue.use(_)
 
 const state = {
+  AddAction: {},
   SaveAction: {},
   RightHandMenu: {}
 }
@@ -18,6 +19,9 @@ const state = {
 const getters = {
   Save: function (state, getters, rootState) {
     return state.SaveAction
+  },
+  Add: function (state, getters, rootState) {
+    return state.AddAction
   }
 }
 // #endregion
@@ -28,8 +32,13 @@ const mutations = {
     state.SaveAction = payload
   },
   CLEAR_SAVE (state) {
-    debugger
     state.SaveAction = {}
+  },
+  SET_ADD (state, payload) {
+    state.AddAction = payload
+  },
+  CLEAR_ADD (state) {
+    state.AddAction = {}
   }
 }
 // #endregion

@@ -88,11 +88,24 @@ const getters = {
   Get_" + tTable.Name + @"_ByRouteID: function (state, getters, rootState) {
     return state." + tTable.Name + @"[+rootState.route.params." + tTable.Name.ToLower() + @"id]
   },
+  Get_" + tTable.Name + @"_By" + tTable.Name + @"ID: function (state) {
+    return function (" + tTable.Name.ToLower().Replace("_","") + @"ID) {
+      return state." + tTable.Name + @"[" + tTable.Name.ToLower().Replace("_","") + @"ID]
+    }
+  },
   Get_" + tTable.Name + @"Item: function () {
     return state." + tTable.Name + @"Item
   },
   Get_" + tTable.Name + @"_All: function () {
     return state." + tTable.Name + @"
+  },
+  Get_" + tTable.Name + @"_Select: function () {
+    return _.map(state." + tTable.Name + @", item => {
+      return {
+        label: item.Name,
+        value: item." + tTable.Name + @"ID
+      }
+    })
   },
   Get_" + tTable.Name + @"_List: function () {
     return state." + tTable.Name + @"
@@ -130,6 +143,9 @@ const mutations = {
   },
   SET_" + tTable.Name.ToUpper() + @" (state, payload) {
     state." + tTable.Name + @"[payload." + tTable.Name + @"ID] = payload
+  },
+  SET_" + tTable.Name.ToUpper() + @"ITEM (state, payload) {
+    state." + tTable.Name + @"Item = payload
   },
   SET_" + tTable.Name.ToUpper() + @"_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {

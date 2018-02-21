@@ -6,15 +6,16 @@
       <q-icon name="menu" />
     </q-btn>
     <q-toolbar-title>
-      Q-Fit - fitness test bed.
+      Orca
       <span slot="subtitle"> Private pre-alpha only</span>
     </q-toolbar-title>
     <!-- <q-btn flat @click="$refs.layout.toggleRight()">
       <q-icon name="fa-square" />
     </q-btn> -->
-     <q-fixed-position v-if="typeof this.SaveAction === 'function'" corner="top-right" :offset="[18, 18]">
-      <q-btn round color="secondary" @click="fnSaveAction" icon="fa-save" />
-    </q-fixed-position>
+     <!-- <q-fixed-position corner="top-right" :offset="[18, 24]"> -->
+      <q-btn v-if="typeof this.SaveAction === 'function'" @click="fnSaveAction" icon="fa-save" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
+      <q-btn v-if="typeof this.AddAction === 'function'" @click="fnAddAction" icon="fa-plus" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
+    <!-- </q-fixed-position> -->
   </q-toolbar>
     <div slot="left">
     <q-list no-border link inset-separator>
@@ -62,20 +63,20 @@ export default {
   data () {
     return {
       // initializing for second tab to be selected by default
-      selectedTab: 'tab-weight',
-      showSave: typeof this.SaveAction === 'function'
     }
   },
   computed: mapState({
     // arrow functions can make the code very succinct!
     ...mapState(
-      'AppState', ['SaveAction']
+      'AppState', ['SaveAction', 'AddAction']
     )
   }),
   methods: {
     fnSaveAction: function () {
-      debugger
       this.$store.getters['AppState/Save']()
+    },
+    fnAddAction: function () {
+      this.$store.getters['AppState/Add']()
     }
   }
 }
