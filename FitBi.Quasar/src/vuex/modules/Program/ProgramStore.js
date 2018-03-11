@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
-import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
+import { getField, updateField } from 'vuex-map-fields'
 // import { getField, updateField } from 'vuex-map-fields'
 import actions from './ProgramActions'
 
@@ -50,7 +50,7 @@ const getters = {
     })
   },
   Get_Plan_List: function () {
-    return state.Plan
+    return _.sortBy(state.Plan, 'Name')
   },
   Get_Plan_Item: function () {
     return state.PlanItem
@@ -78,7 +78,7 @@ const getters = {
     })
   },
   Get_Workout_List: function () {
-    return state.Workout
+    return _.sortBy(state.Workout, 'Name')
   },
   Get_Workout_Item: function () {
     return state.WorkoutItem
@@ -106,7 +106,7 @@ const getters = {
     })
   },
   Get_Workout_Exercise_List: function () {
-    return state.Workout_Exercise
+    return _.sortBy(state.Workout_Exercise, 'Name')
   },
   Get_Workout_Exercise_Item: function () {
     return state.Workout_ExerciseItem
@@ -134,7 +134,7 @@ const getters = {
     })
   },
   Get_WorkoutStage_List: function () {
-    return state.WorkoutStage
+    return _.sortBy(state.WorkoutStage, 'Name')
   },
   Get_WorkoutStage_Item: function () {
     return state.WorkoutStageItem
@@ -145,7 +145,25 @@ const getters = {
 const mutations = {
   updateField,
   GET_PLAN (state, payload) {
-    state.PlanItem = state.Plan[payload.PlanID]
+    if ('' + payload.PlanID === '0') {
+      state.PlanItem = {
+        PlanID: null,
+        Name: null,
+        StartDate: null,
+        GoalNarrative: null,
+        PersonID: null,
+        PlannerPersonID: null,
+        isTemplate: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.PlanItem = state.Plan[payload.PlanID]
+    }
   },
   SET_PLAN (state, payload) {
     state.Plan[payload.PlanID] = payload
@@ -162,7 +180,24 @@ const mutations = {
     }
   },
   GET_WORKOUT (state, payload) {
-    state.WorkoutItem = state.Workout[payload.WorkoutID]
+    if ('' + payload.WorkoutID === '0') {
+      state.WorkoutItem = {
+        WorkoutID: null,
+        PlanID: null,
+        PersonID: null,
+        Name: null,
+        GoalNarrative: null,
+        isTemplate: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.WorkoutItem = state.Workout[payload.WorkoutID]
+    }
   },
   SET_WORKOUT (state, payload) {
     state.Workout[payload.WorkoutID] = payload
@@ -179,7 +214,23 @@ const mutations = {
     }
   },
   GET_WORKOUT_EXERCISE (state, payload) {
-    state.Workout_ExerciseItem = state.Workout_Exercise[payload.Workout_ExerciseID]
+    if ('' + payload.Workout_ExerciseID === '0') {
+      state.Workout_ExerciseItem = {
+        Workout_ExerciseID: null,
+        WorkoutID: null,
+        PersonID: null,
+        GoalNarrative: null,
+        ExerciseID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.Workout_ExerciseItem = state.Workout_Exercise[payload.Workout_ExerciseID]
+    }
   },
   SET_WORKOUT_EXERCISE (state, payload) {
     state.Workout_Exercise[payload.Workout_ExerciseID] = payload
@@ -196,7 +247,23 @@ const mutations = {
     }
   },
   GET_WORKOUTSTAGE (state, payload) {
-    state.WorkoutStageItem = state.WorkoutStage[payload.WorkoutStageID]
+    if ('' + payload.WorkoutStageID === '0') {
+      state.WorkoutStageItem = {
+        WorkoutStageID: null,
+        WorkoutID: null,
+        PersonID: null,
+        GoalNarrative: null,
+        isTemplate: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.WorkoutStageItem = state.WorkoutStage[payload.WorkoutStageID]
+    }
   },
   SET_WORKOUTSTAGE (state, payload) {
     state.WorkoutStage[payload.WorkoutStageID] = payload

@@ -20,7 +20,7 @@ var server = new Server(".\\SQL2017");
 
 #>
 <#
-	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\vuex\\modules\\";
+	string basePath = "C:\\Git\\FitBI\\Orca-UI\\src\\store\\modules\\";
 	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\store\\";
 	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" || s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
             foreach (Schema sSchema in sorted)
@@ -59,7 +59,7 @@ import Vuex from 'vuex'
 import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
-import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
+import { getField, updateField } from 'vuex-map-fields'
 // import { getField, updateField } from 'vuex-map-fields'
 import actions from './" + className + @"Actions'
 
@@ -108,7 +108,7 @@ const getters = {
     })
   },
   Get_" + tTable.Name + @"_List: function () {
-    return state." + tTable.Name + @"
+    return _.sortBy(state." + tTable.Name + @", 'Name')
   },
   Get_" + tTable.Name + @"_Item: function () {
     return state." + tTable.Name + @"Item
@@ -135,11 +135,29 @@ Column[] cColDates = (from Column cCol in tTable.Columns where cCol.DataType.Sql
 // #region Mutations
 const mutations = {
   updateField";
+  string strColumnList = "";
             foreach (Table tTable in tTables)
             {
+strColumnList = "";
+Column[] cCols = (from Column cCol in tTable.Columns  select cCol).ToArray();
+                foreach (Column col in cCols)
+                {
+                    strColumnList += @"
+        " + col.Name + @": null,";
+				}
+			if (strColumnList.Length > 0) {
+				strColumnList = strColumnList.Substring(0, strColumnList.Length - 1);
+			}
+	strColumnList += @"
+      ";
+
                 strFile += @",
   GET_" + tTable.Name.ToUpper() + @" (state, payload) {
-    state." + tTable.Name + @"Item = state." + tTable.Name + @"[payload." + tTable.Name + @"ID]
+    if ('' + payload." + tTable.Name + @"ID === '0') {
+      state." + tTable.Name + @"Item = {" + strColumnList + @"}
+    } else {
+      state." + tTable.Name + @"Item = state." + tTable.Name + @"[payload." + tTable.Name + @"ID]
+    }
   },
   SET_" + tTable.Name.ToUpper() + @" (state, payload) {
     state." + tTable.Name + @"[payload." + tTable.Name + @"ID] = payload
@@ -181,5 +199,4 @@ export default store
         #><#=this.FileName#><#+
         return this.GenerationEnvironment.ToString();
     }
-}
-#>
+}#>

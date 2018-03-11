@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/AphelionSoftware/FitBI#readme",
   "dependencies": {
-    "loopback-cli": "^4.0.0"
+    "loopback-cli": "^4.0.0",
+    "quasar": "0.0.18",
+    "quasar-cli": "^0.15.9"
   }
 }

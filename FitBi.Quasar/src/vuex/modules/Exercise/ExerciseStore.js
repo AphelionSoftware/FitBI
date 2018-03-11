@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
-import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
+import { getField, updateField } from 'vuex-map-fields'
 // import { getField, updateField } from 'vuex-map-fields'
 import actions from './ExerciseActions'
 
@@ -17,6 +17,9 @@ const state = {
   Exercise_Sport: { },
   Exercise_SportList: [],
   Exercise_SportItem: {},
+  ExerciseLink: { },
+  ExerciseLinkList: [],
+  ExerciseLinkItem: {},
   ExerciseType: { },
   ExerciseTypeList: [],
   ExerciseTypeItem: {},
@@ -50,7 +53,7 @@ const getters = {
     })
   },
   Get_Exercise_List: function () {
-    return state.Exercise
+    return _.sortBy(state.Exercise, 'Name')
   },
   Get_Exercise_Item: function () {
     return state.ExerciseItem
@@ -78,10 +81,38 @@ const getters = {
     })
   },
   Get_Exercise_Sport_List: function () {
-    return state.Exercise_Sport
+    return _.sortBy(state.Exercise_Sport, 'Name')
   },
   Get_Exercise_Sport_Item: function () {
     return state.Exercise_SportItem
+  },
+  Get_ExerciseLink_ByRouteID: function (state, getters, rootState) {
+    return state.ExerciseLink[+rootState.route.params.exerciselinkid]
+  },
+  Get_ExerciseLink_ByExerciseLinkID: function (state) {
+    return function (exerciselinkID) {
+      return state.ExerciseLink[exerciselinkID]
+    }
+  },
+  Get_ExerciseLinkItem: function () {
+    return state.ExerciseLinkItem
+  },
+  Get_ExerciseLink_All: function () {
+    return state.ExerciseLink
+  },
+  Get_ExerciseLink_Select: function () {
+    return _.map(state.ExerciseLink, item => {
+      return {
+        label: item.Name,
+        value: item.ExerciseLinkID
+      }
+    })
+  },
+  Get_ExerciseLink_List: function () {
+    return _.sortBy(state.ExerciseLink, 'Name')
+  },
+  Get_ExerciseLink_Item: function () {
+    return state.ExerciseLinkItem
   },
   Get_ExerciseType_ByRouteID: function (state, getters, rootState) {
     return state.ExerciseType[+rootState.route.params.exercisetypeid]
@@ -106,7 +137,7 @@ const getters = {
     })
   },
   Get_ExerciseType_List: function () {
-    return state.ExerciseType
+    return _.sortBy(state.ExerciseType, 'Name')
   },
   Get_ExerciseType_Item: function () {
     return state.ExerciseTypeItem
@@ -134,7 +165,7 @@ const getters = {
     })
   },
   Get_Sport_List: function () {
-    return state.Sport
+    return _.sortBy(state.Sport, 'Name')
   },
   Get_Sport_Item: function () {
     return state.SportItem
@@ -145,7 +176,25 @@ const getters = {
 const mutations = {
   updateField,
   GET_EXERCISE (state, payload) {
-    state.ExerciseItem = state.Exercise[payload.ExerciseID]
+    if ('' + payload.ExerciseID === '0') {
+      state.ExerciseItem = {
+        ExerciseID: null,
+        ExerciseTypeID: null,
+        Code: null,
+        Name: null,
+        Description: null,
+        ParentExerciseID: null,
+        PersonID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.ExerciseItem = state.Exercise[payload.ExerciseID]
+    }
   },
   SET_EXERCISE (state, payload) {
     state.Exercise[payload.ExerciseID] = payload
@@ -162,7 +211,23 @@ const mutations = {
     }
   },
   GET_EXERCISE_SPORT (state, payload) {
-    state.Exercise_SportItem = state.Exercise_Sport[payload.Exercise_SportID]
+    if ('' + payload.Exercise_SportID === '0') {
+      state.Exercise_SportItem = {
+        Exercise_SportID: null,
+        ExerciseID: null,
+        PersonID: null,
+        GoalNarrative: null,
+        SportID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.Exercise_SportItem = state.Exercise_Sport[payload.Exercise_SportID]
+    }
   },
   SET_EXERCISE_SPORT (state, payload) {
     state.Exercise_Sport[payload.Exercise_SportID] = payload
@@ -178,8 +243,58 @@ const mutations = {
       }, this)
     }
   },
+  GET_EXERCISELINK (state, payload) {
+    if ('' + payload.ExerciseLinkID === '0') {
+      state.ExerciseLinkItem = {
+        ExerciseLinkID: null,
+        Code: null,
+        Name: null,
+        URL: null,
+        ExerciseID: null,
+        PersonID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.ExerciseLinkItem = state.ExerciseLink[payload.ExerciseLinkID]
+    }
+  },
+  SET_EXERCISELINK (state, payload) {
+    state.ExerciseLink[payload.ExerciseLinkID] = payload
+  },
+  SET_EXERCISELINKITEM (state, payload) {
+    state.ExerciseLinkItem = payload
+  },
+  SET_EXERCISELINK_LIST: function (state, fullList) {
+    if (typeof (fullList) !== 'undefined') {
+      fullList.forEach(function (element) {
+        Vue.set(state.ExerciseLink, element.ExerciseLinkID, element)
+        state.ExerciseLinkList.push(element.ExerciseLinkID)
+      }, this)
+    }
+  },
   GET_EXERCISETYPE (state, payload) {
-    state.ExerciseTypeItem = state.ExerciseType[payload.ExerciseTypeID]
+    if ('' + payload.ExerciseTypeID === '0') {
+      state.ExerciseTypeItem = {
+        ExerciseTypeID: null,
+        Code: null,
+        Name: null,
+        ParentExerciseTypeID: null,
+        PersonID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.ExerciseTypeItem = state.ExerciseType[payload.ExerciseTypeID]
+    }
   },
   SET_EXERCISETYPE (state, payload) {
     state.ExerciseType[payload.ExerciseTypeID] = payload
@@ -196,7 +311,24 @@ const mutations = {
     }
   },
   GET_SPORT (state, payload) {
-    state.SportItem = state.Sport[payload.SportID]
+    if ('' + payload.SportID === '0') {
+      state.SportItem = {
+        SportID: null,
+        Code: null,
+        Name: null,
+        Description: null,
+        ParentSportID: null,
+        PersonID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.SportItem = state.Sport[payload.SportID]
+    }
   },
   SET_SPORT (state, payload) {
     state.Sport[payload.SportID] = payload

@@ -8,6 +8,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.PlanID === null) item.PlanID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_PLAN', item)
@@ -21,6 +22,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.WorkoutID === null) item.WorkoutID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_WORKOUT', item)
@@ -34,6 +36,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.Workout_ExerciseID === null) item.Workout_ExerciseID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_WORKOUT_EXERCISE', item)
@@ -47,6 +50,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.WorkoutStageID === null) item.WorkoutStageID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_WORKOUTSTAGE', item)

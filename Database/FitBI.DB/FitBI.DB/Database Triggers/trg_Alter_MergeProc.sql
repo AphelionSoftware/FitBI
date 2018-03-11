@@ -1,5 +1,6 @@
 ﻿
 
+
 CREATE TRIGGER [trg_Alter_MergeProc] ON DATABASE
 	FOR ALTER_TABLE
 AS 
@@ -11,7 +12,7 @@ DECLARE @Table_Name varchar(255), @Table_Schema varchar(255)
 IF NOT @Table_Name LIKE 'TMP_%' 
 BEGIN
 
-	IF EXISTS (SELECT 1 FROM sys.procedures where SCHEMA_NAME(schema_id) = 'API' and name = 'API.merge_' + @Table_schema + '_' + @Table_Name)
+	IF EXISTS (SELECT 1 FROM sys.procedures where SCHEMA_NAME(schema_id) = 'API' and name = 'merge_' + @Table_schema + '_' + @Table_Name)
 	BEGIN
 		declare @exec varchar(255) ='DROP PROC API.merge_' + @Table_schema + '_' + @Table_Name
 		EXEC (@Exec)

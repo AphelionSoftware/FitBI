@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
-import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
+import { getField, updateField } from 'vuex-map-fields'
 // import { getField, updateField } from 'vuex-map-fields'
 import actions from './StatsActions'
 
@@ -53,7 +53,7 @@ const getters = {
     })
   },
   Get_Metric_List: function () {
-    return state.Metric
+    return _.sortBy(state.Metric, 'Name')
   },
   Get_Metric_Item: function () {
     return state.MetricItem
@@ -81,7 +81,7 @@ const getters = {
     })
   },
   Get_Person_List: function () {
-    return state.Person
+    return _.sortBy(state.Person, 'Name')
   },
   Get_Person_Item: function () {
     return state.PersonItem
@@ -109,7 +109,7 @@ const getters = {
     })
   },
   Get_SkinfoldMeasurement_List: function () {
-    return state.SkinfoldMeasurement
+    return _.sortBy(state.SkinfoldMeasurement, 'Name')
   },
   Get_SkinfoldMeasurement_Item: function () {
     return state.SkinfoldMeasurementItem
@@ -144,7 +144,7 @@ const getters = {
     })
   },
   Get_TapeMeasurement_List: function () {
-    return state.TapeMeasurement
+    return _.sortBy(state.TapeMeasurement, 'Name')
   },
   Get_TapeMeasurement_Item: function () {
     return state.TapeMeasurementItem
@@ -179,7 +179,7 @@ const getters = {
     })
   },
   Get_WeightMeasurement_List: function () {
-    return state.WeightMeasurement
+    return _.sortBy(state.WeightMeasurement, 'Name')
   },
   Get_WeightMeasurement_Item: function () {
     return state.WeightMeasurementItem
@@ -197,7 +197,26 @@ const getters = {
 const mutations = {
   updateField,
   GET_METRIC (state, payload) {
-    state.MetricItem = state.Metric[payload.MetricID]
+    if ('' + payload.MetricID === '0') {
+      state.MetricItem = {
+        MetricID: null,
+        PersonID: null,
+        Weight: null,
+        BodyFatPercentage: null,
+        MusclePercentage: null,
+        WaterPercentage: null,
+        BonePercentage: null,
+        PercentMeasurementTypeID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.MetricItem = state.Metric[payload.MetricID]
+    }
   },
   SET_METRIC (state, payload) {
     state.Metric[payload.MetricID] = payload
@@ -214,7 +233,24 @@ const mutations = {
     }
   },
   GET_PERSON (state, payload) {
-    state.PersonItem = state.Person[payload.PersonID]
+    if ('' + payload.PersonID === '0') {
+      state.PersonItem = {
+        PersonID: null,
+        FirstName: null,
+        Surname: null,
+        DateOfBirth: null,
+        DateOfBirthID: null,
+        Height: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.PersonItem = state.Person[payload.PersonID]
+    }
   },
   SET_PERSON (state, payload) {
     state.Person[payload.PersonID] = payload
@@ -231,7 +267,24 @@ const mutations = {
     }
   },
   GET_SKINFOLDMEASUREMENT (state, payload) {
-    state.SkinfoldMeasurementItem = state.SkinfoldMeasurement[payload.SkinfoldMeasurementID]
+    if ('' + payload.SkinfoldMeasurementID === '0') {
+      state.SkinfoldMeasurementItem = {
+        SkinfoldMeasurementID: null,
+        PersonID: null,
+        SkinfoldThickness: null,
+        SideMeasurementTypeID: null,
+        BodyPartID: null,
+        MeasurementDate: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.SkinfoldMeasurementItem = state.SkinfoldMeasurement[payload.SkinfoldMeasurementID]
+    }
   },
   SET_SKINFOLDMEASUREMENT (state, payload) {
     state.SkinfoldMeasurement[payload.SkinfoldMeasurementID] = payload
@@ -248,7 +301,24 @@ const mutations = {
     }
   },
   GET_TAPEMEASUREMENT (state, payload) {
-    state.TapeMeasurementItem = state.TapeMeasurement[payload.TapeMeasurementID]
+    if ('' + payload.TapeMeasurementID === '0') {
+      state.TapeMeasurementItem = {
+        TapeMeasurementID: null,
+        PersonID: null,
+        TapeLength: null,
+        SideMeasurementTypeID: null,
+        BodyPartID: null,
+        MeasurementDate: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.TapeMeasurementItem = state.TapeMeasurement[payload.TapeMeasurementID]
+    }
   },
   SET_TAPEMEASUREMENT (state, payload) {
     state.TapeMeasurement[payload.TapeMeasurementID] = payload
@@ -265,7 +335,28 @@ const mutations = {
     }
   },
   GET_WEIGHTMEASUREMENT (state, payload) {
-    state.WeightMeasurementItem = state.WeightMeasurement[payload.WeightMeasurementID]
+    if ('' + payload.WeightMeasurementID === '0') {
+      state.WeightMeasurementItem = {
+        WeightMeasurementID: null,
+        PersonID: null,
+        Weight: null,
+        BodyFatPercentage: null,
+        MusclePercentage: null,
+        WaterPercentage: null,
+        BonePercentage: null,
+        PercentMeasurementTypeID: null,
+        UnitID: null,
+        MeasurementDate: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.WeightMeasurementItem = state.WeightMeasurement[payload.WeightMeasurementID]
+    }
   },
   SET_WEIGHTMEASUREMENT (state, payload) {
     state.WeightMeasurement[payload.WeightMeasurementID] = payload

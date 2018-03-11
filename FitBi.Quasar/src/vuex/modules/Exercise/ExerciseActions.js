@@ -8,6 +8,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.ExerciseID === null) item.ExerciseID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_EXERCISE', item)
@@ -21,10 +22,25 @@ const actions = {
     else {
       item = payload
     }
+    if (item.Exercise_SportID === null) item.Exercise_SportID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_EXERCISE_SPORT', item)
     Vue.$API.mergeExercise.mergeExercise_Sport(item)
+  },
+  saveExerciseLink (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.ExerciseLinkItem
+    }
+    else {
+      item = payload
+    }
+    if (item.ExerciseLinkID === null) item.ExerciseLinkID = 0
+    item.UpdateAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    context.commit('SET_EXERCISELINK', item)
+    Vue.$API.mergeExercise.mergeExerciseLink(item)
   },
   saveExerciseType (context, payload) {
     let item = {}
@@ -34,6 +50,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.ExerciseTypeID === null) item.ExerciseTypeID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_EXERCISETYPE', item)
@@ -47,6 +64,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.SportID === null) item.SportID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_SPORT', item)

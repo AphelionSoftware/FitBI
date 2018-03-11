@@ -7,12 +7,12 @@
      </div>
  <div class="layout-padding">   
    <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
-     <q-select float-label="Exercise type" 
-     :value="ExerciseTypeName" 
+     <vue-multiselect float-label="Exercise type" 
+     :value="ExerciseTypeID" 
      :options="Get_ExerciseType_Select" 
      :searchable="true" 
-     v-model="ExerciseTypeName"
-     @input="setExerciseTypeID"></q-select>
+     v-model="ExerciseTypeID"
+     @input="setExerciseTypeID"></vue-multiselect>
    <q-input v-model="Code" stack-label="Code" />
    <q-input v-model="Name" stack-label="Name" />   
    <!--<q-input v-model.lazy="Description" stack-label="Description" type="textarea"/>-->
@@ -34,10 +34,12 @@ import { mapFields } from '../../../helpers/vuex-map-fields/index'
 import hljs from 'highlight.js'
 // import 'highlight.js/styles/monokai-sublime.css'
 import VueQuillEditor, { Quill } from 'vue-quill-editor'
+import Multiselect from 'vue-multiselect'
 import Vue from 'vue'
+Vue.use(Multiselect)
 import uiMixin from '../../../mixins/ui/ui'
 import { mapState, mapGetters } from 'vuex'
-
+import { Toast } from 'quasar'
 // import { ImageDrop } from 'quill-image-drop-module'
 
 Vue.use(VueQuillEditor, {
@@ -56,7 +58,8 @@ export default {
     ...mapFields({
       Name: 'Exercise.ExerciseItem.Name',
       Code: 'Exercise.ExerciseItem.Code',
-      Description: 'Exercise.ExerciseItem.Description'
+      Description: 'Exercise.ExerciseItem.Description',
+      ExerciseTypeID: 'Exercise.ExerciseItem.ExerciseTypeID'
     }),
     ...mapState(
       'Exercise', ['ExerciseType']
@@ -93,7 +96,7 @@ export default {
     setExerciseTypeID (exerciseTypeID) {
       let exercise = this.$store.getters['Exercise/Get_Exercise_Item']
       exercise.ExerciseTypeID = exerciseTypeID
-      this.$store.commit('Exercise/SET_EXERCISE_ITEM', exercise)
+      this.$store.commit('Exercise/SET_EXERCISEITEM', exercise)
     }
   },
   data () {
@@ -103,16 +106,15 @@ export default {
       editorOption: {
         modules: {
           toolbar: [
-            ['bold', 'italic', 'underline', 'strike'],
+            ['bold', 'italic', 'underline'],
             /* ['blockquote', 'code-block'], */
             [{ 'header': 1 }, { 'header': 2 }],
             [{ 'list': 'ordered' }, { 'list': 'bullet' }],
             /* [{ 'script': 'sub' }, { 'script': 'super' }], */
             [{ 'indent': '-1' }, { 'indent': '+1' }],
-            [{ 'direction': 'rtl' }],
             [{ 'size': ['small', false, 'large', 'huge'] }],
             /* [{ 'header': [1, 2, 3, 4, 5, 6, false] }], */
-            [{ 'font': [] }],
+            /* [{ 'font': [] }], */
             [{ 'color': [] }, { 'background': [] }],
             [{ 'align': [] }],
             ['clean'],
@@ -137,6 +139,13 @@ export default {
       var store = this.$store
       let fnSave = function () {
         store.dispatch('Exercise/saveExercise', store.state.Exercise.ExerciseItem)
+        Toast.create({
+          html: 'Exercise saved',
+          icon: 'fa-thumbs-up',
+          timeout: 2400,
+          color: '#99d8c9',
+          bgColor: 'white'
+        })
       }
       this.uiSaveAction(next, fnSave)
     }
@@ -149,8 +158,10 @@ export default {
     this.$store.commit('Exercise/GET_EXERCISE', payload)
     // Set the save action to enable the toolbar save button
     var store = this.$store
+    let router = this.$router
     let fnSave = function () {
       store.dispatch('Exercise/saveExercise', store.state.Exercise.ExerciseItem)
+      router.push({name: 'exercises'})
     }
     this.$store.commit('AppState/SET_SAVE', fnSave)
   },

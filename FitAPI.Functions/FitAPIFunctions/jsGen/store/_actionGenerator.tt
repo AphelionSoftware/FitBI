@@ -20,7 +20,7 @@ var server = new Server(".\\SQL2017");
 
 #>
 <#
-	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\vuex\\modules\\";
+	string basePath = "C:\\Git\\FitBI\\Orca-UI\\src\\store\\modules\\";
 	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\store\\";
 	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" || s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
             foreach (Schema sSchema in sorted)
@@ -64,10 +64,10 @@ const actions = {"
     let item = {}
     if (typeof (payload) === 'undefined') {
       item = context.state." + tTable.Name + @"Item
-    }
-    else {
+    } else {
       item = payload
     }
+    if (item." + tTable.Name + @"ID === null) item." + tTable.Name + @"ID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_" + tTable.Name.ToUpper() + @"', item)
@@ -80,7 +80,6 @@ const actions = {"
 }
 
 export default actions
-
 ";
 
             this.FileName = strFile;
@@ -92,5 +91,4 @@ export default actions
         #><#=this.FileName#><#+
         return this.GenerationEnvironment.ToString();
     }
-}
-#>
+}#>

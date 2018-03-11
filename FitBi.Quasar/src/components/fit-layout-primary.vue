@@ -42,6 +42,20 @@
         <q-item-side icon="directions bike" />
         <q-item-main label="Exercises" />
       </q-side-link>      
+      <q-side-link item to="/kb/exerciseTypes">
+        <q-item-side icon="fitness center" />
+        <q-item-main label="Exercise Types" />
+      </q-side-link>      
+     <q-list-header>Reports</q-list-header>
+      <q-side-link item to="/kb/exercises">
+        <q-item-side icon="timeline" />
+        <q-item-main label="Stats" />
+      </q-side-link>      
+      <q-side-link item to="/kb/exercises">
+        <q-item-side icon="multiline chart" />
+        <q-item-main label="Workouts" />
+      </q-side-link>      
+      
      </q-list>
      <div slot="right">
 

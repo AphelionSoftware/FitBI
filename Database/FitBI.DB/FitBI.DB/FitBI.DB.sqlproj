@@ -177,6 +177,9 @@
     <Build Include="Utility\Stored Procedures\RecreateTVP_and_Merge.sql" />
     <Build Include="Database Triggers\trg_Alter_MergeProc.sql" />
     <Build Include="Utility\Stored Procedures\RecreateTVP_and_MergeAll.sql" />
+    <Build Include="Exercise\Tables\ExerciseLink.sql" />
+    <Build Include="API\Stored Procedures\merge_Exercise_ExerciseLink.sql" />
+    <Build Include="Exercise\User Defined Types\tvp_ExerciseLink.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

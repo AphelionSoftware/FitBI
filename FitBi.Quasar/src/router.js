@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from './vuex/store'
+// import store from './vuex/store'
 
 Vue.use(VueRouter)
 
@@ -33,7 +33,7 @@ export default new VueRouter({
           component: load('pages/stats/dailyMeasurement'),
           props: true,
           beforeEnter: (to, from, next) => {
-            store.dispatch('DailyMeasurement/Set_NewDailyMeasurement')
+            // store.dispatch('DailyMeasurement/Set_NewDailyMeasurement')
             next()
           }
         },
@@ -48,6 +48,7 @@ export default new VueRouter({
       children: [
         {
           path: 'exercises',
+          name: 'exercises',
           component: load('pages/fit-exercises')
         },
         {
@@ -55,14 +56,17 @@ export default new VueRouter({
           component: load('pages/kb/exercise.edit'),
           props: true,
           name: 'editExercise'
-          // ,
-          // beforeEnter: (to, from, next) => {
-          //   let payload = {
-          //     exerciseid: to.params['exerciseid']
-          //   }
-          //   store.commit('Exercise/GET_EXERCISE', payload)
-          //   next()
-          // }
+        },
+        {
+          path: 'exerciseTypes',
+          name: 'exerciseTypes',
+          component: load('pages/kb/exerciseTypes')
+        },
+        {
+          path: 'exerciseTypes.edit/:exercisetypeid',
+          component: load('pages/kb/exerciseType.edit'),
+          props: true,
+          name: 'editExerciseType'
         }
       ]
     },

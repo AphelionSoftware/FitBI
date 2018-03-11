@@ -8,6 +8,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.ActiveID === null) item.ActiveID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_ACTIVE', item)
@@ -21,6 +22,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.BodyPartID === null) item.BodyPartID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_BODYPART', item)
@@ -34,6 +36,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.BodyPartTypeID === null) item.BodyPartTypeID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_BODYPARTTYPE', item)
@@ -47,6 +50,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.DatesID === null) item.DatesID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_DATES', item)
@@ -60,6 +64,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.MeasurementTypeID === null) item.MeasurementTypeID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_MEASUREMENTTYPE', item)
@@ -73,6 +78,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.MeasurementTypeCategoryID === null) item.MeasurementTypeCategoryID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_MEASUREMENTTYPECATEGORY', item)
@@ -86,6 +92,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.TimeID === null) item.TimeID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_TIME', item)
@@ -99,6 +106,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.UnitID === null) item.UnitID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_UNIT', item)
@@ -112,6 +120,7 @@ const actions = {
     else {
       item = payload
     }
+    if (item.UnitTypeID === null) item.UnitTypeID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_UNITTYPE', item)

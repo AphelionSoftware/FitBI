@@ -9,7 +9,7 @@ require(`./themes/app.${__THEME}.styl`)
 import Vue from 'vue'
 import Vuex, {mapState, mapGetters} from 'vuex'
 import router from './router'
-import Quasar, {QSelect, QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea} from 'quasar'
+import Quasar, {QSlider, QSelect, QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea} from 'quasar'
 import underscore from 'vue-underscore'
 import 'quasar-extras/material-icons'
 import 'quasar-extras/ionicons'
@@ -36,6 +36,7 @@ import Measurements from './components/pages/fit-measurements'
 import store from './vuex/store'
 
 import { sync } from 'vuex-router-sync' // Access via store.state.route.params
+import Multiselect from 'vue-multiselect'
 sync(store, router) // done. Returns an unsync callback fn
 // Vue.use(vueConfig, config)
 config.token = token
@@ -45,7 +46,7 @@ Vue.$API = new API(config)
 
 Vue.use(Vuelidate)
 Vue.use(Quasar, {
-  components: {QSelect, QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea}
+  components: {QSlider, QSelect, QSearch, QKnob, QTab, QTabs, QTabPane, QRouteTab, QChip, QToggle, QDatetime, QLayout, QList, QListHeader, QSideLink, QItemMain, QItemSide, QToolbar, QBtn, QIcon, QToolbarTitle, QItem, QItemTile, QInput, QField, QScrollArea}
 }) // Install Quasar Framework
 
 Vue.use(Vuex, {
@@ -55,6 +56,7 @@ Vue.use(Vuex, {
 Vue.component('fit-weight', Weight)
 Vue.component('fit-measurements', Measurements)
 Vue.component('single-measure', SingleMeasure)
+Vue.component('multiselect', Multiselect)
 
 /* eslint-disable no-new */
 let vueInstance = new Vue({

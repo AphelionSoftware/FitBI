@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
-import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
+import { getField, updateField } from 'vuex-map-fields'
 // import { getField, updateField } from 'vuex-map-fields'
 import actions from './CoreActions'
 
@@ -65,7 +65,7 @@ const getters = {
     })
   },
   Get_Active_List: function () {
-    return state.Active
+    return _.sortBy(state.Active, 'Name')
   },
   Get_Active_Item: function () {
     return state.ActiveItem
@@ -93,7 +93,7 @@ const getters = {
     })
   },
   Get_BodyPart_List: function () {
-    return state.BodyPart
+    return _.sortBy(state.BodyPart, 'Name')
   },
   Get_BodyPart_Item: function () {
     return state.BodyPartItem
@@ -121,7 +121,7 @@ const getters = {
     })
   },
   Get_BodyPartType_List: function () {
-    return state.BodyPartType
+    return _.sortBy(state.BodyPartType, 'Name')
   },
   Get_BodyPartType_Item: function () {
     return state.BodyPartTypeItem
@@ -149,7 +149,7 @@ const getters = {
     })
   },
   Get_Dates_List: function () {
-    return state.Dates
+    return _.sortBy(state.Dates, 'Name')
   },
   Get_Dates_Item: function () {
     return state.DatesItem
@@ -184,7 +184,7 @@ const getters = {
     })
   },
   Get_MeasurementType_List: function () {
-    return state.MeasurementType
+    return _.sortBy(state.MeasurementType, 'Name')
   },
   Get_MeasurementType_Item: function () {
     return state.MeasurementTypeItem
@@ -212,7 +212,7 @@ const getters = {
     })
   },
   Get_MeasurementTypeCategory_List: function () {
-    return state.MeasurementTypeCategory
+    return _.sortBy(state.MeasurementTypeCategory, 'Name')
   },
   Get_MeasurementTypeCategory_Item: function () {
     return state.MeasurementTypeCategoryItem
@@ -240,7 +240,7 @@ const getters = {
     })
   },
   Get_Time_List: function () {
-    return state.Time
+    return _.sortBy(state.Time, 'Name')
   },
   Get_Time_Item: function () {
     return state.TimeItem
@@ -268,7 +268,7 @@ const getters = {
     })
   },
   Get_Unit_List: function () {
-    return state.Unit
+    return _.sortBy(state.Unit, 'Name')
   },
   Get_Unit_Item: function () {
     return state.UnitItem
@@ -296,7 +296,7 @@ const getters = {
     })
   },
   Get_UnitType_List: function () {
-    return state.UnitType
+    return _.sortBy(state.UnitType, 'Name')
   },
   Get_UnitType_Item: function () {
     return state.UnitTypeItem
@@ -307,7 +307,20 @@ const getters = {
 const mutations = {
   updateField,
   GET_ACTIVE (state, payload) {
-    state.ActiveItem = state.Active[payload.ActiveID]
+    if ('' + payload.ActiveID === '0') {
+      state.ActiveItem = {
+        ActiveID: null,
+        Code: null,
+        Name: null,
+        Id: null,
+        Version: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null
+      }
+    } else {
+      state.ActiveItem = state.Active[payload.ActiveID]
+    }
   },
   SET_ACTIVE (state, payload) {
     state.Active[payload.ActiveID] = payload
@@ -324,7 +337,24 @@ const mutations = {
     }
   },
   GET_BODYPART (state, payload) {
-    state.BodyPartItem = state.BodyPart[payload.BodyPartID]
+    if ('' + payload.BodyPartID === '0') {
+      state.BodyPartItem = {
+        BodyPartID: null,
+        BodyPartTypeID: null,
+        Code: null,
+        Name: null,
+        Description: null,
+        ParentBodyPartID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.BodyPartItem = state.BodyPart[payload.BodyPartID]
+    }
   },
   SET_BODYPART (state, payload) {
     state.BodyPart[payload.BodyPartID] = payload
@@ -341,7 +371,21 @@ const mutations = {
     }
   },
   GET_BODYPARTTYPE (state, payload) {
-    state.BodyPartTypeItem = state.BodyPartType[payload.BodyPartTypeID]
+    if ('' + payload.BodyPartTypeID === '0') {
+      state.BodyPartTypeItem = {
+        BodyPartTypeID: null,
+        Code: null,
+        Name: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.BodyPartTypeItem = state.BodyPartType[payload.BodyPartTypeID]
+    }
   },
   SET_BODYPARTTYPE (state, payload) {
     state.BodyPartType[payload.BodyPartTypeID] = payload
@@ -358,7 +402,39 @@ const mutations = {
     }
   },
   GET_DATES (state, payload) {
-    state.DatesItem = state.Dates[payload.DatesID]
+    if ('' + payload.DatesID === '0') {
+      state.DatesItem = {
+        DateID: null,
+        FullDate: null,
+        Date: null,
+        DateCounter: null,
+        Day: null,
+        DaySuffix: null,
+        DayOfWeekNumber: null,
+        DayOfWeek: null,
+        DayOfYear: null,
+        WeekOfMonth: null,
+        WeekOfMonthName: null,
+        WeekOfYear: null,
+        WeekOfYearName: null,
+        MonthNumber: null,
+        ShortMonthName: null,
+        MonthName: null,
+        Quarter: null,
+        QuarterName: null,
+        YearName: null,
+        YearNumber: null,
+        YearMonth: null,
+        YearMonthNumber: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.DatesItem = state.Dates[payload.DatesID]
+    }
   },
   SET_DATES (state, payload) {
     state.Dates[payload.DatesID] = payload
@@ -375,7 +451,23 @@ const mutations = {
     }
   },
   GET_MEASUREMENTTYPE (state, payload) {
-    state.MeasurementTypeItem = state.MeasurementType[payload.MeasurementTypeID]
+    if ('' + payload.MeasurementTypeID === '0') {
+      state.MeasurementTypeItem = {
+        MeasurementTypeID: null,
+        MeasurementTypeCategoryID: null,
+        Code: null,
+        Name: null,
+        Description: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.MeasurementTypeItem = state.MeasurementType[payload.MeasurementTypeID]
+    }
   },
   SET_MEASUREMENTTYPE (state, payload) {
     state.MeasurementType[payload.MeasurementTypeID] = payload
@@ -392,7 +484,21 @@ const mutations = {
     }
   },
   GET_MEASUREMENTTYPECATEGORY (state, payload) {
-    state.MeasurementTypeCategoryItem = state.MeasurementTypeCategory[payload.MeasurementTypeCategoryID]
+    if ('' + payload.MeasurementTypeCategoryID === '0') {
+      state.MeasurementTypeCategoryItem = {
+        MeasurementTypeCategoryID: null,
+        Code: null,
+        Name: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.MeasurementTypeCategoryItem = state.MeasurementTypeCategory[payload.MeasurementTypeCategoryID]
+    }
   },
   SET_MEASUREMENTTYPECATEGORY (state, payload) {
     state.MeasurementTypeCategory[payload.MeasurementTypeCategoryID] = payload
@@ -409,7 +515,26 @@ const mutations = {
     }
   },
   GET_TIME (state, payload) {
-    state.TimeItem = state.Time[payload.TimeID]
+    if ('' + payload.TimeID === '0') {
+      state.TimeItem = {
+        TimeID: null,
+        TimeInt: null,
+        Time: null,
+        SecondOfMinute: null,
+        MinuteOfHour: null,
+        HourOfDay: null,
+        SecondOfHour: null,
+        SecondOfDay: null,
+        MinuteOfDay: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.TimeItem = state.Time[payload.TimeID]
+    }
   },
   SET_TIME (state, payload) {
     state.Time[payload.TimeID] = payload
@@ -426,7 +551,24 @@ const mutations = {
     }
   },
   GET_UNIT (state, payload) {
-    state.UnitItem = state.Unit[payload.UnitID]
+    if ('' + payload.UnitID === '0') {
+      state.UnitItem = {
+        UnitID: null,
+        UnitTypeID: null,
+        Code: null,
+        Name: null,
+        Description: null,
+        ParentUnitID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.UnitItem = state.Unit[payload.UnitID]
+    }
   },
   SET_UNIT (state, payload) {
     state.Unit[payload.UnitID] = payload
@@ -443,7 +585,21 @@ const mutations = {
     }
   },
   GET_UNITTYPE (state, payload) {
-    state.UnitTypeItem = state.UnitType[payload.UnitTypeID]
+    if ('' + payload.UnitTypeID === '0') {
+      state.UnitTypeItem = {
+        UnitTypeID: null,
+        Code: null,
+        Name: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null
+      }
+    } else {
+      state.UnitTypeItem = state.UnitType[payload.UnitTypeID]
+    }
   },
   SET_UNITTYPE (state, payload) {
     state.UnitType[payload.UnitTypeID] = payload

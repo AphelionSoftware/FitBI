@@ -3,16 +3,17 @@
    
    <q-layout>
   
- <div class="layout-padding">   
-   <q-icon name="fa-save" @click="saveMeasurement" class="cursor-pointer" style="font-sizeL:28px;margin-left:84px"/>
+ <div class="layout-padding">      
    <q-list inset-separator class="no-border">
     <q-item>
         <q-item-main label="Weight">
         <q-item-tile sublabel>
-        <q-knob color="primary"
+        <q-slider color="primary"
             v-model="Weight"
             :min="minWeight"
             :max="maxWeight"
+            label-always
+            step="0.1"
         />    
         </q-item-tile>
         </q-item-main>
@@ -20,10 +21,12 @@
     <q-item>
         <q-item-main label="Neck">
         <q-item-tile sublabel>
-          <q-knob color="primary"
+          <q-slider color="primary"
             v-model="NeckTapeLength"
             :min="minNeck"
             :max="maxNeck"
+            label-always
+            step="1"
         />                
         </q-item-tile>
         </q-item-main>
@@ -31,10 +34,12 @@
     <q-item>
         <q-item-main label="Belly-button">
         <q-item-tile sublabel>
-          <q-knob color="primary"
+          <q-slider color="primary"
             v-model="BellyTapeLength"
             :min="minBelly"
             :max="maxBelly"
+            label-always
+            step="1"
         />                
         </q-item-tile>
         </q-item-main>
@@ -48,7 +53,7 @@
 
 // import { required } from 'vuelidate/lib/validators'
 import { mapFields } from '../../../helpers/vuex-map-fields/index'
-// import Vue from 'vue'
+import Vue from 'vue'
 import { ActionSheet, Toast } from 'quasar'
 var minNeck = 0, maxNeck = 0, minBelly = 0, maxBelly = 0, minWeight = 0, maxWeight = 0
 export default {
@@ -59,35 +64,35 @@ export default {
       BellyTapeLength: 'DailyMeasurement.BellyTapeMeasurement.TapeLength'
     }),
     minNeck: function () {
-      if (minNeck === 0) minNeck = this.$store.state.DailyMeasurement.NeckTapeMeasurement.TapeLength - 20
-      return minNeck
+      if (minNeck === 0) minNeck = +this.$store.state.DailyMeasurement.NeckTapeMeasurement.TapeLength - 20
+      return 0 // minNeck
     },
     maxNeck: function () {
-      if (maxNeck === 0) maxNeck = this.$store.state.DailyMeasurement.NeckTapeMeasurement.TapeLength + 15
-      return maxNeck
+      if (maxNeck === 0) maxNeck = +this.$store.state.DailyMeasurement.NeckTapeMeasurement.TapeLength + 15
+      return 150 // maxNeck
     },
     minBelly: function () {
-      if (minBelly === 0) minBelly = this.$store.state.DailyMeasurement.BellyTapeMeasurement.TapeLength - 40
+      if (minBelly === 0) minBelly = +this.$store.state.DailyMeasurement.BellyTapeMeasurement.TapeLength - 40
       return
     },
     maxBelly: function () {
-      if (maxBelly === 0) maxBelly = this.$store.state.DailyMeasurement.BellyTapeMeasurement.TapeLength + 25
-      return maxBelly
+      if (maxBelly === 0) maxBelly = +this.$store.state.DailyMeasurement.BellyTapeMeasurement.TapeLength + 25
+      return 150 // maxBelly
     },
     minWeight: function () {
       if (minWeight === 0) minWeight = this.$store.state.DailyMeasurement.WeightMeasurement.Weight - 40
-      return minWeight
+      return 0 // minWeight
     },
     maxWeight: function () {
       if (maxWeight === 0) maxWeight = this.$store.state.DailyMeasurement.WeightMeasurement.Weight + 25
-      return maxWeight
+      return 150 // maxWeight
     }
   },
   mounted () {
-  },
-  methods: {
-    saveMeasurement: function () {
-      this.$store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+    Vue.$API.Initialize()
+    var store = this.$store
+    let fnSave = function () {
+      store.dispatch('DailyMeasurement/Save_DailyMeasurement', store.state.Exercise.ExerciseItem)
       Toast.create({
         html: 'Measurements saved',
         icon: 'fa-thumbs-up',
@@ -96,6 +101,13 @@ export default {
         bgColor: 'white'
       })
     }
+    this.$store.commit('AppState/SET_SAVE', fnSave)
+    store.dispatch('DailyMeasurement/Set_NewDailyMeasurement')
+  },
+  beforeDestroy () {
+    this.$store.commit('AppState/CLEAR_SAVE')
+  },
+  methods: {
   },
   beforeRouteLeave (to, from, next) {
     // if (typeof (this.$store.state.Exercise.ExerciseItem.ExerciseID) === 'undefined'
