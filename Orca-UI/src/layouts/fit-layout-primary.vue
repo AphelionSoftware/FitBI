@@ -22,38 +22,38 @@
   <q-layout-drawer side="left" v-model="left">
     <q-list no-border link inset-separator>
       <q-list-header>Daily</q-list-header>
-      <q-item @click="$router.push('/record/weigh-in')">
+      <q-item to="/record/weigh-in">
         <q-item-side icon="fa-balance-scale" />
         <q-item-main label="Weigh-in" />
       </q-item>
-      <q-item @click="$router.push('/record/workout')">
+      <q-item to="/record/workout">
         <q-item-side icon="directions run" />
         <q-item-main label="Workout"  />
       </q-item>
-      <q-item @click="$router.push('/record/eat')">
+      <q-item to="/record/eat">
         <q-item-side icon="fa-cutlery" />
         <q-item-main label="Log meal"  />
       </q-item>
       <q-list-header>Program</q-list-header>
-      <q-item @click="$router.push('/program/calendar')">
+      <q-item to="/program/calendar">
         <q-item-side icon="fa-calendar" />
         <q-item-main label="Calendar" />
       </q-item>
       <q-list-header>Knowledge Base</q-list-header>
-      <q-item @click="$router.push('/kb/exercises')">
+      <q-item to="/kb/exercises">
         <q-item-side icon="directions bike" />
         <q-item-main label="Exercises" />
       </q-item>
-      <q-item @click="$router.push('/kb/exerciseTypes')">
+      <q-item to="/kb/exerciseTypes">
         <q-item-side icon="fitness center" />
         <q-item-main label="Exercise Types" />
       </q-item>
      <q-list-header>Reports</q-list-header>
-      <q-item @click="$router.push('/kb/exercises')">
+      <q-item to="/kb/exercises">
         <q-item-side icon="timeline" />
         <q-item-main label="Stats" />
       </q-item>
-      <q-item @click="$router.push('/kb/exercises')">
+      <q-item to="/kb/exercises">
         <q-item-side icon="multiline chart" />
         <q-item-main label="Workouts" />
       </q-item>
@@ -74,9 +74,9 @@
 // import { QTab, QTabs, QTabPane } from 'quasar'
 import {mapState} from 'vuex'
 export default {
-  data () {
+  data: function () {
     return {
-      // initializing for second tab to be selected by default
+      left: true
     }
   },
   computed: mapState({
@@ -84,6 +84,12 @@ export default {
     ...mapState(
       'AppState', ['SaveAction', 'AddAction']
     )
+    // ...mapState('layoutDemo', [
+    //   'headerReveal', 'footerReveal',
+    //   'leftOverlay', 'leftBehavior', 'leftBreakpoint',
+    //   'rightOverlay', 'rightBehavior', 'rightBreakpoint',
+    //   'scrolling'
+    // ])
   }),
   methods: {
     fnSaveAction: function () {
@@ -92,23 +98,12 @@ export default {
     fnAddAction: function () {
       this.$store.getters['AppState/Add']()
     }
-  },
-  left: {
-    get () { return this.$store.state.layoutDemo.left },
-    set (val) { this.$store.commit('layoutDemo/setLeft', val) }
-  },
-  ...mapState('layoutDemo', [
-    'headerReveal', 'footerReveal',
-    'leftOverlay', 'leftBehavior', 'leftBreakpoint',
-    'rightOverlay', 'rightBehavior', 'rightBreakpoint',
-    'scrolling'
-  ])
+  }
 }
 </script>
 <style>
 /* This is where your CSS goes */
  .fa {
    font-size: 16px;
-   font-weight: 400
  }
 </style>

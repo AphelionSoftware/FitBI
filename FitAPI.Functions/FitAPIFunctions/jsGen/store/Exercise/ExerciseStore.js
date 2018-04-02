@@ -52,6 +52,15 @@ const getters = {
       }
     })
   },
+  Get_Exercise_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Exercise, 'ExerciseID'),
+      item => ({
+        label: item.Name,
+        value: item.ExerciseID
+      })
+    )
+  },
   Get_Exercise_List: function () {
     return _.sortBy(state.Exercise, 'Name')
   },
@@ -79,6 +88,15 @@ const getters = {
         value: item.Exercise_SportID
       }
     })
+  },
+  Get_Exercise_Sport_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Exercise_Sport, 'Exercise_SportID'),
+      item => ({
+        label: item.Name,
+        value: item.Exercise_SportID
+      })
+    )
   },
   Get_Exercise_Sport_List: function () {
     return _.sortBy(state.Exercise_Sport, 'Name')
@@ -108,6 +126,15 @@ const getters = {
       }
     })
   },
+  Get_ExerciseLink_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.ExerciseLink, 'ExerciseLinkID'),
+      item => ({
+        label: item.Name,
+        value: item.ExerciseLinkID
+      })
+    )
+  },
   Get_ExerciseLink_List: function () {
     return _.sortBy(state.ExerciseLink, 'Name')
   },
@@ -136,6 +163,15 @@ const getters = {
       }
     })
   },
+  Get_ExerciseType_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.ExerciseType, 'ExerciseTypeID'),
+      item => ({
+        label: item.Name,
+        value: item.ExerciseTypeID
+      })
+    )
+  },
   Get_ExerciseType_List: function () {
     return _.sortBy(state.ExerciseType, 'Name')
   },
@@ -163,6 +199,15 @@ const getters = {
         value: item.SportID
       }
     })
+  },
+  Get_Sport_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Sport, 'SportID'),
+      item => ({
+        label: item.Name,
+        value: item.SportID
+      })
+    )
   },
   Get_Sport_List: function () {
     return _.sortBy(state.Sport, 'Name')

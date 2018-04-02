@@ -49,6 +49,15 @@ const getters = {
       }
     })
   },
+  Get_Plan_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Plan, 'PlanID'),
+      item => ({
+        label: item.Name,
+        value: item.PlanID
+      })
+    )
+  },
   Get_Plan_List: function () {
     return _.sortBy(state.Plan, 'Name')
   },
@@ -76,6 +85,15 @@ const getters = {
         value: item.WorkoutID
       }
     })
+  },
+  Get_Workout_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Workout, 'WorkoutID'),
+      item => ({
+        label: item.Name,
+        value: item.WorkoutID
+      })
+    )
   },
   Get_Workout_List: function () {
     return _.sortBy(state.Workout, 'Name')
@@ -105,6 +123,15 @@ const getters = {
       }
     })
   },
+  Get_Workout_Exercise_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Workout_Exercise, 'Workout_ExerciseID'),
+      item => ({
+        label: item.Name,
+        value: item.Workout_ExerciseID
+      })
+    )
+  },
   Get_Workout_Exercise_List: function () {
     return _.sortBy(state.Workout_Exercise, 'Name')
   },
@@ -132,6 +159,15 @@ const getters = {
         value: item.WorkoutStageID
       }
     })
+  },
+  Get_WorkoutStage_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.WorkoutStage, 'WorkoutStageID'),
+      item => ({
+        label: item.Name,
+        value: item.WorkoutStageID
+      })
+    )
   },
   Get_WorkoutStage_List: function () {
     return _.sortBy(state.WorkoutStage, 'Name')

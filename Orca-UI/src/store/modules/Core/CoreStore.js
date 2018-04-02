@@ -64,6 +64,15 @@ const getters = {
       }
     })
   },
+  Get_Active_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Active, 'ActiveID'),
+      item => ({
+        label: item.Name,
+        value: item.ActiveID
+      })
+    )
+  },
   Get_Active_List: function () {
     return _.sortBy(state.Active, 'Name')
   },
@@ -91,6 +100,15 @@ const getters = {
         value: item.BodyPartID
       }
     })
+  },
+  Get_BodyPart_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.BodyPart, 'BodyPartID'),
+      item => ({
+        label: item.Name,
+        value: item.BodyPartID
+      })
+    )
   },
   Get_BodyPart_List: function () {
     return _.sortBy(state.BodyPart, 'Name')
@@ -120,6 +138,15 @@ const getters = {
       }
     })
   },
+  Get_BodyPartType_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.BodyPartType, 'BodyPartTypeID'),
+      item => ({
+        label: item.Name,
+        value: item.BodyPartTypeID
+      })
+    )
+  },
   Get_BodyPartType_List: function () {
     return _.sortBy(state.BodyPartType, 'Name')
   },
@@ -147,6 +174,15 @@ const getters = {
         value: item.DatesID
       }
     })
+  },
+  Get_Dates_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Dates, 'DatesID'),
+      item => ({
+        label: item.Name,
+        value: item.DatesID
+      })
+    )
   },
   Get_Dates_List: function () {
     return _.sortBy(state.Dates, 'Name')
@@ -183,6 +219,15 @@ const getters = {
       }
     })
   },
+  Get_MeasurementType_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.MeasurementType, 'MeasurementTypeID'),
+      item => ({
+        label: item.Name,
+        value: item.MeasurementTypeID
+      })
+    )
+  },
   Get_MeasurementType_List: function () {
     return _.sortBy(state.MeasurementType, 'Name')
   },
@@ -210,6 +255,15 @@ const getters = {
         value: item.MeasurementTypeCategoryID
       }
     })
+  },
+  Get_MeasurementTypeCategory_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.MeasurementTypeCategory, 'MeasurementTypeCategoryID'),
+      item => ({
+        label: item.Name,
+        value: item.MeasurementTypeCategoryID
+      })
+    )
   },
   Get_MeasurementTypeCategory_List: function () {
     return _.sortBy(state.MeasurementTypeCategory, 'Name')
@@ -239,6 +293,15 @@ const getters = {
       }
     })
   },
+  Get_Time_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Time, 'TimeID'),
+      item => ({
+        label: item.Name,
+        value: item.TimeID
+      })
+    )
+  },
   Get_Time_List: function () {
     return _.sortBy(state.Time, 'Name')
   },
@@ -267,6 +330,15 @@ const getters = {
       }
     })
   },
+  Get_Unit_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Unit, 'UnitID'),
+      item => ({
+        label: item.Name,
+        value: item.UnitID
+      })
+    )
+  },
   Get_Unit_List: function () {
     return _.sortBy(state.Unit, 'Name')
   },
@@ -294,6 +366,15 @@ const getters = {
         value: item.UnitTypeID
       }
     })
+  },
+  Get_UnitType_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.UnitType, 'UnitTypeID'),
+      item => ({
+        label: item.Name,
+        value: item.UnitTypeID
+      })
+    )
   },
   Get_UnitType_List: function () {
     return _.sortBy(state.UnitType, 'Name')

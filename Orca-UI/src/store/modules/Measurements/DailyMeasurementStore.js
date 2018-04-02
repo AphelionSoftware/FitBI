@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {_} from 'vue-underscore'
-// import {BodyPart} from '../../../plugins/libraries/enumCore'
+import enumCore from '../../../plugins/libraries/enumCore'
 // Import the `getField` getter and the `updateField`
 // mutation function from the `vuex-map-fields` module.
 import { getField, updateField } from 'vuex-map-fields'
@@ -22,7 +22,7 @@ const getters = {
   getLatestNeckTapeMeasurement: function (state, getters, rootState, rootGetters) {
     return _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
       .filter(function (item) {
-        return item.BodyPartID === this.$enumCore.BodyPart.NECK.intID
+        return item.BodyPartID === enumCore.BodyPart.NECK.intID
       })
       .sortBy(function (item) { return item.MeasurementDate })
       .last()
@@ -31,7 +31,7 @@ const getters = {
   getLatestBellyTapeMeasurement: function (state, getters, rootState, rootGetters) {
     return _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
       .filter(function (item) {
-        return item.BodyPartID === this.$enumCore.BodyPart.BELLYBUTTON_CIRC.intID
+        return item.BodyPartID === enumCore.BodyPart.BELLYBUTTON_CIRC.intID
       })
       .sortBy(function (item) { return item.MeasurementDate })
       .last()
@@ -71,7 +71,7 @@ const actions = {
     var tapeNeck = getters['getLatestNeckTapeMeasurement']
     if (typeof (tapeNeck) === 'undefined') {
       tapeNeck = {
-        BodyPartID: this.$enumCore.BodyPart.NECK.intID,
+        BodyPartID: enumCore.BodyPart.NECK.intID,
         TapeLength: 35,
         PersonID: person.PersonID
       }
@@ -81,7 +81,7 @@ const actions = {
     var tapeBelly = getters['getLatestBellyTapeMeasurement']
     if (typeof (tapeBelly) === 'undefined') {
       tapeBelly = {
-        BodyPartID: this.$enumCore.BodyPart.BELLYBUTTON_CIRC.intID,
+        BodyPartID: enumCore.BodyPart.BELLYBUTTON_CIRC.intID,
         TapeLength: 90,
         PersonID: person.PersonID
       }

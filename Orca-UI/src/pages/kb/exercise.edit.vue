@@ -7,12 +7,14 @@
      </div>
  <div class="layout-padding">
    <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
-     <vue-multiselect float-label="Exercise type"
-     :value="ExerciseTypeID"
+     <multiselect placeholder="Exercise type"
      :options="Get_ExerciseType_Select"
      :searchable="true"
-     v-model="ExerciseTypeID"
-     @input="setExerciseTypeID"></vue-multiselect>
+     :value="Get_ExerciseType_SelectObject[ExerciseTypeID]"
+     @input="setExerciseTypeID"
+     label="label"
+     track-by="value"
+     ></multiselect>
    <q-input v-model="Code" stack-label="Code" />
    <q-input v-model="Name" stack-label="Name" />
    <!--<q-input v-model.lazy="Description" stack-label="Description" type="textarea"/>-->
@@ -36,7 +38,6 @@ import hljs from 'highlight.js'
 import VueQuillEditor, { Quill } from 'vue-quill-editor'
 import Multiselect from 'vue-multiselect'
 import Vue from 'vue'
-Vue.use(Multiselect)
 import uiMixin from '../../mixins/ui/ui'
 import { mapState, mapGetters } from 'vuex'
 import { Notify } from 'quasar'
@@ -46,7 +47,12 @@ Vue.use(VueQuillEditor, {
   components: {Quill}
 })
 
+Vue.use(Multiselect)
+
 export default {
+  components: {
+    Multiselect
+  },
   props: {
     exerciseid: {
       type: String,
@@ -65,21 +71,10 @@ export default {
       'Exercise', ['ExerciseType']
     ),
     ...mapGetters(
-      'Exercise', ['Get_ExerciseType_Select']
+      'Exercise', ['Get_ExerciseType_Select', 'Get_ExerciseType_SelectObject']
     ),
     editor () {
       return this.$refs.quillExercise.quill
-    },
-    ExerciseTypeName: function () {
-      let store = this.$store
-      if (typeof store.getters['Exercise/Get_Exercise_Item'] !== 'undefined' &&
-          typeof store.getters['Exercise/Get_Exercise_Item'].ExerciseTypeID !== 'undefined' &&
-          typeof store.getters['Exercise/Get_ExerciseType_ByExerciseTypeID'](store.getters['Exercise/Get_Exercise_Item'].ExerciseTypeID) !== 'undefined') {
-        let ret = store.getters['Exercise/Get_ExerciseType_ByExerciseTypeID'](store.getters['Exercise/Get_Exercise_Item'].ExerciseTypeID).Name
-        return ret
-      } else {
-        return ''
-      }
     }
   },
   methods: {
@@ -93,8 +88,9 @@ export default {
       this.$store.dispatch('Exercise/saveExercise', this.$store.state.Exercise.ExerciseItem)
     },
     setExerciseTypeID (exerciseTypeID) {
+      debugger
       let exercise = this.$store.getters['Exercise/Get_Exercise_Item']
-      exercise.ExerciseTypeID = exerciseTypeID
+      exercise.ExerciseTypeID = exerciseTypeID.value
       this.$store.commit('Exercise/SET_EXERCISEITEM', exercise)
     }
   },
@@ -149,7 +145,7 @@ export default {
     }
   },
   mounted () {
-    Vue.$API.Initialize()
+    this.$API.Initialize()
     let payload = {
       ExerciseID: this.exerciseid
     }

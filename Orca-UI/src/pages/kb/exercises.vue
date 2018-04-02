@@ -29,15 +29,16 @@
 // import { QTab, QTabs, QTabPane } from 'quasar'
 
 import { mapGetters } from 'vuex'
-import Vue from 'vue'
 export default {
   computed: {
     ...mapGetters({
       'exercises': 'Exercise/Get_Exercise_All'
     })
   },
+  created () {
+  },
   mounted () {
-    Vue.$API.Initialize()
+    this.$API.Initialize()
     // Set the add action to enable the toolbar add button
     // var store = this.$store
     let router = this.$router

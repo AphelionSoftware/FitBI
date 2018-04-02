@@ -6,7 +6,9 @@ module.exports = function (ctx) {
     plugins: [
       'i18n',
       'axios',
-      'enumCore'
+      'enumCore',
+      'api',
+      'vuexroutersync'
     ],
     css: [
       'app.styl'
@@ -24,6 +26,26 @@ module.exports = function (ctx) {
       remove: []
     },
     build: {
+      env: ctx.dev === true ? {
+        API_URL: JSON.stringify('http://localhost:7071/api'),
+        coreURL: JSON.stringify('/setup/Core/'),
+        coreToken: JSON.stringify('code=pkiVK8tel8UWZRhvYaJtAeQm0bhoGwQNEpmL9ZWg9Jg1ECzNPaLWZQ=='),
+        initURL: JSON.stringify('/setup/Init/'),
+        initToken: JSON.stringify('code=HkBEb7aL5O6WUH1oQFHBWfZxC8c4fCNa0NQxzyipv5Uu3awF8uxX3w=='),
+        latestTimestampsURL: JSON.stringify('/setup/LatestTimestamps/'),
+        latestTimestampsToken: JSON.stringify('code=vOk0CrfKzlq6pJH9/tr7WGL57iiXpNHDZ8rmUR9Vx7u45/EIkxYdxg=='),
+        UserID: JSON.stringify(3)
+      } :
+      {
+        API_URL:  JSON.stringify('https://fitapifunctions.azurewebsites.net/api'),
+        coreURL: JSON.stringify('/setup/Core/'),
+        coreToken: JSON.stringify('code=pkiVK8tel8UWZRhvYaJtAeQm0bhoGwQNEpmL9ZWg9Jg1ECzNPaLWZQ=='),
+        initURL: JSON.stringify('/setup/Init/'),
+        initToken: JSON.stringify('code=HkBEb7aL5O6WUH1oQFHBWfZxC8c4fCNa0NQxzyipv5Uu3awF8uxX3w=='),
+        latestTimestampsURL: JSON.stringify('/setup/LatestTimestamps/'),
+        latestTimestampsToken: JSON.stringify('code=vOk0CrfKzlq6pJH9/tr7WGL57iiXpNHDZ8rmUR9Vx7u45/EIkxYdxg=='),
+        UserID: JSON.stringify(3)
+      },  
       scopeHoisting: true,
       vueRouterMode: 'hash',
       // gzip: true,
@@ -60,7 +82,25 @@ module.exports = function (ctx) {
         'QListHeader',
         'QItem',
         'QItemMain',
-        'QItemSide'
+        'QItemSide',
+        'QItemTile',
+        'QSlider',
+        'QSlider',
+        'QSelect',
+        'QSearch',
+        'QKnob',
+        'QTab',
+        'QTabs',
+        'QTabPane',
+        'QRouteTab',
+        'QChip',
+        'QToggle',
+        'QDatetime',
+        'QToolbar',
+        'QToolbarTitle',
+        'QInput',
+        'QField',
+        'QScrollArea'
       ],
       directives: [
         'Ripple'

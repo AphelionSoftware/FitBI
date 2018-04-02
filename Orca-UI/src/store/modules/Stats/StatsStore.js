@@ -52,6 +52,15 @@ const getters = {
       }
     })
   },
+  Get_Metric_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Metric, 'MetricID'),
+      item => ({
+        label: item.Name,
+        value: item.MetricID
+      })
+    )
+  },
   Get_Metric_List: function () {
     return _.sortBy(state.Metric, 'Name')
   },
@@ -80,6 +89,15 @@ const getters = {
       }
     })
   },
+  Get_Person_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.Person, 'PersonID'),
+      item => ({
+        label: item.Name,
+        value: item.PersonID
+      })
+    )
+  },
   Get_Person_List: function () {
     return _.sortBy(state.Person, 'Name')
   },
@@ -107,6 +125,15 @@ const getters = {
         value: item.SkinfoldMeasurementID
       }
     })
+  },
+  Get_SkinfoldMeasurement_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.SkinfoldMeasurement, 'SkinfoldMeasurementID'),
+      item => ({
+        label: item.Name,
+        value: item.SkinfoldMeasurementID
+      })
+    )
   },
   Get_SkinfoldMeasurement_List: function () {
     return _.sortBy(state.SkinfoldMeasurement, 'Name')
@@ -143,6 +170,15 @@ const getters = {
       }
     })
   },
+  Get_TapeMeasurement_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.TapeMeasurement, 'TapeMeasurementID'),
+      item => ({
+        label: item.Name,
+        value: item.TapeMeasurementID
+      })
+    )
+  },
   Get_TapeMeasurement_List: function () {
     return _.sortBy(state.TapeMeasurement, 'Name')
   },
@@ -177,6 +213,15 @@ const getters = {
         value: item.WeightMeasurementID
       }
     })
+  },
+  Get_WeightMeasurement_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state.WeightMeasurement, 'WeightMeasurementID'),
+      item => ({
+        label: item.Name,
+        value: item.WeightMeasurementID
+      })
+    )
   },
   Get_WeightMeasurement_List: function () {
     return _.sortBy(state.WeightMeasurement, 'Name')

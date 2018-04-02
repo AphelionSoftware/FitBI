@@ -107,6 +107,15 @@ const getters = {
       }
     })
   },
+  Get_" + tTable.Name + @"_SelectObject: function () {
+    return _.mapObject(
+      _.indexBy(state." + tTable.Name + @", '" + tTable.Name + @"ID'),
+      item => ({
+        label: item.Name,
+        value: item." + tTable.Name + @"ID
+      })
+    )
+  },
   Get_" + tTable.Name + @"_List: function () {
     return _.sortBy(state." + tTable.Name + @", 'Name')
   },

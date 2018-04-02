@@ -13,7 +13,6 @@
             :min="minWeight"
             :max="maxWeight"
             label-always
-            step="0.1"
         />
         </q-item-tile>
         </q-item-main>
@@ -26,7 +25,6 @@
             :min="minNeck"
             :max="maxNeck"
             label-always
-            step="1"
         />
         </q-item-tile>
         </q-item-main>
@@ -39,7 +37,6 @@
             :min="minBelly"
             :max="maxBelly"
             label-always
-            step="1"
         />
         </q-item-tile>
         </q-item-main>
@@ -89,6 +86,7 @@ export default {
     }
   },
   mounted () {
+    debugger
     Vue.$API.Initialize()
     var store = this.$store
     let fnSave = function () {
