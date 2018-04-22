@@ -9,7 +9,7 @@ function mergePlan (payload) {
     postData.Plan = []
     postData.Plan.push(payload)
   }
-  Vue.$API.http.post('/merge/Plan?' + Vue.$API.config.token.mergePlanToken, postData).then(
+  this.$API.http.post('/merge/Plan?' + this.$API.config.token.mergePlanToken, postData).then(
       function (response) {
       })
 }
@@ -22,7 +22,7 @@ function mergeWorkout (payload) {
     postData.Workout = []
     postData.Workout.push(payload)
   }
-  Vue.$API.http.post('/merge/Workout?' + Vue.$API.config.token.mergeWorkoutToken, postData).then(
+  this.$API.http.post('/merge/Workout?' + this.$API.config.token.mergeWorkoutToken, postData).then(
       function (response) {
       })
 }
@@ -35,7 +35,7 @@ function mergeWorkout_Exercise (payload) {
     postData.Workout_Exercise = []
     postData.Workout_Exercise.push(payload)
   }
-  Vue.$API.http.post('/merge/Workout_Exercise?' + Vue.$API.config.token.mergeWorkout_ExerciseToken, postData).then(
+  this.$API.http.post('/merge/Workout_Exercise?' + this.$API.config.token.mergeWorkout_ExerciseToken, postData).then(
       function (response) {
       })
 }
@@ -48,7 +48,7 @@ function mergeWorkoutStage (payload) {
     postData.WorkoutStage = []
     postData.WorkoutStage.push(payload)
   }
-  Vue.$API.http.post('/merge/WorkoutStage?' + Vue.$API.config.token.mergeWorkoutStageToken, postData).then(
+  this.$API.http.post('/merge/WorkoutStage?' + this.$API.config.token.mergeWorkoutStageToken, postData).then(
       function (response) {
       })
 }

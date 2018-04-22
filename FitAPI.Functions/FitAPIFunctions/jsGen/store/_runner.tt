@@ -1,0 +1,149 @@
+<#@ template language="C#" debug="True" #>
+<#@ output extension="cs" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Io" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+
+#>
+<#
+
+
+string basePath = "C:\\Git\\FitBI\\Orca-UI\\src\\store\\modules\\";
+	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\store\\";
+
+	
+	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" || s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
+            foreach (Schema sSchema in sorted)
+            {
+                string fileName = sSchema.Name ;
+				
+				if (!Directory.Exists(basePath + fileName )){
+					Directory.CreateDirectory(basePath + fileName );
+				}
+				if (!File.Exists(basePath + fileName + @"\\Custom" + fileName + "Actions.js")){
+					// File.Create(basePath + fileName + @"\\Custom" + fileName + "Actions.js");
+					System.IO.File.WriteAllText(basePath + fileName + @"\\Custom" + fileName + "Actions.js", @"const actions = {}
+export default actions
+");
+				}
+				if (!File.Exists(basePath + fileName + @"\\Custom" + fileName + "Getters.js")){
+					// File.Create(basePath + fileName + @"\\Custom" + fileName + "Getters.js");
+					System.IO.File.WriteAllText(basePath + fileName + @"\\Custom" + fileName + "Getters.js", @"const getters = {}
+export default getters
+");
+				}
+
+				if (!File.Exists(basePath + fileName + @"\\Custom" + fileName + "State.js")){
+					// File.Create(basePath + fileName + @"\\Custom" + fileName + "State.js");
+					System.IO.File.WriteAllText(basePath + fileName + @"\\Custom" + fileName + "State.js", @"const state = {}
+export default state
+");
+				}
+
+				if (!File.Exists(basePath + fileName + @"\\Custom" + fileName + "Mutations.js")){
+					// File.Create(basePath + fileName + @"\\Custom" + fileName + "Mutations.js");
+										System.IO.File.WriteAllText(basePath + fileName + @"\\Custom" + fileName + "Mutations.js", @"const mutations = {}
+export default mutations
+");
+				}
+				
+				string templateFile = this.Host.ResolvePath("_getters.tt");
+				string templateContent = File.ReadAllText(templateFile);
+								
+				TextTemplatingSession session = new TextTemplatingSession();
+				session["SchemaName"] = sSchema.Name; 
+				
+				var sessionHost = (ITextTemplatingSessionHost) this.Host;
+				sessionHost.Session = session;
+				
+				Engine engine = new Engine();
+				
+				string generatedContent = engine.ProcessTemplate(templateContent, this.Host);
+				
+				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "Getters.js", generatedContent);
+				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Getters.js", generatedContent);
+				
+
+				templateFile = this.Host.ResolvePath("_state.tt");
+				templateContent = File.ReadAllText(templateFile);
+								
+				TextTemplatingSession sessionState = new TextTemplatingSession();
+				sessionState["SchemaName"] = sSchema.Name; 
+
+				sessionHost = (ITextTemplatingSessionHost) this.Host;
+				sessionHost.Session = sessionState;
+				
+				engine = new Engine();
+				
+				generatedContent = engine.ProcessTemplate(templateContent, this.Host);
+				
+				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "State.js", generatedContent);
+				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "State.js", generatedContent);
+
+				templateFile = this.Host.ResolvePath("_actions.tt");
+				templateContent = File.ReadAllText(templateFile);
+								
+				sessionState = new TextTemplatingSession();
+				sessionState["SchemaName"] = sSchema.Name; 
+
+				sessionHost = (ITextTemplatingSessionHost) this.Host;
+				sessionHost.Session = sessionState;
+				
+				engine = new Engine();
+				
+				generatedContent = engine.ProcessTemplate(templateContent, this.Host);
+				
+				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "Actions.js", generatedContent);
+				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Actions.js", generatedContent);
+
+				templateFile = this.Host.ResolvePath("_mutations.tt");
+				templateContent = File.ReadAllText(templateFile);
+								
+				sessionState = new TextTemplatingSession();
+				sessionState["SchemaName"] = sSchema.Name; 
+
+				sessionHost = (ITextTemplatingSessionHost) this.Host;
+				sessionHost.Session = sessionState;
+				
+				engine = new Engine();
+				
+				generatedContent = engine.ProcessTemplate(templateContent, this.Host);
+				
+				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "Mutations.js", generatedContent);
+				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Mutations.js", generatedContent);
+
+				templateFile = this.Host.ResolvePath("_store.tt");
+				templateContent = File.ReadAllText(templateFile);
+								
+				sessionState = new TextTemplatingSession();
+				sessionState["SchemaName"] = sSchema.Name; 
+
+				sessionHost = (ITextTemplatingSessionHost) this.Host;
+				sessionHost.Session = sessionState;
+				
+				engine = new Engine();
+				
+				generatedContent = engine.ProcessTemplate(templateContent, this.Host);
+				
+				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "Store.js", generatedContent);
+				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Store.js", generatedContent);
+				
+            }
+			
+
+#>

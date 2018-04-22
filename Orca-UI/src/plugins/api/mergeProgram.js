@@ -1,5 +1,5 @@
 ﻿/* eslint camelcase: 0 */
-import Vue from 'vue'
+import {APIinstance} from '../api.js'
 function mergePlan (payload) {
   let postData = {}
   if (payload.Plan) {
@@ -8,7 +8,7 @@ function mergePlan (payload) {
     postData.Plan = []
     postData.Plan.push(payload)
   }
-  Vue.$API.http.post('/merge/Plan?' + Vue.$API.config.token.mergePlanToken, postData).then(
+  APIinstance.http.post('/merge/Plan?' + APIinstance.config.mergePlanToken, postData).then(
     function (response) {
     })
 }
@@ -20,7 +20,7 @@ function mergeWorkout (payload) {
     postData.Workout = []
     postData.Workout.push(payload)
   }
-  Vue.$API.http.post('/merge/Workout?' + Vue.$API.config.token.mergeWorkoutToken, postData).then(
+  APIinstance.http.post('/merge/Workout?' + APIinstance.config.mergeWorkoutToken, postData).then(
     function (response) {
     })
 }
@@ -32,7 +32,7 @@ function mergeWorkout_Exercise (payload) {
     postData.Workout_Exercise = []
     postData.Workout_Exercise.push(payload)
   }
-  Vue.$API.http.post('/merge/Workout_Exercise?' + Vue.$API.config.token.mergeWorkout_ExerciseToken, postData).then(
+  APIinstance.http.post('/merge/Workout_Exercise?' + APIinstance.config.mergeWorkout_ExerciseToken, postData).then(
     function (response) {
     })
 }
@@ -44,7 +44,7 @@ function mergeWorkoutStage (payload) {
     postData.WorkoutStage = []
     postData.WorkoutStage.push(payload)
   }
-  Vue.$API.http.post('/merge/WorkoutStage?' + Vue.$API.config.token.mergeWorkoutStageToken, postData).then(
+  APIinstance.http.post('/merge/WorkoutStage?' + APIinstance.config.mergeWorkoutStageToken, postData).then(
     function (response) {
     })
 }

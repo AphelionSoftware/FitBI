@@ -9,7 +9,7 @@ function mergeMetric (payload) {
     postData.Metric = []
     postData.Metric.push(payload)
   }
-  Vue.$API.http.post('/merge/Metric?' + Vue.$API.config.token.mergeMetricToken, postData).then(
+  this.$API.http.post('/merge/Metric?' + this.$API.config.token.mergeMetricToken, postData).then(
       function (response) {
       })
 }
@@ -22,7 +22,7 @@ function mergePerson (payload) {
     postData.Person = []
     postData.Person.push(payload)
   }
-  Vue.$API.http.post('/merge/Person?' + Vue.$API.config.token.mergePersonToken, postData).then(
+  this.$API.http.post('/merge/Person?' + this.$API.config.token.mergePersonToken, postData).then(
       function (response) {
       })
 }
@@ -35,7 +35,7 @@ function mergeSkinfoldMeasurement (payload) {
     postData.SkinfoldMeasurement = []
     postData.SkinfoldMeasurement.push(payload)
   }
-  Vue.$API.http.post('/merge/SkinfoldMeasurement?' + Vue.$API.config.token.mergeSkinfoldMeasurementToken, postData).then(
+  this.$API.http.post('/merge/SkinfoldMeasurement?' + this.$API.config.token.mergeSkinfoldMeasurementToken, postData).then(
       function (response) {
       })
 }
@@ -48,7 +48,7 @@ function mergeTapeMeasurement (payload) {
     postData.TapeMeasurement = []
     postData.TapeMeasurement.push(payload)
   }
-  Vue.$API.http.post('/merge/TapeMeasurement?' + Vue.$API.config.token.mergeTapeMeasurementToken, postData).then(
+  this.$API.http.post('/merge/TapeMeasurement?' + this.$API.config.token.mergeTapeMeasurementToken, postData).then(
       function (response) {
       })
 }
@@ -61,7 +61,7 @@ function mergeWeightMeasurement (payload) {
     postData.WeightMeasurement = []
     postData.WeightMeasurement.push(payload)
   }
-  Vue.$API.http.post('/merge/WeightMeasurement?' + Vue.$API.config.token.mergeWeightMeasurementToken, postData).then(
+  this.$API.http.post('/merge/WeightMeasurement?' + this.$API.config.token.mergeWeightMeasurementToken, postData).then(
       function (response) {
       })
 }

@@ -1,4 +1,4 @@
-﻿import Vue from 'vue'
+import {APIinstance} from '../../../plugins/api.js'
 const actions = {
   saveExercise (context, payload) {
     let item = {}
@@ -10,8 +10,8 @@ const actions = {
     if (item.ExerciseID === null) item.ExerciseID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_EXERCISE', item)
-    Vue.$API.mergeExercise.mergeExercise(item)
+    context.commit('SET_Exercise', item)
+    APIinstance.mergeStats.mergeExercise(item)
   },
   saveExercise_Sport (context, payload) {
     let item = {}
@@ -23,8 +23,8 @@ const actions = {
     if (item.Exercise_SportID === null) item.Exercise_SportID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_EXERCISE_SPORT', item)
-    Vue.$API.mergeExercise.mergeExercise_Sport(item)
+    context.commit('SET_Exercise_Sport', item)
+    APIinstance.mergeStats.mergeExercise_Sport(item)
   },
   saveExerciseLink (context, payload) {
     let item = {}
@@ -36,8 +36,8 @@ const actions = {
     if (item.ExerciseLinkID === null) item.ExerciseLinkID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_EXERCISELINK', item)
-    Vue.$API.mergeExercise.mergeExerciseLink(item)
+    context.commit('SET_ExerciseLink', item)
+    APIinstance.mergeStats.mergeExerciseLink(item)
   },
   saveExerciseType (context, payload) {
     let item = {}
@@ -49,8 +49,8 @@ const actions = {
     if (item.ExerciseTypeID === null) item.ExerciseTypeID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_EXERCISETYPE', item)
-    Vue.$API.mergeExercise.mergeExerciseType(item)
+    context.commit('SET_ExerciseType', item)
+    APIinstance.mergeStats.mergeExerciseType(item)
   },
   saveSport (context, payload) {
     let item = {}
@@ -62,9 +62,10 @@ const actions = {
     if (item.SportID === null) item.SportID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_SPORT', item)
-    Vue.$API.mergeExercise.mergeSport(item)
-  }
+    context.commit('SET_Sport', item)
+    APIinstance.mergeStats.mergeSport(item)
+  },
+  stub () {}
 }
 
 export default actions

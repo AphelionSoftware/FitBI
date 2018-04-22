@@ -1,5 +1,5 @@
 ﻿/* eslint camelcase: 0 */
-import Vue from 'vue'
+import {APIinstance} from '../api.js'
 function mergeExercise (payload) {
   let postData = {}
   if (payload.Exercise) {
@@ -8,7 +8,7 @@ function mergeExercise (payload) {
     postData.Exercise = []
     postData.Exercise.push(payload)
   }
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, postData).then(
+  APIinstance.http.post('/merge/Exercise?' + APIinstance.config.mergeExerciseToken, postData).then(
     function (response) {
     })
 }
@@ -20,7 +20,19 @@ function mergeExercise_Sport (payload) {
     postData.Exercise_Sport = []
     postData.Exercise_Sport.push(payload)
   }
-  Vue.$API.http.post('/merge/Exercise_Sport?' + Vue.$API.config.token.mergeExercise_SportToken, postData).then(
+  APIinstance.http.post('/merge/Exercise_Sport?' + APIinstance.config.mergeExercise_SportToken, postData).then(
+    function (response) {
+    })
+}
+function mergeExerciseLink (payload) {
+  let postData = {}
+  if (payload.ExerciseLink) {
+    postData = payload
+  } else {
+    postData.ExerciseLink = []
+    postData.ExerciseLink.push(payload)
+  }
+  APIinstance.http.post('/merge/ExerciseLink?' + APIinstance.config.mergeExerciseLinkToken, postData).then(
     function (response) {
     })
 }
@@ -32,7 +44,7 @@ function mergeExerciseType (payload) {
     postData.ExerciseType = []
     postData.ExerciseType.push(payload)
   }
-  Vue.$API.http.post('/merge/ExerciseType?' + Vue.$API.config.token.mergeExerciseTypeToken, postData).then(
+  APIinstance.http.post('/merge/ExerciseType?' + APIinstance.config.mergeExerciseTypeToken, postData).then(
     function (response) {
     })
 }
@@ -44,8 +56,8 @@ function mergeSport (payload) {
     postData.Sport = []
     postData.Sport.push(payload)
   }
-  Vue.$API.http.post('/merge/Sport?' + Vue.$API.config.token.mergeSportToken, postData).then(
+  APIinstance.http.post('/merge/Sport?' + APIinstance.config.mergeSportToken, postData).then(
     function (response) {
     })
 }
-export {mergeExercise, mergeExercise_Sport, mergeExerciseType, mergeSport}
+export {mergeExercise, mergeExercise_Sport, mergeExerciseLink, mergeExerciseType, mergeSport}

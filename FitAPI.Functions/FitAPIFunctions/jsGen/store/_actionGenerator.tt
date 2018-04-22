@@ -50,7 +50,7 @@ private class ValuesTemplate : Template
 {
     public ValuesTemplate(Database db, Schema sSchema, string className)
     {
-     string strFile = @"import Vue from 'vue'
+     string strFile = @"import {APIinstance} from '../../../plugins/api.js'
 const actions = {"
   // Save the current item to the master store
   // Then, set the current store item to empty by getting an empty object
@@ -71,7 +71,7 @@ const actions = {"
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
     context.commit('SET_" + tTable.Name.ToUpper() + @"', item)
-    Vue.$API.merge" + tTable.Schema + @".merge" + tTable.Name + @"(item)
+    APIinstance.merge" + tTable.Schema + @".merge" + tTable.Name + @"(item)
   },";
             }
             strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing space

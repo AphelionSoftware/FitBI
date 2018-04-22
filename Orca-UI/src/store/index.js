@@ -8,10 +8,10 @@ Vue.use(Vuex)
 // Separate Module States
 import AppState from './modules/AppState/AppStateStore'
 import WeightMeasurement from './modules/weight-measurement'
-import Core from './modules/core/coreStore'
-import Exercise from './modules/exercise/exerciseStore'
-import Program from './modules/program/programStore'
-import Stats from './modules/stats/statsStore'
+import Core from './modules/core/CoreStore'
+import Exercise from './modules/exercise/ExerciseStore'
+import Program from './modules/program/ProgramStore'
+import Stats from './modules/stats/StatsStore'
 import DailyMeasurement from './modules/Measurements/DailyMeasurementStore'
 
 export default new Vuex.Store({

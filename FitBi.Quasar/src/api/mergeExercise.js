@@ -9,7 +9,7 @@ function mergeExercise (payload) {
     postData.Exercise = []
     postData.Exercise.push(payload)
   }
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, postData).then(
+  this.$API.http.post('/merge/Exercise?' + this.$API.config.token.mergeExerciseToken, postData).then(
       function (response) {
       })
 }
@@ -22,7 +22,20 @@ function mergeExercise_Sport (payload) {
     postData.Exercise_Sport = []
     postData.Exercise_Sport.push(payload)
   }
-  Vue.$API.http.post('/merge/Exercise_Sport?' + Vue.$API.config.token.mergeExercise_SportToken, postData).then(
+  this.$API.http.post('/merge/Exercise_Sport?' + this.$API.config.token.mergeExercise_SportToken, postData).then(
+      function (response) {
+      })
+}
+function mergeExerciseLink (payload) {
+  let postData = {}
+  if (payload.ExerciseLink) {
+    postData = payload
+  }
+  else {
+    postData.ExerciseLink = []
+    postData.ExerciseLink.push(payload)
+  }
+  this.$API.http.post('/merge/ExerciseLink?' + this.$API.config.token.mergeExerciseLinkToken, postData).then(
       function (response) {
       })
 }
@@ -35,7 +48,7 @@ function mergeExerciseType (payload) {
     postData.ExerciseType = []
     postData.ExerciseType.push(payload)
   }
-  Vue.$API.http.post('/merge/ExerciseType?' + Vue.$API.config.token.mergeExerciseTypeToken, postData).then(
+  this.$API.http.post('/merge/ExerciseType?' + this.$API.config.token.mergeExerciseTypeToken, postData).then(
       function (response) {
       })
 }
@@ -48,8 +61,8 @@ function mergeSport (payload) {
     postData.Sport = []
     postData.Sport.push(payload)
   }
-  Vue.$API.http.post('/merge/Sport?' + Vue.$API.config.token.mergeSportToken, postData).then(
+  this.$API.http.post('/merge/Sport?' + this.$API.config.token.mergeSportToken, postData).then(
       function (response) {
       })
 }
-export {mergeExercise, mergeExercise_Sport, mergeExerciseType, mergeSport}
+export {mergeExercise, mergeExercise_Sport, mergeExerciseLink, mergeExerciseType, mergeSport}

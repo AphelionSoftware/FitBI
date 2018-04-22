@@ -5,6 +5,9 @@
   <ItemGroup>
     <Compile Remove="GetLatestTimestamps.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="jsGen\store\_getters.js" />
+  </ItemGroup>
   <ItemGroup>    
     <PackageReference Include="Dapper" Version="1.50.4" />    
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.2" />    
@@ -52,6 +55,14 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_enumGenerator.cs</LastGenOutput>
     </None>
+    <None Update="jsGen\store\_mutations.tt">
+      <LastGenOutput>_mutations.js</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="jsGen\store\_actions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_actions.js</LastGenOutput>
+    </None>
     <None Update="jsGen\store\_actionGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
@@ -63,6 +74,34 @@
 </LastOutputs>
       <LastGenOutput>_actionGenerator.cs</LastGenOutput>
     </None>
+    <None Update="jsGen\store\_getters.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_getters.js</LastGenOutput>
+    </None>
+    <None Update="jsGen\store\_runner.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_runner.js</LastGenOutput>
+      <LastOutputs>.\_runner.js</LastOutputs>
+    </None>
+    <None Update="jsGen\store\_store.tt">
+      <LastGenOutput>_store.js</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="jsGen\store\_state.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>_state.js</LastGenOutput>
+    </None>
+    <None Update="jsGen\store\_storeGenerator - Copy.tt">
+      <LastOutputs>
+.\_storeGenerator.cs
+.\Core\CoreStore.js
+.\Exercise\ExerciseStore.js
+.\Program\ProgramStore.js
+.\Stats\StatsStore.js
+</LastOutputs>
+      <LastGenOutput>_storeGenerator.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="jsGen\store\_storeGenerator.tt">
       <LastOutputs>
 .\_storeGenerator.cs
@@ -72,7 +111,7 @@
 .\Stats\StatsStore.js
 </LastOutputs>
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>_storeGenerator.cs</LastGenOutput>
+      <LastGenOutput>_storeGenerator - Copy.cs</LastGenOutput>
     </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -127,12 +166,22 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="jsGen\api\_mergePaths.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_mergePaths.tt</DependentUpon>
+    </Compile>
     <Compile Update="jsGen\enum\_enumGenerator.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>_enumGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Update="jsGen\store\_storeGenerator.cs">
+    <Compile Update="jsGen\store\_storeGenerator - Copy.cs">
+      <DependentUpon>_storeGenerator.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="jsGen\store\_storeGenerator - Copy.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>_storeGenerator.tt</DependentUpon>

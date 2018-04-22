@@ -100,12 +100,15 @@ const getters = {
     return state." + tTable.Name + @"
   },
   Get_" + tTable.Name + @"_Select: function () {
-    return _.map(state." + tTable.Name + @", item => {
-      return {
-        label: item.Name,
-        value: item." + tTable.Name + @"ID
-      }
-    })
+    return _.chain(state." + tTable.Name + @")
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item." + tTable.Name + @"ID
+        }
+      })
+      .sortBy('Name')
+      .value()
   },
   Get_" + tTable.Name + @"_SelectObject: function () {
     return _.mapObject(

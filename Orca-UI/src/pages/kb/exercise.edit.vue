@@ -40,7 +40,7 @@ import Multiselect from 'vue-multiselect'
 import Vue from 'vue'
 import uiMixin from '../../mixins/ui/ui'
 import { mapState, mapGetters } from 'vuex'
-import { Notify } from 'quasar'
+import _ from 'underscore'
 // import { ImageDrop } from 'quill-image-drop-module'
 
 Vue.use(VueQuillEditor, {
@@ -88,7 +88,6 @@ export default {
       this.$store.dispatch('Exercise/saveExercise', this.$store.state.Exercise.ExerciseItem)
     },
     setExerciseTypeID (exerciseTypeID) {
-      debugger
       let exercise = this.$store.getters['Exercise/Get_Exercise_Item']
       exercise.ExerciseTypeID = exerciseTypeID.value
       this.$store.commit('Exercise/SET_EXERCISEITEM', exercise)
@@ -125,15 +124,16 @@ export default {
   beforeRouteLeave (to, from, next) {
     if (typeof this.$store.state.Exercise.ExerciseItem === 'undefined' ||
       typeof (this.$store.state.Exercise.ExerciseItem.ExerciseID) === 'undefined' ||
-    this.$_.isEqual(this.$store.state.Exercise.Exercise[this.$store.state.Exercise.ExerciseItem.ExerciseID],
+    _.isEqual(this.$store.state.Exercise.Exercise[this.$store.state.Exercise.ExerciseItem.ExerciseID],
       this.$store.state.Exercise.ExerciseItem)) {
       next()
     } else {
       // this.testEmpty()
       var store = this.$store
       let fnSave = function () {
+        debugger
         store.dispatch('Exercise/saveExercise', store.state.Exercise.ExerciseItem)
-        Notify.create({
+        this.$q.notify({
           html: 'Exercise saved',
           icon: 'fa-thumbs-up',
           timeout: 2400,
@@ -154,7 +154,15 @@ export default {
     var store = this.$store
     let router = this.$router
     let fnSave = function () {
+      debugger
       store.dispatch('Exercise/saveExercise', store.state.Exercise.ExerciseItem)
+      this.$q.notify({
+        html: 'Exercise saved',
+        icon: 'fa-thumbs-up',
+        timeout: 2400,
+        color: '#99d8c9',
+        bgColor: 'white'
+      })
       router.push({name: 'exercises'})
     }
     this.$store.commit('AppState/SET_SAVE', fnSave)

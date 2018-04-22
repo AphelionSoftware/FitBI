@@ -65,7 +65,7 @@ const actions = {
   Set_NewDailyMeasurement ({commit, getters, rootState, rootGetters}, payload) {
     var person = rootGetters['Stats/Get_PersonItem']
     if (typeof (person.PersonID) === 'undefined') {
-      Vue.$API.Initialize()
+      return
     }
     var weight = getters['getLatestWeightMeasurement']
     var tapeNeck = getters['getLatestNeckTapeMeasurement']

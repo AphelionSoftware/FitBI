@@ -1,0 +1,69 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#@ output extension=".js" #>
+<#@ parameter name="SchemaName" type="System.String" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+#>import {getField} from 'vuex-map-fields'
+import _ from 'underscore'
+const getters = {
+<#Table[] tTables = (from Table tTable in database.Tables where tTable.Schema == SchemaName select tTable).ToArray();
+            foreach (Table tTable in tTables)
+            {
+#>
+  Get_<#= tTable.Name #>_ByRouteID: function (state, getters, rootState) {
+    return state.<#= tTable.Name #>[+rootState.route.params.<#= tTable.Name #>id]
+  },
+  Get_<#= tTable.Name #>Item: function (state) {
+    return state.<#= tTable.Name #>Item
+  },
+  Get_<#= tTable.Name #>_All: function (state) {
+    return state.<#= tTable.Name #>
+  },
+  Get_<#= tTable.Name #>_Select: function (state) {
+    return _.chain(state.<#= tTable.Name #>)
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item.<#= tTable.Name #>ID
+        }
+      })
+      .sortBy('Name')
+      .value()
+  },
+  Get_<#= tTable.Name #>_SelectObject: function (state) {
+    return _.mapObject(
+      _.indexBy(state.<#= tTable.Name #>, '<#= tTable.Name #>ID'),
+      item => ({
+        label: item.Name,
+        value: item.<#= tTable.Name #>ID
+      })
+    )
+  },
+  Get_<#= tTable.Name #>_List: function (state) {
+    return _.sortBy(state.<#= tTable.Name #>, 'Name')
+  },
+  Get_<#= tTable.Name #>_Item: function (state) {
+    return state.<#= tTable.Name #>Item
+  },
+<# 
+}
+#>
+  getField
+}
+
+export default getters

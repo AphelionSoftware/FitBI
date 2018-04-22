@@ -20,7 +20,7 @@ var server = new Server(".\\SQL2017");
 
 #>
 <#
-	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\api\\";
+	string basePath = "C:\\Git\\FitBI\\Orca-UI\\src\\plugins\\api\\";
 	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\api\\";
 	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
             foreach (Schema sSchema in sorted)
@@ -52,7 +52,7 @@ private class ValuesTemplate : Template
     public ValuesTemplate(Database db, Schema sSchema, string className)
     {
      string strFile = @"/* eslint camelcase: 0 */
-import Vue from 'vue'
+import {APIinstance} from '../api.js'
 ";
             Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
             foreach (Table tTable in tTables)
@@ -61,14 +61,13 @@ import Vue from 'vue'
   let postData = {}
   if (payload." + tTable.Name + @") {
     postData = payload
-  }
-  else {
+  } else {
     postData." + tTable.Name + @" = []
     postData." + tTable.Name + @".push(payload)
   }
-  Vue.$API.http.post('/merge/" + tTable.Name + @"?' + Vue.$API.config.token.merge" + tTable.Name + @"Token, postData).then(
-      function (response) {
-      })
+  APIinstance.http.post('/merge/" + tTable.Name + @"?' + APIinstance.config.merge" + tTable.Name + @"Token, postData).then(
+    function (response) {
+    })
 }
 ";			
 			}

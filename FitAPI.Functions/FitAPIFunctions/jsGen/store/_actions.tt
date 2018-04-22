@@ -1,0 +1,48 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="Microsoft.SqlServer.ConnectionInfo" #>
+<#@ assembly name="Microsoft.SqlServer.Management.Sdk.Sfc" #>
+<#@ assembly name="Microsoft.SqlServer.Smo" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
+<#@ output extension=".js" #>
+<#@ parameter name="SchemaName" type="System.String" #>
+<#
+// <copyright file="SchemaGen.tt" company="Mark Stacey">
+//  Copyright © . All Rights Reserved.
+// </copyright>
+var server = new Server(".\\SQL2017");
+    var database = new Database(server, "FitBI");
+    database.Refresh();
+#>
+import {APIinstance} from '../../../plugins/api.js'
+const actions = {
+<#
+	Table[] tTables = (from Table tTable in database.Tables where tTable.Schema == SchemaName select tTable).ToArray();
+            foreach (Table tTable in tTables)
+            {
+#>
+  save<#= tTable.Name #> (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.<#= tTable.Name #>Item
+    } else {
+      item = payload
+    }
+    if (item.<#= tTable.Name #>ID === null) item.<#= tTable.Name #>ID = 0
+    item.UpdateAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    context.commit('SET_<#= tTable.Name #>', item)
+    APIinstance.mergeStats.merge<#= tTable.Name #>(item)
+  },
+<# 
+}
+#>
+  stub () {}
+}
+
+export default actions

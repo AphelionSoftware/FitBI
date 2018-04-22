@@ -50,8 +50,7 @@
 
 // import { required } from 'vuelidate/lib/validators'
 import { mapFields } from 'vuex-map-fields'
-import Vue from 'vue'
-import { ActionSheet, Notify } from 'quasar'
+import { ActionSheet } from 'quasar'
 var minNeck = 0, maxNeck = 0, minBelly = 0, maxBelly = 0, minWeight = 0, maxWeight = 0
 export default {
   computed: {
@@ -86,12 +85,12 @@ export default {
     }
   },
   mounted () {
-    debugger
-    Vue.$API.Initialize()
+    this.$API.Initialize()
     var store = this.$store
+    var localVue = this
     let fnSave = function () {
       store.dispatch('DailyMeasurement/Save_DailyMeasurement', store.state.Exercise.ExerciseItem)
-      Notify.create({
+      localVue.notify({
         html: 'Measurements saved',
         icon: 'fa-thumbs-up',
         timeout: 2400,

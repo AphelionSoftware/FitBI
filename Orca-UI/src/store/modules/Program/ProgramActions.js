@@ -1,4 +1,4 @@
-﻿import Vue from 'vue'
+import {APIinstance} from '../../../plugins/api.js'
 const actions = {
   savePlan (context, payload) {
     let item = {}
@@ -10,8 +10,8 @@ const actions = {
     if (item.PlanID === null) item.PlanID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_PLAN', item)
-    Vue.$API.mergeProgram.mergePlan(item)
+    context.commit('SET_Plan', item)
+    APIinstance.mergeStats.mergePlan(item)
   },
   saveWorkout (context, payload) {
     let item = {}
@@ -23,8 +23,8 @@ const actions = {
     if (item.WorkoutID === null) item.WorkoutID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_WORKOUT', item)
-    Vue.$API.mergeProgram.mergeWorkout(item)
+    context.commit('SET_Workout', item)
+    APIinstance.mergeStats.mergeWorkout(item)
   },
   saveWorkout_Exercise (context, payload) {
     let item = {}
@@ -36,8 +36,8 @@ const actions = {
     if (item.Workout_ExerciseID === null) item.Workout_ExerciseID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_WORKOUT_EXERCISE', item)
-    Vue.$API.mergeProgram.mergeWorkout_Exercise(item)
+    context.commit('SET_Workout_Exercise', item)
+    APIinstance.mergeStats.mergeWorkout_Exercise(item)
   },
   saveWorkoutStage (context, payload) {
     let item = {}
@@ -49,9 +49,10 @@ const actions = {
     if (item.WorkoutStageID === null) item.WorkoutStageID = 0
     item.UpdateAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_WORKOUTSTAGE', item)
-    Vue.$API.mergeProgram.mergeWorkoutStage(item)
-  }
+    context.commit('SET_WorkoutStage', item)
+    APIinstance.mergeStats.mergeWorkoutStage(item)
+  },
+  stub () {}
 }
 
 export default actions

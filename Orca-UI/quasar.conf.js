@@ -34,7 +34,21 @@ module.exports = function (ctx) {
         initToken: JSON.stringify('code=HkBEb7aL5O6WUH1oQFHBWfZxC8c4fCNa0NQxzyipv5Uu3awF8uxX3w=='),
         latestTimestampsURL: JSON.stringify('/setup/LatestTimestamps/'),
         latestTimestampsToken: JSON.stringify('code=vOk0CrfKzlq6pJH9/tr7WGL57iiXpNHDZ8rmUR9Vx7u45/EIkxYdxg=='),
-        UserID: JSON.stringify(3)
+        UserID: JSON.stringify(3),
+        mergeExerciseToken: JSON.stringify(''),
+        mergeExercise_SportToken: JSON.stringify(''),
+        mergeExerciseLinkToken: JSON.stringify(''),
+        mergeExerciseTypeToken: JSON.stringify(''),
+        mergeSportToken: JSON.stringify(''),
+        mergePlanToken: JSON.stringify(''),
+        mergeWorkoutToken: JSON.stringify(''),
+        mergeWorkout_ExerciseToken: JSON.stringify(''),
+        mergeWorkoutStageToken: JSON.stringify(''),
+        mergeMetricToken: JSON.stringify(''),
+        mergePersonToken: JSON.stringify(''),
+        mergeSkinfoldMeasurementToken: JSON.stringify(''),
+        mergeTapeMeasurementToken: JSON.stringify(''),
+        mergeWeightMeasurementToken: JSON.stringify('')
       } :
       {
         API_URL:  JSON.stringify('https://fitapifunctions.azurewebsites.net/api'),
@@ -44,7 +58,22 @@ module.exports = function (ctx) {
         initToken: JSON.stringify('code=HkBEb7aL5O6WUH1oQFHBWfZxC8c4fCNa0NQxzyipv5Uu3awF8uxX3w=='),
         latestTimestampsURL: JSON.stringify('/setup/LatestTimestamps/'),
         latestTimestampsToken: JSON.stringify('code=vOk0CrfKzlq6pJH9/tr7WGL57iiXpNHDZ8rmUR9Vx7u45/EIkxYdxg=='),
-        UserID: JSON.stringify(3)
+        UserID: JSON.stringify(3),
+        mergeExerciseToken: JSON.stringify(''),
+        mergeExercise_SportToken: JSON.stringify(''),
+        mergeExerciseLinkToken: JSON.stringify(''),
+        mergeExerciseTypeToken: JSON.stringify(''),
+        mergeSportToken: JSON.stringify(''),
+        mergePlanToken: JSON.stringify(''),
+        mergeWorkoutToken: JSON.stringify(''),
+        mergeWorkout_ExerciseToken: JSON.stringify(''),
+        mergeWorkoutStageToken: JSON.stringify(''),
+        mergeMetricToken: JSON.stringify(''),
+        mergePersonToken: JSON.stringify(''),
+        mergeSkinfoldMeasurementToken: JSON.stringify(''),
+        mergeTapeMeasurementToken: JSON.stringify(''),
+        mergeWeightMeasurementToken: JSON.stringify('')
+
       },  
       scopeHoisting: true,
       vueRouterMode: 'hash',
@@ -107,6 +136,7 @@ module.exports = function (ctx) {
       ],
       // Quasar plugins
       plugins: [
+        'ActionSheet',
         'Notify'
       ]
     },
