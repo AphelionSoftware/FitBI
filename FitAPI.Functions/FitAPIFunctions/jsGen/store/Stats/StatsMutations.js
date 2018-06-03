@@ -1,6 +1,54 @@
 import {updateField} from 'vuex-map-fields'
 import Vue from 'vue'
 const mutations = {
+  GET_DAILYMEASUREMENT (state, payload) {
+    if ('' + payload.DailyMeasurementID === '0') {
+      state.DailyMeasurementItem = {
+        DailyMeasurementID: null,
+        PersonID: null,
+        Weight: null,
+        BellyButtonCircumference: null,
+        NeckCircumference: null,
+        WaistCircumference: null,
+        HipCircumference: null,
+        ChestCircumference: null,
+        BicepCircumference: null,
+        QuadCircumference: null,
+        CalvesCircumference: null,
+        BodyFatPercentage: null,
+        MusclePercentage: null,
+        WaterPercentage: null,
+        BonePercentage: null,
+        PercentMeasurementTypeID: null,
+        UnitID: null,
+        MeasurementDate: null,
+        MeasurementDateID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null,
+        NeedsSync: true
+      }
+    } else {
+      state.DailyMeasurementItem = state.DailyMeasurement[payload.DailyMeasurementID]
+    }
+  },
+  SET_DAILYMEASUREMENT (state, payload) {
+    state.DailyMeasurement[payload.DailyMeasurementID] = payload
+  },
+  SET_DAILYMEASUREMENTITEM (state, payload) {
+    state.DailyMeasurementItem = payload
+  },
+  SET_DAILYMEASUREMENT_LIST: function (state, fullList) {
+    if (typeof (fullList) !== 'undefined') {
+      fullList.forEach(function (element) {
+        Vue.set(state.DailyMeasurement, element.MeasurementDateID, element)
+        state.DailyMeasurementList.push(element.MeasurementDateID)
+      }, this)
+    }
+  },
   GET_METRIC (state, payload) {
     if ('' + payload.MetricID === '0') {
       state.MetricItem = {
@@ -117,6 +165,7 @@ const mutations = {
         SideMeasurementTypeID: null,
         BodyPartID: null,
         MeasurementDate: null,
+        MeasurementDateID: null,
         Active: null,
         ID: null,
         CreatedAt: null,
@@ -156,6 +205,7 @@ const mutations = {
         PercentMeasurementTypeID: null,
         UnitID: null,
         MeasurementDate: null,
+        MeasurementDateID: null,
         Active: null,
         ID: null,
         CreatedAt: null,
@@ -180,6 +230,15 @@ const mutations = {
         Vue.set(state.WeightMeasurement, element.WeightMeasurementID, element)
         state.WeightMeasurementList.push(element.WeightMeasurementID)
       }, this)
+    }
+  },
+  SET_FLAG (state, payload) {
+    if (payload === false) {
+      state.Flags.loaded = false
+    } else if (payload === true) {
+      state.Flags.loaded = true
+    } else {
+      state.Flags = {...state.Flags, ...payload}
     }
   },
   updateField

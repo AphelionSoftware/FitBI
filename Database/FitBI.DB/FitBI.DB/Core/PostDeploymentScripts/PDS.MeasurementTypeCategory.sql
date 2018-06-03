@@ -12,7 +12,11 @@ INSERT INTO [Core].[MeasurementTypeCategory]
 	 SELECT 'CIRC' Code, 'Circumference' Name
 	UNION ALL
 	 SELECT 'SKINFOLD' Code, 'Skinfold Thickness' Name
-	 	 
+	UNION ALL
+	 SELECT 'WEIGHT' Code, 'Weight' Name
+	 	  	 UNION ALL
+	 SELECT 'COMP' Code, 'Body Composition' Name
+	 	  	 
 	 ) Src
         WHERE   NOT EXISTS ( SELECT 1
                              FROM   Core.[MeasurementTypeCategory] Dest

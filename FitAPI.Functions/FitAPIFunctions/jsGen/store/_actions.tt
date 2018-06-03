@@ -20,6 +20,7 @@ var server = new Server(".\\SQL2017");
     database.Refresh();
 #>
 import {APIinstance} from '../../../plugins/api.js'
+import uuidv1 from 'uuid/v1'
 const actions = {
 <#
 	Table[] tTables = (from Table tTable in database.Tables where tTable.Schema == SchemaName select tTable).ToArray();
@@ -33,10 +34,58 @@ const actions = {
     } else {
       item = payload
     }
+    let defaults = {
+<#
+	Column[] cols = (from Column col in tTable.Columns select col).ToArray();
+	foreach (Column col in cols) {
+	if (col.Name == "PersonID") {
+#>      PersonID: context.rootGetters['Stats/Get_Person_List'][0].PersonID,
+<#}
+	  else if (col.DefaultConstraint != null) {
+	  if (col.DataType.ToString() == "bit") {
+#>      <#=col.Name#>: <#=col.DefaultConstraint.Text.Replace("((","").Replace("))","").Replace("1","true").Replace("0","false")#>,
+<#}
+	   else if (col.DataType.ToString() == "float" || col.DataType.ToString() == "decimal" || col.DataType.ToString() == "int" || col.DataType.ToString() == "bigint" || col.DataType.ToString() == "smallint"|| col.DataType.ToString() == "tinynt") {
+#>      <#=col.Name#>: <#=col.DefaultConstraint.Text.Replace("((","").Replace("))","")#>,
+<#}
+	   else if (col.DataType.ToString() == "varchar" || col.DataType.ToString() == "nvarchar" || col.DataType.ToString() == "char" || col.DataType.ToString() == "nchar" || col.DataType.ToString() == "text" || col.DataType.ToString() == "ntext") {
+#>      <#=col.Name#>: <#=col.DefaultConstraint.Text == "(newid())" ? "uuidv1()" : col.DefaultConstraint.Text#>,
+<#}
+	  else if (col.DataType.ToString() == "date" || col.DataType.ToString() == "datetime") {
+#>      <#=col.Name#>: <#=col.DefaultConstraint.Text == "(getdate())" ? "new Date()" : "new Date()"#>,
+<#}
+	  else if (col.DataType.ToString() == "date" || col.DataType.ToString() == "datetime") {
+#>      <#=col.Name#>: <#=col.DefaultConstraint.Text == "(getdate())" ? "new Date().toUTCString()" : "new Date(" + col.DefaultConstraint.Text + ").toUTCString()"#>,
+<#}
+	  else if (col.DataType.ToString() == "datetimeoffset") {
+#>      <#=col.Name#>: <#=col.DefaultConstraint.Text == "(CONVERT([datetimeoffset],sysutcdatetime()))" ? "new Date().toUTCString()" : "new Date().toUTCString()"#>,
+<#}
+	else  {
+#>      <#=col.Name#>: <#=col.DefaultConstraint.Text == "(newid())" ? "uuidv1()" : col.DefaultConstraint.Text#>,<#=col.DataType.ToString()#>
+<#}
+	  }
+	   else if (col.Computed != true) {
+#>      <#=col.Name#>: null,
+<#
+}#>
+<#
+}
+	#>
+      NeedsSync: true
+    }<#foreach (Column col in cols) {
+	if (col.DataType.ToString() == "date" || col.DataType.ToString() == "datetime") {
+	#>
+
+    if (typeof item.<#=col.Name#> === 'undefined' || item.<#=col.Name#> === null) item.<#=col.Name#> = new Date()
+    item.<#=col.Name#> = item.<#=col.Name#>.toUTCString()<#}
+	#><#
+	}#>
+
     if (item.<#= tTable.Name #>ID === null) item.<#= tTable.Name #>ID = 0
-    item.UpdateAt = (new Date()).toUTCString()
+    item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
-    context.commit('SET_<#= tTable.Name #>', item)
+    item = {...defaults, ...item}
+    context.commit('SET_<#= tTable.Name.ToUpper() #>', item)
     APIinstance.mergeStats.merge<#= tTable.Name #>(item)
   },
 <# 

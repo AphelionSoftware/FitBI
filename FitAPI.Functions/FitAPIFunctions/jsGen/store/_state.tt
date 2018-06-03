@@ -29,7 +29,9 @@ const state = {
 <#
 			}
 #>
-  Flags: {}
+  Flags: {
+    loaded: false
+  }
 }
 
 export default state

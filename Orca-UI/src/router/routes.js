@@ -16,6 +16,27 @@ export default [
       }
     ]
   },
+  { path: '/stats',
+    component: fitLayoutPrimary,
+    children: [
+      {
+        path: 'timeList',
+        name: 'timeList',
+        component: () => import('../pages/stats/statsList')
+      },
+      {
+        path: 'dailyMeasurements',
+        name: 'dailyMeasurements',
+        component: () => import('../pages/stats/statsList')
+      },
+      {
+        path: 'measurement.edit/:measurementdateid',
+        name: 'dailymeasurementedit',
+        component: () => import('../pages/stats/dailyMeasurement.singleDay.vue'),
+        props: true
+      }
+    ]
+  },
   { path: '/kb',
     component: fitLayoutPrimary,
     children: [

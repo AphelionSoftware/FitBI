@@ -1,4 +1,7 @@
 const state = {
+  DailyMeasurement: { },
+  DailyMeasurementList: [],
+  DailyMeasurementItem: {},
   Metric: { },
   MetricList: [],
   MetricItem: {},
@@ -14,7 +17,9 @@ const state = {
   WeightMeasurement: { },
   WeightMeasurementList: [],
   WeightMeasurementItem: {},
-  Flags: {}
+  Flags: {
+    loaded: false
+  }
 }
 
 export default state

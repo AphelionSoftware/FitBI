@@ -10,6 +10,7 @@ namespace FitAPIFunctions
     {
         public object Exercise;
         public object Exercise_Sport;
+        public object ExerciseLink;
         public object ExerciseType;
         public object Sport;
         public object Plan;
@@ -18,6 +19,7 @@ namespace FitAPIFunctions
         public object WorkoutStage;
         public object Metric;
         public object Person;
+        public object DailyMeasurement;
         public object SkinfoldMeasurement;
         public object TapeMeasurement;
         public object WeightMeasurement;

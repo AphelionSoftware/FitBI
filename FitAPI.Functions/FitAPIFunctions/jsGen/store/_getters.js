@@ -1,180 +1,113 @@
 ﻿import {getField} from 'vuex-map-fields'
 import _ from 'underscore'
 const getters = {
-  Get_Metric_ByRouteID: function (state, getters, rootState) {
-    return state.Metric[+rootState.route.params.Metricid]
+  Get_ColumnChoice_ByRouteID: function (state, getters, rootState) {
+    return state.ColumnChoice[+rootState.route.params.ColumnChoiceid]
   },
-  Get_MetricItem: function (state) {
-    return state.MetricItem
+  Get_ColumnChoiceItem: function (state) {
+    return state.ColumnChoiceItem
   },
-  Get_Metric_All: function (state) {
-    return state.Metric
+  Get_ColumnChoice_All: function (state) {
+    return state.ColumnChoice
   },
-  Get_Metric_Select: function (state) {
-    return _.chain(state.Metric)
+  Get_ColumnChoice_Select: function (state) {
+    return _.chain(state.ColumnChoice)
       .map(item => {
         return {
           label: item.Name,
-          value: item.MetricID
+          value: item.ColumnChoiceID
         }
       })
       .sortBy('Name')
       .value()
   },
-  Get_Metric_SelectObject: function (state) {
+  Get_ColumnChoice_SelectObject: function (state) {
     return _.mapObject(
-      _.indexBy(state.Metric, 'MetricID'),
+      _.indexBy(state.ColumnChoice, 'ColumnChoiceID'),
       item => ({
         label: item.Name,
-        value: item.MetricID
+        value: item.ColumnChoiceID
       })
     )
   },
-  Get_Metric_List: function (state) {
-    return _.sortBy(state.Metric, 'Name')
+  Get_ColumnChoice_List: function (state) {
+    return _.sortBy(state.ColumnChoice, 'Name')
   },
-  Get_Metric_Item: function (state) {
-    return state.MetricItem
+  Get_ColumnChoice_Item: function (state) {
+    return state.ColumnChoiceItem
   },
-  Get_Person_ByRouteID: function (state, getters, rootState) {
-    return state.Person[+rootState.route.params.Personid]
+  Get_GeneralSettings_ByRouteID: function (state, getters, rootState) {
+    return state.GeneralSettings[+rootState.route.params.GeneralSettingsid]
   },
-  Get_PersonItem: function (state) {
-    return state.PersonItem
+  Get_GeneralSettingsItem: function (state) {
+    return state.GeneralSettingsItem
   },
-  Get_Person_All: function (state) {
-    return state.Person
+  Get_GeneralSettings_All: function (state) {
+    return state.GeneralSettings
   },
-  Get_Person_Select: function (state) {
-    return _.chain(state.Person)
+  Get_GeneralSettings_Select: function (state) {
+    return _.chain(state.GeneralSettings)
       .map(item => {
         return {
           label: item.Name,
-          value: item.PersonID
+          value: item.GeneralSettingsID
         }
       })
       .sortBy('Name')
       .value()
   },
-  Get_Person_SelectObject: function (state) {
+  Get_GeneralSettings_SelectObject: function (state) {
     return _.mapObject(
-      _.indexBy(state.Person, 'PersonID'),
+      _.indexBy(state.GeneralSettings, 'GeneralSettingsID'),
       item => ({
         label: item.Name,
-        value: item.PersonID
+        value: item.GeneralSettingsID
       })
     )
   },
-  Get_Person_List: function (state) {
-    return _.sortBy(state.Person, 'Name')
+  Get_GeneralSettings_List: function (state) {
+    return _.sortBy(state.GeneralSettings, 'Name')
   },
-  Get_Person_Item: function (state) {
-    return state.PersonItem
+  Get_GeneralSettings_Item: function (state) {
+    return state.GeneralSettingsItem
   },
-  Get_SkinfoldMeasurement_ByRouteID: function (state, getters, rootState) {
-    return state.SkinfoldMeasurement[+rootState.route.params.SkinfoldMeasurementid]
+  Get_StatsChoice_ByRouteID: function (state, getters, rootState) {
+    return state.StatsChoice[+rootState.route.params.StatsChoiceid]
   },
-  Get_SkinfoldMeasurementItem: function (state) {
-    return state.SkinfoldMeasurementItem
+  Get_StatsChoiceItem: function (state) {
+    return state.StatsChoiceItem
   },
-  Get_SkinfoldMeasurement_All: function (state) {
-    return state.SkinfoldMeasurement
+  Get_StatsChoice_All: function (state) {
+    return state.StatsChoice
   },
-  Get_SkinfoldMeasurement_Select: function (state) {
-    return _.chain(state.SkinfoldMeasurement)
+  Get_StatsChoice_Select: function (state) {
+    return _.chain(state.StatsChoice)
       .map(item => {
         return {
           label: item.Name,
-          value: item.SkinfoldMeasurementID
+          value: item.StatsChoiceID
         }
       })
       .sortBy('Name')
       .value()
   },
-  Get_SkinfoldMeasurement_SelectObject: function (state) {
+  Get_StatsChoice_SelectObject: function (state) {
     return _.mapObject(
-      _.indexBy(state.SkinfoldMeasurement, 'SkinfoldMeasurementID'),
+      _.indexBy(state.StatsChoice, 'StatsChoiceID'),
       item => ({
         label: item.Name,
-        value: item.SkinfoldMeasurementID
+        value: item.StatsChoiceID
       })
     )
   },
-  Get_SkinfoldMeasurement_List: function (state) {
-    return _.sortBy(state.SkinfoldMeasurement, 'Name')
+  Get_StatsChoice_List: function (state) {
+    return _.sortBy(state.StatsChoice, 'Name')
   },
-  Get_SkinfoldMeasurement_Item: function (state) {
-    return state.SkinfoldMeasurementItem
+  Get_StatsChoice_Item: function (state) {
+    return state.StatsChoiceItem
   },
-  Get_TapeMeasurement_ByRouteID: function (state, getters, rootState) {
-    return state.TapeMeasurement[+rootState.route.params.TapeMeasurementid]
-  },
-  Get_TapeMeasurementItem: function (state) {
-    return state.TapeMeasurementItem
-  },
-  Get_TapeMeasurement_All: function (state) {
-    return state.TapeMeasurement
-  },
-  Get_TapeMeasurement_Select: function (state) {
-    return _.chain(state.TapeMeasurement)
-      .map(item => {
-        return {
-          label: item.Name,
-          value: item.TapeMeasurementID
-        }
-      })
-      .sortBy('Name')
-      .value()
-  },
-  Get_TapeMeasurement_SelectObject: function (state) {
-    return _.mapObject(
-      _.indexBy(state.TapeMeasurement, 'TapeMeasurementID'),
-      item => ({
-        label: item.Name,
-        value: item.TapeMeasurementID
-      })
-    )
-  },
-  Get_TapeMeasurement_List: function (state) {
-    return _.sortBy(state.TapeMeasurement, 'Name')
-  },
-  Get_TapeMeasurement_Item: function (state) {
-    return state.TapeMeasurementItem
-  },
-  Get_WeightMeasurement_ByRouteID: function (state, getters, rootState) {
-    return state.WeightMeasurement[+rootState.route.params.WeightMeasurementid]
-  },
-  Get_WeightMeasurementItem: function (state) {
-    return state.WeightMeasurementItem
-  },
-  Get_WeightMeasurement_All: function (state) {
-    return state.WeightMeasurement
-  },
-  Get_WeightMeasurement_Select: function (state) {
-    return _.chain(state.WeightMeasurement)
-      .map(item => {
-        return {
-          label: item.Name,
-          value: item.WeightMeasurementID
-        }
-      })
-      .sortBy('Name')
-      .value()
-  },
-  Get_WeightMeasurement_SelectObject: function (state) {
-    return _.mapObject(
-      _.indexBy(state.WeightMeasurement, 'WeightMeasurementID'),
-      item => ({
-        label: item.Name,
-        value: item.WeightMeasurementID
-      })
-    )
-  },
-  Get_WeightMeasurement_List: function (state) {
-    return _.sortBy(state.WeightMeasurement, 'Name')
-  },
-  Get_WeightMeasurement_Item: function (state) {
-    return state.WeightMeasurementItem
+  Get_Flags: function (state) {
+    return state.Flags
   },
   getField
 }

@@ -11,7 +11,9 @@ const state = {
   WorkoutStage: { },
   WorkoutStageList: [],
   WorkoutStageItem: {},
-  Flags: {}
+  Flags: {
+    loaded: false
+  }
 }
 
 export default state

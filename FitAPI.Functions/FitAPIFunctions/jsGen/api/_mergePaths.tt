@@ -22,7 +22,7 @@ var server = new Server(".\\SQL2017");
 <#
 	string basePath = "C:\\Git\\FitBI\\Orca-UI\\src\\plugins\\api\\";
 	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\api\\";
-	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
+	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats"|| s.Name == "UserSettings" orderby s.Name select s).ToArray();
             foreach (Schema sSchema in sorted)
             {
                 string fileName = sSchema.Name ;

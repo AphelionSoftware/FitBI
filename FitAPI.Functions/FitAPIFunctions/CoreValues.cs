@@ -12,6 +12,7 @@ namespace FitAPIFunctions
         public object BodyPartType;
         public object MeasurementType;
         public object MeasurementTypeCategory;
+        public object StatType;
         public object Unit;
         public object UnitType;
     }

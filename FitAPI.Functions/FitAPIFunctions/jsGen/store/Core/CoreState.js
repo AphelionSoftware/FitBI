@@ -17,6 +17,9 @@ const state = {
   MeasurementTypeCategory: { },
   MeasurementTypeCategoryList: [],
   MeasurementTypeCategoryItem: {},
+  StatType: { },
+  StatTypeList: [],
+  StatTypeItem: {},
   Time: { },
   TimeList: [],
   TimeItem: {},
@@ -26,7 +29,9 @@ const state = {
   UnitType: { },
   UnitTypeList: [],
   UnitTypeItem: {},
-  Flags: {}
+  Flags: {
+    loaded: false
+  }
 }
 
 export default state

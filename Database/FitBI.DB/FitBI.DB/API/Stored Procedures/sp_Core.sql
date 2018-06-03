@@ -15,8 +15,10 @@ BEGIN
 	SELECT 'SELECT * FROM [' + table_schema + '].[' + table_name + '] Tbl
 	WHERE Active = 1
 	' 
-	FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA not like '%settings%'
+	FROM INFORMATION_SCHEMA.TABLES where 
+	TABLE_SCHEMA not like '%settings%'
 	and TABLE_SCHEMA  like '%core%'
+	and table_name not in ('Active','Dates', 'Time')
 	ORDER BY TABLE_SCHEMA, TABLE_Name
 	*/
 
@@ -25,6 +27,7 @@ BEGIN
 	SELECT * FROM [Core].[BodyPartType] Tbl   WHERE Active = 1   
 	SELECT * FROM [Core].[MeasurementType] Tbl   WHERE Active = 1   
 	SELECT * FROM [Core].[MeasurementTypeCategory] Tbl   WHERE Active = 1   
+	SELECT * FROM [Core].[StatType] Tbl   WHERE Active = 1   
 	SELECT * FROM [Core].[Unit] Tbl   WHERE Active = 1   
 	SELECT * FROM [Core].[UnitType] Tbl   WHERE Active = 1   
     

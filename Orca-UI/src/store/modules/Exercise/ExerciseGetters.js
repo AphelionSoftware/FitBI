@@ -176,6 +176,9 @@ const getters = {
   Get_Sport_Item: function (state) {
     return state.SportItem
   },
+  Get_Flags: function (state) {
+    return state.Flags
+  },
   getField
 }
 

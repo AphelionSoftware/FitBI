@@ -1,5 +1,17 @@
 ﻿/* eslint camelcase: 0 */
 import {APIinstance} from '../api.js'
+function mergeDailyMeasurement (payload) {
+  let postData = {}
+  if (payload.DailyMeasurement) {
+    postData = payload
+  } else {
+    postData.DailyMeasurement = []
+    postData.DailyMeasurement.push(payload)
+  }
+  APIinstance.http.post('/merge/DailyMeasurement?' + APIinstance.config.mergeDailyMeasurementToken, postData).then(
+    function (response) {
+    })
+}
 function mergeMetric (payload) {
   let postData = {}
   if (payload.Metric) {
@@ -60,4 +72,4 @@ function mergeWeightMeasurement (payload) {
     function (response) {
     })
 }
-export {mergeMetric, mergePerson, mergeSkinfoldMeasurement, mergeTapeMeasurement, mergeWeightMeasurement}
+export {mergeDailyMeasurement, mergeMetric, mergePerson, mergeSkinfoldMeasurement, mergeTapeMeasurement, mergeWeightMeasurement}

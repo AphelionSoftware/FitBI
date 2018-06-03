@@ -20,3 +20,7 @@ BEGIN
 	END
 		--print @exec
 END
+GO
+DISABLE TRIGGER [trg_Drop_MergeProc]
+    ON DATABASE;
+

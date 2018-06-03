@@ -211,6 +211,41 @@ const getters = {
   Get_MeasurementTypeCategory_Item: function (state) {
     return state.MeasurementTypeCategoryItem
   },
+  Get_StatType_ByRouteID: function (state, getters, rootState) {
+    return state.StatType[+rootState.route.params.StatTypeid]
+  },
+  Get_StatTypeItem: function (state) {
+    return state.StatTypeItem
+  },
+  Get_StatType_All: function (state) {
+    return state.StatType
+  },
+  Get_StatType_Select: function (state) {
+    return _.chain(state.StatType)
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item.StatTypeID
+        }
+      })
+      .sortBy('Name')
+      .value()
+  },
+  Get_StatType_SelectObject: function (state) {
+    return _.mapObject(
+      _.indexBy(state.StatType, 'StatTypeID'),
+      item => ({
+        label: item.Name,
+        value: item.StatTypeID
+      })
+    )
+  },
+  Get_StatType_List: function (state) {
+    return _.sortBy(state.StatType, 'Name')
+  },
+  Get_StatType_Item: function (state) {
+    return state.StatTypeItem
+  },
   Get_Time_ByRouteID: function (state, getters, rootState) {
     return state.Time[+rootState.route.params.Timeid]
   },
@@ -315,6 +350,9 @@ const getters = {
   },
   Get_UnitType_Item: function (state) {
     return state.UnitTypeItem
+  },
+  Get_Flags: function (state) {
+    return state.Flags
   },
   getField
 }

@@ -14,7 +14,9 @@ const state = {
   Sport: { },
   SportList: [],
   SportItem: {},
-  Flags: {}
+  Flags: {
+    loaded: false
+  }
 }
 
 export default state

@@ -180,6 +180,18 @@
     <Build Include="Exercise\Tables\ExerciseLink.sql" />
     <Build Include="API\Stored Procedures\merge_Exercise_ExerciseLink.sql" />
     <Build Include="Exercise\User Defined Types\tvp_ExerciseLink.sql" />
+    <None Include="Core\PostDeploymentScripts\PDS.StatType.sql" />
+    <Build Include="UserSettings\Tables\StatsChoice.sql" />
+    <Build Include="UserSettings\Tables\GeneralSettings.sql" />
+    <Build Include="Core\Tables\StatType.sql" />
+    <Build Include="API\Stored Procedures\sp_UserSettings.sql" />
+    <Build Include="API\Stored Procedures\merge_UserSettings_StatsChoice.sql" />
+    <Build Include="API\Stored Procedures\merge_UserSettings_GeneralSettings.sql" />
+    <Build Include="UserSettings\User Defined Types\tvp_StatsChoice.sql" />
+    <Build Include="UserSettings\User Defined Types\tvp_GeneralSettings.sql" />
+    <Build Include="Stats\Tables\DailyMeasurement.sql" />
+    <Build Include="API\Stored Procedures\merge_Stats_DailyMeasurement.sql" />
+    <Build Include="Stats\User Defined Types\tvp_DailyMeasurement.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />
@@ -190,6 +202,7 @@
     <None Include="LocalToProject.scmp" />
     <None Include="AzurePublish.publish.xml" />
     <None Include="LocalPublish.publish.xml" />
+    <None Include="UserSettings\PDS.StatsChoice.sql" />
   </ItemGroup>
   <ItemGroup>
     <ArtifactReference Include="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\Extensions\Microsoft\SQLDB\Extensions\SqlServer\AzureV12\SqlSchemas\master.dacpac">

@@ -44,6 +44,12 @@ and COLUMN_NAME NOT IN (
  
 ''
 )
+AND NOT EXISTS (SELECT 1 
+FROM sys.computed_columns cc
+WHERE object_id = OBJECT_ID(TABLE_SCHEMA + '.' + table_name  )
+and COL_NAME(cc.object_id ,  cc.column_id) = COLUMN_NAME
+)
+
 ORDER BY TABLE_SCHEMA, TABLE_Name, column_name asc
 
 

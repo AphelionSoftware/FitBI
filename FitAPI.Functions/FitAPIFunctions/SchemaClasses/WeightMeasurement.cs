@@ -14,6 +14,7 @@ using System.Collections.Generic;
 			public bool? Deleted  { get; set; }
 			public string ID  { get; set; }
 			public DateTime? MeasurementDate  { get; set; }
+			public int? MeasurementDateID  { get; set; }
 			public decimal? MusclePercentage  { get; set; }
 			public int? PercentMeasurementTypeID  { get; set; }
 			public int? PersonID  { get; set; }

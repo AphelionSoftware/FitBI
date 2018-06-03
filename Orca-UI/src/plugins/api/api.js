@@ -5,11 +5,12 @@ import initSetup from './initSetup'
 import * as mergeExercise from './mergeExercise'
 import * as mergeProgram from './mergeProgram'
 import * as mergeStats from './mergeStats'
+import store from '../../store/index'
 
 export default class {
   constructor (config) {
     this.axios = axios.create({
-      timeout: 5000,
+      timeout: 15000,
       headers: {
         'method': 'GET',
         'Content-Type': 'application/json'
@@ -40,6 +41,9 @@ export default class {
   OnlineOfflineLoad () {
     var flagCore = true
     // ///TODO: Do checks to see if it exists in localForage and if there are newer items
+    if (store.getters['Core/Get_Flags'].loaded === true) {
+      flagCore = false
+    }
     if (flagCore) {
       console.log(this.config.API_URL + this.config.coreURL + this.config.UserID + '?' + this.config.coreToken)
       this.axios.get(this.config.coreURL + this.config.UserID + '?' + this.config.coreToken).then(
@@ -49,6 +53,11 @@ export default class {
       )
     }
     var flagInit = true
+    if (store.getters['Stats/Get_Flags'].loaded === true &&
+      store.getters['Exercise/Get_Flags'].loaded === true &&
+      store.getters['Program/Get_Flags'].loaded === true) {
+      flagInit = false
+    }
     // ///TODO: Do checks to see if it exists in localForage and if there are newer items
     if (flagInit) {
       console.log(this.config.API_URL + this.config.initURL + this.config.UserID + '?' + this.config.initToken)

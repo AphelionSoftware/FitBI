@@ -14,6 +14,7 @@
       <q-icon name="fa-square" />
     </q-btn> -->
      <!-- <q-fixed-position corner="top-right" :offset="[18, 24]"> -->
+       <q-chip v-if="this.TitleText !== ''" color="tertiary" class="on-left q-ma-md">{{this.TitleText}}</q-chip>
       <q-btn v-if="typeof this.SaveAction === 'function'" @click="fnSaveAction" icon="fa-save" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
       <q-btn v-if="typeof this.AddAction === 'function'" @click="fnAddAction" icon="fa-plus" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
     <!-- </q-fixed-position> -->
@@ -34,6 +35,10 @@
         <q-item-side icon="fa-cutlery" />
         <q-item-main label="Log meal"  />
       </q-item>
+      <q-item to="/stats/dailyMeasurements">
+        <q-item-side icon="fa-ruler-combined" />
+        <q-item-main label="Stats List" />
+      </q-item>
       <q-list-header>Program</q-list-header>
       <q-item to="/program/calendar">
         <q-item-side icon="fa-calendar" />
@@ -49,7 +54,7 @@
         <q-item-main label="Exercise Types" />
       </q-item>
      <q-list-header>Reports</q-list-header>
-      <q-item to="/kb/exercises">
+      <q-item to="/stats/timeList">
         <q-item-side icon="timeline" />
         <q-item-main label="Stats" />
       </q-item>
@@ -82,7 +87,7 @@ export default {
   computed: mapState({
     // arrow functions can make the code very succinct!
     ...mapState(
-      'AppState', ['SaveAction', 'AddAction']
+      'AppState', ['SaveAction', 'AddAction', 'TitleText']
     )
     // ...mapState('layoutDemo', [
     //   'headerReveal', 'footerReveal',

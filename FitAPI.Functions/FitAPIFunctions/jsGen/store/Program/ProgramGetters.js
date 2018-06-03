@@ -141,6 +141,9 @@ const getters = {
   Get_WorkoutStage_Item: function (state) {
     return state.WorkoutStageItem
   },
+  Get_Flags: function (state) {
+    return state.Flags
+  },
   getField
 }
 

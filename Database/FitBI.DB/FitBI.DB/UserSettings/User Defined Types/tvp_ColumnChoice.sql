@@ -9,7 +9,10 @@
     [Name]           VARCHAR (255)      NULL,
     [PageID]         INT                NULL,
     [UpdatedAt]      DATETIMEOFFSET (7) NULL,
+    [UserID]         INT                NULL,
     [Version]        VARCHAR (255)      NULL);
+
+
 
 
 

@@ -5,6 +5,7 @@
     [SideMeasurementTypeID] INT                NULL,
     [BodyPartID]            INT                NULL,
     [MeasurementDate]       DATETIME           CONSTRAINT [DF_TapeMeasurement_MeasurementDate] DEFAULT (getdate()) NOT NULL,
+    [MeasurementDateID]     AS                 (CONVERT([int],CONVERT([varchar](10),[Measurementdate],(112)))) PERSISTED,
     [Active]                SMALLINT           CONSTRAINT [DF_TapeMeasurement_Active] DEFAULT ((1)) NOT NULL,
     [ID]                    VARCHAR (38)       CONSTRAINT [DF_TapeMeasurement_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]             DATETIMEOFFSET (7) CONSTRAINT [DF_TapeMeasurement_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
@@ -13,6 +14,8 @@
     [Version]               ROWVERSION         NOT NULL,
     CONSTRAINT [PK_TapeMeasurement] PRIMARY KEY CLUSTERED ([TapeMeasurementID] ASC)
 );
+
+
 
 
 

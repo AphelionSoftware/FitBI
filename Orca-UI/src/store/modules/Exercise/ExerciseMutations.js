@@ -175,6 +175,15 @@ const mutations = {
       }, this)
     }
   },
+  SET_FLAG (state, payload) {
+    if (payload === false) {
+      state.Flags.loaded = false
+    } else if (payload === true) {
+      state.Flags.loaded = true
+    } else {
+      state.Flags = {...state.Flags, ...payload}
+    }
+  },
   updateField
 }
 

@@ -12,7 +12,8 @@
 const state = {
   AddAction: {},
   SaveAction: {},
-  RightHandMenu: {}
+  RightHandMenu: {},
+  TitleText: ''
 }
 
 // #region Getter
@@ -22,6 +23,9 @@ const getters = {
   },
   Add: function (state, getters, rootState) {
     return state.AddAction
+  },
+  TitleText: function (state, getters, rootState) {
+    return state.TitleText
   }
 }
 // #endregion
@@ -39,6 +43,12 @@ const mutations = {
   },
   CLEAR_ADD (state) {
     state.AddAction = {}
+  },
+  SET_TITLETEXT (state, payload) {
+    state.TitleText = payload
+  },
+  CLEAR_TITLETEXT (state) {
+    state.TitleText = ''
   }
 }
 // #endregion

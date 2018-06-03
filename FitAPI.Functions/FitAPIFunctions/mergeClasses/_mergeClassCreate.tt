@@ -78,7 +78,7 @@ namespace FitAPIFunctions
                     {
                         tvp_" + pTable.Name  + @" = container." + pTable.Name  + @".AsTableValuedParameter(""" + pTable.Schema  + @".tvp_" + pTable.Name  + @"""
 						, (new string[] {";
-		var sorted = (from Column o in pTable.Columns orderby o.Name select o).ToList();   
+		var sorted = (from Column o in pTable.Columns where o.Computed != true orderby o.Name select o).ToList();   
 			int iLoop = 0;
 			foreach (Column cColumn in sorted)
 			{

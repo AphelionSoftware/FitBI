@@ -40,7 +40,20 @@ MeasurementTypeCategory.initEnum({
   BF: {Code: 'BF', Name: 'Bodyfat percentage', intID: 1},
   SIDE: {Code: 'SIDE', Name: 'Body side', intID: 2},
   CIRC: {Code: 'CIRC', Name: 'Circumference', intID: 3},
-  SKINFOLD: {Code: 'SKINFOLD', Name: 'Skinfold Thickness', intID: 4}
+  SKINFOLD: {Code: 'SKINFOLD', Name: 'Skinfold Thickness', intID: 4},
+  Weight: {Code: 'Weight', Name: 'Weight', intID: 5},
+  COMP: {Code: 'COMP', Name: 'Body Composition', intID: 6}
+})
+class StatType extends Enum {}
+StatType.initEnum({
+  BodyFatPercentage: {Code: 'BodyFatPercentage', Name: 'BodyFatPercentage', intID: 35},
+  Quadriceps: {Code: 'Quadriceps', Name: 'Quadriceps', intID: 36},
+  Neck: {Code: 'Neck', Name: 'Neck', intID: 37},
+  Bellybutton - circumference around the body: {Code: 'Bellybutton - circumference around the body', Name: 'Bellybutton - circumference around the body', intID: 38},
+  Weight: {Code: 'Weight', Name: 'Weight', intID: 39},
+  MusclePercentage: {Code: 'MusclePercentage', Name: 'MusclePercentage', intID: 40},
+  WaterPercentage: {Code: 'WaterPercentage', Name: 'WaterPercentage', intID: 41},
+  BonePercentage: {Code: 'BonePercentage', Name: 'BonePercentage', intID: 42}
 })
 class Unit extends Enum {}
 Unit.initEnum({
@@ -61,6 +74,7 @@ export {
   BodyPartType,
   MeasurementType,
   MeasurementTypeCategory,
+  StatType,
   Unit,
   UnitType
 }

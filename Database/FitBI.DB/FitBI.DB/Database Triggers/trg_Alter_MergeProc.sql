@@ -27,3 +27,7 @@ END
 
 
 END
+GO
+DISABLE TRIGGER [trg_Alter_MergeProc]
+    ON DATABASE;
+

@@ -215,6 +215,42 @@ const mutations = {
       }, this)
     }
   },
+  GET_STATTYPE (state, payload) {
+    if ('' + payload.StatTypeID === '0') {
+      state.StatTypeItem = {
+        StatTypeID: null,
+        Code: null,
+        Name: null,
+        Description: null,
+        TableName: null,
+        ColumnName: null,
+        MeasurementTypeCategoryID: null,
+        Active: null,
+        ID: null,
+        CreatedAt: null,
+        UpdatedAt: null,
+        Deleted: null,
+        Version: null,
+        NeedsSync: true
+      }
+    } else {
+      state.StatTypeItem = state.StatType[payload.StatTypeID]
+    }
+  },
+  SET_STATTYPE (state, payload) {
+    state.StatType[payload.StatTypeID] = payload
+  },
+  SET_STATTYPEITEM (state, payload) {
+    state.StatTypeItem = payload
+  },
+  SET_STATTYPE_LIST: function (state, fullList) {
+    if (typeof (fullList) !== 'undefined') {
+      fullList.forEach(function (element) {
+        Vue.set(state.StatType, element.StatTypeID, element)
+        state.StatTypeList.push(element.StatTypeID)
+      }, this)
+    }
+  },
   GET_TIME (state, payload) {
     if ('' + payload.TimeID === '0') {
       state.TimeItem = {
@@ -317,6 +353,15 @@ const mutations = {
         Vue.set(state.UnitType, element.UnitTypeID, element)
         state.UnitTypeList.push(element.UnitTypeID)
       }, this)
+    }
+  },
+  SET_FLAG (state, payload) {
+    if (payload === false) {
+      state.Flags.loaded = false
+    } else if (payload === true) {
+      state.Flags.loaded = true
+    } else {
+      state.Flags = {...state.Flags, ...payload}
     }
   },
   updateField

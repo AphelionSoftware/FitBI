@@ -1,6 +1,41 @@
 import {getField} from 'vuex-map-fields'
 import _ from 'underscore'
 const getters = {
+  Get_DailyMeasurement_ByRouteID: function (state, getters, rootState) {
+    return state.DailyMeasurement[+rootState.route.params.DailyMeasurementid]
+  },
+  Get_DailyMeasurementItem: function (state) {
+    return state.DailyMeasurementItem
+  },
+  Get_DailyMeasurement_All: function (state) {
+    return state.DailyMeasurement
+  },
+  Get_DailyMeasurement_Select: function (state) {
+    return _.chain(state.DailyMeasurement)
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item.MeasurementDateID
+        }
+      })
+      .sortBy('Name')
+      .value()
+  },
+  Get_DailyMeasurement_SelectObject: function (state) {
+    return _.mapObject(
+      _.indexBy(state.DailyMeasurement, 'MeasurementDateID'),
+      item => ({
+        label: item.Name,
+        value: item.MeasurementDateID
+      })
+    )
+  },
+  Get_DailyMeasurement_List: function (state) {
+    return _.sortBy(state.DailyMeasurement, 'Name')
+  },
+  Get_DailyMeasurement_Item: function (state) {
+    return state.DailyMeasurementItem
+  },
   Get_Metric_ByRouteID: function (state, getters, rootState) {
     return state.Metric[+rootState.route.params.Metricid]
   },
@@ -175,6 +210,9 @@ const getters = {
   },
   Get_WeightMeasurement_Item: function (state) {
     return state.WeightMeasurementItem
+  },
+  Get_Flags: function (state) {
+    return state.Flags
   },
   getField
 }

@@ -27,7 +27,7 @@ string basePath = "C:\\Git\\FitBI\\Orca-UI\\src\\store\\modules\\";
 	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\store\\";
 
 	
-	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" || s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
+	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" || s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" || s.Name == "UserSettings" orderby s.Name select s).ToArray();
             foreach (Schema sSchema in sorted)
             {
                 string fileName = sSchema.Name ;
@@ -76,7 +76,7 @@ export default mutations
 				string generatedContent = engine.ProcessTemplate(templateContent, this.Host);
 				
 				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "Getters.js", generatedContent);
-				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Getters.js", generatedContent);
+				// System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Getters.js", generatedContent);
 				
 
 				templateFile = this.Host.ResolvePath("_state.tt");
@@ -93,7 +93,7 @@ export default mutations
 				generatedContent = engine.ProcessTemplate(templateContent, this.Host);
 				
 				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "State.js", generatedContent);
-				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "State.js", generatedContent);
+				// System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "State.js", generatedContent);
 
 				templateFile = this.Host.ResolvePath("_actions.tt");
 				templateContent = File.ReadAllText(templateFile);
@@ -109,7 +109,7 @@ export default mutations
 				generatedContent = engine.ProcessTemplate(templateContent, this.Host);
 				
 				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "Actions.js", generatedContent);
-				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Actions.js", generatedContent);
+				// System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Actions.js", generatedContent);
 
 				templateFile = this.Host.ResolvePath("_mutations.tt");
 				templateContent = File.ReadAllText(templateFile);
@@ -125,7 +125,7 @@ export default mutations
 				generatedContent = engine.ProcessTemplate(templateContent, this.Host);
 				
 				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "Mutations.js", generatedContent);
-				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Mutations.js", generatedContent);
+				// System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Mutations.js", generatedContent);
 
 				templateFile = this.Host.ResolvePath("_store.tt");
 				templateContent = File.ReadAllText(templateFile);
@@ -141,9 +141,19 @@ export default mutations
 				generatedContent = engine.ProcessTemplate(templateContent, this.Host);
 				
 				System.IO.File.WriteAllText(jsGenPath + @"\" + fileName + @"\" + fileName + "Store.js", generatedContent);
-				System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Store.js", generatedContent);
+				// System.IO.File.WriteAllText(basePath + @"\" + fileName + @"\" + fileName + "Store.js", generatedContent);
 				
             }
+
+			foreach (Schema sSchema in sorted)
+            {
+                string fileName = sSchema.Name ;
+				System.IO.File.Copy( jsGenPath + @"\" + fileName + @"\" + fileName + "Actions.js", basePath + @"\" + fileName + @"\" + fileName + "Actions.js", true);
+				System.IO.File.Copy( jsGenPath + @"\" + fileName + @"\" + fileName + "Getters.js", basePath + @"\" + fileName + @"\" + fileName + "Getters.js", true);
+				System.IO.File.Copy( jsGenPath + @"\" + fileName + @"\" + fileName + "Mutations.js", basePath + @"\" + fileName + @"\" + fileName + "Mutations.js", true);
+				System.IO.File.Copy( jsGenPath + @"\" + fileName + @"\" + fileName + "State.js", basePath + @"\" + fileName + @"\" + fileName + "State.js", true);
+				System.IO.File.Copy( jsGenPath + @"\" + fileName + @"\" + fileName + "Store.js", basePath + @"\" + fileName + @"\" + fileName + "Store.js", true);
+			}
 			
 
 #>

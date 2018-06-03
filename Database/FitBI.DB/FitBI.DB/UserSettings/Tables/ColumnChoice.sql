@@ -10,9 +10,13 @@
     [UpdatedAt]      DATETIMEOFFSET (7) NULL,
     [Deleted]        BIT                DEFAULT ((0)) NOT NULL,
     [Version]        ROWVERSION         NOT NULL,
+    [UserID]         INT                CONSTRAINT [DF_ColumnChoice_UserID] DEFAULT ((1)) NOT NULL,
     CONSTRAINT [PK_] PRIMARY KEY CLUSTERED ([Active] ASC),
+    CONSTRAINT [FK_ColumnChoice_User] FOREIGN KEY ([UserID]) REFERENCES [Security].[User] ([UserID]),
     CONSTRAINT [IX_Active] UNIQUE NONCLUSTERED ([Active] ASC)
 );
+
+
 
 
 

@@ -6,7 +6,11 @@
     <Compile Remove="GetLatestTimestamps.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="jsGen\store\_getters.js" />
+    <Compile Include="jsGen\store\_runner.js">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_runner.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>    
     <PackageReference Include="Dapper" Version="1.50.4" />    
@@ -38,6 +42,7 @@
 .\mergeExercise.js
 .\mergeProgram.js
 .\mergeStats.js
+.\mergeUserSettings.js
 </LastOutputs>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_mergePaths.cs</LastGenOutput>
@@ -54,6 +59,25 @@
     <None Update="jsGen\enum\_enumGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_enumGenerator.cs</LastGenOutput>
+      <LastOutputs>
+.\_enumGenerator.cs
+.\enumCore.js
+</LastOutputs>
+    </None>
+    <None Update="jsGen\store\_actions.js">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_actions.tt</DependentUpon>
+    </None>
+    <None Update="jsGen\store\_getters.js">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_getters.tt</DependentUpon>
+    </None>
+    <None Update="jsGen\store\_mutations.js">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_mutations.tt</DependentUpon>
     </None>
     <None Update="jsGen\store\_mutations.tt">
       <LastGenOutput>_mutations.js</LastGenOutput>
@@ -82,6 +106,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_runner.js</LastGenOutput>
       <LastOutputs>.\_runner.js</LastOutputs>
+    </None>
+    <None Update="jsGen\store\_state.js">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_state.tt</DependentUpon>
     </None>
     <None Update="jsGen\store\_store.tt">
       <LastGenOutput>_store.js</LastGenOutput>
@@ -124,8 +153,10 @@
     <None Update="mergeClasses\_mergeClassCreate.tt">
       <LastOutputs>
 .\_mergeClassCreate.cs
+.\mergeDailyMeasurement.cs
 .\mergeExercise.cs
 .\mergeExercise_Sport.cs
+.\mergeExerciseLink.cs
 .\mergeExerciseType.cs
 .\mergeMetric.cs
 .\mergePerson.cs
@@ -146,14 +177,19 @@
       <LastGenOutput>_SchemaGen.cs</LastGenOutput>
       <LastOutputs>
 .\_SchemaGen.cs
+.\ColumnChoice.cs
+.\DailyMeasurement.cs
 .\Exercise.cs
 .\Exercise_Sport.cs
+.\ExerciseLink.cs
 .\ExerciseType.cs
+.\GeneralSettings.cs
 .\Metric.cs
 .\Person.cs
 .\Plan.cs
 .\SkinfoldMeasurement.cs
 .\Sport.cs
+.\StatsChoice.cs
 .\TapeMeasurement.cs
 .\WeightMeasurement.cs
 .\Workout.cs
@@ -166,6 +202,11 @@
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="jsGen\api\_apiGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_apiGenerator.tt</DependentUpon>
+    </Compile>
     <Compile Update="jsGen\api\_mergePaths.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -201,5 +242,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>_SchemaGen.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="jsGen\store\UserSettings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="jsGen\store\_runner.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_runner.tt</DependentUpon>
+    </None>
   </ItemGroup>
 </Project>

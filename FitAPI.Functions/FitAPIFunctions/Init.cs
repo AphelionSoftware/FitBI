@@ -36,12 +36,14 @@ namespace FitAPIFunctions
                     {
                         objInit.Exercise = multi.Read<dynamic>().ToList();
                         objInit.Exercise_Sport = multi.Read<dynamic>().ToList();
+                        objInit.ExerciseLink = multi.Read<dynamic>().ToList();
                         objInit.ExerciseType = multi.Read<dynamic>().ToList();
                         objInit.Sport = multi.Read<dynamic>().ToList();
                         objInit.Plan = multi.Read<dynamic>().ToList();
                         objInit.Workout = multi.Read<dynamic>().ToList();
                         objInit.Workout_Exercise = multi.Read<dynamic>().ToList();
                         objInit.WorkoutStage = multi.Read<dynamic>().ToList();
+                        objInit.DailyMeasurement = multi.Read<dynamic>().ToList();
                         objInit.Metric = multi.Read<dynamic>().ToList();
                         objInit.Person = multi.Read<dynamic>().ToList();
                         objInit.SkinfoldMeasurement = multi.Read<dynamic>().ToList();
@@ -60,6 +62,7 @@ namespace FitAPIFunctions
             catch (System.Exception ex)
             {
                 log.Error("C# HTTP trigger function encountered an error ", ex);
+                JSON = JsonConvert.SerializeObject(ex);
                 statusCode = HttpStatusCode.InternalServerError;
             }
             //Always return to not leave the client hanging

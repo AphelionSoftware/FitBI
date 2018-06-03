@@ -42,7 +42,7 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_Person = container.Person.AsTableValuedParameter("Stats.tvp_Person"
-						, (new string[] { "Active", "CreatedAt", "DateOfBirth", "DateOfBirthID", "Deleted", "FirstName", "Height", "ID", "PersonID", "Surname", "UpdatedAt", "Version" })
+						, (new string[] { "Active", "CreatedAt", "DateOfBirth", "Deleted", "FirstName", "Height", "ID", "PersonID", "Surname", "UpdatedAt", "Version" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    

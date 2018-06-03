@@ -141,5 +141,5 @@ SET @CreateStmnt = 'CREATE PROC [API].merge_' + @Table_Schema + '_' + @Table_nam
 	@tvp_' + @Table_Name + ' [' + @Table_Schema + '].[tvp_' + @Table_Name + '] READONLY
 AS
 ' + @MergeStmnt
-print @CreateStmnt
+-- print @CreateStmnt
 EXEC (@CreateStmnt)

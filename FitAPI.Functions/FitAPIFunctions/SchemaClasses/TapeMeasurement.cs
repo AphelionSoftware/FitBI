@@ -13,6 +13,7 @@ using System.Collections.Generic;
 			public bool? Deleted  { get; set; }
 			public string ID  { get; set; }
 			public DateTime? MeasurementDate  { get; set; }
+			public int? MeasurementDateID  { get; set; }
 			public int? PersonID  { get; set; }
 			public int? SideMeasurementTypeID  { get; set; }
 			public decimal? TapeLength  { get; set; }

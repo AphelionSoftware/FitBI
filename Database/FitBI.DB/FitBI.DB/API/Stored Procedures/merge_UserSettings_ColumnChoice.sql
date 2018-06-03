@@ -12,24 +12,24 @@ USING @tvp_ColumnChoice As Src
 	THEN UPDATE SET dest.[Code] = ISNULL(src.[Code], dest.[Code]),
 dest.[ColumnList] = ISNULL(src.[ColumnList], dest.[ColumnList]),
 dest.[Deleted] = ISNULL(src.[Deleted], dest.[Deleted]),
-dest.[ID] = ISNULL(src.[ID], dest.[ID]),
 dest.[Name] = ISNULL(src.[Name], dest.[Name]),
-dest.[PageID] = ISNULL(src.[PageID], dest.[PageID])
+dest.[PageID] = ISNULL(src.[PageID], dest.[PageID]),
+dest.[UserID] = ISNULL(src.[UserID], dest.[UserID])
 
  WHEN NOT MATCHED THEN
  INSERT (
   Code,
  ColumnList,
- Deleted,
  ID,
  Name,
- PageID
+ PageID,
+ UserID
 )
 VALUES(  src.Code,
  src.ColumnList,
- src.Deleted,
- src.ID,
+ ISNULL(src.ID, newid()),
  src.Name,
- src.PageID
+ src.PageID,
+ src.UserID
 )
 ;

@@ -52,14 +52,23 @@ const mutations = {
   SET_<#= tTable.Name.ToUpper() #>_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
-        Vue.set(state.<#= tTable.Name #>, element.<#= tTable.Name #>ID, element)
-        state.<#= tTable.Name #>List.push(element.<#= tTable.Name #>ID)
+        Vue.set(state.<#= tTable.Name #>, element.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID, element)
+        state.<#= tTable.Name #>List.push(element.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID)
       }, this)
     }
   },
 <# 
 }
 #>
+  SET_FLAG (state, payload) {
+    if (payload === false) {
+      state.Flags.loaded = false
+    } else if (payload === true) {
+      state.Flags.loaded = true
+    } else {
+      state.Flags = {...state.Flags, ...payload}
+    }
+  },
   updateField
 }
 

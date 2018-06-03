@@ -39,7 +39,7 @@ const getters = {
       .map(item => {
         return {
           label: item.Name,
-          value: item.<#= tTable.Name #>ID
+          value: item.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID
         }
       })
       .sortBy('Name')
@@ -47,10 +47,10 @@ const getters = {
   },
   Get_<#= tTable.Name #>_SelectObject: function (state) {
     return _.mapObject(
-      _.indexBy(state.<#= tTable.Name #>, '<#= tTable.Name #>ID'),
+      _.indexBy(state.<#= tTable.Name #>, '<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID'),
       item => ({
         label: item.Name,
-        value: item.<#= tTable.Name #>ID
+        value: item.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID
       })
     )
   },
@@ -63,6 +63,9 @@ const getters = {
 <# 
 }
 #>
+  Get_Flags: function (state) {
+    return state.Flags
+  },
   getField
 }
 

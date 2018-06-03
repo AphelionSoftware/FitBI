@@ -16,3 +16,7 @@ exec [Utility].[Create_TVP_ByTable]  @Table_schema, @Table_Name
 -- exec [Utility].[CreateMerge_ByTable]  @Table_schema, @Table_Name
 -- Done insisde create tvp
 END
+GO
+DISABLE TRIGGER [trg_Create_MergeProc]
+    ON DATABASE;
+
