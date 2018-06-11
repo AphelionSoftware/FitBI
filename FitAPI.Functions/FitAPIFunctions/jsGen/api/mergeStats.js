@@ -1,5 +1,6 @@
 ﻿/* eslint camelcase: 0 */
 import {APIinstance} from '../api.js'
+import store from '../../store/index'
 function mergeDailyMeasurement (payload) {
   let postData = {}
   if (payload.DailyMeasurement) {
@@ -8,9 +9,8 @@ function mergeDailyMeasurement (payload) {
     postData.DailyMeasurement = []
     postData.DailyMeasurement.push(payload)
   }
-  APIinstance.http.post('/merge/DailyMeasurement?' + APIinstance.config.mergeDailyMeasurementToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/DailyMeasurement?' + APIinstance.config.mergeDailyMeasurementToken, postData)
 }
 function mergeMetric (payload) {
   let postData = {}
@@ -20,9 +20,8 @@ function mergeMetric (payload) {
     postData.Metric = []
     postData.Metric.push(payload)
   }
-  APIinstance.http.post('/merge/Metric?' + APIinstance.config.mergeMetricToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/Metric?' + APIinstance.config.mergeMetricToken, postData)
 }
 function mergePerson (payload) {
   let postData = {}
@@ -32,9 +31,8 @@ function mergePerson (payload) {
     postData.Person = []
     postData.Person.push(payload)
   }
-  APIinstance.http.post('/merge/Person?' + APIinstance.config.mergePersonToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/Person?' + APIinstance.config.mergePersonToken, postData)
 }
 function mergeSkinfoldMeasurement (payload) {
   let postData = {}
@@ -44,9 +42,8 @@ function mergeSkinfoldMeasurement (payload) {
     postData.SkinfoldMeasurement = []
     postData.SkinfoldMeasurement.push(payload)
   }
-  APIinstance.http.post('/merge/SkinfoldMeasurement?' + APIinstance.config.mergeSkinfoldMeasurementToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/SkinfoldMeasurement?' + APIinstance.config.mergeSkinfoldMeasurementToken, postData)
 }
 function mergeTapeMeasurement (payload) {
   let postData = {}
@@ -56,9 +53,8 @@ function mergeTapeMeasurement (payload) {
     postData.TapeMeasurement = []
     postData.TapeMeasurement.push(payload)
   }
-  APIinstance.http.post('/merge/TapeMeasurement?' + APIinstance.config.mergeTapeMeasurementToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/TapeMeasurement?' + APIinstance.config.mergeTapeMeasurementToken, postData)
 }
 function mergeWeightMeasurement (payload) {
   let postData = {}
@@ -68,8 +64,7 @@ function mergeWeightMeasurement (payload) {
     postData.WeightMeasurement = []
     postData.WeightMeasurement.push(payload)
   }
-  APIinstance.http.post('/merge/WeightMeasurement?' + APIinstance.config.mergeWeightMeasurementToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/WeightMeasurement?' + APIinstance.config.mergeWeightMeasurementToken, postData)
 }
 export {mergeDailyMeasurement, mergeMetric, mergePerson, mergeSkinfoldMeasurement, mergeTapeMeasurement, mergeWeightMeasurement}

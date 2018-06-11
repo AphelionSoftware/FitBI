@@ -1,4 +1,4 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 // import Vuex from 'vuex'
 // import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
@@ -13,7 +13,14 @@ const state = {
   AddAction: {},
   SaveAction: {},
   RightHandMenu: {},
-  TitleText: ''
+  TitleText: '',
+  Error: false,
+  Flags: {
+    Loaded: false,
+    Saved: false,
+    InProgress: false,
+    Failed: false
+  }
 }
 
 // #region Getter
@@ -26,6 +33,9 @@ const getters = {
   },
   TitleText: function (state, getters, rootState) {
     return state.TitleText
+  },
+  GetFlags: function (state) {
+    return state.Flags
   }
 }
 // #endregion
@@ -49,6 +59,12 @@ const mutations = {
   },
   CLEAR_TITLETEXT (state) {
     state.TitleText = ''
+  },
+  SET_APIFLAG_PROPERTY (state, payload) {
+    if (typeof payload.Loaded !== 'undefined') Vue.set(state.Flags, 'Loaded', payload.Loaded)
+    if (typeof payload.Saved !== 'undefined') Vue.set(state.Flags, 'Saved', payload.Saved)
+    if (typeof payload.InProgress !== 'undefined') Vue.set(state.Flags, 'InProgress', payload.InProgress)
+    if (typeof payload.Failed !== 'undefined') Vue.set(state.Flags, 'Failed', payload.Failed)
   }
 }
 // #endregion

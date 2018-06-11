@@ -21,6 +21,7 @@
     "highlightjs": "^9.10.0",
     "moment": "^2.15.0",
     "node-sass": "^4.7.2",
+    "numeral": "^2.0.6",
     "quasar-extras": "^1.0.2",
     "sass-loader": "^6.0.7",
     "uuid": "^3.2.1",

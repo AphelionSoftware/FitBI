@@ -23,7 +23,8 @@ const getters = {
     let measure = state.DailyMeasurement
     measure = _.chain(state.DailyMeasurement)
       .mapObject(item => {
-        item.MeasurementDate = (new Date(item.MeasurementDate)).toLocaleDateString()
+        item.MeasurementDateOriginal = (new Date(item.MeasurementDate))
+        item.MeasurementDate = (new Date(item.MeasurementDate)).toLocaleString()
         return item
       }).sortBy('MeasurementDateID')
       .value()

@@ -1,5 +1,6 @@
 ﻿/* eslint camelcase: 0 */
 import {APIinstance} from '../api.js'
+import store from '../../store/index'
 function mergeColumnChoice (payload) {
   let postData = {}
   if (payload.ColumnChoice) {
@@ -8,9 +9,8 @@ function mergeColumnChoice (payload) {
     postData.ColumnChoice = []
     postData.ColumnChoice.push(payload)
   }
-  APIinstance.http.post('/merge/ColumnChoice?' + APIinstance.config.mergeColumnChoiceToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/ColumnChoice?' + APIinstance.config.mergeColumnChoiceToken, postData)
 }
 function mergeGeneralSettings (payload) {
   let postData = {}
@@ -20,9 +20,8 @@ function mergeGeneralSettings (payload) {
     postData.GeneralSettings = []
     postData.GeneralSettings.push(payload)
   }
-  APIinstance.http.post('/merge/GeneralSettings?' + APIinstance.config.mergeGeneralSettingsToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/GeneralSettings?' + APIinstance.config.mergeGeneralSettingsToken, postData)
 }
 function mergeStatsChoice (payload) {
   let postData = {}
@@ -32,8 +31,7 @@ function mergeStatsChoice (payload) {
     postData.StatsChoice = []
     postData.StatsChoice.push(payload)
   }
-  APIinstance.http.post('/merge/StatsChoice?' + APIinstance.config.mergeStatsChoiceToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/StatsChoice?' + APIinstance.config.mergeStatsChoiceToken, postData)
 }
 export {mergeColumnChoice, mergeGeneralSettings, mergeStatsChoice}

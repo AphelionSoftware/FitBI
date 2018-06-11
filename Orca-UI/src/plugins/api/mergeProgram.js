@@ -1,5 +1,6 @@
 ﻿/* eslint camelcase: 0 */
 import {APIinstance} from '../api.js'
+import store from '../../store/index'
 function mergePlan (payload) {
   let postData = {}
   if (payload.Plan) {
@@ -8,9 +9,8 @@ function mergePlan (payload) {
     postData.Plan = []
     postData.Plan.push(payload)
   }
-  APIinstance.http.post('/merge/Plan?' + APIinstance.config.mergePlanToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/Plan?' + APIinstance.config.mergePlanToken, postData)
 }
 function mergeWorkout (payload) {
   let postData = {}
@@ -20,9 +20,8 @@ function mergeWorkout (payload) {
     postData.Workout = []
     postData.Workout.push(payload)
   }
-  APIinstance.http.post('/merge/Workout?' + APIinstance.config.mergeWorkoutToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/Workout?' + APIinstance.config.mergeWorkoutToken, postData)
 }
 function mergeWorkout_Exercise (payload) {
   let postData = {}
@@ -32,9 +31,8 @@ function mergeWorkout_Exercise (payload) {
     postData.Workout_Exercise = []
     postData.Workout_Exercise.push(payload)
   }
-  APIinstance.http.post('/merge/Workout_Exercise?' + APIinstance.config.mergeWorkout_ExerciseToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/Workout_Exercise?' + APIinstance.config.mergeWorkout_ExerciseToken, postData)
 }
 function mergeWorkoutStage (payload) {
   let postData = {}
@@ -44,8 +42,7 @@ function mergeWorkoutStage (payload) {
     postData.WorkoutStage = []
     postData.WorkoutStage.push(payload)
   }
-  APIinstance.http.post('/merge/WorkoutStage?' + APIinstance.config.mergeWorkoutStageToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/WorkoutStage?' + APIinstance.config.mergeWorkoutStageToken, postData)
 }
 export {mergePlan, mergeWorkout, mergeWorkout_Exercise, mergeWorkoutStage}

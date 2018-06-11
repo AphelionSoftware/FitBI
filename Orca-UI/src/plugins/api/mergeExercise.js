@@ -1,5 +1,6 @@
 ﻿/* eslint camelcase: 0 */
 import {APIinstance} from '../api.js'
+import store from '../../store/index'
 function mergeExercise (payload) {
   let postData = {}
   if (payload.Exercise) {
@@ -8,9 +9,8 @@ function mergeExercise (payload) {
     postData.Exercise = []
     postData.Exercise.push(payload)
   }
-  APIinstance.http.post('/merge/Exercise?' + APIinstance.config.mergeExerciseToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/Exercise?' + APIinstance.config.mergeExerciseToken, postData)
 }
 function mergeExercise_Sport (payload) {
   let postData = {}
@@ -20,9 +20,8 @@ function mergeExercise_Sport (payload) {
     postData.Exercise_Sport = []
     postData.Exercise_Sport.push(payload)
   }
-  APIinstance.http.post('/merge/Exercise_Sport?' + APIinstance.config.mergeExercise_SportToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/Exercise_Sport?' + APIinstance.config.mergeExercise_SportToken, postData)
 }
 function mergeExerciseLink (payload) {
   let postData = {}
@@ -32,9 +31,8 @@ function mergeExerciseLink (payload) {
     postData.ExerciseLink = []
     postData.ExerciseLink.push(payload)
   }
-  APIinstance.http.post('/merge/ExerciseLink?' + APIinstance.config.mergeExerciseLinkToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/ExerciseLink?' + APIinstance.config.mergeExerciseLinkToken, postData)
 }
 function mergeExerciseType (payload) {
   let postData = {}
@@ -44,9 +42,8 @@ function mergeExerciseType (payload) {
     postData.ExerciseType = []
     postData.ExerciseType.push(payload)
   }
-  APIinstance.http.post('/merge/ExerciseType?' + APIinstance.config.mergeExerciseTypeToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/ExerciseType?' + APIinstance.config.mergeExerciseTypeToken, postData)
 }
 function mergeSport (payload) {
   let postData = {}
@@ -56,8 +53,7 @@ function mergeSport (payload) {
     postData.Sport = []
     postData.Sport.push(payload)
   }
-  APIinstance.http.post('/merge/Sport?' + APIinstance.config.mergeSportToken, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/Sport?' + APIinstance.config.mergeSportToken, postData)
 }
 export {mergeExercise, mergeExercise_Sport, mergeExerciseLink, mergeExerciseType, mergeSport}

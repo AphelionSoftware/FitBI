@@ -1,4 +1,4 @@
-import Vue from 'Vue'
+import Vue from 'vue'
 const mutations = {
   ADD_DAILYMEASUREMENT_PROPERTY (state, payload) {
     let currentItem = state.DailyMeasurement[payload.MeasurementDateID]

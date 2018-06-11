@@ -38,6 +38,12 @@ export default class {
     return mergeStats
   }
 
+  genericPost (url, postData) {
+    this.http.post(url, postData).then(
+      function (response) {
+        store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: true, Failed: false, InProgress: false})
+      }).catch(this.ErrorHandler)
+  }
   OnlineOfflineLoad () {
     var flagCore = true
     // ///TODO: Do checks to see if it exists in localForage and if there are newer items
@@ -86,6 +92,7 @@ export default class {
       console.log('Error', error.message)
     }
     console.log(error.config)
+    store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: true, InProgress: false})
   }
   Initialize () {
     // `this.core.baseURL = this.config.API + '/setup/Core/' + this.config.UserID

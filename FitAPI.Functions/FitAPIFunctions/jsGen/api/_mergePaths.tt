@@ -53,6 +53,7 @@ private class ValuesTemplate : Template
     {
      string strFile = @"/* eslint camelcase: 0 */
 import {APIinstance} from '../api.js'
+import store from '../../store/index'
 ";
             Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
             foreach (Table tTable in tTables)
@@ -65,9 +66,8 @@ import {APIinstance} from '../api.js'
     postData." + tTable.Name + @" = []
     postData." + tTable.Name + @".push(payload)
   }
-  APIinstance.http.post('/merge/" + tTable.Name + @"?' + APIinstance.config.merge" + tTable.Name + @"Token, postData).then(
-    function (response) {
-    })
+  store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
+  APIinstance.genericPost('/merge/" + tTable.Name + @"?' + APIinstance.config.merge" + tTable.Name + @"Token, postData)
 }
 ";			
 			}
