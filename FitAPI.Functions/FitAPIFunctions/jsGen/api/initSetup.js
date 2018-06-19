@@ -1,5 +1,6 @@
-﻿import store from 'vuex/store'
+﻿import store from 'src/store/index'
 export default function (initValues) {
+  store.commit('AppState/SET_INIT', initValues.Version)
   store.commit('Exercise/SET_EXERCISE_LIST', initValues.Exercise)
   store.commit('Exercise/SET_EXERCISE_SPORT_LIST', initValues.Exercise_Sport)
   store.commit('Exercise/SET_EXERCISELINK_LIST', initValues.ExerciseLink)
@@ -9,6 +10,7 @@ export default function (initValues) {
   store.commit('Program/SET_WORKOUT_LIST', initValues.Workout)
   store.commit('Program/SET_WORKOUT_EXERCISE_LIST', initValues.Workout_Exercise)
   store.commit('Program/SET_WORKOUTSTAGE_LIST', initValues.WorkoutStage)
+  store.commit('Stats/SET_DAILYMEASUREMENT_LIST', initValues.DailyMeasurement)
   store.commit('Stats/SET_METRIC_LIST', initValues.Metric)
   store.commit('Stats/SET_PERSON_LIST', initValues.Person)
   store.commit('Stats/SET_SKINFOLDMEASUREMENT_LIST', initValues.SkinfoldMeasurement)

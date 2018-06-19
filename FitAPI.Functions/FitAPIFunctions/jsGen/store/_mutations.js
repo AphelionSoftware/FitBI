@@ -1,5 +1,6 @@
 ﻿import {updateField} from 'vuex-map-fields'
 import Vue from 'vue'
+import localForage from 'localforage'
 const mutations = {
   GET_COLUMNCHOICE (state, payload) {
     if ('' + payload.ColumnChoiceID === '0') {
@@ -23,7 +24,10 @@ const mutations = {
     }
   },
   SET_COLUMNCHOICE (state, payload) {
-    state.ColumnChoice[payload.ColumnChoiceID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.ColumnChoice, payload.ColumnChoiceID, payload)
+      localForage.setItem('UserSettings_ColumnChoice', state.ColumnChoice)
+    }
   },
   SET_COLUMNCHOICEITEM (state, payload) {
     state.ColumnChoiceItem = payload
@@ -34,6 +38,7 @@ const mutations = {
         Vue.set(state.ColumnChoice, element.ColumnChoiceID, element)
         state.ColumnChoiceList.push(element.ColumnChoiceID)
       }, this)
+      localForage.setItem('UserSettings_ColumnChoice', state.ColumnChoice)
     }
   },
   GET_GENERALSETTINGS (state, payload) {
@@ -57,7 +62,10 @@ const mutations = {
     }
   },
   SET_GENERALSETTINGS (state, payload) {
-    state.GeneralSettings[payload.GeneralSettingsID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.GeneralSettings, payload.GeneralSettingsID, payload)
+      localForage.setItem('UserSettings_GeneralSettings', state.GeneralSettings)
+    }
   },
   SET_GENERALSETTINGSITEM (state, payload) {
     state.GeneralSettingsItem = payload
@@ -68,6 +76,7 @@ const mutations = {
         Vue.set(state.GeneralSettings, element.GeneralSettingsID, element)
         state.GeneralSettingsList.push(element.GeneralSettingsID)
       }, this)
+      localForage.setItem('UserSettings_GeneralSettings', state.GeneralSettings)
     }
   },
   GET_STATSCHOICE (state, payload) {
@@ -89,7 +98,10 @@ const mutations = {
     }
   },
   SET_STATSCHOICE (state, payload) {
-    state.StatsChoice[payload.StatsChoiceID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.StatsChoice, payload.StatsChoiceID, payload)
+      localForage.setItem('UserSettings_StatsChoice', state.StatsChoice)
+    }
   },
   SET_STATSCHOICEITEM (state, payload) {
     state.StatsChoiceItem = payload
@@ -100,6 +112,7 @@ const mutations = {
         Vue.set(state.StatsChoice, element.StatsChoiceID, element)
         state.StatsChoiceList.push(element.StatsChoiceID)
       }, this)
+      localForage.setItem('UserSettings_StatsChoice', state.StatsChoice)
     }
   },
   SET_FLAG (state, payload) {

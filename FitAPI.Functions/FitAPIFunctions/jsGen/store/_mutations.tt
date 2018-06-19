@@ -20,6 +20,7 @@ var server = new Server(".\\SQL2017");
     database.Refresh();
 #>import {updateField} from 'vuex-map-fields'
 import Vue from 'vue'
+import localForage from 'localforage'
 const mutations = {
 <#
 	Table[] tTables = (from Table tTable in database.Tables where tTable.Schema == SchemaName select tTable).ToArray();
@@ -44,7 +45,10 @@ const mutations = {
     }
   },
   SET_<#= tTable.Name.ToUpper() #> (state, payload) {
-    state.<#= tTable.Name #>[payload.<#= tTable.Name #>ID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.<#= tTable.Name #>, payload.<#= tTable.Name #>ID, payload)
+      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', state.<#= tTable.Name #>)
+    }
   },
   SET_<#= tTable.Name.ToUpper() #>ITEM (state, payload) {
     state.<#= tTable.Name #>Item = payload
@@ -55,6 +59,7 @@ const mutations = {
         Vue.set(state.<#= tTable.Name #>, element.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID, element)
         state.<#= tTable.Name #>List.push(element.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID)
       }, this)
+      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', state.<#= tTable.Name #>)
     }
   },
 <# 

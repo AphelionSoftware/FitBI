@@ -8,6 +8,7 @@ namespace FitAPIFunctions
 {
     class CoreValues
     {
+        public object Version;
         public object BodyPart;
         public object BodyPartType;
         public object MeasurementType;

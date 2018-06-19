@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import localForage from 'localforage'
 // import Vuex from 'vuex'
 // import {_} from 'vue-underscore'
 // Import the `getField` getter and the `updateField`
@@ -20,7 +21,11 @@ const state = {
     Saved: false,
     InProgress: false,
     Failed: false
-  }
+  },
+  initTimeStamp: 0x0000000000000000,
+  initExpiry: new Date('1 Jan 2000'),
+  coreTimeStamp: 0x0000000000000000,
+  coreExpiry: new Date('1 Jan 2000')
 }
 
 // #region Getter
@@ -36,12 +41,51 @@ const getters = {
   },
   GetFlags: function (state) {
     return state.Flags
+  },
+  GetCoreExpiry: function (state) {
+    return state.coreExpiry
+  },
+  GetInitExpiry: function (state) {
+    return state.initExpiry
   }
 }
 // #endregion
 
 // #region Mutations
 const mutations = {
+  SET_INIT (state, payload) {
+    debugger
+    if (typeof payload !== 'undefined') {
+      if (typeof payload.Version !== 'undefined') {
+        state.initTimeStamp = payload.Version
+        state.initExpiry = payload.CacheExpiry
+      } else if (typeof payload[0] !== 'undefined') {
+        state.initTimeStamp = payload[0].Version
+        state.initExpiry = payload[0].CacheExpiry
+      }
+      let forage = {
+        Version: state.initTimeStamp,
+        CacheExpiry: state.initExpiry
+      }
+      localForage.setItem('AppState_Init', forage)
+    }
+  },
+  SET_CORE (state, payload) {
+    if (typeof payload !== 'undefined') {
+      if (typeof payload.Version !== 'undefined') {
+        state.coreTimeStamp = payload.Version
+        state.coreExpiry = payload.CacheExpiry
+      } else if (typeof payload[0] !== 'undefined') {
+        state.coreTimeStamp = payload[0].Version
+        state.coreExpiry = payload[0].CacheExpiry
+      }
+      let forage = {
+        Version: state.coreTimeStamp,
+        CacheExpiry: state.coreExpiry
+      }
+      localForage.setItem('AppState_Core', forage)
+    }
+  },
   SET_SAVE (state, payload) {
     state.SaveAction = payload
   },

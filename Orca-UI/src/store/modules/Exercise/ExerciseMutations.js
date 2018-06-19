@@ -1,5 +1,6 @@
 import {updateField} from 'vuex-map-fields'
 import Vue from 'vue'
+import localForage from 'localforage'
 const mutations = {
   GET_EXERCISE (state, payload) {
     if ('' + payload.ExerciseID === '0') {
@@ -24,7 +25,10 @@ const mutations = {
     }
   },
   SET_EXERCISE (state, payload) {
-    state.Exercise[payload.ExerciseID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Exercise, payload.ExerciseID, payload)
+      localForage.setItem('Exercise_Exercise', state.Exercise)
+    }
   },
   SET_EXERCISEITEM (state, payload) {
     state.ExerciseItem = payload
@@ -35,6 +39,7 @@ const mutations = {
         Vue.set(state.Exercise, element.ExerciseID, element)
         state.ExerciseList.push(element.ExerciseID)
       }, this)
+      localForage.setItem('Exercise_Exercise', state.Exercise)
     }
   },
   GET_EXERCISE_SPORT (state, payload) {
@@ -58,7 +63,10 @@ const mutations = {
     }
   },
   SET_EXERCISE_SPORT (state, payload) {
-    state.Exercise_Sport[payload.Exercise_SportID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Exercise_Sport, payload.Exercise_SportID, payload)
+      localForage.setItem('Exercise_Exercise_Sport', state.Exercise_Sport)
+    }
   },
   SET_EXERCISE_SPORTITEM (state, payload) {
     state.Exercise_SportItem = payload
@@ -69,6 +77,7 @@ const mutations = {
         Vue.set(state.Exercise_Sport, element.Exercise_SportID, element)
         state.Exercise_SportList.push(element.Exercise_SportID)
       }, this)
+      localForage.setItem('Exercise_Exercise_Sport', state.Exercise_Sport)
     }
   },
   GET_EXERCISELINK (state, payload) {
@@ -93,7 +102,10 @@ const mutations = {
     }
   },
   SET_EXERCISELINK (state, payload) {
-    state.ExerciseLink[payload.ExerciseLinkID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.ExerciseLink, payload.ExerciseLinkID, payload)
+      localForage.setItem('Exercise_ExerciseLink', state.ExerciseLink)
+    }
   },
   SET_EXERCISELINKITEM (state, payload) {
     state.ExerciseLinkItem = payload
@@ -104,6 +116,7 @@ const mutations = {
         Vue.set(state.ExerciseLink, element.ExerciseLinkID, element)
         state.ExerciseLinkList.push(element.ExerciseLinkID)
       }, this)
+      localForage.setItem('Exercise_ExerciseLink', state.ExerciseLink)
     }
   },
   GET_EXERCISETYPE (state, payload) {
@@ -127,7 +140,10 @@ const mutations = {
     }
   },
   SET_EXERCISETYPE (state, payload) {
-    state.ExerciseType[payload.ExerciseTypeID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.ExerciseType, payload.ExerciseTypeID, payload)
+      localForage.setItem('Exercise_ExerciseType', state.ExerciseType)
+    }
   },
   SET_EXERCISETYPEITEM (state, payload) {
     state.ExerciseTypeItem = payload
@@ -138,6 +154,7 @@ const mutations = {
         Vue.set(state.ExerciseType, element.ExerciseTypeID, element)
         state.ExerciseTypeList.push(element.ExerciseTypeID)
       }, this)
+      localForage.setItem('Exercise_ExerciseType', state.ExerciseType)
     }
   },
   GET_SPORT (state, payload) {
@@ -162,7 +179,10 @@ const mutations = {
     }
   },
   SET_SPORT (state, payload) {
-    state.Sport[payload.SportID] = payload
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Sport, payload.SportID, payload)
+      localForage.setItem('Exercise_Sport', state.Sport)
+    }
   },
   SET_SPORTITEM (state, payload) {
     state.SportItem = payload
@@ -173,6 +193,7 @@ const mutations = {
         Vue.set(state.Sport, element.SportID, element)
         state.SportList.push(element.SportID)
       }, this)
+      localForage.setItem('Exercise_Sport', state.Sport)
     }
   },
   SET_FLAG (state, payload) {

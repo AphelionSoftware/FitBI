@@ -43,45 +43,52 @@
     </q-item>
     <q-item>
       <q-item-main class="row">
-        <q-card class="col">
-          <q-card-title class="column">
+        <div class="col">
+          <div class="column">
             Body Fat %
             <q-knob slot="subtitle"
-          :value="BodyFatEstimate"
+          v-model="BodyFatEstimate"
           :min="0"
           :max="1"
           :color="BodyFatEstimate > .5 ? 'grey-7' : BodyFatEstimate > .4 ? 'deep-purple-11' : BodyFatEstimate > .3 ? 'red' : BodyFatEstimate > .25 ? 'deep-orange' : BodyFatEstimate > .2 ? 'amber' : BodyFatEstimate > .15 ? 'lime' : BodyFatEstimate > .1 ? 'green' : BodyFatEstimate > .05 ? 'blue-grey' : 'purple-14' "
           :readonly="true"
         >{{BFFormatted}}
+        <small>({{PrevBFFormatted}})</small>
         </q-knob>
-          </q-card-title>
-        </q-card>
-        <q-card class="col">
-          <q-card-title  class="column">
+          </div>
+        </div>
+        <div class="col">
+          <div  class="column">
             Fat Free Mass
-          </q-card-title>
-          <q-card-main>
+          </div>
+          <div>
             <q-knob
           v-model="FFM"
           :min="0"
           :max="dailymeasurement.Weight"
+          :color="FFM - PrevFFM > 0.5 ? 'light-green-8' : PrevFFM - FFM > 0.5 ? 'deep-orange-9' : 'blue-grey-5'"
           :readonly="true"
-        >{{FFMFormatted}}</q-knob>
-          </q-card-main>
-        </q-card>
-        <q-card class="col">
-          <q-card-title  class="column">
+        >{{FFMFormatted}}
+        <small>({{PrevFFMFormatted}})</small>
+        </q-knob>
+          </div>
+        </div>
+        <div class="col">
+          <div  class="column">
             Fat Mass
-          </q-card-title>
-          <q-card-main>
+          </div>
+          <div>
             <q-knob
           v-model="BFM"
           :min="0"
           :max="dailymeasurement.Weight"
+          :color="BFM - PrevBFM > 0.5 ? 'deep-orange-9' : PrevBFM - BFM > 0.5 ? 'light-green-8' : 'blue-grey-5'"
           :readonly="true"
-        >{{BFMFormatted}}</q-knob>
-          </q-card-main>
-        </q-card>
+        >{{BFMFormatted}}
+        <small>({{PrevBFMFormatted}})</small>
+        </q-knob>
+          </div>
+        </div>
         </q-item-main>
     </q-item>
     </q-list>
@@ -92,9 +99,10 @@
 <script>
 
 // import { required } from 'vuelidate/lib/validators'
-import {mapGetters} from 'vuex'
+import {mapGetters, mapState} from 'vuex'
 import numericSlider from '../../components/inputs/numeric.slider'
 import numeral from 'numeral'
+import _ from 'underscore'
 // import { ActionSheet } from 'quasar'
 export default {
   components: {
@@ -114,6 +122,13 @@ export default {
         NeckCircumference: 0,
         BodyFatPercentage: 0
       },
+      previousmeasurement: {
+        Weight: 0,
+        BellyButtonCircumference: 0,
+        NeckCircumference: 0,
+        BodyFatPercentage: 0
+      },
+      height: 0,
       edited: false
     }
   },
@@ -160,11 +175,25 @@ export default {
     ...mapGetters(
       'AppState', ['GetFlags']
     ),
+    ...mapState({
+      DailyMeasurement: state => state.Stats.DailyMeasurement
+    }),
     BodyFatEstimate () {
-      if (typeof this.$store.getters['Stats/Get_Person_List'][0] !== 'undefined') {
-        let height = this.$store.getters['Stats/Get_Person_List'][0].Height
+      if (this.height !== 0) {
+        let height = this.height
         let belly = this.dailymeasurement.BellyButtonCircumference
         let neck = this.dailymeasurement.NeckCircumference
+        let ret = (86.01 * Math.log10((belly - neck) / 2.54) - 70.041 * Math.log10(height / 2.54) + 36.76) / 100
+        return ret
+      } else {
+        return 1 / 0
+      }
+    },
+    PrevBodyFatEstimate () {
+      if (this.height !== 0) {
+        let height = this.height
+        let belly = this.previousmeasurement.BellyButtonCircumference
+        let neck = this.previousmeasurement.NeckCircumference
         let ret = (86.01 * Math.log10((belly - neck) / 2.54) - 70.041 * Math.log10(height / 2.54) + 36.76) / 100
         return ret
       } else {
@@ -177,14 +206,29 @@ export default {
     FFM () {
       return this.dailymeasurement.Weight * (1 - this.BodyFatEstimate)
     },
+    PrevFFM () {
+      return this.previousmeasurement.Weight * (1 - this.PrevBodyFatEstimate)
+    },
+    PrevBFFormatted () {
+      return numeral(this.PrevBodyFatEstimate).format('0.00%')
+    },
     FFMFormatted () {
-      return numeral(this.FFM).format('0.00')
+      return numeral(this.FFM).format('0.00') + ' kg'
+    },
+    PrevFFMFormatted () {
+      return numeral(this.PrevFFM).format('0.00')
     },
     BFM () {
       return this.dailymeasurement.Weight * this.BodyFatEstimate
     },
+    PrevBFM () {
+      return this.previousmeasurement.Weight * this.PrevBodyFatEstimate
+    },
     BFMFormatted () {
-      return numeral(this.BFM).format('0.00')
+      return numeral(this.BFM).format('0.00') + ' kg'
+    },
+    PrevBFMFormatted () {
+      return numeral(this.PrevBFM).format('0.00')
     }
   },
   mounted () {
@@ -240,15 +284,36 @@ export default {
     },
     fetchStats: function () {
       let stats = this.Get_DailyMeasurement_Dates[this.measurementdateid]
+      let localVue = this
+      let prevStats = _.chain(this.DailyMeasurement)
+        .filter(item => item.MeasurementDateID < localVue.measurementdateid)
+        .last()
+        .value()
       if (typeof stats !== 'undefined') {
         this.dailymeasurement.Weight = stats.Weight
         this.dailymeasurement.BellyButtonCircumference = stats.BellyButtonCircumference
         this.dailymeasurement.NeckCircumference = stats.NeckCircumference
         this.dailymeasurement.BodyFatPercentage = stats.BodyFatPercentage
       } else {
-        let x = this.$store.getters['Stats/Get_Flags']
-        let y = x
-        x = y
+        if (typeof prevStats !== 'undefined') {
+          this.dailymeasurement.Weight = prevStats.Weight
+          this.dailymeasurement.BellyButtonCircumference = prevStats.BellyButtonCircumference
+          this.dailymeasurement.NeckCircumference = prevStats.NeckCircumference
+          this.dailymeasurement.BodyFatPercentage = prevStats.BodyFatPercentage
+        }
+        // debugger
+        // let x = this.$store.getters['Stats/Get_Flags']
+        // let y = x
+        // x = y
+      }
+      if (typeof prevStats !== 'undefined') {
+        this.previousmeasurement.Weight = prevStats.Weight
+        this.previousmeasurement.BellyButtonCircumference = prevStats.BellyButtonCircumference
+        this.previousmeasurement.NeckCircumference = prevStats.NeckCircumference
+        this.previousmeasurement.BodyFatPercentage = prevStats.BodyFatPercentage
+      }
+      if (typeof this.$store.getters['Stats/Get_Person_List'][0] !== 'undefined') {
+        this.height = this.$store.getters['Stats/Get_Person_List'][0].Height
       }
     }
   },

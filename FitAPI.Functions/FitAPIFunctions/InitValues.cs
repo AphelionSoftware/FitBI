@@ -8,6 +8,7 @@ namespace FitAPIFunctions
 {
     class InitValues
     {
+        public object Version;
         public object Exercise;
         public object Exercise_Sport;
         public object ExerciseLink;

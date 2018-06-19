@@ -34,6 +34,7 @@ namespace FitAPIFunctions
                     using (var multi = conn.QueryMultiple(sp_Core, new { UserID = System.Convert.ToInt32(pUserID) },
                                          commandType: CommandType.StoredProcedure))
                     {
+                        objCore.Version = multi.Read<dynamic>().ToList();
                         objCore.BodyPart = multi.Read<dynamic>().ToList();
                         objCore.BodyPartType = multi.Read<dynamic>().ToList();
                         objCore.MeasurementType = multi.Read<dynamic>().ToList();

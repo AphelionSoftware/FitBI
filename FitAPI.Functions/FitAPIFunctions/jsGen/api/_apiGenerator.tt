@@ -20,17 +20,25 @@ var server = new Server(".\\SQL2017");
 
 #>
 <#
-	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\api\\";
+	string basePath = "C:\\Git\\FitBI\\Orca-UI\\src\\plugins\\api\\";
 	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\api\\";
 	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" orderby s.Name select s).ToArray();
     string fileName =  "coreSetup.js";
     var lt = new APITemplate(database, sorted, "Core");
 	lt.RenderToFile(fileName);
+
+	fileName =  "coreLocalForage.js";
+	var ft = new ForageTemplate(database, sorted, "Core");
+	ft.RenderToFile(fileName);
 				
 	sorted = (from Schema s in database.Schemas where s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" || s.Name == "UserSettings" orderby s.Name select s).ToArray();
 	fileName =  "initSetup.js";
 	lt = new APITemplate(database, sorted, "Init");
 	lt.RenderToFile(fileName);
+
+	fileName =  "initLocalForage.js";
+	ft = new ForageTemplate(database, sorted, "Init");
+	ft.RenderToFile(fileName);
 
 	File.Copy( jsGenPath + "coreSetup.js",
 						 basePath  + "coreSetup.js",
@@ -40,6 +48,14 @@ var server = new Server(".\\SQL2017");
 						 basePath  + "initSetup.js",
 						 true);
 			
+	File.Copy( jsGenPath + "coreLocalForage.js",
+						 basePath  + "coreLocalForage.js",
+						 true);
+	
+	File.Copy( jsGenPath + "initLocalForage.js",
+						 basePath  + "initLocalForage.js",
+						 true);
+			
 
 #>
 <#+
@@ -47,8 +63,9 @@ private class APITemplate : Template
 {
     public APITemplate(Database db, Schema[] sorted, string className)
         {
-            string strFile = @"import store from 'vuex/store'
-export default function (" + className.ToLower() + @"Values) {";
+            string strFile = @"import store from 'src/store/index'
+export default function (" + className.ToLower() + @"Values) {
+  store.commit('AppState/SET_" + className.ToUpper() + @"', " + className.ToLower() + @"Values.Version)";
             foreach (Schema sSchema in sorted)
             {
                 Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
@@ -67,6 +84,82 @@ export default function (" + className.ToLower() + @"Values) {";
   // Assuming only a single person value
   store.commit('Stats/GET_PERSON', initValues.Person[0])";
   }
+  strFile += @"
+}
+";
+            this.FileName = strFile;
+
+        }
+    private string FileName {get; set;}
+    public override string TransformText()
+    {
+        #><#=this.FileName#><#+
+        return this.GenerationEnvironment.ToString();
+    }
+}
+#>
+
+<#+
+private class ForageTemplate : Template
+{
+    public ForageTemplate(Database db, Schema[] sorted, string className)
+        {
+            string strFile = @"import store from 'src/store/index'
+import localForage from 'localforage'
+export default async function () {
+  let arrGet = []
+  arrGet.push(localForage.getItem('AppState_" + className + @"'))";
+            foreach (Schema sSchema in sorted)
+            {
+                Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
+                foreach (Table tTable in tTables)
+                {
+                    if (!(tTable.Name == "Active" || tTable.Name == "Dates" || tTable.Name == "Time"))
+                    {
+                        strFile += @"
+  arrGet.push(localForage.getItem('" +  sSchema.Name + @"_" + tTable.Name  + @"'))";
+                    }
+                }
+            }
+			if (className.ToLower() == "init") {
+            strFile += @"
+  // Assuming only a single person value
+  arrGet.push(localForage.getItem('Stats_Person'))";
+			}
+strFile += @"
+  await Promise.all(arrGet)
+    .then(function (results) {
+      if (results[0] !== null) {
+        store.commit('AppState/SET_" + className.ToUpper() + @"', results[0])
+      }";
+	int iLoop = 0;
+	foreach (Schema sSchema in sorted)
+            {
+                Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
+                foreach (Table tTable in tTables)
+                {
+                    if (!(tTable.Name == "Active" || tTable.Name == "Dates" || tTable.Name == "Time"))
+                    {
+					 iLoop++;
+                        strFile += @"
+      if (results["+ iLoop + @"] !== null) {
+        store.commit('" +  sSchema.Name + @"/SET_" + tTable.Name.ToUpper() + @"', results["+ iLoop + @"])
+      }";
+                    }
+                }
+				iLoop++;
+            }
+			if (className.ToLower() == "init") {
+            strFile += @"
+      if (results["+ iLoop + @"] !== null) {
+        store.commit('AppState/SET_" + className.ToUpper() + @"', results["+ iLoop + @"])
+      }";
+			}
+
+		strFile += @"
+    })";
+
+
   strFile += @"
 }
 ";

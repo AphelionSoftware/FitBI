@@ -50,7 +50,9 @@
     <None Update="jsGen\api\_apiGenerator.tt">
       <LastOutputs>
 .\_apiGenerator.cs
+.\coreLocalForage.js
 .\coreSetup.js
+.\initLocalForage.js
 .\initSetup.js
 </LastOutputs>
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -101,6 +103,11 @@
     <None Update="jsGen\store\_getters.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_getters.js</LastGenOutput>
+    </None>
+    <None Update="jsGen\store\_runner.js">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_runner.tt</DependentUpon>
     </None>
     <None Update="jsGen\store\_runner.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -131,7 +131,10 @@ module.exports = function (ctx) {
         'QToolbarTitle',
         'QInput',
         'QField',
-        'QScrollArea'
+        'QScrollArea',
+        'QCard',
+        'QCardTitle',
+        'QCardMain'
       ],
       directives: [
         'Ripple'

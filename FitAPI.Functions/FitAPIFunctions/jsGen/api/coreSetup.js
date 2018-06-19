@@ -1,5 +1,6 @@
-﻿import store from 'vuex/store'
+﻿import store from 'src/store/index'
 export default function (coreValues) {
+  store.commit('AppState/SET_CORE', coreValues.Version)
   store.commit('Core/SET_BODYPART_LIST', coreValues.BodyPart)
   store.commit('Core/SET_BODYPARTTYPE_LIST', coreValues.BodyPartType)
   store.commit('Core/SET_MEASUREMENTTYPE_LIST', coreValues.MeasurementType)

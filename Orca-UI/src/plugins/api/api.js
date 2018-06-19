@@ -1,11 +1,15 @@
 
 import axios from 'axios'
 import coreSetup from './coreSetup'
+// import coreLocalForage from './coreLocalForage'
 import initSetup from './initSetup'
+// import initLocalForage from './initLocalForage'
+import getLocalForageDataByKeys from './localForageKeys'
 import * as mergeExercise from './mergeExercise'
 import * as mergeProgram from './mergeProgram'
 import * as mergeStats from './mergeStats'
 import store from '../../store/index'
+// import localForage from 'localforage'
 
 export default class {
   constructor (config) {
@@ -46,33 +50,41 @@ export default class {
   }
   OnlineOfflineLoad () {
     var flagCore = true
-    // ///TODO: Do checks to see if it exists in localForage and if there are newer items
-    if (store.getters['Core/Get_Flags'].loaded === true) {
-      flagCore = false
-    }
-    if (flagCore) {
-      console.log(this.config.API_URL + this.config.coreURL + this.config.UserID + '?' + this.config.coreToken)
-      this.axios.get(this.config.coreURL + this.config.UserID + '?' + this.config.coreToken).then(
-        function (response) {
-          coreSetup(JSON.parse(response.data))
-        }
-      )
-    }
-    var flagInit = true
-    if (store.getters['Stats/Get_Flags'].loaded === true &&
-      store.getters['Exercise/Get_Flags'].loaded === true &&
-      store.getters['Program/Get_Flags'].loaded === true) {
-      flagInit = false
-    }
-    // ///TODO: Do checks to see if it exists in localForage and if there are newer items
-    if (flagInit) {
-      console.log(this.config.API_URL + this.config.initURL + this.config.UserID + '?' + this.config.initToken)
-      this.axios.get(this.config.initURL + this.config.UserID + '?' + this.config.initToken).then(
-        function (response) {
-          initSetup(JSON.parse(response.data))
-        }
-      )
-    }
+    getLocalForageDataByKeys().then(result => {
+      if (new Date(store.getters['AppState/GetCoreExpiry']) >= new Date()) {
+        flagCore = false
+      }
+      // ///TODO: Do checks to see if it exists in localForage and if there are newer items
+      if (store.getters['Core/Get_Flags'].loaded === true) {
+        flagCore = false
+      }
+      if (flagCore) {
+        console.log(this.config.API_URL + this.config.coreURL + this.config.UserID + '?' + this.config.coreToken)
+        this.axios.get(this.config.coreURL + this.config.UserID + '?' + this.config.coreToken).then(
+          function (response) {
+            coreSetup(JSON.parse(response.data))
+          }
+        )
+      }
+      var flagInit = true
+      if (new Date(store.getters['AppState/GetInitExpiry']) >= new Date()) {
+        flagInit = false
+      }
+      if (store.getters['Stats/Get_Flags'].loaded === true &&
+        store.getters['Exercise/Get_Flags'].loaded === true &&
+        store.getters['Program/Get_Flags'].loaded === true) {
+        flagInit = false
+      }
+      // ///TODO: Do checks to see if it exists in localForage and if there are newer items
+      if (flagInit) {
+        console.log(this.config.API_URL + this.config.initURL + this.config.UserID + '?' + this.config.initToken)
+        this.axios.get(this.config.initURL + this.config.UserID + '?' + this.config.initToken).then(
+          function (response) {
+            initSetup(JSON.parse(response.data))
+          }
+        )
+      }
+    })
   }
 
   ErrorHandler (error) {
