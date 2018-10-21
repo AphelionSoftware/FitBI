@@ -1,110 +1,120 @@
 <template>
    <!-- Navigation -->
-
    <q-layout>
-
- <div class="layout-padding">
-   <q-list inset-separator class="no-border">
-    <q-item>
-        <q-item-main label="Weight">
-        <q-item-tile sublabel>
-        <q-slider color="primary"
-            v-model="Weight"
-            :min="minWeight"
-            :max="maxWeight"
-            label-always
-        />
-        </q-item-tile>
-        </q-item-main>
-    </q-item>
-    <q-item>
-        <q-item-main label="Neck">
-        <q-item-tile sublabel>
-          <q-slider color="primary"
-            v-model="NeckTapeLength"
-            :min="minNeck"
-            :max="maxNeck"
-            label-always
-        />
-        </q-item-tile>
-        </q-item-main>
-    </q-item>
-    <q-item>
-        <q-item-main label="Belly-button">
-        <q-item-tile sublabel>
-          <q-slider color="primary"
-            v-model="BellyTapeLength"
-            :min="minBelly"
-            :max="maxBelly"
-            label-always
-        />
-        </q-item-tile>
-        </q-item-main>
-    </q-item>
-    </q-list>
-
+    <div class="layout-padding">
+      <measurement v-model="dailyMeasurement" :previousMeasurement="previousMeasurement"/>
     </div>
    </q-layout>
 </template>
 <script>
 
 // import { required } from 'vuelidate/lib/validators'
-import { mapFields } from 'vuex-map-fields'
 import { ActionSheet } from 'quasar'
-var minNeck = 0, maxNeck = 0, minBelly = 0, maxBelly = 0, minWeight = 0, maxWeight = 0
+import measurement from 'src/components/stats/dailyMeasurement.basic'
+import { mapGetters, mapMutations } from 'vuex'
+import moment from 'moment'
+import _ from 'underscore'
 export default {
-  computed: {
-    ...mapFields({
-      Weight: 'DailyMeasurement.WeightMeasurement.Weight',
-      NeckTapeLength: 'DailyMeasurement.NeckTapeMeasurement.TapeLength',
-      BellyTapeLength: 'DailyMeasurement.BellyTapeMeasurement.TapeLength'
-    }),
-    minNeck: function () {
-      if (minNeck === 0) minNeck = +this.$store.state.DailyMeasurement.NeckTapeMeasurement.TapeLength - 20
-      return 0 // minNeck
-    },
-    maxNeck: function () {
-      if (maxNeck === 0) maxNeck = +this.$store.state.DailyMeasurement.NeckTapeMeasurement.TapeLength + 15
-      return 150 // maxNeck
-    },
-    minBelly: function () {
-      if (minBelly === 0) minBelly = +this.$store.state.DailyMeasurement.BellyTapeMeasurement.TapeLength - 40
-      return minBelly
-    },
-    maxBelly: function () {
-      if (maxBelly === 0) maxBelly = +this.$store.state.DailyMeasurement.BellyTapeMeasurement.TapeLength + 25
-      return 150 // maxBelly
-    },
-    minWeight: function () {
-      if (minWeight === 0) minWeight = this.$store.state.DailyMeasurement.WeightMeasurement.Weight - 40
-      return 0 // minWeight
-    },
-    maxWeight: function () {
-      if (maxWeight === 0) maxWeight = this.$store.state.DailyMeasurement.WeightMeasurement.Weight + 25
-      return 150 // maxWeight
+  components: {
+    measurement
+  },
+  props: {
+    measurementDate: {
+      type: Date,
+      required: true
     }
+  },
+  data:
+    function () {
+      return {
+        dailyMeasurement: {},
+        previousMeasurement: {},
+        minNeck: 0,
+        maxNeck: 100,
+        minBelly: 150,
+        maxBelly: 0,
+        minWeight: 0,
+        maxWeight: 150
+      }
+    },
+  watch: {
+    measurementDate: {
+      immmediate: true,
+      handler: function (newVal, oldVal) {
+        // this.dailyMeasurement = this.Get_DailyMeasurements[moment(newVal).format('YYYYMMDD')]
+        this.setMeasurements(newVal)
+        this.SET_TITLETEXT(moment(newVal).format('DD MMM YYYY'))
+      }
+    },
+    Get_DailyMeasurement_Dates: {
+      immmediate: true,
+      handler: function (newVal, oldVal) {
+        this.setMeasurements(this.measurementDate)
+      }
+    },
+    Get_Current_Person: {
+      immmediate: true,
+      handler: function (newVal, oldVal) {
+        this.setMeasurements(this.measurementDate)
+      }
+    }
+  },
+  computed: {
+    ...mapGetters('Stats',
+      ['Get_DailyMeasurement_Dates',
+        'Get_Current_Person'])
   },
   mounted () {
     this.$API.Initialize()
     var store = this.$store
     var localVue = this
     let fnSave = function () {
-      store.dispatch('DailyMeasurement/Save_DailyMeasurement', store.state.Exercise.ExerciseItem)
-      localVue.notify({
-        html: 'Measurements saved',
-        icon: 'fa-thumbs-up',
-        timeout: 2400,
-        color: '#99d8c9',
-        bgColor: 'white'
+      store.dispatch('Stats/Save_DailyMeasurement', this.DailyMeasurement).then(results => {
+        localVue.notify({
+          html: 'Measurements saved',
+          icon: 'fa-thumbs-up',
+          timeout: 2400,
+          color: '#99d8c9',
+          bgColor: 'white'
+        })
       })
     }
     this.$store.commit('AppState/SET_SAVE', fnSave)
-    store.dispatch('DailyMeasurement/Set_NewDailyMeasurement')
+    // store.dispatch('DailyMeasurement/Set_NewDailyMeasurement')
+    // let dm = this.Get_DailyMeasurements[moment(this.measurementDate).format('YYYYMMDD')]
+    // if (typeof dm !== 'undefined') {
+    //   this.dailyMeasurement = dm
+    // }
+    this.SET_TITLETEXT(moment(this.measurementDate).format('DD MMM YYYY'))
   },
   beforeDestroy () {
     this.$store.commit('AppState/CLEAR_SAVE')
   },
   methods: {
+    ...mapMutations('AppState', [
+      'SET_TITLETEXT']),
+    setMeasurements (measurementDate) {
+      if (typeof this.Get_DailyMeasurement_Dates !== 'undefined') {
+        let dm = this.Get_DailyMeasurement_Dates[moment(measurementDate).format('YYYYMMDD')]
+        if (typeof dm !== 'undefined') {
+          this.dailyMeasurement = dm
+        }
+        let prev = _.chain(this.Get_DailyMeasurement_Dates)
+          .filter(item => {
+            return item.MeasurementDateID < +moment(measurementDate).format('YYYYMMDD')
+          })
+          .sortBy('MeasurementDateID')
+          .last()
+          .value()
+        if (typeof prev !== 'undefined') {
+          this.previousMeasurement = prev
+        }
+        if (typeof this.Get_Current_Person !== 'undefined') {
+          this.dailyMeasurement.Height = this.Get_Current_Person.Height
+          this.previousMeasurement.Height = this.Get_Current_Person.Height
+        }
+      }
+    }
   },
   beforeRouteLeave (to, from, next) {
     // if (typeof (this.$store.state.Exercise.ExerciseItem.ExerciseID) === 'undefined'
@@ -116,27 +126,13 @@ export default {
     //   next()
     // }
     // else {
-    if (this.$_.isEqual(
-      this.$store.getters['DailyMeasurement/getLatestNeckTapeMeasurement'],
-      this.$store.state.DailyMeasurement.NeckTapeMeasurement
-    ) && this.$_.isEqual(
-        this.$store.getters['DailyMeasurement/getLatestBellyTapeMeasurement'],
-        this.$store.state.DailyMeasurement.BellyTapeMeasurement
-      ) && this.$_.isEqual(
-        this.$store.getters['DailyMeasurement/getLatestWeightMeasurement'],
-        this.$store.state.DailyMeasurement.WeightMeasurement
-      )) {
+    let extant = this.Get_DailyMeasurement_Dates[moment(this.measurementDate).format('YYYYMMDD')]
+    if (this.dailyMeasurement.Weight === extant.Weight &&
+      this.dailyMeasurement.NeckCircumference === extant.NeckCircumference &&
+      this.dailyMeasurement.BellyButtonCircumference === extant.BellyButtonCircumference
+    ) {
       next()
     } else {
-      /* const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
-      if (answer) {
-        this.$store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-        next()
-      }
-      else {
-        // next(false)
-        next(false)
-      } */
       let store = this.$store
       ActionSheet.create({
         title: 'Save action',

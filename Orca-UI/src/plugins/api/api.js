@@ -9,6 +9,7 @@ import * as mergeExercise from './mergeExercise'
 import * as mergeProgram from './mergeProgram'
 import * as mergeStats from './mergeStats'
 import store from '../../store/index'
+import moment from 'moment'
 // import localForage from 'localforage'
 
 export default class {
@@ -67,7 +68,9 @@ export default class {
         )
       }
       var flagInit = true
-      if (new Date(store.getters['AppState/GetInitExpiry']) >= new Date()) {
+      let gt = store.getters['AppState/GetInitExpiry']
+      let dt = moment(gt)
+      if (moment(new Date()).isBefore(dt)) {
         flagInit = false
       }
       if (store.getters['Stats/Get_Flags'].loaded === true &&
@@ -83,6 +86,8 @@ export default class {
             initSetup(JSON.parse(response.data))
           }
         )
+      } else {
+        store.commit('Stats/SET_CURRENT_PERSONID', store.getters['Stats/Get_Person_List'][0].PersonID)
       }
     })
   }

@@ -31,9 +31,6 @@ const getters = {
   Get_<#= tTable.Name #>Item: function (state) {
     return state.<#= tTable.Name #>Item
   },
-  Get_<#= tTable.Name #>_All: function (state) {
-    return state.<#= tTable.Name #>
-  },
   Get_<#= tTable.Name #>_Select: function (state) {
     return _.chain(state.<#= tTable.Name #>)
       .map(item => {

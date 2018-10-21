@@ -20,7 +20,7 @@ const state = {
 const getters = {
   getField,
   getLatestNeckTapeMeasurement: function (state, getters, rootState, rootGetters) {
-    return _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
+    return _.chain(rootState.TapeMeasurement)
       .filter(function (item) {
         return item.BodyPartID === enumCore.BodyPart.NECK.intID
       })
@@ -29,7 +29,7 @@ const getters = {
       .value()
   },
   getLatestBellyTapeMeasurement: function (state, getters, rootState, rootGetters) {
-    return _.chain(rootGetters['Stats/Get_TapeMeasurement_All'])
+    return _.chain(rootState.TapeMeasurement)
       .filter(function (item) {
         return item.BodyPartID === enumCore.BodyPart.BELLYBUTTON_CIRC.intID
       })
@@ -93,9 +93,6 @@ const actions = {
     commit('SET_BELLYTAPEMEASUREMENT', tapeBelly)
   },
   Save_DailyMeasurement ({commit, dispatch, getters, rootState, rootGetters, state}, payload) {
-  // Save_DailyMeasurement (context, payload) {
-    // state.BellyTapeMeasurement.TapeLength = +state.BellyTapeMeasurement.TapeLength
-    // state.NeckTapeMeasurement.TapeLength = +state.NeckTapeMeasurement.TapeLength
     dispatch('Stats/saveWeightMeasurement', state.WeightMeasurement, {root: true})
     dispatch('Stats/saveTapeMeasurement', state.BellyTapeMeasurement, {root: true})
     dispatch('Stats/saveTapeMeasurement', state.NeckTapeMeasurement, {root: true})

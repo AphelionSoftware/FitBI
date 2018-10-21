@@ -11,17 +11,29 @@
                 </q-item-tile>
             </q-item-main>
             -->
-            <q-item-side>
-              <q-item-tile avatar>
+            <q-item-side left>
+              <q-chip class="q-pa-xs" style="min-width:275px">
+                <q-btn round size="sm" class="q-pa-sm" icon="fa fa-edit" name="edit"
+                @click="$router.push('/stats/measurement.edit/'+ Date.MeasurementDateID)"
+                color="light"
+                />
+                {{Date.MeasurementDateDisplay}}
+                <span style="padding-left:24px;" class="on-right">
+                  <q-icon class="o-xsmall" v-if="Date.Weight !== 91" name="fa fa-balance-scale"/>
+                  <q-icon class="o-xsmall" v-if="Date.NeckCircumference !== 0 && Date.BellyButtonCircumference !== 0" name="compare_arrows"/>
+                </span>
+              </q-chip>
+            </q-item-side>
+              <!--<q-item-tile avatar>
                 <q-btn icon="fa-edit" name="edit" @click="$router.push('/stats/measurement.edit/'+ Date.MeasurementDateID)"/>
               </q-item-tile>
-            </q-item-side>
-            <q-item-main :label="Date.MeasurementDate" class="q-pa-sm">
-            </q-item-main>
-             <q-item-side right>
-              <q-item-tile v-if="Date.Weight !== ''" icon="fa-th far"/>
-              <!--<q-item-tile v-if="Date.icnTape !== ''" icon="fa-th-list"/>-->
-            </q-item-side>
+            </q-item-side> -->
+            <!-- <q-item-main :label="Date.MeasurementDateDisplay" class="q-pa-sm">
+            </q-item-main> -->
+             <!-- <q-item-side right>
+              <q-item-tile v-if="Date.Weight !== ''" icon="fa fa-balance-scale"/>
+              <q-item-tile v-if="Date.icnTape !== ''" icon="fa-th-list"/>
+            </q-item-side> -->
         </q-item>
    </q-list>
   </div>
@@ -70,6 +82,8 @@ export default {
   }
 }
 </script>
-<style>
-/* This is where your CSS goes */
+<style scoped>
+ i.q-icon.fa.fa-edit {
+  font-size: 12px
+}
 </style>

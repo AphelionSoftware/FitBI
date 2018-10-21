@@ -7,9 +7,6 @@ const getters = {
   Get_DailyMeasurementItem: function (state) {
     return state.DailyMeasurementItem
   },
-  Get_DailyMeasurement_All: function (state) {
-    return state.DailyMeasurement
-  },
   Get_DailyMeasurement_Select: function (state) {
     return _.chain(state.DailyMeasurement)
       .map(item => {
@@ -41,9 +38,6 @@ const getters = {
   },
   Get_MetricItem: function (state) {
     return state.MetricItem
-  },
-  Get_Metric_All: function (state) {
-    return state.Metric
   },
   Get_Metric_Select: function (state) {
     return _.chain(state.Metric)
@@ -77,9 +71,6 @@ const getters = {
   Get_PersonItem: function (state) {
     return state.PersonItem
   },
-  Get_Person_All: function (state) {
-    return state.Person
-  },
   Get_Person_Select: function (state) {
     return _.chain(state.Person)
       .map(item => {
@@ -111,9 +102,6 @@ const getters = {
   },
   Get_SkinfoldMeasurementItem: function (state) {
     return state.SkinfoldMeasurementItem
-  },
-  Get_SkinfoldMeasurement_All: function (state) {
-    return state.SkinfoldMeasurement
   },
   Get_SkinfoldMeasurement_Select: function (state) {
     return _.chain(state.SkinfoldMeasurement)
@@ -147,9 +135,6 @@ const getters = {
   Get_TapeMeasurementItem: function (state) {
     return state.TapeMeasurementItem
   },
-  Get_TapeMeasurement_All: function (state) {
-    return state.TapeMeasurement
-  },
   Get_TapeMeasurement_Select: function (state) {
     return _.chain(state.TapeMeasurement)
       .map(item => {
@@ -181,9 +166,6 @@ const getters = {
   },
   Get_WeightMeasurementItem: function (state) {
     return state.WeightMeasurementItem
-  },
-  Get_WeightMeasurement_All: function (state) {
-    return state.WeightMeasurement
   },
   Get_WeightMeasurement_Select: function (state) {
     return _.chain(state.WeightMeasurement)

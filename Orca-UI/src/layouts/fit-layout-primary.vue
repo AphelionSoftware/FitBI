@@ -62,6 +62,11 @@
         <q-item-side icon="multiline chart" />
         <q-item-main label="Workouts" />
       </q-item>
+      <q-list-header>Admin</q-list-header>
+      <q-item @click.native="clearLocalStorage()">
+        <q-item-side icon="delete" />
+        <q-item-main label="Clear local storage" />
+      </q-item>
      </q-list>
     </q-layout-drawer>
     <q-page-container>
@@ -102,7 +107,21 @@ export default {
     },
     fnAddAction: function () {
       this.$store.getters['AppState/Add']()
+    },
+    clearLocalStorage: function () {
+      // localForage.clearAll()
+      this.$store.dispatch('AppState/Clear_LocalForage')
+      // this.$q.notify({
+      //   message: 'Storage cleared',
+      //   icon: 'fa-thumbs-up',
+      //   timeout: 2400,
+      //   type: 'positive',
+      //   color: 'positive'
+      // })
     }
+  },
+  mounted () {
+    this.$API.Initialize()
   }
 }
 </script>
@@ -111,4 +130,32 @@ export default {
  .fa {
    font-size: 16px;
  }
+.q-chip .q-icon.fa-edit {
+  /* background-color: #d6d6d6; */
+  color: #5F5F5F
+}
+
+.q-chip .fa.q-icon {
+   font-size: 16px
+}
+.q-chip.o-small .fa.q-icon {
+   font-size: 12px;
+   padding: 2px;
+}
+.q-chip .o-small.q-icon {
+   font-size: 16px;
+   padding: 2px;
+}
+.q-chip.o-xsmall .fa.q-icon {
+   font-size: 10px;
+   padding: 2px;
+}
+.o-xsmall.fa.q-icon {
+   font-size: 12px;
+   padding: 2px;
+}
+.o-xsmall.q-icon {
+   font-size: 16px;
+   padding: 2px;
+}
 </style>

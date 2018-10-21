@@ -7,9 +7,6 @@ const getters = {
   Get_ExerciseItem: function (state) {
     return state.ExerciseItem
   },
-  Get_Exercise_All: function (state) {
-    return state.Exercise
-  },
   Get_Exercise_Select: function (state) {
     return _.chain(state.Exercise)
       .map(item => {
@@ -41,9 +38,6 @@ const getters = {
   },
   Get_Exercise_SportItem: function (state) {
     return state.Exercise_SportItem
-  },
-  Get_Exercise_Sport_All: function (state) {
-    return state.Exercise_Sport
   },
   Get_Exercise_Sport_Select: function (state) {
     return _.chain(state.Exercise_Sport)
@@ -77,9 +71,6 @@ const getters = {
   Get_ExerciseLinkItem: function (state) {
     return state.ExerciseLinkItem
   },
-  Get_ExerciseLink_All: function (state) {
-    return state.ExerciseLink
-  },
   Get_ExerciseLink_Select: function (state) {
     return _.chain(state.ExerciseLink)
       .map(item => {
@@ -112,9 +103,6 @@ const getters = {
   Get_ExerciseTypeItem: function (state) {
     return state.ExerciseTypeItem
   },
-  Get_ExerciseType_All: function (state) {
-    return state.ExerciseType
-  },
   Get_ExerciseType_Select: function (state) {
     return _.chain(state.ExerciseType)
       .map(item => {
@@ -146,9 +134,6 @@ const getters = {
   },
   Get_SportItem: function (state) {
     return state.SportItem
-  },
-  Get_Sport_All: function (state) {
-    return state.Sport
   },
   Get_Sport_Select: function (state) {
     return _.chain(state.Sport)

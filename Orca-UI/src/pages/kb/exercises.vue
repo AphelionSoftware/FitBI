@@ -28,11 +28,11 @@
 // import { QKnob, QIcon, QBtn } from 'quasar'
 // import { QTab, QTabs, QTabPane } from 'quasar'
 
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 export default {
   computed: {
-    ...mapGetters({
-      'exercises': 'Exercise/Get_Exercise_All'
+    ...mapState({
+      'exercises': state => state.Exercise.Exercise
     })
   },
   created () {

@@ -147,7 +147,7 @@
 .\Stats\StatsStore.js
 </LastOutputs>
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>_storeGenerator - Copy.cs</LastGenOutput>
+      <LastGenOutput>_storeGenerator.cs</LastGenOutput>
     </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -230,6 +230,11 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Update="jsGen\store\_storeGenerator - Copy.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_storeGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="jsGen\store\_storeGenerator.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>_storeGenerator.tt</DependentUpon>

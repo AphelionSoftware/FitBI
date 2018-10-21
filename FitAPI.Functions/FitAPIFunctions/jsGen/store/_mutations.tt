@@ -47,7 +47,7 @@ const mutations = {
   SET_<#= tTable.Name.ToUpper() #> (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.<#= tTable.Name #>, payload.<#= tTable.Name #>ID, payload)
-      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', state.<#= tTable.Name #>)
+      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', payload)
     }
   },
   SET_<#= tTable.Name.ToUpper() #>ITEM (state, payload) {
@@ -59,7 +59,7 @@ const mutations = {
         Vue.set(state.<#= tTable.Name #>, element.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID, element)
         state.<#= tTable.Name #>List.push(element.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID)
       }, this)
-      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', state.<#= tTable.Name #>)
+      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', fullList)
     }
   },
 <# 

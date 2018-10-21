@@ -50,11 +50,9 @@ const getters = {
   }
 }
 // #endregion
-
 // #region Mutations
 const mutations = {
   SET_INIT (state, payload) {
-    debugger
     if (typeof payload !== 'undefined') {
       if (typeof payload.Version !== 'undefined') {
         state.initTimeStamp = payload.Version
@@ -63,11 +61,22 @@ const mutations = {
         state.initTimeStamp = payload[0].Version
         state.initExpiry = payload[0].CacheExpiry
       }
-      let forage = {
+      let forage = [{
         Version: state.initTimeStamp,
         CacheExpiry: state.initExpiry
-      }
+      }]
       localForage.setItem('AppState_Init', forage)
+    }
+  },
+  SET_INIT_LIST (state, payload) {
+    if (typeof payload !== 'undefined') {
+      if (typeof payload.Version !== 'undefined') {
+        state.initTimeStamp = payload.Version
+        state.initExpiry = payload.CacheExpiry
+      } else if (typeof payload[0] !== 'undefined') {
+        state.initTimeStamp = payload[0].Version
+        state.initExpiry = payload[0].CacheExpiry
+      }
     }
   },
   SET_CORE (state, payload) {
@@ -79,11 +88,22 @@ const mutations = {
         state.coreTimeStamp = payload[0].Version
         state.coreExpiry = payload[0].CacheExpiry
       }
-      let forage = {
+      let forage = [{
         Version: state.coreTimeStamp,
         CacheExpiry: state.coreExpiry
-      }
+      }]
       localForage.setItem('AppState_Core', forage)
+    }
+  },
+  SET_CORE_LIST (state, payload) {
+    if (typeof payload !== 'undefined') {
+      if (typeof payload.Version !== 'undefined') {
+        state.coreTimeStamp = payload.Version
+        state.coreExpiry = payload.CacheExpiry
+      } else if (typeof payload[0] !== 'undefined') {
+        state.coreTimeStamp = payload[0].Version
+        state.coreExpiry = payload[0].CacheExpiry
+      }
     }
   },
   SET_SAVE (state, payload) {
@@ -112,12 +132,20 @@ const mutations = {
   }
 }
 // #endregion
+// #region Actions
+const actions = {
+  Clear_LocalForage: function () {
+    localForage.clear()
+  }
+}
 
+// #endregion
 const store = {
   namespaced: true,
   state,
   getters,
-  mutations
+  mutations,
+  actions
 }
 
 export default store

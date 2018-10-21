@@ -1,6 +1,5 @@
 ﻿import store from 'src/store/index'
 export default function (initValues) {
-  debugger
   store.commit('AppState/SET_INIT', initValues.Version)
   store.commit('Exercise/SET_EXERCISE_LIST', initValues.Exercise)
   store.commit('Exercise/SET_EXERCISE_SPORT_LIST', initValues.Exercise_Sport)
@@ -21,5 +20,6 @@ export default function (initValues) {
   store.commit('UserSettings/SET_GENERALSETTINGS_LIST', initValues.GeneralSettings)
   store.commit('UserSettings/SET_STATSCHOICE_LIST', initValues.StatsChoice)
   // Assuming only a single person value
-  store.commit('Stats/GET_PERSON', initValues.Person[0])
+  // store.commit('Stats/GET_PERSON', initValues.Person[0])
+  store.commit('Stats/SET_CURRENT_PERSONID', initValues.Person[0].PersonID)
 }

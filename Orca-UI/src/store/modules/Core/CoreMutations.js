@@ -22,7 +22,7 @@ const mutations = {
   SET_ACTIVE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Active, payload.ActiveID, payload)
-      localForage.setItem('Core_Active', state.Active)
+      localForage.setItem('Core_Active', payload)
     }
   },
   SET_ACTIVEITEM (state, payload) {
@@ -34,7 +34,7 @@ const mutations = {
         Vue.set(state.Active, element.ActiveID, element)
         state.ActiveList.push(element.ActiveID)
       }, this)
-      localForage.setItem('Core_Active', state.Active)
+      localForage.setItem('Core_Active', fullList)
     }
   },
   GET_BODYPART (state, payload) {
@@ -61,7 +61,7 @@ const mutations = {
   SET_BODYPART (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.BodyPart, payload.BodyPartID, payload)
-      localForage.setItem('Core_BodyPart', state.BodyPart)
+      localForage.setItem('Core_BodyPart', payload)
     }
   },
   SET_BODYPARTITEM (state, payload) {
@@ -73,7 +73,7 @@ const mutations = {
         Vue.set(state.BodyPart, element.BodyPartID, element)
         state.BodyPartList.push(element.BodyPartID)
       }, this)
-      localForage.setItem('Core_BodyPart', state.BodyPart)
+      localForage.setItem('Core_BodyPart', fullList)
     }
   },
   GET_BODYPARTTYPE (state, payload) {
@@ -97,7 +97,7 @@ const mutations = {
   SET_BODYPARTTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.BodyPartType, payload.BodyPartTypeID, payload)
-      localForage.setItem('Core_BodyPartType', state.BodyPartType)
+      localForage.setItem('Core_BodyPartType', payload)
     }
   },
   SET_BODYPARTTYPEITEM (state, payload) {
@@ -109,7 +109,7 @@ const mutations = {
         Vue.set(state.BodyPartType, element.BodyPartTypeID, element)
         state.BodyPartTypeList.push(element.BodyPartTypeID)
       }, this)
-      localForage.setItem('Core_BodyPartType', state.BodyPartType)
+      localForage.setItem('Core_BodyPartType', fullList)
     }
   },
   GET_DATES (state, payload) {
@@ -151,7 +151,7 @@ const mutations = {
   SET_DATES (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Dates, payload.DatesID, payload)
-      localForage.setItem('Core_Dates', state.Dates)
+      localForage.setItem('Core_Dates', payload)
     }
   },
   SET_DATESITEM (state, payload) {
@@ -163,7 +163,7 @@ const mutations = {
         Vue.set(state.Dates, element.DatesID, element)
         state.DatesList.push(element.DatesID)
       }, this)
-      localForage.setItem('Core_Dates', state.Dates)
+      localForage.setItem('Core_Dates', fullList)
     }
   },
   GET_MEASUREMENTTYPE (state, payload) {
@@ -189,7 +189,7 @@ const mutations = {
   SET_MEASUREMENTTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.MeasurementType, payload.MeasurementTypeID, payload)
-      localForage.setItem('Core_MeasurementType', state.MeasurementType)
+      localForage.setItem('Core_MeasurementType', payload)
     }
   },
   SET_MEASUREMENTTYPEITEM (state, payload) {
@@ -201,7 +201,7 @@ const mutations = {
         Vue.set(state.MeasurementType, element.MeasurementTypeID, element)
         state.MeasurementTypeList.push(element.MeasurementTypeID)
       }, this)
-      localForage.setItem('Core_MeasurementType', state.MeasurementType)
+      localForage.setItem('Core_MeasurementType', fullList)
     }
   },
   GET_MEASUREMENTTYPECATEGORY (state, payload) {
@@ -225,7 +225,7 @@ const mutations = {
   SET_MEASUREMENTTYPECATEGORY (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.MeasurementTypeCategory, payload.MeasurementTypeCategoryID, payload)
-      localForage.setItem('Core_MeasurementTypeCategory', state.MeasurementTypeCategory)
+      localForage.setItem('Core_MeasurementTypeCategory', payload)
     }
   },
   SET_MEASUREMENTTYPECATEGORYITEM (state, payload) {
@@ -237,7 +237,7 @@ const mutations = {
         Vue.set(state.MeasurementTypeCategory, element.MeasurementTypeCategoryID, element)
         state.MeasurementTypeCategoryList.push(element.MeasurementTypeCategoryID)
       }, this)
-      localForage.setItem('Core_MeasurementTypeCategory', state.MeasurementTypeCategory)
+      localForage.setItem('Core_MeasurementTypeCategory', fullList)
     }
   },
   GET_STATTYPE (state, payload) {
@@ -265,7 +265,7 @@ const mutations = {
   SET_STATTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.StatType, payload.StatTypeID, payload)
-      localForage.setItem('Core_StatType', state.StatType)
+      localForage.setItem('Core_StatType', payload)
     }
   },
   SET_STATTYPEITEM (state, payload) {
@@ -277,7 +277,7 @@ const mutations = {
         Vue.set(state.StatType, element.StatTypeID, element)
         state.StatTypeList.push(element.StatTypeID)
       }, this)
-      localForage.setItem('Core_StatType', state.StatType)
+      localForage.setItem('Core_StatType', fullList)
     }
   },
   GET_TIME (state, payload) {
@@ -306,7 +306,7 @@ const mutations = {
   SET_TIME (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Time, payload.TimeID, payload)
-      localForage.setItem('Core_Time', state.Time)
+      localForage.setItem('Core_Time', payload)
     }
   },
   SET_TIMEITEM (state, payload) {
@@ -318,7 +318,7 @@ const mutations = {
         Vue.set(state.Time, element.TimeID, element)
         state.TimeList.push(element.TimeID)
       }, this)
-      localForage.setItem('Core_Time', state.Time)
+      localForage.setItem('Core_Time', fullList)
     }
   },
   GET_UNIT (state, payload) {
@@ -345,7 +345,7 @@ const mutations = {
   SET_UNIT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Unit, payload.UnitID, payload)
-      localForage.setItem('Core_Unit', state.Unit)
+      localForage.setItem('Core_Unit', payload)
     }
   },
   SET_UNITITEM (state, payload) {
@@ -357,7 +357,7 @@ const mutations = {
         Vue.set(state.Unit, element.UnitID, element)
         state.UnitList.push(element.UnitID)
       }, this)
-      localForage.setItem('Core_Unit', state.Unit)
+      localForage.setItem('Core_Unit', fullList)
     }
   },
   GET_UNITTYPE (state, payload) {
@@ -381,7 +381,7 @@ const mutations = {
   SET_UNITTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.UnitType, payload.UnitTypeID, payload)
-      localForage.setItem('Core_UnitType', state.UnitType)
+      localForage.setItem('Core_UnitType', payload)
     }
   },
   SET_UNITTYPEITEM (state, payload) {
@@ -393,7 +393,7 @@ const mutations = {
         Vue.set(state.UnitType, element.UnitTypeID, element)
         state.UnitTypeList.push(element.UnitTypeID)
       }, this)
-      localForage.setItem('Core_UnitType', state.UnitType)
+      localForage.setItem('Core_UnitType', fullList)
     }
   },
   SET_FLAG (state, payload) {

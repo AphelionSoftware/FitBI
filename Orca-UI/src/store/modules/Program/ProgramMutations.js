@@ -27,7 +27,7 @@ const mutations = {
   SET_PLAN (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Plan, payload.PlanID, payload)
-      localForage.setItem('Program_Plan', state.Plan)
+      localForage.setItem('Program_Plan', payload)
     }
   },
   SET_PLANITEM (state, payload) {
@@ -39,7 +39,7 @@ const mutations = {
         Vue.set(state.Plan, element.PlanID, element)
         state.PlanList.push(element.PlanID)
       }, this)
-      localForage.setItem('Program_Plan', state.Plan)
+      localForage.setItem('Program_Plan', fullList)
     }
   },
   GET_WORKOUT (state, payload) {
@@ -66,7 +66,7 @@ const mutations = {
   SET_WORKOUT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Workout, payload.WorkoutID, payload)
-      localForage.setItem('Program_Workout', state.Workout)
+      localForage.setItem('Program_Workout', payload)
     }
   },
   SET_WORKOUTITEM (state, payload) {
@@ -78,7 +78,7 @@ const mutations = {
         Vue.set(state.Workout, element.WorkoutID, element)
         state.WorkoutList.push(element.WorkoutID)
       }, this)
-      localForage.setItem('Program_Workout', state.Workout)
+      localForage.setItem('Program_Workout', fullList)
     }
   },
   GET_WORKOUT_EXERCISE (state, payload) {
@@ -104,7 +104,7 @@ const mutations = {
   SET_WORKOUT_EXERCISE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Workout_Exercise, payload.Workout_ExerciseID, payload)
-      localForage.setItem('Program_Workout_Exercise', state.Workout_Exercise)
+      localForage.setItem('Program_Workout_Exercise', payload)
     }
   },
   SET_WORKOUT_EXERCISEITEM (state, payload) {
@@ -116,7 +116,7 @@ const mutations = {
         Vue.set(state.Workout_Exercise, element.Workout_ExerciseID, element)
         state.Workout_ExerciseList.push(element.Workout_ExerciseID)
       }, this)
-      localForage.setItem('Program_Workout_Exercise', state.Workout_Exercise)
+      localForage.setItem('Program_Workout_Exercise', fullList)
     }
   },
   GET_WORKOUTSTAGE (state, payload) {
@@ -142,7 +142,7 @@ const mutations = {
   SET_WORKOUTSTAGE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.WorkoutStage, payload.WorkoutStageID, payload)
-      localForage.setItem('Program_WorkoutStage', state.WorkoutStage)
+      localForage.setItem('Program_WorkoutStage', payload)
     }
   },
   SET_WORKOUTSTAGEITEM (state, payload) {
@@ -154,7 +154,7 @@ const mutations = {
         Vue.set(state.WorkoutStage, element.WorkoutStageID, element)
         state.WorkoutStageList.push(element.WorkoutStageID)
       }, this)
-      localForage.setItem('Program_WorkoutStage', state.WorkoutStage)
+      localForage.setItem('Program_WorkoutStage', fullList)
     }
   },
   SET_FLAG (state, payload) {

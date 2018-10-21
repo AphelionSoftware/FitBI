@@ -7,9 +7,6 @@ const getters = {
   Get_ActiveItem: function (state) {
     return state.ActiveItem
   },
-  Get_Active_All: function (state) {
-    return state.Active
-  },
   Get_Active_Select: function (state) {
     return _.chain(state.Active)
       .map(item => {
@@ -41,9 +38,6 @@ const getters = {
   },
   Get_BodyPartItem: function (state) {
     return state.BodyPartItem
-  },
-  Get_BodyPart_All: function (state) {
-    return state.BodyPart
   },
   Get_BodyPart_Select: function (state) {
     return _.chain(state.BodyPart)
@@ -77,9 +71,6 @@ const getters = {
   Get_BodyPartTypeItem: function (state) {
     return state.BodyPartTypeItem
   },
-  Get_BodyPartType_All: function (state) {
-    return state.BodyPartType
-  },
   Get_BodyPartType_Select: function (state) {
     return _.chain(state.BodyPartType)
       .map(item => {
@@ -111,9 +102,6 @@ const getters = {
   },
   Get_DatesItem: function (state) {
     return state.DatesItem
-  },
-  Get_Dates_All: function (state) {
-    return state.Dates
   },
   Get_Dates_Select: function (state) {
     return _.chain(state.Dates)
@@ -147,9 +135,6 @@ const getters = {
   Get_MeasurementTypeItem: function (state) {
     return state.MeasurementTypeItem
   },
-  Get_MeasurementType_All: function (state) {
-    return state.MeasurementType
-  },
   Get_MeasurementType_Select: function (state) {
     return _.chain(state.MeasurementType)
       .map(item => {
@@ -181,9 +166,6 @@ const getters = {
   },
   Get_MeasurementTypeCategoryItem: function (state) {
     return state.MeasurementTypeCategoryItem
-  },
-  Get_MeasurementTypeCategory_All: function (state) {
-    return state.MeasurementTypeCategory
   },
   Get_MeasurementTypeCategory_Select: function (state) {
     return _.chain(state.MeasurementTypeCategory)
@@ -217,9 +199,6 @@ const getters = {
   Get_StatTypeItem: function (state) {
     return state.StatTypeItem
   },
-  Get_StatType_All: function (state) {
-    return state.StatType
-  },
   Get_StatType_Select: function (state) {
     return _.chain(state.StatType)
       .map(item => {
@@ -251,9 +230,6 @@ const getters = {
   },
   Get_TimeItem: function (state) {
     return state.TimeItem
-  },
-  Get_Time_All: function (state) {
-    return state.Time
   },
   Get_Time_Select: function (state) {
     return _.chain(state.Time)
@@ -287,9 +263,6 @@ const getters = {
   Get_UnitItem: function (state) {
     return state.UnitItem
   },
-  Get_Unit_All: function (state) {
-    return state.Unit
-  },
   Get_Unit_Select: function (state) {
     return _.chain(state.Unit)
       .map(item => {
@@ -321,9 +294,6 @@ const getters = {
   },
   Get_UnitTypeItem: function (state) {
     return state.UnitTypeItem
-  },
-  Get_UnitType_All: function (state) {
-    return state.UnitType
   },
   Get_UnitType_Select: function (state) {
     return _.chain(state.UnitType)

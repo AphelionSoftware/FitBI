@@ -7,9 +7,6 @@ const getters = {
   Get_PlanItem: function (state) {
     return state.PlanItem
   },
-  Get_Plan_All: function (state) {
-    return state.Plan
-  },
   Get_Plan_Select: function (state) {
     return _.chain(state.Plan)
       .map(item => {
@@ -41,9 +38,6 @@ const getters = {
   },
   Get_WorkoutItem: function (state) {
     return state.WorkoutItem
-  },
-  Get_Workout_All: function (state) {
-    return state.Workout
   },
   Get_Workout_Select: function (state) {
     return _.chain(state.Workout)
@@ -77,9 +71,6 @@ const getters = {
   Get_Workout_ExerciseItem: function (state) {
     return state.Workout_ExerciseItem
   },
-  Get_Workout_Exercise_All: function (state) {
-    return state.Workout_Exercise
-  },
   Get_Workout_Exercise_Select: function (state) {
     return _.chain(state.Workout_Exercise)
       .map(item => {
@@ -111,9 +102,6 @@ const getters = {
   },
   Get_WorkoutStageItem: function (state) {
     return state.WorkoutStageItem
-  },
-  Get_WorkoutStage_All: function (state) {
-    return state.WorkoutStage
   },
   Get_WorkoutStage_Select: function (state) {
     return _.chain(state.WorkoutStage)

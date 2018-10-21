@@ -26,7 +26,7 @@ const mutations = {
   SET_COLUMNCHOICE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.ColumnChoice, payload.ColumnChoiceID, payload)
-      localForage.setItem('UserSettings_ColumnChoice', state.ColumnChoice)
+      localForage.setItem('UserSettings_ColumnChoice', payload)
     }
   },
   SET_COLUMNCHOICEITEM (state, payload) {
@@ -38,7 +38,7 @@ const mutations = {
         Vue.set(state.ColumnChoice, element.ColumnChoiceID, element)
         state.ColumnChoiceList.push(element.ColumnChoiceID)
       }, this)
-      localForage.setItem('UserSettings_ColumnChoice', state.ColumnChoice)
+      localForage.setItem('UserSettings_ColumnChoice', fullList)
     }
   },
   GET_GENERALSETTINGS (state, payload) {
@@ -64,7 +64,7 @@ const mutations = {
   SET_GENERALSETTINGS (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.GeneralSettings, payload.GeneralSettingsID, payload)
-      localForage.setItem('UserSettings_GeneralSettings', state.GeneralSettings)
+      localForage.setItem('UserSettings_GeneralSettings', payload)
     }
   },
   SET_GENERALSETTINGSITEM (state, payload) {
@@ -76,7 +76,7 @@ const mutations = {
         Vue.set(state.GeneralSettings, element.GeneralSettingsID, element)
         state.GeneralSettingsList.push(element.GeneralSettingsID)
       }, this)
-      localForage.setItem('UserSettings_GeneralSettings', state.GeneralSettings)
+      localForage.setItem('UserSettings_GeneralSettings', fullList)
     }
   },
   GET_STATSCHOICE (state, payload) {
@@ -100,7 +100,7 @@ const mutations = {
   SET_STATSCHOICE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.StatsChoice, payload.StatsChoiceID, payload)
-      localForage.setItem('UserSettings_StatsChoice', state.StatsChoice)
+      localForage.setItem('UserSettings_StatsChoice', payload)
     }
   },
   SET_STATSCHOICEITEM (state, payload) {
@@ -112,7 +112,7 @@ const mutations = {
         Vue.set(state.StatsChoice, element.StatsChoiceID, element)
         state.StatsChoiceList.push(element.StatsChoiceID)
       }, this)
-      localForage.setItem('UserSettings_StatsChoice', state.StatsChoice)
+      localForage.setItem('UserSettings_StatsChoice', fullList)
     }
   },
   SET_FLAG (state, payload) {

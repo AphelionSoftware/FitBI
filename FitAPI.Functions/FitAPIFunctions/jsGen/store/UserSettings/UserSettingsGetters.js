@@ -7,9 +7,6 @@ const getters = {
   Get_ColumnChoiceItem: function (state) {
     return state.ColumnChoiceItem
   },
-  Get_ColumnChoice_All: function (state) {
-    return state.ColumnChoice
-  },
   Get_ColumnChoice_Select: function (state) {
     return _.chain(state.ColumnChoice)
       .map(item => {
@@ -42,9 +39,6 @@ const getters = {
   Get_GeneralSettingsItem: function (state) {
     return state.GeneralSettingsItem
   },
-  Get_GeneralSettings_All: function (state) {
-    return state.GeneralSettings
-  },
   Get_GeneralSettings_Select: function (state) {
     return _.chain(state.GeneralSettings)
       .map(item => {
@@ -76,9 +70,6 @@ const getters = {
   },
   Get_StatsChoiceItem: function (state) {
     return state.StatsChoiceItem
-  },
-  Get_StatsChoice_All: function (state) {
-    return state.StatsChoice
   },
   Get_StatsChoice_Select: function (state) {
     return _.chain(state.StatsChoice)

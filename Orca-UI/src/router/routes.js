@@ -1,4 +1,5 @@
 import fitLayoutPrimary from '../layouts/fit-layout-primary'
+import moment from 'moment'
 export default [
   { path: '/', component: fitLayoutPrimary }, // Default
   { path: '/measurements', component: () => import('../pages/stats/statsList') }, // Default
@@ -8,7 +9,7 @@ export default [
       {
         path: 'weigh-in',
         component: () => import('../pages/stats/dailyMeasurement'),
-        props: true,
+        props: { measurementDate: new Date() },
         beforeEnter: (to, from, next) => {
           // store.dispatch('DailyMeasurement/Set_NewDailyMeasurement')
           next()
@@ -32,8 +33,14 @@ export default [
       {
         path: 'measurement.edit/:measurementdateid',
         name: 'dailymeasurementedit',
-        component: () => import('../pages/stats/dailyMeasurement.singleDay.vue'),
-        props: true
+        component: () => import('../pages/stats/dailyMeasurement.vue'),
+        props: (route) => ({
+          measurementDate: moment(route.params.measurementdateid, 'YYYYMMDD')
+          // debugger
+          // console.log('src ' + route.params.measurementdateid)
+          // console.log(moment(route.params.measurementdateid, 'YYYYMMDD'))
+          // moment(route.params.measurementdateid, 'YYYYMMDD')
+        })
       }
     ]
   },

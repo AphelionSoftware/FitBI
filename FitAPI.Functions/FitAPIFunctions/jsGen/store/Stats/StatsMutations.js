@@ -39,7 +39,7 @@ const mutations = {
   SET_DAILYMEASUREMENT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.DailyMeasurement, payload.DailyMeasurementID, payload)
-      localForage.setItem('Stats_DailyMeasurement', state.DailyMeasurement)
+      localForage.setItem('Stats_DailyMeasurement', payload)
     }
   },
   SET_DAILYMEASUREMENTITEM (state, payload) {
@@ -51,7 +51,7 @@ const mutations = {
         Vue.set(state.DailyMeasurement, element.MeasurementDateID, element)
         state.DailyMeasurementList.push(element.MeasurementDateID)
       }, this)
-      localForage.setItem('Stats_DailyMeasurement', state.DailyMeasurement)
+      localForage.setItem('Stats_DailyMeasurement', fullList)
     }
   },
   GET_METRIC (state, payload) {
@@ -80,7 +80,7 @@ const mutations = {
   SET_METRIC (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Metric, payload.MetricID, payload)
-      localForage.setItem('Stats_Metric', state.Metric)
+      localForage.setItem('Stats_Metric', payload)
     }
   },
   SET_METRICITEM (state, payload) {
@@ -92,7 +92,7 @@ const mutations = {
         Vue.set(state.Metric, element.MetricID, element)
         state.MetricList.push(element.MetricID)
       }, this)
-      localForage.setItem('Stats_Metric', state.Metric)
+      localForage.setItem('Stats_Metric', fullList)
     }
   },
   GET_PERSON (state, payload) {
@@ -119,7 +119,7 @@ const mutations = {
   SET_PERSON (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Person, payload.PersonID, payload)
-      localForage.setItem('Stats_Person', state.Person)
+      localForage.setItem('Stats_Person', payload)
     }
   },
   SET_PERSONITEM (state, payload) {
@@ -131,7 +131,7 @@ const mutations = {
         Vue.set(state.Person, element.PersonID, element)
         state.PersonList.push(element.PersonID)
       }, this)
-      localForage.setItem('Stats_Person', state.Person)
+      localForage.setItem('Stats_Person', fullList)
     }
   },
   GET_SKINFOLDMEASUREMENT (state, payload) {
@@ -158,7 +158,7 @@ const mutations = {
   SET_SKINFOLDMEASUREMENT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.SkinfoldMeasurement, payload.SkinfoldMeasurementID, payload)
-      localForage.setItem('Stats_SkinfoldMeasurement', state.SkinfoldMeasurement)
+      localForage.setItem('Stats_SkinfoldMeasurement', payload)
     }
   },
   SET_SKINFOLDMEASUREMENTITEM (state, payload) {
@@ -170,7 +170,7 @@ const mutations = {
         Vue.set(state.SkinfoldMeasurement, element.SkinfoldMeasurementID, element)
         state.SkinfoldMeasurementList.push(element.SkinfoldMeasurementID)
       }, this)
-      localForage.setItem('Stats_SkinfoldMeasurement', state.SkinfoldMeasurement)
+      localForage.setItem('Stats_SkinfoldMeasurement', fullList)
     }
   },
   GET_TAPEMEASUREMENT (state, payload) {
@@ -198,7 +198,7 @@ const mutations = {
   SET_TAPEMEASUREMENT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.TapeMeasurement, payload.TapeMeasurementID, payload)
-      localForage.setItem('Stats_TapeMeasurement', state.TapeMeasurement)
+      localForage.setItem('Stats_TapeMeasurement', payload)
     }
   },
   SET_TAPEMEASUREMENTITEM (state, payload) {
@@ -210,7 +210,7 @@ const mutations = {
         Vue.set(state.TapeMeasurement, element.TapeMeasurementID, element)
         state.TapeMeasurementList.push(element.TapeMeasurementID)
       }, this)
-      localForage.setItem('Stats_TapeMeasurement', state.TapeMeasurement)
+      localForage.setItem('Stats_TapeMeasurement', fullList)
     }
   },
   GET_WEIGHTMEASUREMENT (state, payload) {
@@ -242,7 +242,7 @@ const mutations = {
   SET_WEIGHTMEASUREMENT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.WeightMeasurement, payload.WeightMeasurementID, payload)
-      localForage.setItem('Stats_WeightMeasurement', state.WeightMeasurement)
+      localForage.setItem('Stats_WeightMeasurement', payload)
     }
   },
   SET_WEIGHTMEASUREMENTITEM (state, payload) {
@@ -254,7 +254,7 @@ const mutations = {
         Vue.set(state.WeightMeasurement, element.WeightMeasurementID, element)
         state.WeightMeasurementList.push(element.WeightMeasurementID)
       }, this)
-      localForage.setItem('Stats_WeightMeasurement', state.WeightMeasurement)
+      localForage.setItem('Stats_WeightMeasurement', fullList)
     }
   },
   SET_FLAG (state, payload) {

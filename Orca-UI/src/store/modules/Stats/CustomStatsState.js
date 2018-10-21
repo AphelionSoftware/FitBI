@@ -1,6 +1,7 @@
 const state = {
   DailyMeasurement: {},
   DailyMeasurementItem: {},
-  DailyMeasurementList: []
+  DailyMeasurementList: [],
+  Current_PersonID: 0
 }
 export default state
