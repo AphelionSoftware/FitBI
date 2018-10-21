@@ -92,7 +92,8 @@ export default {
   },
   methods: {
     ...mapMutations('AppState', [
-      'SET_TITLETEXT']),
+      'SET_TITLETEXT',
+      'CLEAR_TITLETEXT']),
     setMeasurements (measurementDate) {
       if (typeof this.Get_DailyMeasurement_Dates !== 'undefined') {
         let dm = this.Get_DailyMeasurement_Dates[moment(measurementDate).format('YYYYMMDD')]
@@ -108,6 +109,11 @@ export default {
           .value()
         if (typeof prev !== 'undefined') {
           this.previousMeasurement = prev
+          if (typeof this.dailyMeasurement === 'undefined') {
+            this.dailyMeasurement.Weight = +this.previousMeasurement.Weight
+            this.dailyMeasurement.NeckCircumference = +this.previousMeasurement.NeckCircumference
+            this.dailyMeasurement.BellyButtonCircumference = +this.previousMeasurement.BellyButtonCircumference
+          }
         }
         if (typeof this.Get_Current_Person !== 'undefined') {
           this.dailyMeasurement.Height = this.Get_Current_Person.Height
@@ -126,60 +132,71 @@ export default {
     //   next()
     // }
     // else {
-    let extant = this.Get_DailyMeasurement_Dates[moment(this.measurementDate).format('YYYYMMDD')]
-    if (this.dailyMeasurement.Weight === extant.Weight &&
-      this.dailyMeasurement.NeckCircumference === extant.NeckCircumference &&
-      this.dailyMeasurement.BellyButtonCircumference === extant.BellyButtonCircumference
-    ) {
-      next()
-    } else {
-      let store = this.$store
-      ActionSheet.create({
-        title: 'Save action',
-        gallery: true,
-        actions: [
-          {
-            label: 'Save and exit',
-            // Choose one of the following two:
-            icon: 'fa-save', // specify ONLY IF using icon
-            handler: function () {
-              store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-              next()
+    try {
+      let extant = this.Get_DailyMeasurement_Dates[moment(this.measurementDate).format('YYYYMMDD')]
+      if (typeof extant === 'undefined') {
+        extant = this.previousMeasurement
+      }
+      if (this.dailyMeasurement.Weight === extant.Weight &&
+        this.dailyMeasurement.NeckCircumference === extant.NeckCircumference &&
+        this.dailyMeasurement.BellyButtonCircumference === extant.BellyButtonCircumference
+      ) {
+        this.CLEAR_TITLETEXT()
+        next()
+      } else {
+        let store = this.$store
+        let clearTitle = this.CLEAR_TITLETEXT
+        ActionSheet.create({
+          title: 'Save action',
+          gallery: true,
+          actions: [
+            {
+              label: 'Save and exit',
+              // Choose one of the following two:
+              icon: 'fa-save', // specify ONLY IF using icon
+              handler: function () {
+                store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+                clearTitle()
+                next()
+              }
+            },
+            {
+              label: 'Save but stay',
+              icon: 'fa-bookmark',
+              handler: function () {
+                store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+              }
+            },
+            {
+              label: 'Cancel',
+              icon: 'fa-ban',
+              handler: function () {
+                next(false)
+              }
+            },
+            {
+              label: 'Exit without saving',
+              icon: 'fa-times-circle',
+              handler: function () {
+                clearTitle()
+                next()
+              }
             }
-          },
-          {
-            label: 'Save but stay',
-            icon: 'fa-bookmark',
+          ],
+          // optional:
+          dismiss: {
+            // tell what to do when Action Sheet
+            // is dismised (doesn't trigger when
+            // any of the actions above are clicked/tapped)
             handler: function () {
-              store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-            }
-          },
-          {
-            label: 'Cancel',
-            icon: 'fa-ban',
-            handler: function () {
+              // console.log('Cancelled...')
               next(false)
             }
-          },
-          {
-            label: 'Exit without saving',
-            icon: 'fa-times-circle',
-            handler: function () {
-              next()
-            }
           }
-        ],
-        // optional:
-        dismiss: {
-          // tell what to do when Action Sheet
-          // is dismised (doesn't trigger when
-          // any of the actions above are clicked/tapped)
-          handler: function () {
-            // console.log('Cancelled...')
-            next(false)
-          }
-        }
-      })
+        })
+      }
+    } catch (ex) {
+      debugger
     }
     // }
   }
