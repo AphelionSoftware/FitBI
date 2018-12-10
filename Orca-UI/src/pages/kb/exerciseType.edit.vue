@@ -20,7 +20,7 @@ import { mapFields } from 'vuex-map-fields'
 // import hljs from 'highlight.js'
 // import 'highlight.js/styles/monokai-sublime.css'
 // import VueQuillEditor, { Quill } from 'vue-quill-editor'
-import Vue from 'vue'
+// import Vue from 'vue'
 
 import uiMixin from '../../mixins/ui/ui'
 import { mapState, mapGetters } from 'vuex'
@@ -86,7 +86,8 @@ export default {
     }
   },
   mounted () {
-    Vue.$API.Initialize()
+    debugger
+    this.$API.Initialize()
     let payload = {
       ExerciseTypeID: this.exercisetypeid
     }

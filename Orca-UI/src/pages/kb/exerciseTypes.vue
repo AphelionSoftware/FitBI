@@ -15,7 +15,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import Vue from 'vue'
+// import Vue from 'vue'
 export default {
   computed: {
     ...mapGetters({
@@ -23,7 +23,7 @@ export default {
     })
   },
   mounted () {
-    Vue.$API.Initialize()
+    this.$API.Initialize()
     // Set the add action to enable the toolbar add button
     let router = this.$router
     let fnAdd = function () {
