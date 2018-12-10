@@ -85,6 +85,7 @@
     <Folder Include="Stats\User Defined Types\" />
     <Folder Include="Settings\User Defined Types\" />
     <Folder Include="Program\User Defined Types\" />
+    <Folder Include="Utility\Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Stats\Tables\Person.sql" />
@@ -192,6 +193,8 @@
     <Build Include="Stats\Tables\DailyMeasurement.sql" />
     <Build Include="API\Stored Procedures\merge_Stats_DailyMeasurement.sql" />
     <Build Include="Stats\User Defined Types\tvp_DailyMeasurement.sql" />
+    <Build Include="Utility\Functions\fnColumnList.sql" />
+    <Build Include="Settings\Tables\GlobalSettings.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

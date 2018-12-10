@@ -51,7 +51,7 @@ namespace FitAPIFunctions
                 // Fetching the name from the path parameter in the request URL
 
             }
-            catch (System.Exception ex)
+             catch (System.Exception ex)
             {
                 log.Error("C# HTTP trigger function encountered an error " , ex);
                 statusCode = HttpStatusCode.InternalServerError;
