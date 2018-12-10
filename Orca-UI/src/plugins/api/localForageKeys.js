@@ -1,5 +1,6 @@
 import store from 'src/store/index'
 import localForage from 'localforage'
+import {Notify} from 'quasar'
 const getLocalForageDataByKeys = () => {
   return localForage.keys().then(keys => {
     if (keys.length === 0) {
@@ -42,6 +43,7 @@ export default async function () {
           }
         } catch (error) {
           console.log(error)
+          Notify(`Localforage cache load error: ${error}`)
           debugger
         }
       })

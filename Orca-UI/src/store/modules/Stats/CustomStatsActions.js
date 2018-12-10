@@ -33,11 +33,11 @@ const actions = {
       MeasurementDate: payload.MeasurementDate,
       MeasurementDateID: payload.MeasurementDateID,
       TapeLength: payload.BellyCircumference,
-      BodyPartID: enumCore.BodyPart.BELLY.intID
+      BodyPartID: enumCore.BodyPart.BELLYBUTTON_CIRC.intID
     }
-    dispatch('Stats/saveWeightMeasurement', weightPayload)
-    dispatch('Stats/saveTapeMeasurement', neckPayload)
-    dispatch('Stats/saveTapeMeasurement', bellyPayload)
+    dispatch('Stats/saveWeightMeasurement', weightPayload, {root: true})
+    dispatch('Stats/saveTapeMeasurement', neckPayload, {root: true})
+    dispatch('Stats/saveTapeMeasurement', bellyPayload, {root: true})
   }
 }
 export default actions

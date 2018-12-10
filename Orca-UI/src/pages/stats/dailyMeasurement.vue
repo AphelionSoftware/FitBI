@@ -69,13 +69,16 @@ export default {
     var store = this.$store
     var localVue = this
     let fnSave = function () {
-      store.dispatch('Stats/Save_DailyMeasurement', this.DailyMeasurement).then(results => {
-        localVue.notify({
-          html: 'Measurements saved',
+      debugger
+      let payload = localVue.dailyMeasurement
+      payload.MeasurementDate = localVue.measurementDate
+      store.dispatch('Stats/Save_DailyMeasurement', payload).then(results => {
+        localVue.$q.notify({
+          message: 'Measurements saved',
           icon: 'fa-thumbs-up',
           timeout: 2400,
-          color: '#99d8c9',
-          bgColor: 'white'
+          color: 'positive',
+          bgColor: '#99d8c9'
         })
       })
     }

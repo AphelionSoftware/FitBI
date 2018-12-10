@@ -6,29 +6,140 @@
 -- =============================================
 CREATE PROCEDURE [API].[sp_Core]
 	
-	@UserID int
+	@UserID int  = 3,
+	@Version rowversion = 0x0000000000000000
 AS
 BEGIN
 	SET NOCOUNT ON;
 
 	/*
-	SELECT 'SELECT * FROM [' + table_schema + '].[' + table_name + '] Tbl
-	WHERE Active = 1
+	SELECT 'SELECT ' + Utility.fnColumnList(table_schema, table_name, 'Tbl') + ' FROM [' + table_schema + '].[' + table_name + '] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
 	' 
 	FROM INFORMATION_SCHEMA.TABLES where 
 	TABLE_SCHEMA not like '%settings%'
 	and TABLE_SCHEMA  like '%core%'
 	and table_name not in ('Active','Dates', 'Time')
 	ORDER BY TABLE_SCHEMA, TABLE_Name
+
+
+	SELECT 'objCore.' + table_name + ' = multi.Read<dynamic>().ToList();
+	' 
+	
+	FROM INFORMATION_SCHEMA.TABLES where 
+	TABLE_SCHEMA not like '%settings%'
+	and TABLE_SCHEMA  like '%core%'
+	and table_name not in ('Active','Dates', 'Time')
+	ORDER BY TABLE_SCHEMA, TABLE_Name
 	*/
+	SELECT @@DBTS as Version, CONVERT(varchar(255), DATEADD(SECOND, intValue, getutcdate()), 127) + 'Z' AS CacheExpiry
+	FROM Settings.GlobalSettings 
+	WHERE Code = 'COREEXP'
 
 	
-	SELECT * FROM [Core].[BodyPart] Tbl   WHERE Active = 1   
-	SELECT * FROM [Core].[BodyPartType] Tbl   WHERE Active = 1   
-	SELECT * FROM [Core].[MeasurementType] Tbl   WHERE Active = 1   
-	SELECT * FROM [Core].[MeasurementTypeCategory] Tbl   WHERE Active = 1   
-	SELECT * FROM [Core].[StatType] Tbl   WHERE Active = 1   
-	SELECT * FROM [Core].[Unit] Tbl   WHERE Active = 1   
-	SELECT * FROM [Core].[UnitType] Tbl   WHERE Active = 1   
-    
+SELECT 	[Tbl].[Active]
+	,[Tbl].[BodyPartID]
+	,[Tbl].[BodyPartTypeID]
+	,[Tbl].[Code]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[Description]
+	,[Tbl].[ID]
+	,[Tbl].[Name]
+	,[Tbl].[ParentBodyPartID]
+	,[Tbl].[UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[BodyPart] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+SELECT 	[Tbl].[Active]
+	,[Tbl].[BodyPartTypeID]
+	,[Tbl].[Code]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[ID]
+	,[Tbl].[Name]
+	,[Tbl].[UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[BodyPartType] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+SELECT 	[Tbl].[Active]
+	,[Tbl].[Code]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[Description]
+	,[Tbl].[ID]
+	,[Tbl].[MeasurementTypeCategoryID]
+	,[Tbl].[MeasurementTypeID]
+	,[Tbl].[Name]
+	,[Tbl].[UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[MeasurementType] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+SELECT 	[Tbl].[Active]
+	,[Tbl].[Code]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[ID]
+	,[Tbl].[MeasurementTypeCategoryID]
+	,[Tbl].[Name]
+	,[Tbl].[UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[MeasurementTypeCategory] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+SELECT 	[Tbl].[Active]
+	,[Tbl].[Code]
+	,[Tbl].[ColumnName]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[Description]
+	,[Tbl].[ID]
+	,[Tbl].[MeasurementTypeCategoryID]
+	,[Tbl].[Name]
+	,[Tbl].[StatTypeID]
+	,[Tbl].[TableName]
+	,[Tbl].[UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[StatType] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+SELECT 	[Tbl].[Active]
+	,[Tbl].[Code]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[Description]
+	,[Tbl].[ID]
+	,[Tbl].[Name]
+	,[Tbl].[ParentUnitID]
+	,[Tbl].[UnitID]
+	,[Tbl].[UnitTypeID]
+	,[Tbl].[UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[Unit] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+SELECT 	[Tbl].[Active]
+	,[Tbl].[Code]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[ID]
+	,[Tbl].[Name]
+	,[Tbl].[UnitTypeID]
+	,[Tbl].[UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[UnitType] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+   
 END
