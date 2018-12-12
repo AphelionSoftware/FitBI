@@ -32,7 +32,12 @@ export default async function () {
       _.each(Object.keys(results), key => {
         debugger
         let committer = key.split('_')[0] + '/SET_' + ('' + key.split('_')[1]).toUpperCase()
-        store.commit(committer, results[key])
+        if (key.split('_')[0].indexOf('auth0') === -1) {
+          // Authentication stored in localforage but not really state
+          store.commit(committer, results[key])
+        } else {
+          debugger
+        }
       })
       // if (results[0] !== null) {
       //   store.commit('AppState/SET_INIT', results[0])

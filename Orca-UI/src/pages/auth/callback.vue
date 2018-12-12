@@ -8,7 +8,6 @@ export default {
   mounted () {
     let vueThis = this
     this.$auth.handleAuthentication().then((data) => {
-      debugger
       vueThis.$router.push({ path: vueThis.$auth.fromPath })
     })
   }

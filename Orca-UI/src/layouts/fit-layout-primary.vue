@@ -17,6 +17,13 @@
        <q-chip v-if="this.TitleText !== ''" color="tertiary" class="on-left q-ma-md">{{this.TitleText}}</q-chip>
       <q-btn v-if="typeof this.SaveAction === 'function'" @click="fnSaveAction" icon="fa-save" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
       <q-btn v-if="typeof this.AddAction === 'function'" @click="fnAddAction" icon="fa-plus" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
+      <q-btn icon="fa fa-user-circle">
+        <q-popover>
+          <q-list separator>
+            <q-btn @click.native="$auth.logout()" label="Log out"/>
+          </q-list>
+        </q-popover>
+      </q-btn>
     <!-- </q-fixed-position> -->
   </q-toolbar>
   </q-layout-header>

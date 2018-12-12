@@ -53,6 +53,9 @@ export default class {
   OnlineOfflineLoad () {
     var flagCore = true
     getLocalForageDataByKeys().then(result => {
+      let subject = store.getters['AppState/Get_User']
+      debugger
+      subject = subject.sub
       if (new Date(store.getters['AppState/GetCoreExpiry']) >= new Date()) {
         flagCore = false
       }
@@ -81,8 +84,9 @@ export default class {
       }
       // ///TODO: Do checks to see if it exists in localForage and if there are newer items
       if (flagInit) {
-        console.log(this.config.API_URL + this.config.initURL + this.config.UserID + '?' + this.config.initToken)
-        this.axios.get(this.config.initURL + this.config.UserID + '?' + this.config.initToken).then(
+        console.log(this.config.API_URL + this.config.initURL + subject + '?' + this.config.initToken)
+        this.axios.get(this.config.initURL + subject + '?' + this.config.initToken).then(
+        // this.axios.get(this.config.initURL + this.config.UserID + '?' + this.config.initToken).then(
           function (response) {
             initSetup(JSON.parse(response.data))
           }

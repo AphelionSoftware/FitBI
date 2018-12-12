@@ -32,7 +32,7 @@ Router.beforeEach((to, from, next) => {
   } else if (Router.app.$auth.isAuthenticated()) { // if authenticated allow access
     next()
   } else { // trigger auth0 login
-    Router.app.$auth.login()
+    Router.app.$auth.login(next)
   }
 })
 export default Router

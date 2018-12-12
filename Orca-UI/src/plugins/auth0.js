@@ -3,7 +3,7 @@ import auth0 from 'auth0-js'
 import localForage from 'localforage'
 import _ from 'underscore'
 import * as JWT from 'jwt-decode'
-
+import store from '../store/index'
 // exchange the object with your own from the setup step above.
 
 // leave the export, even if you don't use it
@@ -81,11 +81,12 @@ export default ({ app, router, Vue }) => {
         set: function (user) {
           localForage.setItem('auth0_user', user)
           this.p_user = user
+          store.commit('AppState/SET_USER', user)
         }
       }
     },
     methods: {
-      login () {
+      login (fnResume) {
         let arrGet = []
         arrGet.push(localForage.getItem('auth0_id_token'))
         arrGet.push(localForage.getItem('auth0_access_token'))
@@ -99,20 +100,38 @@ export default ({ app, router, Vue }) => {
             vueThis.p_accessToken = results[1]
             vueThis.p_expiresAt = results[2]
             vueThis.p_user = results[3]
-            if (vueThis.user === null || new Date().getTime() < vueThis.expiresAt) {
+            if (vueThis.user === null || new Date().getTime() > vueThis.expiresAt) {
               webAuth.authorize()
             } else {
-              vueThis.$router.push({name: 'callback'})
+              store.commit('AppState/SET_USER', vueThis.p_user)
+              if (typeof vueThis.$router !== 'undefined') {
+                debugger
+                vueThis.$router.push({name: 'callback'})
+              } else {
+                fnResume() // From the navigation guard
+                // webAuth.authorize()
+              }
             }
           })
       },
       logout () {
+        let vueThis = this
         return new Promise((resolve, reject) => {
           localForage.removeItem('auth0_access_token')
           localForage.removeItem('auth0_id_token')
           localForage.removeItem('auth0_expires_at')
           localForage.removeItem('auth0_user')
-          webAuth.authorize()
+          vueThis.p_token = null
+          vueThis.p_accessToken = null
+          vueThis.p_expiresAt = null
+          vueThis.p_user = null
+          vueThis.$auth.fromPath = null
+          vueThis.$auth.hashPath = null
+          store.commit('AppState/SET_USER', null)
+          webAuth.logout({returnTo: vueThis.appConfig.auth0redirectUri})
+          // https://YOUR_AUTH0_DOMAIN/v2/logout\
+          // webAuth.authorize()
+          resolve()
         })
       },
       isAuthenticated () {
@@ -139,13 +158,12 @@ export default ({ app, router, Vue }) => {
                   case 'id_token':
                   {
                     vueThis.token = item.split('=')[1]
-                    debugger
                     vueThis.user = JWT(item.split('=')[1])
+                    store.commit('AppState/SET_USER', vueThis.user)
                     break
                   }
                 }
               })
-              debugger
               resolve()
             } else {
               if (authResult && authResult.accessToken && authResult.idToken) {
@@ -153,6 +171,7 @@ export default ({ app, router, Vue }) => {
                 this.accessToken = authResult.accessToken
                 this.token = authResult.idToken
                 this.user = authResult.idTokenPayload
+                store.commit('AppState/SET_USER', this.user)
                 resolve()
               } else if (err) {
                 this.logout()
@@ -164,5 +183,6 @@ export default ({ app, router, Vue }) => {
       }
     }
   })
+  auth.appConfig = process.env
   Vue.prototype.$auth = auth
 }

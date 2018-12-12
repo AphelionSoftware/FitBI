@@ -25,11 +25,15 @@ const state = {
   initTimeStamp: 0x0000000000000000,
   initExpiry: new Date('1 Jan 2000'),
   coreTimeStamp: 0x0000000000000000,
-  coreExpiry: new Date('1 Jan 2000')
+  coreExpiry: new Date('1 Jan 2000'),
+  user: ''
 }
 
 // #region Getter
 const getters = {
+  Get_User: function (state, getters, rootState) {
+    return state.user
+  },
   Save: function (state, getters, rootState) {
     return state.SaveAction
   },
@@ -52,6 +56,11 @@ const getters = {
 // #endregion
 // #region Mutations
 const mutations = {
+  SET_USER (state, payload) {
+    if (typeof payload !== 'undefined') {
+      state.user = payload
+    }
+  },
   SET_INIT (state, payload) {
     if (typeof payload !== 'undefined') {
       if (typeof payload.Version !== 'undefined') {

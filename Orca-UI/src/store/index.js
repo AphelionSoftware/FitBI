@@ -14,7 +14,6 @@ import Program from './modules/program/ProgramStore'
 import Stats from './modules/stats/StatsStore'
 import UserSettings from './modules/UserSettings/UserSettingsStore'
 import DailyMeasurement from './modules/Measurements/DailyMeasurementStore'
-
 export default new Vuex.Store({
   modules: {
     AppState: AppState,
