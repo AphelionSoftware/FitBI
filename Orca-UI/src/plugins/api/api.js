@@ -10,6 +10,7 @@ import * as mergeProgram from './mergeProgram'
 import * as mergeStats from './mergeStats'
 import store from '../../store/index'
 import moment from 'moment'
+// import auth0 from './auth/auth0'
 // import localForage from 'localforage'
 
 export default class {
@@ -117,6 +118,8 @@ export default class {
     this.axios.defaults.baseURL = this.config.API_URL
     var api = this
     console.log(this.config.API_URL + this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken)
+    // this.auth = auth0(this.config)
+    // this.auth.login()
     api.OnlineOfflineLoad()
     /*
     this.axios.get(this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken).then(

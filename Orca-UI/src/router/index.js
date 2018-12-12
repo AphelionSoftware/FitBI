@@ -21,4 +21,18 @@ const Router = new VueRouter({
   routes
 })
 
+Router.beforeEach((to, from, next) => {
+  if (to.name === 'callback') {
+    next()
+  } else if (to.path.startsWith('/access_token')) { // check if "to"-route is "callback" and allow access
+    // next()
+    Router.app.$auth.fromPath = from.path
+    Router.app.$auth.hashPath = to.params[1]
+    Router.push({ name: 'callback' })
+  } else if (Router.app.$auth.isAuthenticated()) { // if authenticated allow access
+    next()
+  } else { // trigger auth0 login
+    Router.app.$auth.login()
+  }
+})
 export default Router

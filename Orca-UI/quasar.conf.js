@@ -8,7 +8,8 @@ module.exports = function (ctx) {
       'axios',
       'enumCore',
       'api',
-      'vuexroutersync'
+      'vuexroutersync',
+      'auth0'
     ],
     css: [
       'app.styl'
@@ -49,34 +50,45 @@ module.exports = function (ctx) {
         mergePersonToken: JSON.stringify(''),
         mergeSkinfoldMeasurementToken: JSON.stringify(''),
         mergeTapeMeasurementToken: JSON.stringify(''),
-        mergeWeightMeasurementToken: JSON.stringify('')
-      } :
-      {
-        API_URL:  JSON.stringify('https://fitapifunctions.azurewebsites.net/api'),
-        coreURL: JSON.stringify('/setup/Core/'),
-        coreToken: JSON.stringify('code=pkiVK8tel8UWZRhvYaJtAeQm0bhoGwQNEpmL9ZWg9Jg1ECzNPaLWZQ=='),
-        initURL: JSON.stringify('/setup/Init/'),
-        initToken: JSON.stringify('code=HkBEb7aL5O6WUH1oQFHBWfZxC8c4fCNa0NQxzyipv5Uu3awF8uxX3w=='),
-        latestTimestampsURL: JSON.stringify('/setup/LatestTimestamps/'),
-        latestTimestampsToken: JSON.stringify('code=vOk0CrfKzlq6pJH9/tr7WGL57iiXpNHDZ8rmUR9Vx7u45/EIkxYdxg=='),
-        UserID: JSON.stringify(3),
-        mergeExerciseToken: JSON.stringify(''),
-        mergeExercise_SportToken: JSON.stringify(''),
-        mergeExerciseLinkToken: JSON.stringify(''),
-        mergeExerciseTypeToken: JSON.stringify(''),
-        mergeSportToken: JSON.stringify(''),
-        mergePlanToken: JSON.stringify(''),
-        mergeWorkoutToken: JSON.stringify(''),
-        mergeWorkout_ExerciseToken: JSON.stringify(''),
-        mergeWorkoutStageToken: JSON.stringify(''),
-        mergeDailyMeasurementToken: JSON.stringify('code=Q77kQaUmWmBdRfl4c1DIWbWZ3U/2lb86q2EQGQwzD3r0u4JXkmdagg=='),
-        mergeMetricToken: JSON.stringify(''),
-        mergePersonToken: JSON.stringify(''),
-        mergeSkinfoldMeasurementToken: JSON.stringify(''),
-        mergeTapeMeasurementToken: JSON.stringify(''),
-        mergeWeightMeasurementToken: JSON.stringify('')
+        mergeWeightMeasurementToken: JSON.stringify(''),
+        auth0domain: JSON.stringify('orcafit.eu.auth0.com'),
+        auth0clientID: JSON.stringify('7HG6PvXW3BePnn0UzuwvwcbjsvcNg3hF'),
+        auth0redirectUri: JSON.stringify('http://localhost:8080/#/callback/'),
+        auth0responseType: JSON.stringify('token id_token'),
+        auth0scope: JSON.stringify('openid')
 
-      },  
+      }
+        : {
+          API_URL: JSON.stringify('https://fitapifunctions.azurewebsites.net/api'),
+          coreURL: JSON.stringify('/setup/Core/'),
+          coreToken: JSON.stringify('code=pkiVK8tel8UWZRhvYaJtAeQm0bhoGwQNEpmL9ZWg9Jg1ECzNPaLWZQ=='),
+          initURL: JSON.stringify('/setup/Init/'),
+          initToken: JSON.stringify('code=HkBEb7aL5O6WUH1oQFHBWfZxC8c4fCNa0NQxzyipv5Uu3awF8uxX3w=='),
+          latestTimestampsURL: JSON.stringify('/setup/LatestTimestamps/'),
+          latestTimestampsToken: JSON.stringify('code=vOk0CrfKzlq6pJH9/tr7WGL57iiXpNHDZ8rmUR9Vx7u45/EIkxYdxg=='),
+          UserID: JSON.stringify(3),
+          mergeExerciseToken: JSON.stringify(''),
+          mergeExercise_SportToken: JSON.stringify(''),
+          mergeExerciseLinkToken: JSON.stringify(''),
+          mergeExerciseTypeToken: JSON.stringify(''),
+          mergeSportToken: JSON.stringify(''),
+          mergePlanToken: JSON.stringify(''),
+          mergeWorkoutToken: JSON.stringify(''),
+          mergeWorkout_ExerciseToken: JSON.stringify(''),
+          mergeWorkoutStageToken: JSON.stringify(''),
+          mergeDailyMeasurementToken: JSON.stringify('code=Q77kQaUmWmBdRfl4c1DIWbWZ3U/2lb86q2EQGQwzD3r0u4JXkmdagg=='),
+          mergeMetricToken: JSON.stringify(''),
+          mergePersonToken: JSON.stringify(''),
+          mergeSkinfoldMeasurementToken: JSON.stringify(''),
+          mergeTapeMeasurementToken: JSON.stringify(''),
+          mergeWeightMeasurementToken: JSON.stringify(''),
+          auth0domain: JSON.stringify('orcafit.eu.auth0.com'),
+          auth0clientID: JSON.stringify('7HG6PvXW3BePnn0UzuwvwcbjsvcNg3hF'),
+          auth0redirectUri: JSON.stringify('http://localhost:8080/#/callback/'),
+          auth0responseType: JSON.stringify('token id_token'),
+          auth0scope: JSON.stringify('openid')
+
+        },
       scopeHoisting: true,
       vueRouterMode: 'hash',
       // gzip: true,

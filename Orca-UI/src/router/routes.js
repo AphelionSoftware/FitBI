@@ -1,7 +1,8 @@
 import fitLayoutPrimary from '../layouts/fit-layout-primary'
 import moment from 'moment'
 export default [
-  { path: '/', component: fitLayoutPrimary }, // Default
+  { path: '/', component: fitLayoutPrimary, props: true }, // Default
+  { path: '/callback', name: 'callback', component: () => import('src/pages/auth/callback') }, // Auth0 Callback
   { path: '/measurements', component: () => import('../pages/stats/statsList') }, // Default
   { path: '/record',
     component: fitLayoutPrimary,
@@ -73,6 +74,7 @@ export default [
   },
   { path: '*',
     component: fitLayoutPrimary,
+    props: true,
     children: [
       {
         path: '*',

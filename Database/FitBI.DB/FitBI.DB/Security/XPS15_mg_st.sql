@@ -1,0 +1,2 @@
+﻿CREATE USER [XPS15\mg_st] FOR LOGIN [XPS15\mg_st];
+
