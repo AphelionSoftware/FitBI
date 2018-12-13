@@ -35,6 +35,7 @@ const actions = {
       TapeLength: payload.BellyCircumference,
       BodyPartID: enumCore.BodyPart.BELLYBUTTON_CIRC.intID
     }
+    debugger
     dispatch('Stats/saveWeightMeasurement', weightPayload, {root: true})
     dispatch('Stats/saveTapeMeasurement', neckPayload, {root: true})
     dispatch('Stats/saveTapeMeasurement', bellyPayload, {root: true})

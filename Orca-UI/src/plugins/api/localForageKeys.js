@@ -13,7 +13,7 @@ const getLocalForageDataByKeys = () => {
         })
         .catch(error => {
           console.log(error)
-          debugger
+          debugger /// Error
           return { [key]: null }
         })
     })).then(arr => {
@@ -33,18 +33,20 @@ export default async function () {
         try {
           if (key.indexOf('_') > -1) {
             let committer = key.split('_')[0] + '/SET_' + ('' + key.split('_')[1]).toUpperCase() + '_LIST'
-            let payload = []
-            _.each(Object.keys(results[key]), itemKey => {
-              if (itemKey !== '__proto__') {
-                payload.push(results[key][itemKey])
-              }
-            })
-            store.commit(committer, payload)
+            if (committer.indexOf('auth0') === -1) {
+              let payload = []
+              _.each(Object.keys(results[key]), itemKey => {
+                if (itemKey !== '__proto__') {
+                  payload.push(results[key][itemKey])
+                }
+              })
+              store.commit(committer, payload)
+            }
           }
         } catch (error) {
           console.log(error)
-          Notify(`Localforage cache load error: ${error}`)
-          debugger
+          debugger /// Error
+          Notify.create({message: `Localforage cache load error: ${error}`})
         }
       })
     })

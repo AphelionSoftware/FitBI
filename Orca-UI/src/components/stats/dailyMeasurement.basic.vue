@@ -51,8 +51,8 @@
           :max="1"
           :color="BodyFatEstimate > .5 ? 'grey-7' : BodyFatEstimate > .4 ? 'deep-purple-11' : BodyFatEstimate > .3 ? 'red' : BodyFatEstimate > .25 ? 'deep-orange' : BodyFatEstimate > .2 ? 'amber' : BodyFatEstimate > .15 ? 'lime' : BodyFatEstimate > .1 ? 'green' : BodyFatEstimate > .05 ? 'blue-grey' : 'purple-14' "
           :readonly="true"
-        >{{BFFormatted}}
-        <small>({{PrevBFFormatted}})</small>
+        ><span style="max-width: 70px;" class="row flex-center content-center">{{BFFormatted}}
+        <small>({{PrevBFFormatted}})</small></span>
         </q-knob>
           </div>
         </div>
@@ -67,8 +67,8 @@
           :max="dailyMeasurement.Weight"
           :color="FFM - PrevFFM > 0.5 ? 'light-green-8' : PrevFFM - FFM > 0.5 ? 'deep-orange-9' : 'blue-grey-5'"
           :readonly="true"
-        >{{FFMFormatted}}
-        <small>({{PrevFFMFormatted}})</small>
+        ><span style="max-width: 70px;" class="row flex-center content-center">{{FFMFormatted}}
+        <small>({{PrevFFMFormatted}})</small></span>
         </q-knob>
           </div>
         </div>
@@ -83,8 +83,8 @@
           :max="dailyMeasurement.Weight"
           :color="BFM - PrevBFM > 0.5 ? 'deep-orange-9' : PrevBFM - BFM > 0.5 ? 'light-green-8' : 'blue-grey-5'"
           :readonly="true"
-        >{{BFMFormatted}}
-        <small>({{PrevBFMFormatted}})</small>
+        ><span style="max-width: 70px;" class="row flex-center content-center">{{BFMFormatted}}
+        <small>({{PrevBFMFormatted}})</small></span>
         </q-knob>
           </div>
         </div>
@@ -96,6 +96,7 @@
 import numeral from 'numeral'
 import numericSlider from 'src/components/inputs/numeric.slider'
 import _ from 'underscore'
+import {Notify} from 'quasar'
 export default {
   components: {
     numericSlider
@@ -124,6 +125,7 @@ export default {
   watch: {
     value: {
       immediate: true,
+      deep: true,
       handler: function (newVal, oldVal) {
         this.dailyMeasurement = {...this.dailyMeasurement, ...newVal}
         let daily = this.dailyMeasurement
@@ -156,6 +158,7 @@ export default {
           let ret = (86.01 * Math.log10((belly - neck) / 2.54) - 70.041 * Math.log10(height / 2.54) + 36.76) / 100
           return ret
         } else {
+          Notify.create({message: `For these calcs to work, go to personal settings to set your height`})
           return 1 / 0
         }
       },

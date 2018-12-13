@@ -17,11 +17,9 @@ export default function (authValues) {
     auth.idToken = null
     auth.expiresAt = null
     auth.login = function () {
-      debugger
       auth.authorize()
     }
 
-    debugger
     auth.handleAuthentication = function () {
       auth.auth0.parseHash((err, authResult) => {
         if (authResult && authResult.accessToken && authResult.idToken) {
@@ -72,13 +70,11 @@ export default function (authValues) {
       // access token's expiry time
       return new Date().getTime() < auth.expiresAt && localForage.getItem('auth0_loggedIn') === 'true'
     }
-    debugger
     auth.authenticated = auth.isAuthenticated()
-    debugger
     auth.authNotifier = new EventEmitter()
     return auth
   } catch (ex) {
-    debugger
+    debugger /// Error
   }
   return null
 }

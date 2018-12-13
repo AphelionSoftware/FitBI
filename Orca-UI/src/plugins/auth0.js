@@ -105,7 +105,7 @@ export default ({ app, router, Vue }) => {
             } else {
               store.commit('AppState/SET_USER', vueThis.p_user)
               if (typeof vueThis.$router !== 'undefined') {
-                debugger
+                // Dead end as we're inside plugin world?
                 vueThis.$router.push({name: 'callback'})
               } else {
                 fnResume() // From the navigation guard

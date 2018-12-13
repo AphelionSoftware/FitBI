@@ -93,6 +93,7 @@ const actions = {
     commit('SET_BELLYTAPEMEASUREMENT', tapeBelly)
   },
   Save_DailyMeasurement ({commit, dispatch, getters, rootState, rootGetters, state}, payload) {
+    debugger
     dispatch('Stats/saveWeightMeasurement', state.WeightMeasurement, {root: true})
     dispatch('Stats/saveTapeMeasurement', state.BellyTapeMeasurement, {root: true})
     dispatch('Stats/saveTapeMeasurement', state.NeckTapeMeasurement, {root: true})

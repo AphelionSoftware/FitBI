@@ -50,11 +50,11 @@ namespace FitAPIFunctions
                         objInit.SkinfoldMeasurement = multi.Read<dynamic>().ToList();
                         objInit.TapeMeasurement = multi.Read<dynamic>().ToList();
                         objInit.WeightMeasurement = multi.Read<dynamic>().ToList();
-
-
-                        JSON = JsonConvert.SerializeObject(objInit);
-
                     }
+
+
+
+                    JSON = JsonConvert.SerializeObject(objInit);
                 }
                 //JObject 
                 // Fetching the name from the path parameter in the request URL

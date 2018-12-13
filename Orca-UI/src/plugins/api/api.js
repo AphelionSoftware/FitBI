@@ -54,7 +54,6 @@ export default class {
     var flagCore = true
     getLocalForageDataByKeys().then(result => {
       let subject = store.getters['AppState/Get_User']
-      debugger
       subject = subject.sub
       if (new Date(store.getters['AppState/GetCoreExpiry']) >= new Date()) {
         flagCore = false

@@ -1,17 +1,21 @@
 <template>
-   <!-- Navigation -->
-   <q-layout>
+  <!-- Navigation -->
+    <q-layout>
     <div class="layout-padding">
-      <measurement v-model="dailyMeasurement" :previousMeasurement="previousMeasurement"/>
+      <measurement v-model="dailyMeasurement" :previousMeasurement="previousMeasurement" />
     </div>
-   </q-layout>
+  </q-layout>
 </template>
 <script>
-
 // import { required } from 'vuelidate/lib/validators'
-import { ActionSheet } from 'quasar'
+import {
+  ActionSheet
+} from 'quasar'
 import measurement from 'src/components/stats/dailyMeasurement.basic'
-import { mapGetters, mapMutations } from 'vuex'
+import {
+  mapGetters,
+  mapMutations
+} from 'vuex'
 import moment from 'moment'
 import _ from 'underscore'
 export default {
@@ -24,19 +28,20 @@ export default {
       required: true
     }
   },
-  data:
-    function () {
-      return {
-        dailyMeasurement: {},
-        previousMeasurement: {},
-        minNeck: 0,
-        maxNeck: 100,
-        minBelly: 150,
-        maxBelly: 0,
-        minWeight: 0,
-        maxWeight: 150
-      }
-    },
+  data: function () {
+    return {
+      dailyMeasurement: {
+        Height: 250
+      },
+      previousMeasurement: {},
+      minNeck: 0,
+      maxNeck: 100,
+      minBelly: 150,
+      maxBelly: 0,
+      minWeight: 0,
+      maxWeight: 150
+    }
+  },
   watch: {
     measurementDate: {
       immmediate: true,
@@ -57,12 +62,19 @@ export default {
       handler: function (newVal, oldVal) {
         this.setMeasurements(this.measurementDate)
       }
+    },
+    dailyMeasurement: {
+      immmediate: true,
+      handler: function (newVal, oldVal) {
+        // this.setMeasurements(this.measurementDate)
+        debugger
+      }
     }
   },
   computed: {
-    ...mapGetters('Stats',
-      ['Get_DailyMeasurement_Dates',
-        'Get_Current_Person'])
+    ...mapGetters('Stats', ['Get_DailyMeasurement_Dates',
+      'Get_Current_Person'
+    ])
   },
   mounted () {
     this.$API.Initialize()
@@ -73,6 +85,7 @@ export default {
       let payload = localVue.dailyMeasurement
       payload.MeasurementDate = localVue.measurementDate
       store.dispatch('Stats/Save_DailyMeasurement', payload).then(results => {
+        debugger
         localVue.$q.notify({
           message: 'Measurements saved',
           icon: 'fa-thumbs-up',
@@ -96,12 +109,17 @@ export default {
   methods: {
     ...mapMutations('AppState', [
       'SET_TITLETEXT',
-      'CLEAR_TITLETEXT']),
+      'CLEAR_TITLETEXT'
+    ]),
     setMeasurements (measurementDate) {
+      debugger
+      let vueThis = this
       if (typeof this.Get_DailyMeasurement_Dates !== 'undefined') {
         let dm = this.Get_DailyMeasurement_Dates[moment(measurementDate).format('YYYYMMDD')]
         if (typeof dm !== 'undefined') {
-          this.dailyMeasurement = dm
+          _.each(Object.keys(dm), key => {
+            vueThis.$set(vueThis.dailyMeasurement, key, dm[key])
+          })
         }
         let prev = _.chain(this.Get_DailyMeasurement_Dates)
           .filter(item => {
@@ -119,7 +137,7 @@ export default {
           }
         }
         if (typeof this.Get_Current_Person !== 'undefined') {
-          this.dailyMeasurement.Height = this.Get_Current_Person.Height
+          vueThis.$set(vueThis.dailyMeasurement, 'Height', this.Get_Current_Person.Height)
           this.previousMeasurement.Height = this.Get_Current_Person.Height
         }
       }
@@ -141,8 +159,8 @@ export default {
         extant = this.previousMeasurement
       }
       if (this.dailyMeasurement.Weight === extant.Weight &&
-        this.dailyMeasurement.NeckCircumference === extant.NeckCircumference &&
-        this.dailyMeasurement.BellyButtonCircumference === extant.BellyButtonCircumference
+          this.dailyMeasurement.NeckCircumference === extant.NeckCircumference &&
+          this.dailyMeasurement.BellyButtonCircumference === extant.BellyButtonCircumference
       ) {
         this.CLEAR_TITLETEXT()
         next()
@@ -152,39 +170,38 @@ export default {
         ActionSheet.create({
           title: 'Save action',
           gallery: true,
-          actions: [
-            {
-              label: 'Save and exit',
-              // Choose one of the following two:
-              icon: 'fa-save', // specify ONLY IF using icon
-              handler: function () {
-                store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-                clearTitle()
-                next()
-              }
-            },
-            {
-              label: 'Save but stay',
-              icon: 'fa-bookmark',
-              handler: function () {
-                store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-              }
-            },
-            {
-              label: 'Cancel',
-              icon: 'fa-ban',
-              handler: function () {
-                next(false)
-              }
-            },
-            {
-              label: 'Exit without saving',
-              icon: 'fa-times-circle',
-              handler: function () {
-                clearTitle()
-                next()
-              }
+          actions: [{
+            label: 'Save and exit',
+            // Choose one of the following two:
+            icon: 'fa-save', // specify ONLY IF using icon
+            handler: function () {
+              store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+              clearTitle()
+              next()
             }
+          },
+          {
+            label: 'Save but stay',
+            icon: 'fa-bookmark',
+            handler: function () {
+              store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+            }
+          },
+          {
+            label: 'Cancel',
+            icon: 'fa-ban',
+            handler: function () {
+              next(false)
+            }
+          },
+          {
+            label: 'Exit without saving',
+            icon: 'fa-times-circle',
+            handler: function () {
+              clearTitle()
+              next()
+            }
+          }
           ],
           // optional:
           dismiss: {
@@ -206,5 +223,5 @@ export default {
 }
 </script>
 <style>
-/* This is where your CSS goes */
+  /* This is where your CSS goes */
 </style>

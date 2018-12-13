@@ -155,6 +155,7 @@ module.exports = function (ctx) {
       // Quasar plugins
       plugins: [
         'ActionSheet',
+        'Dialog',
         'Notify'
       ]
     },

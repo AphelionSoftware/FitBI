@@ -18,9 +18,11 @@
       <q-btn v-if="typeof this.SaveAction === 'function'" @click="fnSaveAction" icon="fa-save" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
       <q-btn v-if="typeof this.AddAction === 'function'" @click="fnAddAction" icon="fa-plus" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
       <q-btn icon="fa fa-user-circle">
-        <q-popover>
+        <!-- /// TODO: Move this into right side drawer -->
+        <q-popover style="width:200px">
           <q-list separator>
-            <q-btn @click.native="$auth.logout()" label="Log out"/>
+            <q-btn class="full-width" to="PersonEdit" label="Personal Details"/>
+            <q-btn class="full-width" @click.native="$auth.logout()" label="Log out"/>
           </q-list>
         </q-popover>
       </q-btn>

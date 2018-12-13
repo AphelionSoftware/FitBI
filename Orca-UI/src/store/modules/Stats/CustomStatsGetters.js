@@ -118,7 +118,7 @@ const getters = {
     measure = _.chain(state.DailyMeasurement)
       .mapObject(item => {
         if ((new Date(item.MeasurementDate)) === 'Invalid Date') {
-          debugger
+          debugger // Invalid date
         }
         item.MeasurementDateOriginal = item.MeasurementDate
         // item.MeasurementDate = (new Date(item.MeasurementDate)).toLocaleString()
