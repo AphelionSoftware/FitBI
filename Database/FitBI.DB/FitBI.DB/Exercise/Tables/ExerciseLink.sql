@@ -8,10 +8,12 @@
     [Active]         SMALLINT           NOT NULL,
     [ID]             VARCHAR (38)       NOT NULL,
     [CreatedAt]      DATETIMEOFFSET (7) NOT NULL,
-    [UpdatedAt]      DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]      DATETIME           CONSTRAINT [DF_ExerciseLink_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]        BIT                NOT NULL,
     [Version]        ROWVERSION         NOT NULL,
     CONSTRAINT [PK_ExerciseLinkCategory] PRIMARY KEY CLUSTERED ([ExerciseLinkID] ASC),
     CONSTRAINT [FK_ExerciseLink_Exercise] FOREIGN KEY ([ExerciseID]) REFERENCES [Exercise].[Exercise] ([ExerciseID])
 );
+
+
 

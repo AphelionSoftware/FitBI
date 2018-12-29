@@ -7,7 +7,7 @@
     [Active]             SMALLINT           CONSTRAINT [DF_Workout_Exercise_Active] DEFAULT ((1)) NOT NULL,
     [ID]                 VARCHAR (38)       CONSTRAINT [DF_Workout_Exercise_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]          DATETIMEOFFSET (7) CONSTRAINT [DF_Workout_Exercise_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]          DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]          DATETIME           CONSTRAINT [DF_Workout_Exercise_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]            BIT                CONSTRAINT [DF_Workout_Exercise_Deleted] DEFAULT ((0)) NOT NULL,
     [Version]            ROWVERSION         NOT NULL,
     CONSTRAINT [PK_Workout_Exercise] PRIMARY KEY CLUSTERED ([Workout_ExerciseID] ASC),
@@ -15,6 +15,8 @@
     CONSTRAINT [FK_Workout_Exercise_Person] FOREIGN KEY ([PersonID]) REFERENCES [Stats].[Person] ([PersonID]),
     CONSTRAINT [FK_Workout_Exercise_Workout] FOREIGN KEY ([WorkoutID]) REFERENCES [Program].[Workout] ([WorkoutID])
 );
+
+
 
 
 

@@ -10,13 +10,15 @@
     [Active]                   SMALLINT           CONSTRAINT [DF_Metric_Active] DEFAULT ((1)) NOT NULL,
     [ID]                       VARCHAR (38)       CONSTRAINT [DF_Metric_newid_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]                DATETIMEOFFSET (7) CONSTRAINT [DF_Metric_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]                DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]                DATETIME           CONSTRAINT [DF_Metric_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]                  BIT                CONSTRAINT [DF_Metric_Deleted] DEFAULT ((0)) NOT NULL,
     [Version]                  ROWVERSION         NOT NULL,
     CONSTRAINT [PK_Metric] PRIMARY KEY CLUSTERED ([MetricID] ASC),
     CONSTRAINT [FK_Metric_Active] FOREIGN KEY ([Active]) REFERENCES [Core].[Active] ([ActiveID]),
     CONSTRAINT [FK_Metric_Person] FOREIGN KEY ([PersonID]) REFERENCES [Stats].[Person] ([PersonID])
 );
+
+
 
 
 

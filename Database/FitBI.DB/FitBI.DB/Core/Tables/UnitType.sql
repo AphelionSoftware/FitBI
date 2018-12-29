@@ -5,12 +5,14 @@
     [Active]     SMALLINT           CONSTRAINT [DF_UnitType_Active] DEFAULT ((1)) NOT NULL,
     [ID]         VARCHAR (38)       CONSTRAINT [DF_UnitType_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]  DATETIMEOFFSET (7) CONSTRAINT [DF_UnitType_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]  DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]  DATETIME           CONSTRAINT [DF_UnitType_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]    BIT                CONSTRAINT [DF_UnitType_Deleted] DEFAULT ((0)) NOT NULL,
     [Version]    ROWVERSION         NOT NULL,
     CONSTRAINT [PK_UnitTypeCategory] PRIMARY KEY CLUSTERED ([UnitTypeID] ASC),
     CONSTRAINT [FK_UnitType_Active] FOREIGN KEY ([Active]) REFERENCES [Core].[Active] ([ActiveID])
 );
+
+
 
 
 

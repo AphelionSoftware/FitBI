@@ -45,7 +45,7 @@ export default {
     let fnAdd = function () {
       // store.dispatch('Exercise/saveExercise', store.state.Exercise.ExerciseItem)
       // named route
-      router.push({name: 'editExercise', params: { exerciseid: 0 }})
+      router.push({name: 'editExercise', params: { exerciseid: '0' }})
     }
     this.$store.commit('AppState/SET_ADD', fnAdd)
   },

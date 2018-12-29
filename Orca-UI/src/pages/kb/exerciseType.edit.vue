@@ -58,8 +58,7 @@ export default {
     let equal = _.reduce(Object.keys(this.item), (memo, key) => {
       return memo && (vueThis.ExerciseType[key] === vueThis.item[key])
     }, true)
-    if (typeof this.ExerciseTypeItem === 'undefined' ||
-      typeof (this.item) === 'undefined' ||
+    if (typeof (this.item) === 'undefined' ||
       equal) {
       next()
     } else {
@@ -83,7 +82,6 @@ export default {
     let router = this.$router
     let vueThis = this
     let fnSave = function () {
-      debugger
       store.dispatch('Exercise/saveExerciseType', vueThis.item)
       router.push({name: 'exerciseTypes'})
     }

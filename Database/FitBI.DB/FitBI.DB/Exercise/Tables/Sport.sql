@@ -8,7 +8,7 @@
     [Active]        SMALLINT           CONSTRAINT [DF_Sport_Active] DEFAULT ((1)) NOT NULL,
     [ID]            VARCHAR (38)       CONSTRAINT [DF_Sport_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]     DATETIMEOFFSET (7) CONSTRAINT [DF_Sport_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]     DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]     DATETIME           CONSTRAINT [DF_Sport_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]       BIT                CONSTRAINT [DF_Sport_Deleted] DEFAULT ((0)) NOT NULL,
     [Version]       ROWVERSION         NOT NULL,
     CONSTRAINT [PK_Sport] PRIMARY KEY CLUSTERED ([SportID] ASC),
@@ -17,4 +17,6 @@
     CONSTRAINT [FK_Sport_Sport] FOREIGN KEY ([SportID]) REFERENCES [Exercise].[Sport] ([SportID]),
     CONSTRAINT [FK_Sport_Sport1] FOREIGN KEY ([ParentSportID]) REFERENCES [Exercise].[Sport] ([SportID])
 );
+
+
 

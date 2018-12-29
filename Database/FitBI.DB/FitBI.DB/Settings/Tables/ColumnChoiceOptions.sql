@@ -6,11 +6,13 @@
     [Name]                  VARCHAR (255)      NOT NULL,
     [ID]                    VARCHAR (38)       DEFAULT (newid()) NOT NULL,
     [CreatedAt]             DATETIMEOFFSET (7) DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]             DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]             DATETIME           CONSTRAINT [DF_ColumnChoiceOptions_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Version]               ROWVERSION         NOT NULL,
     CONSTRAINT [PK_Active] PRIMARY KEY CLUSTERED ([Active] ASC),
     CONSTRAINT [IX_Active] UNIQUE NONCLUSTERED ([Active] ASC)
 );
+
+
 
 
 

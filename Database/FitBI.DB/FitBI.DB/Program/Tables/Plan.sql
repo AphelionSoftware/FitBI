@@ -9,7 +9,7 @@
     [Active]          SMALLINT           CONSTRAINT [DF_Plan_Active] DEFAULT ((1)) NOT NULL,
     [ID]              VARCHAR (38)       CONSTRAINT [DF_Plan_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]       DATETIMEOFFSET (7) CONSTRAINT [DF_Plan_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]       DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]       DATETIME           CONSTRAINT [DF_Plan_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]         BIT                CONSTRAINT [DF_Plan_Deleted] DEFAULT ((0)) NOT NULL,
     [Version]         ROWVERSION         NOT NULL,
     CONSTRAINT [PK_Plan] PRIMARY KEY CLUSTERED ([PlanID] ASC),
@@ -17,6 +17,8 @@
     CONSTRAINT [FK_Plan_Person] FOREIGN KEY ([PersonID]) REFERENCES [Stats].[Person] ([PersonID]),
     CONSTRAINT [FK_Plan_Person1] FOREIGN KEY ([PlannerPersonID]) REFERENCES [Stats].[Person] ([PersonID])
 );
+
+
 
 
 

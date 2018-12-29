@@ -23,13 +23,15 @@
     [YearMonthNumber] INT                NOT NULL,
     [ID]              VARCHAR (38)       DEFAULT (newid()) NOT NULL,
     [CreatedAt]       DATETIMEOFFSET (7) DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]       DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]       DATETIME           CONSTRAINT [DF_Dates_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]         BIT                DEFAULT ((0)) NOT NULL,
     [Version]         ROWVERSION         NOT NULL,
     CONSTRAINT [PK_Dates] PRIMARY KEY CLUSTERED ([DateID] ASC),
     CONSTRAINT [IX_Dates_Date] UNIQUE NONCLUSTERED ([Date] ASC),
     CONSTRAINT [IX_Dates_FullDate] UNIQUE NONCLUSTERED ([FullDate] ASC)
 );
+
+
 
 
 

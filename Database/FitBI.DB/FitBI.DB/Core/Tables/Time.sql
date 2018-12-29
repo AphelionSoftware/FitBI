@@ -10,12 +10,14 @@
     [MinuteOfDay]    INT                NOT NULL,
     [ID]             VARCHAR (38)       DEFAULT (newid()) NOT NULL,
     [CreatedAt]      DATETIMEOFFSET (7) DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]      DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]      DATETIME           CONSTRAINT [DF_Time_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]        BIT                DEFAULT ((0)) NOT NULL,
     [Version]        ROWVERSION         NOT NULL,
     CONSTRAINT [PK_Time] PRIMARY KEY CLUSTERED ([TimeID] ASC),
     CONSTRAINT [IX_Time] UNIQUE NONCLUSTERED ([TimeInt] ASC)
 );
+
+
 
 
 

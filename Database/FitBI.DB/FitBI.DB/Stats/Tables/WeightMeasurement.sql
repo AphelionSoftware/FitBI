@@ -13,7 +13,7 @@
     [Active]                   SMALLINT           CONSTRAINT [DF_WeightMeasurement_Active] DEFAULT ((1)) NOT NULL,
     [ID]                       VARCHAR (38)       CONSTRAINT [DF_WeightMeasurement_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]                DATETIMEOFFSET (7) CONSTRAINT [DF_WeightMeasurement_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]                DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]                DATETIME           CONSTRAINT [DF_WeightMeasurement_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]                  BIT                CONSTRAINT [DF_WeightMeasurement_Deleted] DEFAULT ((0)) NOT NULL,
     [Version]                  ROWVERSION         NOT NULL,
     CONSTRAINT [PK_WeightMeasurement] PRIMARY KEY CLUSTERED ([WeightMeasurementID] ASC),
@@ -21,6 +21,8 @@
     CONSTRAINT [FK_WeightMeasurement_MeasurementType] FOREIGN KEY ([PercentMeasurementTypeID]) REFERENCES [Core].[MeasurementType] ([MeasurementTypeID]),
     CONSTRAINT [FK_WeightMeasurement_WeightMeasurement] FOREIGN KEY ([WeightMeasurementID]) REFERENCES [Stats].[WeightMeasurement] ([WeightMeasurementID])
 );
+
+
 
 
 

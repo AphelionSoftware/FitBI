@@ -7,7 +7,7 @@
     [Name]           VARCHAR (255)      NOT NULL,
     [ID]             VARCHAR (38)       DEFAULT (newid()) NOT NULL,
     [CreatedAt]      DATETIMEOFFSET (7) DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]      DATETIMEOFFSET (7) NULL,
+    [UpdatedAt]      DATETIME           CONSTRAINT [DF_ColumnChoice_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]        BIT                DEFAULT ((0)) NOT NULL,
     [Version]        ROWVERSION         NOT NULL,
     [UserID]         INT                CONSTRAINT [DF_ColumnChoice_UserID] DEFAULT ((1)) NOT NULL,
@@ -15,6 +15,8 @@
     CONSTRAINT [FK_ColumnChoice_User] FOREIGN KEY ([UserID]) REFERENCES [Security].[User] ([UserID]),
     CONSTRAINT [IX_Active] UNIQUE NONCLUSTERED ([Active] ASC)
 );
+
+
 
 
 
