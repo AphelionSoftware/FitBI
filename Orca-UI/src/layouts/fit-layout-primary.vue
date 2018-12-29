@@ -17,71 +17,24 @@
        <q-chip v-if="this.TitleText !== ''" color="tertiary" class="on-left q-ma-md">{{this.TitleText}}</q-chip>
       <q-btn v-if="typeof this.SaveAction === 'function'" @click="fnSaveAction" icon="fa-save" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
       <q-btn v-if="typeof this.AddAction === 'function'" @click="fnAddAction" icon="fa-plus" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
-      <q-btn icon="fa fa-user-circle">
+      <q-btn icon="fa fa-user-circle" @click="right = !right">
         <!-- /// TODO: Move this into right side drawer -->
-        <q-popover style="width:200px">
+        <!-- <q-popover style="width:200px">
           <q-list separator>
             <q-btn class="full-width" to="PersonEdit" label="Personal Details"/>
             <q-btn class="full-width" @click.native="$auth.logout()" label="Log out"/>
           </q-list>
-        </q-popover>
+        </q-popover> -->
       </q-btn>
     <!-- </q-fixed-position> -->
   </q-toolbar>
   </q-layout-header>
-  <q-layout-drawer side="left" v-model="left">
-    <q-list no-border link inset-separator>
-      <q-list-header>Daily</q-list-header>
-      <q-item to="/record/weigh-in">
-        <q-item-side icon="fa-balance-scale" />
-        <q-item-main label="Weigh-in" />
-      </q-item>
-      <q-item to="/record/workout">
-        <q-item-side icon="directions run" />
-        <q-item-main label="Workout"  />
-      </q-item>
-      <q-item to="/record/eat">
-        <q-item-side icon="fa-cutlery" />
-        <q-item-main label="Log meal"  />
-      </q-item>
-      <q-item to="/stats/dailyMeasurements">
-        <q-item-side icon="fa-ruler-combined" />
-        <q-item-main label="Stats List" />
-      </q-item>
-      <q-list-header>Program</q-list-header>
-      <q-item to="/program/calendar">
-        <q-item-side icon="fa-calendar" />
-        <q-item-main label="Calendar" />
-      </q-item>
-      <q-list-header>Knowledge Base</q-list-header>
-      <q-item to="/kb/exercises">
-        <q-item-side icon="directions bike" />
-        <q-item-main label="Exercises" />
-      </q-item>
-      <q-item to="/kb/exerciseTypes">
-        <q-item-side icon="fitness center" />
-        <q-item-main label="Exercise Types" />
-      </q-item>
-     <q-list-header>Reports</q-list-header>
-      <q-item to="/stats/timeList">
-        <q-item-side icon="timeline" />
-        <q-item-main label="Stats" />
-      </q-item>
-      <q-item to="/kb/exercises">
-        <q-item-side icon="multiline chart" />
-        <q-item-main label="Workouts" />
-      </q-item>
-      <q-list-header>Admin</q-list-header>
-      <q-item @click.native="clearLocalStorage()">
-        <q-item-side icon="delete" />
-        <q-item-main label="Clear local storage" />
-      </q-item>
-     </q-list>
-    </q-layout-drawer>
-    <q-page-container>
-      <router-view/>
-    </q-page-container>
-   </q-layout>
+  <fit-drawer-left v-model="left"></fit-drawer-left>
+  <fit-drawer-right v-model="right"></fit-drawer-right>
+  <q-page-container>
+    <router-view/>
+  </q-page-container>
+  </q-layout>
 </template>
 <script>
 // This is where your Javascript goes
@@ -92,11 +45,18 @@
 // import { QKnob, QIcon, QBtn } from 'quasar'
 // import { QTab, QTabs, QTabPane } from 'quasar'
 import {mapState} from 'vuex'
+import fitDrawerLeft from './drawers/fit-drawer-left'
+import fitDrawerRight from './drawers/fit-drawer-right'
 export default {
   data: function () {
     return {
-      left: true
+      left: true,
+      right: false
     }
+  },
+  components: {
+    fitDrawerLeft,
+    fitDrawerRight
   },
   computed: mapState({
     // arrow functions can make the code very succinct!

@@ -15,7 +15,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import Vue from 'vue'
+// import Vue from 'vue'
 export default {
   computed: {
     ...mapGetters({
