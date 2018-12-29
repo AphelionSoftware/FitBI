@@ -4,7 +4,7 @@ begin
 declare @exec varchar(max) = ''
 
 select @exec = @exec  + '
-EXEC [Utility].[RecreateTVP_and_Merge] ''' + Table_schema + ''', ''' +Table_Name + ''''
+EXEC [Utility].[RecreateTVP_and_Merge] ''' + TABLE_SCHEMA + ''', ''' +TABLE_NAME + ''''
 FROM INFORMATION_SCHEMA.TABLES
 where TABLE_SCHEMA in (
 'exercise', 'program', 'stats', 'UserSettings' )

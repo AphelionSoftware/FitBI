@@ -1,27 +1,27 @@
 ﻿
 CREATE PROC [Utility].[Create_TVP_ByTable] 
-	@Table_schema varchar(max),
-	@table_name varchar(max)
+	@TABLE_SCHEMA varchar(max),
+	@TABLE_NAME varchar(max)
 as
 SET NOCOUNT ON
 
 IF EXISTS (select * from sys.table_types tt inner join sys.schemas s
-on tt.schema_id = s.schema_id where tt.name = 'tvp_' + @table_name
-and s.name = @Table_schema
+on tt.schema_id = s.schema_id where tt.name = 'tvp_' + @TABLE_NAME
+and s.name = @TABLE_SCHEMA
 )
 return
 
 DECLARE @line varchar(max) = '', @page varchar(max)  = ''
 
 
-select @page = 'CREATE TYPE [' + @Table_schema +'].[tvp_' + @table_name + '] AS TABLE 
+select @page = 'CREATE TYPE [' + @TABLE_SCHEMA +'].[tvp_' + @TABLE_NAME + '] AS TABLE 
 (
 '
 
 from INFORMATION_SCHEMA.TABLES
-where   TABLE_SCHEMA   = @table_schema
-and TABLE_NAME = @Table_name
-ORDER BY TABLE_SCHEMA, TABLE_Name
+where   TABLE_SCHEMA   = @TABLE_SCHEMA
+and TABLE_NAME = @TABLE_NAME
+ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 SET @line= ''
 select @line = @line +  ' ' + COLUMN_NAME + ' ' +
@@ -34,23 +34,23 @@ when DATA_TYPE in ('decimal', 'numeric') THEN '(' + cast(c.NUMERIC_PRECISION  as
 else '' END
 
 END
-   + case when ROW_NUMBER() over(order by table_schema desc, table_name desc, column_name desc) = 1 THEN '
+   + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc, COLUMN_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS c
-where   TABLE_SCHEMA   like @table_schema
-and TABLE_NAME = @Table_name
+where   TABLE_SCHEMA   like @TABLE_SCHEMA
+and TABLE_NAME = @TABLE_NAME
 and COLUMN_NAME NOT IN (
  
 ''
 )
 AND NOT EXISTS (SELECT 1 
 FROM sys.computed_columns cc
-WHERE object_id = OBJECT_ID(TABLE_SCHEMA + '.' + table_name  )
+WHERE object_id = OBJECT_ID(TABLE_SCHEMA + '.' + TABLE_NAME  )
 and COL_NAME(cc.object_id ,  cc.column_id) = COLUMN_NAME
 )
 
-ORDER BY TABLE_SCHEMA, TABLE_Name, column_name asc
+ORDER BY TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME asc
 
 
 

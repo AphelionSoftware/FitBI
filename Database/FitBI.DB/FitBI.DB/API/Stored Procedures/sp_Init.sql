@@ -13,11 +13,11 @@ BEGIN
 	SET NOCOUNT ON;
 
 	/*
-	SELECT 'SELECT ' + Utility.fnColumnList(table_schema, table_name, 'Tbl') + ' FROM [' + table_schema + '].[' + table_name + '] Tbl
+	SELECT 'SELECT ' + Utility.fnColumnList(TABLE_SCHEMA, TABLE_NAME, 'Tbl') + ' FROM [' + TABLE_SCHEMA + '].[' + TABLE_NAME + '] Tbl
 	INNER JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID
 	WHERE Tbl.[Version] > @Version
 	AND U.UserID = @UserID
-	UNION ALL SELECT ' + Utility.fnColumnList(table_schema, table_name, 'Tbl') + ' FROM [' + table_schema + '].[' + table_name + '] Tbl WHERE 
+	UNION ALL SELECT ' + Utility.fnColumnList(TABLE_SCHEMA, TABLE_NAME, 'Tbl') + ' FROM [' + TABLE_SCHEMA + '].[' + TABLE_NAME + '] Tbl WHERE 
 	Tbl.[Version] > @Version
 	AND PersonID IS NULL
 	' 
@@ -25,15 +25,15 @@ BEGIN
 	and TABLE_SCHEMA not like '%core%'
 	and TABLE_SCHEMA not like '%UserSettings%'
 	and TABLE_SCHEMA not like '%Security%'
-	ORDER BY TABLE_SCHEMA, TABLE_Name
+	ORDER BY TABLE_SCHEMA, TABLE_NAME
 
-	SELECT 'objInit.' + table_name + ' = multi.Read<dynamic>().ToList();
+	SELECT 'objInit.' + TABLE_NAME + ' = multi.Read<dynamic>().ToList();
 	' 
 	FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA not like '%settings%'
 	and TABLE_SCHEMA not like '%core%'
 	and TABLE_SCHEMA not like '%UserSettings%'
 	and TABLE_SCHEMA not like '%Security%'
-	ORDER BY TABLE_SCHEMA, TABLE_Name
+	ORDER BY TABLE_SCHEMA, TABLE_NAME
 	*/
 
 	SELECT @@DBTS as Version, CONVERT(varchar(255), DATEADD(SECOND, intValue, getutcdate()), 127) + 'Z' AS CacheExpiry

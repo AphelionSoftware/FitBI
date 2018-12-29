@@ -86,6 +86,7 @@
     <Folder Include="Settings\User Defined Types\" />
     <Folder Include="Program\User Defined Types\" />
     <Folder Include="Utility\Functions" />
+    <Folder Include="Settings\PostDeploymentScripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Stats\Tables\Person.sql" />
@@ -200,6 +201,11 @@
     <Build Include="Security\fitbi_2.sql" />
     <Build Include="API\Stored Procedures\sp_Init_bySubject.sql" />
     <Build Include="Security\XPS15_mg_st_1.sql" />
+    <None Include="Settings\PostDeploymentScripts\PDS.GlobalSettings.sql" />
+    <Build Include="Security\XPS15_mg_st_2.sql" />
+    <Build Include="Security\svc-fit_3.sql" />
+    <Build Include="Security\fitbi_3.sql" />
+    <Build Include="API\Stored Procedures\sp_Core_bySubject.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

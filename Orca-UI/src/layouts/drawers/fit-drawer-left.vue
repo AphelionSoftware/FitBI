@@ -1,5 +1,5 @@
 <template>
-<q-layout-drawer side="left" v-model="value">
+<q-layout-drawer ref="left" side="left" v-model="internalValue" @input="updateValue">
     <q-list no-border link inset-separator>
       <q-list-header>Daily</q-list-header>
       <q-item to="/record/weigh-in">
@@ -51,10 +51,25 @@
 </template>
 <script>
 export default {
-//   data: function () {
-//     return {
-//       left: true
-//     }
+  data () {
+    return {
+      internalValue: this.value
+    }
+  },
+  watch: {
+    value: {
+      immediate: true,
+      handler: function (newVal, oldVal) {
+        this.internalValue = newVal
+      }
+    }
+  },
+  methods: {
+    updateValue (newVal) {
+      this.internalValue = newVal
+      this.$emit('input', this.internalValue)
+    }
+  },
   props: {
     value: {
       type: Boolean,

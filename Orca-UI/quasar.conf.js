@@ -84,7 +84,7 @@ module.exports = function (ctx) {
           mergeWeightMeasurementToken: JSON.stringify(''),
           auth0domain: JSON.stringify('orcafit.eu.auth0.com'),
           auth0clientID: JSON.stringify('7HG6PvXW3BePnn0UzuwvwcbjsvcNg3hF'),
-          auth0redirectUri: JSON.stringify('http://localhost:8080/#/'),
+          auth0redirectUri: JSON.stringify('https://fitquasar.azurewebsites.net/#/'),
           auth0responseType: JSON.stringify('token id_token'),
           auth0scope: JSON.stringify('openid')
 

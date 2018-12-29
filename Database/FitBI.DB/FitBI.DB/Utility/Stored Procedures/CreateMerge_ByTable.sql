@@ -1,8 +1,8 @@
 ﻿
 
 CREATE PROC [Utility].[CreateMerge_ByTable] 
-	@Table_Schema varchar(max),
-	@Table_Name varchar(max)
+	@TABLE_SCHEMA varchar(max),
+	@TABLE_NAME varchar(max)
 as
 SET NOCOUNT ON
 
@@ -17,20 +17,20 @@ DECLARE
 
 -- find the table's Primary Key column(s) to build a JOIN clause
 SELECT 
-	@JoinClause = 'dest.[' + @Table_Name + 'ID] = src.[' + @Table_Name + 'ID]'
+	@JoinClause = 'dest.[' + @TABLE_NAME + 'ID] = src.[' + @TABLE_NAME + 'ID]'
 FROM INFORMATION_SCHEMA.COLUMNS
 
-WHERE TABLE_SCHEMA = @Table_Schema
-AND TABLE_NAME = @Table_Name
+WHERE TABLE_SCHEMA = @TABLE_SCHEMA
+AND TABLE_NAME = @TABLE_NAME
 AND COLUMN_NAME = 'Active'
 
 
-SET @MergeStmnt = 'MERGE INTO [' + @Table_Schema + '].[' + @Table_Name + '] AS dest
-USING @tvp_' + @Table_Name + ' As Src
+SET @MergeStmnt = 'MERGE INTO [' + @TABLE_SCHEMA + '].[' + @TABLE_NAME + '] AS dest
+USING @tvp_' + @TABLE_NAME + ' As Src
 	ON ' + @JoinClause 
 	IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS C
-	WHERE C.TABLE_SCHEMA = @Table_Schema
-	AND C.TABLE_NAME = @Table_Name
+	WHERE C.TABLE_SCHEMA = @TABLE_SCHEMA
+	AND C.TABLE_NAME = @TABLE_NAME
 	AND C.COLUMN_NAME = 'MeasurementDate'
 	)
 		SET @MergeStmnt = @MergeStmnt  + '
@@ -46,8 +46,8 @@ SET @MergeStmnt = @MergeStmnt  + '
 
 
 	SET @line= ''
-select @line = @line +  'dest.[' + column_name + '] = ISNULL(src.[' + column_name + '], dest.[' + column_name + '])'
-   + case when ROW_NUMBER() over(order by table_schema desc, table_name desc,column_name desc) = 1 THEN '
+select @line = @line +  'dest.[' + COLUMN_NAME + '] = ISNULL(src.[' + COLUMN_NAME + '], dest.[' + COLUMN_NAME + '])'
+   + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc,COLUMN_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS c (nolock)
@@ -56,7 +56,7 @@ on c.TABLE_NAME  = OBJECT_NAME(object_id)
 and c.TABLE_SCHEMA = OBJECT_SCHEMA_NAME(object_id)
 and c.COLUMN_NAME = sc.name
 and sc.is_computed = 0
-where   TABLE_SCHEMA = @table_schema
+where   TABLE_SCHEMA = @TABLE_SCHEMA
 AND TABLE_NAME = @TABLE_NAME
 and COLUMN_NAME NOT IN (
 'Active'
@@ -65,8 +65,8 @@ and COLUMN_NAME NOT IN (
 ,'Version'
 , 'PersonID' --Can't update the person
 , 'UpdatedAt' --Handled by trigger
-, @Table_Name + 'ID')
-ORDER BY TABLE_SCHEMA, TABLE_Name, COLUMN_NAME
+, @TABLE_NAME + 'ID')
+ORDER BY TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME
 
 SET @MergeStmnt = @MergeStmnt + @LIne + '
  WHEN NOT MATCHED THEN
@@ -75,8 +75,8 @@ SET @MergeStmnt = @MergeStmnt + @LIne + '
   
 
 	SET @line= ''
-select @line = @line +  ' ' + column_name
-   + case when ROW_NUMBER() over(order by table_schema desc, table_name desc,column_name desc) = 1 THEN '
+select @line = @line +  ' ' + COLUMN_NAME
+   + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc,COLUMN_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS c
@@ -86,7 +86,7 @@ and c.TABLE_SCHEMA = OBJECT_SCHEMA_NAME(object_id)
 and c.COLUMN_NAME = sc.name
 and sc.is_computed = 0
 
-where   TABLE_SCHEMA   = @table_schema
+where   TABLE_SCHEMA   = @TABLE_SCHEMA
 
 AND TABLE_NAME = @TABLE_NAME
 and COLUMN_NAME NOT IN (
@@ -95,11 +95,11 @@ and COLUMN_NAME NOT IN (
 ,'CreatedAt'
 ,'Version'
 , 'UpdatedAt' --Handled by trigger
-, @Table_Name + 'ID'
+, @TABLE_NAME + 'ID'
 
 )
 
-ORDER BY TABLE_SCHEMA, TABLE_Name, COLUMN_NAME
+ORDER BY TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME
 SET @MergeStmnt = @MergeStmnt + @LIne + ')
 VALUES( ' 
 
@@ -108,10 +108,10 @@ VALUES( '
 	SET @line= ''
 select @line = @line +  
 --CASE WHEN COLUMN_NAME = 'ID' THEN ' ISNULL(src.' + COLUMN_NAME + ', newid())' ELSE
-IIF( column_name = 'ID' , ' ISNULL(src.ID, newid())', ' src.' + column_name)
+IIF( COLUMN_NAME = 'ID' , ' ISNULL(src.ID, newid())', ' src.' + COLUMN_NAME)
 
 --END
-   + case when ROW_NUMBER() over(order by table_schema desc, table_name desc,column_name desc) = 1 THEN '
+   + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc,COLUMN_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS c
@@ -120,7 +120,7 @@ on c.TABLE_NAME  = OBJECT_NAME(object_id)
 and c.TABLE_SCHEMA = OBJECT_SCHEMA_NAME(object_id)
 and c.COLUMN_NAME = sc.name
 and sc.is_computed = 0
-where   TABLE_SCHEMA   = @table_schema
+where   TABLE_SCHEMA   = @TABLE_SCHEMA
 
 AND TABLE_NAME = @TABLE_NAME
 and COLUMN_NAME NOT IN (
@@ -129,16 +129,16 @@ and COLUMN_NAME NOT IN (
 ,'CreatedAt'
 ,'Version'
 , 'UpdatedAt' --Handled by trigger
-, @Table_Name + 'ID')
+, @TABLE_NAME + 'ID')
 
-ORDER BY TABLE_SCHEMA, TABLE_Name, COLUMN_NAME
+ORDER BY TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME
 SET @MergeStmnt = @MergeStmnt + @LIne + ')
 ;'
 
 --PRINT @MergeStmnt
 
-SET @CreateStmnt = 'CREATE PROC [API].merge_' + @Table_Schema + '_' + @Table_name + '
-	@tvp_' + @Table_Name + ' [' + @Table_Schema + '].[tvp_' + @Table_Name + '] READONLY
+SET @CreateStmnt = 'CREATE PROC [API].merge_' + @TABLE_SCHEMA + '_' + @TABLE_NAME + '
+	@tvp_' + @TABLE_NAME + ' [' + @TABLE_SCHEMA + '].[tvp_' + @TABLE_NAME + '] READONLY
 AS
 ' + @MergeStmnt
 -- print @CreateStmnt

@@ -18,6 +18,6 @@ Post-Deployment Script Template
 :r .\Core\PostDeploymentScripts\PDS.StatType.sql
 :r .\Core\PostDeploymentScripts\PDS.UnitType.sql
 :r .\Core\PostDeploymentScripts\PDS.Unit.sql
-:r .\Settings\PostDeploymentScripts\GlobalSettings.Unit.sql
+:r .\Settings\PostDeploymentScripts\PDS.GlobalSettings.sql
 
 

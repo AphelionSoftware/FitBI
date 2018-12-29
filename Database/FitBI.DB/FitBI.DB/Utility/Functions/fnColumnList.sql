@@ -8,14 +8,14 @@ BEGIN
 DECLARE @ColList Varchar(max) = ''
 
 SELECT @ColList = @ColList + 
-IIF(Row_number() over (order by column_name) = 1, '	', '	,') 
+IIF(Row_number() over (order by COLUMN_NAME) = 1, '	', '	,') 
 +  
 IIF( c.Data_Type IN ('date'
 ,'datetime2'
 ,'smalldatetime'
 ,'datetime'), 
- 'CONVERT(varchar(255), [' + @Prefix + '].[' + + column_name + '], 127) + ''Z'' AS [' + column_name + '', 
- '[' + @Prefix + '].[' + column_name ) + ']
+ 'CONVERT(varchar(255), [' + @Prefix + '].[' + + COLUMN_NAME + '], 127) + ''Z'' AS [' + COLUMN_NAME + '', 
+ '[' + @Prefix + '].[' + COLUMN_NAME ) + ']
 '
 from INFORMATION_SCHEMA.COLUMNS C
 WHERE C.TABLE_SCHEMA = @SchemaName

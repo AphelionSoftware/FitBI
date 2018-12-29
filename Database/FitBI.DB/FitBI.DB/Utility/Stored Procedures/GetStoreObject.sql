@@ -4,56 +4,56 @@ SET NOCOUNT ON
 
 --SELECT 
 
---'  store.dispatch(''' + table_schema + '/Set_' + table_name + ''', initValues.' + table_name + ')'
+--'  store.dispatch(''' + TABLE_SCHEMA + '/Set_' + TABLE_NAME + ''', initValues.' + TABLE_NAME + ')'
 --   Setup
 --   from INFORMATION_SCHEMA.COLUMNS
 --where TABLE_SCHEMA not like '%settings%'
 --and TABLE_SCHEMA not like '%core%'
 --and COLUMN_NAME= 'Active'
---ORDER BY TABLE_SCHEMA, TABLE_Name
+--ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 
 
 --SELECT 
 --	'Core' as objectName
 --, 
---'  '+ table_name + ': [],' as Properties
+--'  '+ TABLE_NAME + ': [],' as Properties
 --,
 -- '
---  Set_' + table_name + ': function (state, fullList) {
---    state.' + table_name + ' = fullList
+--  Set_' + TABLE_NAME + ': function (state, fullList) {
+--    state.' + TABLE_NAME + ' = fullList
 --  },
 --' Mutation
 --,
--- '  Get_' + table_name + ': function () {
---    return state.' + table_name + '
+-- '  Get_' + TABLE_NAME + ': function () {
+--    return state.' + TABLE_NAME + '
 --  },' Getters
 --,
---'  store.dispatch(''core/Set_' + table_name + ''', coreValues.' + table_name + ')'
+--'  store.dispatch(''core/Set_' + TABLE_NAME + ''', coreValues.' + TABLE_NAME + ')'
 --   Setup
 -- from INFORMATION_SCHEMA.COLUMNS
 --where   TABLE_SCHEMA   like '%core%'
 --and COLUMN_NAME= 'Active'
---ORDER BY TABLE_SCHEMA, TABLE_Name
+--ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 SELECT 
---	table_schema as objectName
+--	TABLE_SCHEMA as objectName
 --, 
---'  '+ table_name + ': [],' as Properties
+--'  '+ TABLE_NAME + ': [],' as Properties
 --,
 -- '
---  Set_' + table_name + ': function (state, fullList) {
---    state.' + table_name + ' = fullList
+--  Set_' + TABLE_NAME + ': function (state, fullList) {
+--    state.' + TABLE_NAME + ' = fullList
 --  },
 --' Mutation
 --,
- '  Get_' + table_name + ': function () {
-    return state.' + table_name + '
+ '  Get_' + TABLE_NAME + ': function () {
+    return state.' + TABLE_NAME + '
   },' Getters
 --,
---'  store.dispatch(''core/Set_' + table_name + ''', coreValues.' + table_name + ')'
+--'  store.dispatch(''core/Set_' + TABLE_NAME + ''', coreValues.' + TABLE_NAME + ')'
    --Setup
  from INFORMATION_SCHEMA.COLUMNS
 where   TABLE_SCHEMA   like '%exercise%'
 and COLUMN_NAME= 'Active'
-ORDER BY TABLE_SCHEMA, TABLE_Name
+ORDER BY TABLE_SCHEMA, TABLE_NAME

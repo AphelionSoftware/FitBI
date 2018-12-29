@@ -1,5 +1,5 @@
 ﻿CREATE PROC [Utility].[GetStoreObject_BySchema] 
-	@table_schema varchar(max)
+	@TABLE_SCHEMA varchar(max)
 as
 SET NOCOUNT ON
 
@@ -13,29 +13,29 @@ const state = {
 '
 
 
-select @page = @page + '  ' + table_name + ': []'  + case when ROW_NUMBER() over(order by table_schema desc, table_name desc) = 1 THEN '
+select @page = @page + '  ' + TABLE_NAME + ': []'  + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS
-where   TABLE_SCHEMA   like @table_schema
+where   TABLE_SCHEMA   like @TABLE_SCHEMA
 and COLUMN_NAME= 'Active'
-ORDER BY TABLE_SCHEMA, TABLE_Name
+ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 SET @page = @page + @line + '}
 
 const getters = {
 '
 SET @line= ''
-select @line = @line +  '  Get_' + table_name + '_All: function () {
-    return state.' + table_name + '
+select @line = @line +  '  Get_' + TABLE_NAME + '_All: function () {
+    return state.' + TABLE_NAME + '
   }' 
-   + case when ROW_NUMBER() over(order by table_schema desc, table_name desc) = 1 THEN '
+   + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS
-where   TABLE_SCHEMA   like @table_schema
+where   TABLE_SCHEMA   like @TABLE_SCHEMA
 and COLUMN_NAME= 'Active'
-ORDER BY TABLE_SCHEMA, TABLE_Name
+ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 
 
@@ -45,47 +45,47 @@ const mutations = {
 '
 
 SET @Line = ''
-SELECT @Line = @Line +  '  Set_' + table_name + ': function (state, fullList) {
-    state.' + table_name + ' = fullList
-  }' + case when ROW_NUMBER() over(order by table_schema desc, table_name desc) = 1 THEN '
+SELECT @Line = @Line +  '  Set_' + TABLE_NAME + ': function (state, fullList) {
+    state.' + TABLE_NAME + ' = fullList
+  }' + case when ROW_NUMBER() over(order by TABLE_SCHEMA desc, TABLE_NAME desc) = 1 THEN '
 ' ELSE ',
 ' END
 from INFORMATION_SCHEMA.COLUMNS
-where   TABLE_SCHEMA   like @table_schema
+where   TABLE_SCHEMA   like @TABLE_SCHEMA
 and COLUMN_NAME= 'Active'
-ORDER BY TABLE_SCHEMA, TABLE_Name
+ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 SET @Page = @page + @line + '}
 
-const ' + lower(@table_schema) + ' = {
+const ' + lower(@TABLE_SCHEMA) + ' = {
   namespaced: true,
   state,
   getters,
   mutations
 }
 
-export default ' + lower(@table_schema) + ''
+export default ' + lower(@TABLE_SCHEMA) + ''
 
 --SELECT 
-----	table_schema as objectName
+----	TABLE_SCHEMA as objectName
 ----, 
-----'  '+ table_name + ': [],' as Properties
+----'  '+ TABLE_NAME + ': [],' as Properties
 ----,
 ---- '
-----  Set_' + table_name + ': function (state, fullList) {
-----    state.' + table_name + ' = fullList
+----  Set_' + TABLE_NAME + ': function (state, fullList) {
+----    state.' + TABLE_NAME + ' = fullList
 ----  },
 ----' Mutation
 ----,
- --'  Get_' + table_name + ': function () {
- --   return state.' + table_name + '
+ --'  Get_' + TABLE_NAME + ': function () {
+ --   return state.' + TABLE_NAME + '
  -- },' Getters
 ----,
-----'  store.dispatch(''core/Set_' + table_name + ''', coreValues.' + table_name + ')'
+----'  store.dispatch(''core/Set_' + TABLE_NAME + ''', coreValues.' + TABLE_NAME + ')'
 --   --Setup
 -- from INFORMATION_SCHEMA.COLUMNS
---where   TABLE_SCHEMA   like @table_schema
+--where   TABLE_SCHEMA   like @TABLE_SCHEMA
 --and COLUMN_NAME= 'Active'
---ORDER BY TABLE_SCHEMA, TABLE_Name
+--ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 SELECT @page

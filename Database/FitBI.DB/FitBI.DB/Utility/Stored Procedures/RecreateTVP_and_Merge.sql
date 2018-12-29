@@ -1,16 +1,16 @@
 ﻿CREATE PROC [Utility].[RecreateTVP_and_Merge] 
-(@table_schema varchar(255) = 'stats', 
-@table_name varchar(255) = 'WeightMeasurement'
+(@TABLE_SCHEMA varchar(255) = 'stats', 
+@TABLE_NAME varchar(255) = 'WeightMeasurement'
 )
 as 
 begin
-declare @exec varchar(255) ='DROP PROC IF EXISTS API.merge_' + @Table_schema + '_' + @Table_Name
+declare @exec varchar(255) ='DROP PROC IF EXISTS API.merge_' + @TABLE_SCHEMA + '_' + @TABLE_NAME
 		EXEC (@Exec)
 		
-SET @EXEC  = 'DROP TYPE IF EXISTS  [' + @Table_schema + '].[tvp_' + @Table_Name + ']'
+SET @EXEC  = 'DROP TYPE IF EXISTS  [' + @TABLE_SCHEMA + '].[tvp_' + @TABLE_NAME + ']'
 		EXEC (@Exec)
 		--print @exec
-exec [Utility].[Create_TVP_ByTable]  @Table_schema, @Table_Name
+exec [Utility].[Create_TVP_ByTable]  @TABLE_SCHEMA, @TABLE_NAME
 
-exec [Utility].[CreateMerge_ByTable]  @Table_schema, @Table_Name
+exec [Utility].[CreateMerge_ByTable]  @TABLE_SCHEMA, @TABLE_NAME
 end

@@ -17,7 +17,7 @@ end
 
 from INFORMATION_SCHEMA.COLUMNS c
 
-where Table_Name  = @TableName
+where TABLE_NAME  = @TableName
 and COLUMN_NAME not in (
 'Active'
 ,'sysCreatedOn'

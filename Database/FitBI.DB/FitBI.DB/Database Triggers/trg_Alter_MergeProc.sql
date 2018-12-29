@@ -5,23 +5,23 @@ CREATE TRIGGER [trg_Alter_MergeProc] ON DATABASE
 	FOR ALTER_TABLE
 AS 
 BEGIN
-DECLARE @Table_Name varchar(255), @Table_Schema varchar(255)
+DECLARE @TABLE_NAME varchar(255), @TABLE_SCHEMA varchar(255)
     SELECT 
         @TABLE_NAME = EVENTDATA().value('(/EVENT_INSTANCE/ObjectName)[1]','SYSNAME')
     SELECT         @TABLE_SCHEMA = EVENTDATA().value('(/EVENT_INSTANCE/SchemaName)[1]','SYSNAME')
-IF NOT @Table_Name LIKE 'TMP_%' 
+IF NOT @TABLE_NAME LIKE 'TMP_%' 
 BEGIN
 
-	IF EXISTS (SELECT 1 FROM sys.procedures where SCHEMA_NAME(schema_id) = 'API' and name = 'merge_' + @Table_schema + '_' + @Table_Name)
+	IF EXISTS (SELECT 1 FROM sys.procedures where SCHEMA_NAME(schema_id) = 'API' and name = 'merge_' + @TABLE_SCHEMA + '_' + @TABLE_NAME)
 	BEGIN
-		declare @exec varchar(255) ='DROP PROC API.merge_' + @Table_schema + '_' + @Table_Name
+		declare @exec varchar(255) ='DROP PROC API.merge_' + @TABLE_SCHEMA + '_' + @TABLE_NAME
 		EXEC (@Exec)
-		SET @EXEC  = 'DROP TYPE [' + @Table_schema + '].[tvp_' + @Table_Name + ']'
+		SET @EXEC  = 'DROP TYPE [' + @TABLE_SCHEMA + '].[tvp_' + @TABLE_NAME + ']'
 		EXEC (@Exec)
 	END
 		--print @exec
-exec [Utility].[Create_TVP_ByTable]  @Table_schema, @Table_Name
-exec [Utility].[CreateMerge_ByTable]  @Table_schema, @Table_Name
+exec [Utility].[Create_TVP_ByTable]  @TABLE_SCHEMA, @TABLE_NAME
+exec [Utility].[CreateMerge_ByTable]  @TABLE_SCHEMA, @TABLE_NAME
 
 END
 

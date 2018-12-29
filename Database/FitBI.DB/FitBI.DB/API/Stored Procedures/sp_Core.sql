@@ -13,25 +13,25 @@ BEGIN
 	SET NOCOUNT ON;
 
 	/*
-	SELECT 'SELECT ' + Utility.fnColumnList(table_schema, table_name, 'Tbl') + ' FROM [' + table_schema + '].[' + table_name + '] Tbl
+	SELECT 'SELECT ' + Utility.fnColumnList(TABLE_SCHEMA, TABLE_NAME, 'Tbl') + ' FROM [' + TABLE_SCHEMA + '].[' + TABLE_NAME + '] Tbl
 	WHERE Tbl.[Version] > @Version
 	AND Active = 1
 	' 
 	FROM INFORMATION_SCHEMA.TABLES where 
 	TABLE_SCHEMA not like '%settings%'
 	and TABLE_SCHEMA  like '%core%'
-	and table_name not in ('Active','Dates', 'Time')
-	ORDER BY TABLE_SCHEMA, TABLE_Name
+	and TABLE_NAME not in ('Active','Dates', 'Time')
+	ORDER BY TABLE_SCHEMA, TABLE_NAME
 
 
-	SELECT 'objCore.' + table_name + ' = multi.Read<dynamic>().ToList();
+	SELECT 'objCore.' + TABLE_NAME + ' = multi.Read<dynamic>().ToList();
 	' 
 	
 	FROM INFORMATION_SCHEMA.TABLES where 
 	TABLE_SCHEMA not like '%settings%'
 	and TABLE_SCHEMA  like '%core%'
-	and table_name not in ('Active','Dates', 'Time')
-	ORDER BY TABLE_SCHEMA, TABLE_Name
+	and TABLE_NAME not in ('Active','Dates', 'Time')
+	ORDER BY TABLE_SCHEMA, TABLE_NAME
 	*/
 	SELECT @@DBTS as Version, CONVERT(varchar(255), DATEADD(SECOND, intValue, getutcdate()), 127) + 'Z' AS CacheExpiry
 	FROM Settings.GlobalSettings 

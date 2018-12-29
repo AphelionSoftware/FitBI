@@ -1,5 +1,5 @@
 <template>
-<q-layout-drawer side="right" v-model="value">
+<q-layout-drawer ref="right" side="right" v-model="internalValue" @input="updateValue">
     <q-list no-border link inset-separator>
     <q-list-header>Account</q-list-header>
       <q-item to="PersonEdit">
@@ -19,11 +19,30 @@ export default {
 //     return {
 //       left: true
 //     }
+  data () {
+    return {
+      internalValue: this.value
+    }
+  },
+  watch: {
+    value: {
+      immediate: true,
+      handler: function (newVal, oldVal) {
+        this.internalValue = newVal
+      }
+    }
+  },
+  methods: {
+    updateValue (newVal) {
+      this.internalValue = newVal
+      this.$emit('input', this.internalValue)
+    }
+  },
   props: {
     value: {
       type: Boolean,
       required: true,
-      default: true
+      default: false
     }
   }
 }

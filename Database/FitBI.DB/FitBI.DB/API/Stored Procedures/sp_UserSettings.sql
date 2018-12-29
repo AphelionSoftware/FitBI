@@ -12,13 +12,13 @@ BEGIN
 	SET NOCOUNT ON;
 
 	/*
-	SELECT 'SELECT Tbl.* FROM [' + table_schema + '].[' + table_name + '] Tbl	
+	SELECT 'SELECT Tbl.* FROM [' + TABLE_SCHEMA + '].[' + TABLE_NAME + '] Tbl	
 	WHERE Tbl.UserID = @UserID
-	UNION ALL SELECT Tbl.* FROM [' + table_schema + '].[' + table_name + '] Tbl
+	UNION ALL SELECT Tbl.* FROM [' + TABLE_SCHEMA + '].[' + TABLE_NAME + '] Tbl
 	' 
 	FROM INFORMATION_SCHEMA.TABLES where 
 	TABLE_SCHEMA like '%UserSettings%'
-	ORDER BY TABLE_SCHEMA, TABLE_Name
+	ORDER BY TABLE_SCHEMA, TABLE_NAME
 	*/
 
 SELECT Tbl.* FROM [UserSettings].[ColumnChoice] Tbl    WHERE Tbl.UserID = @UserID   UNION ALL SELECT Tbl.* FROM [UserSettings].[ColumnChoice] Tbl   
