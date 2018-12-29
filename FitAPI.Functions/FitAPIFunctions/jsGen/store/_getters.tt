@@ -28,9 +28,6 @@ const getters = {
   Get_<#= tTable.Name #>_ByRouteID: function (state, getters, rootState) {
     return state.<#= tTable.Name #>[+rootState.route.params.<#= tTable.Name #>id]
   },
-  Get_<#= tTable.Name #>Item: function (state) {
-    return state.<#= tTable.Name #>Item
-  },
   Get_<#= tTable.Name #>_Select: function (state) {
     return _.chain(state.<#= tTable.Name #>)
       .map(item => {
@@ -53,9 +50,6 @@ const getters = {
   },
   Get_<#= tTable.Name #>_List: function (state) {
     return _.sortBy(state.<#= tTable.Name #>, 'Name')
-  },
-  Get_<#= tTable.Name #>_Item: function (state) {
-    return state.<#= tTable.Name #>Item
   },
 <# 
 }

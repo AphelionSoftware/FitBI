@@ -86,6 +86,11 @@ const mutations = {
         state.initTimeStamp = payload[0].Version
         state.initExpiry = payload[0].CacheExpiry
       }
+      let forage = [{
+        Version: state.initTimeStamp,
+        CacheExpiry: state.initExpiry
+      }]
+      localForage.setItem('AppState_Init', forage)
     }
   },
   SET_CORE (state, payload) {
@@ -113,6 +118,11 @@ const mutations = {
         state.coreTimeStamp = payload[0].Version
         state.coreExpiry = payload[0].CacheExpiry
       }
+      let forage = [{
+        Version: state.coreTimeStamp,
+        CacheExpiry: state.coreExpiry
+      }]
+      localForage.setItem('AppState_Core', forage)
     }
   },
   SET_SAVE (state, payload) {
@@ -138,6 +148,15 @@ const mutations = {
     if (typeof payload.Saved !== 'undefined') Vue.set(state.Flags, 'Saved', payload.Saved)
     if (typeof payload.InProgress !== 'undefined') Vue.set(state.Flags, 'InProgress', payload.InProgress)
     if (typeof payload.Failed !== 'undefined') Vue.set(state.Flags, 'Failed', payload.Failed)
+  },
+  SET_FLAG (state, payload) {
+    if (payload === false) {
+      state.Flags.loaded = false
+    } else if (payload === true) {
+      state.Flags.loaded = true
+    } else {
+      state.Flags = {...state.Flags, ...payload}
+    }
   }
 }
 // #endregion

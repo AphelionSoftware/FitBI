@@ -4,9 +4,6 @@ const getters = {
   Get_ColumnChoice_ByRouteID: function (state, getters, rootState) {
     return state.ColumnChoice[+rootState.route.params.ColumnChoiceid]
   },
-  Get_ColumnChoiceItem: function (state) {
-    return state.ColumnChoiceItem
-  },
   Get_ColumnChoice_Select: function (state) {
     return _.chain(state.ColumnChoice)
       .map(item => {
@@ -30,14 +27,8 @@ const getters = {
   Get_ColumnChoice_List: function (state) {
     return _.sortBy(state.ColumnChoice, 'Name')
   },
-  Get_ColumnChoice_Item: function (state) {
-    return state.ColumnChoiceItem
-  },
   Get_GeneralSettings_ByRouteID: function (state, getters, rootState) {
     return state.GeneralSettings[+rootState.route.params.GeneralSettingsid]
-  },
-  Get_GeneralSettingsItem: function (state) {
-    return state.GeneralSettingsItem
   },
   Get_GeneralSettings_Select: function (state) {
     return _.chain(state.GeneralSettings)
@@ -62,14 +53,8 @@ const getters = {
   Get_GeneralSettings_List: function (state) {
     return _.sortBy(state.GeneralSettings, 'Name')
   },
-  Get_GeneralSettings_Item: function (state) {
-    return state.GeneralSettingsItem
-  },
   Get_StatsChoice_ByRouteID: function (state, getters, rootState) {
     return state.StatsChoice[+rootState.route.params.StatsChoiceid]
-  },
-  Get_StatsChoiceItem: function (state) {
-    return state.StatsChoiceItem
   },
   Get_StatsChoice_Select: function (state) {
     return _.chain(state.StatsChoice)
@@ -93,9 +78,6 @@ const getters = {
   },
   Get_StatsChoice_List: function (state) {
     return _.sortBy(state.StatsChoice, 'Name')
-  },
-  Get_StatsChoice_Item: function (state) {
-    return state.StatsChoiceItem
   },
   Get_Flags: function (state) {
     return state.Flags

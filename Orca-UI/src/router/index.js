@@ -23,6 +23,7 @@ const Router = new VueRouter({
 
 Router.beforeEach((to, from, next) => {
   if (to.name === 'callback') {
+    Router.app.$API.Initialize()
     next()
   } else if (to.path.startsWith('/access_token')) { // check if "to"-route is "callback" and allow access
     // next()
@@ -30,9 +31,14 @@ Router.beforeEach((to, from, next) => {
     Router.app.$auth.hashPath = to.params[1]
     Router.push({ name: 'callback' })
   } else if (Router.app.$auth.isAuthenticated()) { // if authenticated allow access
+    Router.app.$API.Initialize() // API will check if reload is needed
     next()
-  } else { // trigger auth0 login
-    Router.app.$auth.login(next)
+  } else { // trigger auth0 login - load stored auth values and login if needed
+    let fnResume = function () {
+      Router.app.$API.Initialize() // API will check if reload is needed
+      next()
+    }
+    Router.app.$auth.login(fnResume)
   }
 })
 export default Router

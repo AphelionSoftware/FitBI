@@ -17,18 +17,20 @@ const actions = {
       Name: null,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       UserID: 1,
       NeedsSync: true
     }
-    if (item.ColumnChoiceID === null) item.ColumnChoiceID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.ColumnChoiceID === null) item.ColumnChoiceID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_COLUMNCHOICE', item)
-    APIinstance.mergeStats.mergeColumnChoice(item)
+    APIinstance.mergeUserSettings.mergeColumnChoice(item)
   },
   saveGeneralSettings (context, payload) {
     let item = {}
@@ -46,17 +48,19 @@ const actions = {
       Name: null,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.GeneralSettingsID === null) item.GeneralSettingsID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.GeneralSettingsID === null) item.GeneralSettingsID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_GENERALSETTINGS', item)
-    APIinstance.mergeStats.mergeGeneralSettings(item)
+    APIinstance.mergeUserSettings.mergeGeneralSettings(item)
   },
   saveStatsChoice (context, payload) {
     let item = {}
@@ -72,17 +76,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.StatsChoiceID === null) item.StatsChoiceID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.StatsChoiceID === null) item.StatsChoiceID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_STATSCHOICE', item)
-    APIinstance.mergeStats.mergeStatsChoice(item)
+    APIinstance.mergeUserSettings.mergeStatsChoice(item)
   },
   stub () {}
 }

@@ -81,12 +81,12 @@ const actions = {
 	#><#
 	}#>
 
-    if (item.<#= tTable.Name #>ID === null) item.<#= tTable.Name #>ID = 0
+    if (item.<#= tTable.Name #>ID === null) item.<#= tTable.Name #>ID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_<#= tTable.Name.ToUpper() #>', item)
-    APIinstance.mergeStats.merge<#= tTable.Name #>(item)
+    APIinstance.merge<#= tTable.Schema #>.merge<#= tTable.Name #>(item)
   },
 <# 
 }

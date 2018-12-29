@@ -4,9 +4,6 @@ const getters = {
   Get_Exercise_ByRouteID: function (state, getters, rootState) {
     return state.Exercise[+rootState.route.params.Exerciseid]
   },
-  Get_ExerciseItem: function (state) {
-    return state.ExerciseItem
-  },
   Get_Exercise_Select: function (state) {
     return _.chain(state.Exercise)
       .map(item => {
@@ -30,14 +27,8 @@ const getters = {
   Get_Exercise_List: function (state) {
     return _.sortBy(state.Exercise, 'Name')
   },
-  Get_Exercise_Item: function (state) {
-    return state.ExerciseItem
-  },
   Get_Exercise_Sport_ByRouteID: function (state, getters, rootState) {
     return state.Exercise_Sport[+rootState.route.params.Exercise_Sportid]
-  },
-  Get_Exercise_SportItem: function (state) {
-    return state.Exercise_SportItem
   },
   Get_Exercise_Sport_Select: function (state) {
     return _.chain(state.Exercise_Sport)
@@ -62,14 +53,8 @@ const getters = {
   Get_Exercise_Sport_List: function (state) {
     return _.sortBy(state.Exercise_Sport, 'Name')
   },
-  Get_Exercise_Sport_Item: function (state) {
-    return state.Exercise_SportItem
-  },
   Get_ExerciseLink_ByRouteID: function (state, getters, rootState) {
     return state.ExerciseLink[+rootState.route.params.ExerciseLinkid]
-  },
-  Get_ExerciseLinkItem: function (state) {
-    return state.ExerciseLinkItem
   },
   Get_ExerciseLink_Select: function (state) {
     return _.chain(state.ExerciseLink)
@@ -94,14 +79,8 @@ const getters = {
   Get_ExerciseLink_List: function (state) {
     return _.sortBy(state.ExerciseLink, 'Name')
   },
-  Get_ExerciseLink_Item: function (state) {
-    return state.ExerciseLinkItem
-  },
   Get_ExerciseType_ByRouteID: function (state, getters, rootState) {
     return state.ExerciseType[+rootState.route.params.ExerciseTypeid]
-  },
-  Get_ExerciseTypeItem: function (state) {
-    return state.ExerciseTypeItem
   },
   Get_ExerciseType_Select: function (state) {
     return _.chain(state.ExerciseType)
@@ -126,14 +105,8 @@ const getters = {
   Get_ExerciseType_List: function (state) {
     return _.sortBy(state.ExerciseType, 'Name')
   },
-  Get_ExerciseType_Item: function (state) {
-    return state.ExerciseTypeItem
-  },
   Get_Sport_ByRouteID: function (state, getters, rootState) {
     return state.Sport[+rootState.route.params.Sportid]
-  },
-  Get_SportItem: function (state) {
-    return state.SportItem
   },
   Get_Sport_Select: function (state) {
     return _.chain(state.Sport)
@@ -157,9 +130,6 @@ const getters = {
   },
   Get_Sport_List: function (state) {
     return _.sortBy(state.Sport, 'Name')
-  },
-  Get_Sport_Item: function (state) {
-    return state.SportItem
   },
   Get_Flags: function (state) {
     return state.Flags

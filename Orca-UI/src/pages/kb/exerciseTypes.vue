@@ -23,7 +23,7 @@ export default {
     })
   },
   mounted () {
-    this.$API.Initialize()
+    // this.$API.Initialize()
     // Set the add action to enable the toolbar add button
     let router = this.$router
     let fnAdd = function () {

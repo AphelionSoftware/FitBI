@@ -4,9 +4,6 @@ const getters = {
   Get_Active_ByRouteID: function (state, getters, rootState) {
     return state.Active[+rootState.route.params.Activeid]
   },
-  Get_ActiveItem: function (state) {
-    return state.ActiveItem
-  },
   Get_Active_Select: function (state) {
     return _.chain(state.Active)
       .map(item => {
@@ -30,14 +27,8 @@ const getters = {
   Get_Active_List: function (state) {
     return _.sortBy(state.Active, 'Name')
   },
-  Get_Active_Item: function (state) {
-    return state.ActiveItem
-  },
   Get_BodyPart_ByRouteID: function (state, getters, rootState) {
     return state.BodyPart[+rootState.route.params.BodyPartid]
-  },
-  Get_BodyPartItem: function (state) {
-    return state.BodyPartItem
   },
   Get_BodyPart_Select: function (state) {
     return _.chain(state.BodyPart)
@@ -62,14 +53,8 @@ const getters = {
   Get_BodyPart_List: function (state) {
     return _.sortBy(state.BodyPart, 'Name')
   },
-  Get_BodyPart_Item: function (state) {
-    return state.BodyPartItem
-  },
   Get_BodyPartType_ByRouteID: function (state, getters, rootState) {
     return state.BodyPartType[+rootState.route.params.BodyPartTypeid]
-  },
-  Get_BodyPartTypeItem: function (state) {
-    return state.BodyPartTypeItem
   },
   Get_BodyPartType_Select: function (state) {
     return _.chain(state.BodyPartType)
@@ -94,14 +79,8 @@ const getters = {
   Get_BodyPartType_List: function (state) {
     return _.sortBy(state.BodyPartType, 'Name')
   },
-  Get_BodyPartType_Item: function (state) {
-    return state.BodyPartTypeItem
-  },
   Get_Dates_ByRouteID: function (state, getters, rootState) {
     return state.Dates[+rootState.route.params.Datesid]
-  },
-  Get_DatesItem: function (state) {
-    return state.DatesItem
   },
   Get_Dates_Select: function (state) {
     return _.chain(state.Dates)
@@ -126,14 +105,8 @@ const getters = {
   Get_Dates_List: function (state) {
     return _.sortBy(state.Dates, 'Name')
   },
-  Get_Dates_Item: function (state) {
-    return state.DatesItem
-  },
   Get_MeasurementType_ByRouteID: function (state, getters, rootState) {
     return state.MeasurementType[+rootState.route.params.MeasurementTypeid]
-  },
-  Get_MeasurementTypeItem: function (state) {
-    return state.MeasurementTypeItem
   },
   Get_MeasurementType_Select: function (state) {
     return _.chain(state.MeasurementType)
@@ -158,14 +131,8 @@ const getters = {
   Get_MeasurementType_List: function (state) {
     return _.sortBy(state.MeasurementType, 'Name')
   },
-  Get_MeasurementType_Item: function (state) {
-    return state.MeasurementTypeItem
-  },
   Get_MeasurementTypeCategory_ByRouteID: function (state, getters, rootState) {
     return state.MeasurementTypeCategory[+rootState.route.params.MeasurementTypeCategoryid]
-  },
-  Get_MeasurementTypeCategoryItem: function (state) {
-    return state.MeasurementTypeCategoryItem
   },
   Get_MeasurementTypeCategory_Select: function (state) {
     return _.chain(state.MeasurementTypeCategory)
@@ -190,14 +157,8 @@ const getters = {
   Get_MeasurementTypeCategory_List: function (state) {
     return _.sortBy(state.MeasurementTypeCategory, 'Name')
   },
-  Get_MeasurementTypeCategory_Item: function (state) {
-    return state.MeasurementTypeCategoryItem
-  },
   Get_StatType_ByRouteID: function (state, getters, rootState) {
     return state.StatType[+rootState.route.params.StatTypeid]
-  },
-  Get_StatTypeItem: function (state) {
-    return state.StatTypeItem
   },
   Get_StatType_Select: function (state) {
     return _.chain(state.StatType)
@@ -222,14 +183,8 @@ const getters = {
   Get_StatType_List: function (state) {
     return _.sortBy(state.StatType, 'Name')
   },
-  Get_StatType_Item: function (state) {
-    return state.StatTypeItem
-  },
   Get_Time_ByRouteID: function (state, getters, rootState) {
     return state.Time[+rootState.route.params.Timeid]
-  },
-  Get_TimeItem: function (state) {
-    return state.TimeItem
   },
   Get_Time_Select: function (state) {
     return _.chain(state.Time)
@@ -254,14 +209,8 @@ const getters = {
   Get_Time_List: function (state) {
     return _.sortBy(state.Time, 'Name')
   },
-  Get_Time_Item: function (state) {
-    return state.TimeItem
-  },
   Get_Unit_ByRouteID: function (state, getters, rootState) {
     return state.Unit[+rootState.route.params.Unitid]
-  },
-  Get_UnitItem: function (state) {
-    return state.UnitItem
   },
   Get_Unit_Select: function (state) {
     return _.chain(state.Unit)
@@ -286,14 +235,8 @@ const getters = {
   Get_Unit_List: function (state) {
     return _.sortBy(state.Unit, 'Name')
   },
-  Get_Unit_Item: function (state) {
-    return state.UnitItem
-  },
   Get_UnitType_ByRouteID: function (state, getters, rootState) {
     return state.UnitType[+rootState.route.params.UnitTypeid]
-  },
-  Get_UnitTypeItem: function (state) {
-    return state.UnitTypeItem
   },
   Get_UnitType_Select: function (state) {
     return _.chain(state.UnitType)
@@ -317,9 +260,6 @@ const getters = {
   },
   Get_UnitType_List: function (state) {
     return _.sortBy(state.UnitType, 'Name')
-  },
-  Get_UnitType_Item: function (state) {
-    return state.UnitTypeItem
   },
   Get_Flags: function (state) {
     return state.Flags

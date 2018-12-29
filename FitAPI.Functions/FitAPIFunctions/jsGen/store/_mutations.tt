@@ -21,45 +21,44 @@ var server = new Server(".\\SQL2017");
 #>import {updateField} from 'vuex-map-fields'
 import Vue from 'vue'
 import localForage from 'localforage'
+import _ from 'underscore'
 const mutations = {
 <#
 	Table[] tTables = (from Table tTable in database.Tables where tTable.Schema == SchemaName select tTable).ToArray();
             foreach (Table tTable in tTables)
             {
 #>
-  GET_<#= tTable.Name.ToUpper() #> (state, payload) {
-    if ('' + payload.<#= tTable.Name #>ID === '0') {
-      state.<#= tTable.Name #>Item = {
-<#
-	    Column[] cCols = (from Column cCol in tTable.Columns  select cCol).ToArray();
-		foreach (Column col in cCols)
-			{#>
-        <#= col.Name #>: null,
-<# 
-		    }
-		#>
-        NeedsSync: true
-      }
-    } else {
-      state.<#= tTable.Name #>Item = state.<#= tTable.Name #>[payload.<#= tTable.Name #>ID]
-    }
-  },
   SET_<#= tTable.Name.ToUpper() #> (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.<#= tTable.Name #>, payload.<#= tTable.Name #>ID, payload)
-      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', payload)
+      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', state.<#= tTable.Name #>)
     }
-  },
-  SET_<#= tTable.Name.ToUpper() #>ITEM (state, payload) {
-    state.<#= tTable.Name #>Item = payload
   },
   SET_<#= tTable.Name.ToUpper() #>_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.<#= tTable.Name #>, element.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID, element)
-        state.<#= tTable.Name #>List.push(element.<#= tTable.Name == "DailyMeasurement" ? "MeasurementDate" : tTable.Name #>ID)
       }, this)
-      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', fullList)
+      _.each(state.<#= tTable.Name #>, (item, idx) => {
+        if (item.<#= tTable.Name #>ID >= 1073741824 || item.<#= tTable.Name #>ID === null) {
+          let extant = _.find(state.<#= tTable.Name #>, extItem => {
+            return extItem.ID === item.ID && extItem.<#= tTable.Name #>ID !== item.<#= tTable.Name #>ID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.<#= tTable.Name #>ID
+              let newVal = {...extant, ...item}
+              newVal.<#= tTable.Name #>ID = extId
+              Vue.set(state.<#= tTable.Name #>, newVal.<#= tTable.Name #>ID, newVal)
+              Vue.delete(state.<#= tTable.Name #>, item.<#= tTable.Name #>ID)
+            } else {
+              Vue.delete(state.<#= tTable.Name #>, item.<#= tTable.Name #>ID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', state.<#= tTable.Name #>)
     }
   },
 <# 

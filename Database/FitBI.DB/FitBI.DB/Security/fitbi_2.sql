@@ -1,2 +1,4 @@
-﻿CREATE USER [fitbi] FOR LOGIN [fitbi];
+﻿--CREATE USER [fitbi] FOR LOGIN [fitbi];
+
+
 

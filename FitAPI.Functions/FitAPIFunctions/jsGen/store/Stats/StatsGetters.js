@@ -4,9 +4,6 @@ const getters = {
   Get_DailyMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.DailyMeasurement[+rootState.route.params.DailyMeasurementid]
   },
-  Get_DailyMeasurementItem: function (state) {
-    return state.DailyMeasurementItem
-  },
   Get_DailyMeasurement_Select: function (state) {
     return _.chain(state.DailyMeasurement)
       .map(item => {
@@ -30,14 +27,8 @@ const getters = {
   Get_DailyMeasurement_List: function (state) {
     return _.sortBy(state.DailyMeasurement, 'Name')
   },
-  Get_DailyMeasurement_Item: function (state) {
-    return state.DailyMeasurementItem
-  },
   Get_Metric_ByRouteID: function (state, getters, rootState) {
     return state.Metric[+rootState.route.params.Metricid]
-  },
-  Get_MetricItem: function (state) {
-    return state.MetricItem
   },
   Get_Metric_Select: function (state) {
     return _.chain(state.Metric)
@@ -62,14 +53,8 @@ const getters = {
   Get_Metric_List: function (state) {
     return _.sortBy(state.Metric, 'Name')
   },
-  Get_Metric_Item: function (state) {
-    return state.MetricItem
-  },
   Get_Person_ByRouteID: function (state, getters, rootState) {
     return state.Person[+rootState.route.params.Personid]
-  },
-  Get_PersonItem: function (state) {
-    return state.PersonItem
   },
   Get_Person_Select: function (state) {
     return _.chain(state.Person)
@@ -94,14 +79,8 @@ const getters = {
   Get_Person_List: function (state) {
     return _.sortBy(state.Person, 'Name')
   },
-  Get_Person_Item: function (state) {
-    return state.PersonItem
-  },
   Get_SkinfoldMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.SkinfoldMeasurement[+rootState.route.params.SkinfoldMeasurementid]
-  },
-  Get_SkinfoldMeasurementItem: function (state) {
-    return state.SkinfoldMeasurementItem
   },
   Get_SkinfoldMeasurement_Select: function (state) {
     return _.chain(state.SkinfoldMeasurement)
@@ -126,14 +105,8 @@ const getters = {
   Get_SkinfoldMeasurement_List: function (state) {
     return _.sortBy(state.SkinfoldMeasurement, 'Name')
   },
-  Get_SkinfoldMeasurement_Item: function (state) {
-    return state.SkinfoldMeasurementItem
-  },
   Get_TapeMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.TapeMeasurement[+rootState.route.params.TapeMeasurementid]
-  },
-  Get_TapeMeasurementItem: function (state) {
-    return state.TapeMeasurementItem
   },
   Get_TapeMeasurement_Select: function (state) {
     return _.chain(state.TapeMeasurement)
@@ -158,14 +131,8 @@ const getters = {
   Get_TapeMeasurement_List: function (state) {
     return _.sortBy(state.TapeMeasurement, 'Name')
   },
-  Get_TapeMeasurement_Item: function (state) {
-    return state.TapeMeasurementItem
-  },
   Get_WeightMeasurement_ByRouteID: function (state, getters, rootState) {
     return state.WeightMeasurement[+rootState.route.params.WeightMeasurementid]
-  },
-  Get_WeightMeasurementItem: function (state) {
-    return state.WeightMeasurementItem
   },
   Get_WeightMeasurement_Select: function (state) {
     return _.chain(state.WeightMeasurement)
@@ -189,9 +156,6 @@ const getters = {
   },
   Get_WeightMeasurement_List: function (state) {
     return _.sortBy(state.WeightMeasurement, 'Name')
-  },
-  Get_WeightMeasurement_Item: function (state) {
-    return state.WeightMeasurementItem
   },
   Get_Flags: function (state) {
     return state.Flags

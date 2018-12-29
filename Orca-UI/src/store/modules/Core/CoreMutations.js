@@ -1,399 +1,336 @@
 import {updateField} from 'vuex-map-fields'
 import Vue from 'vue'
 import localForage from 'localforage'
+import _ from 'underscore'
 const mutations = {
-  GET_ACTIVE (state, payload) {
-    if ('' + payload.ActiveID === '0') {
-      state.ActiveItem = {
-        ActiveID: null,
-        Code: null,
-        Name: null,
-        Id: null,
-        Version: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        NeedsSync: true
-      }
-    } else {
-      state.ActiveItem = state.Active[payload.ActiveID]
-    }
-  },
   SET_ACTIVE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Active, payload.ActiveID, payload)
-      localForage.setItem('Core_Active', payload)
+      localForage.setItem('Core_Active', state.Active)
     }
-  },
-  SET_ACTIVEITEM (state, payload) {
-    state.ActiveItem = payload
   },
   SET_ACTIVE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.Active, element.ActiveID, element)
-        state.ActiveList.push(element.ActiveID)
       }, this)
-      localForage.setItem('Core_Active', fullList)
-    }
-  },
-  GET_BODYPART (state, payload) {
-    if ('' + payload.BodyPartID === '0') {
-      state.BodyPartItem = {
-        BodyPartID: null,
-        BodyPartTypeID: null,
-        Code: null,
-        Name: null,
-        Description: null,
-        ParentBodyPartID: null,
-        Active: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.BodyPartItem = state.BodyPart[payload.BodyPartID]
+      _.each(state.Active, (item, idx) => {
+        if (item.ActiveID >= 1073741824 || item.ActiveID === null) {
+          let extant = _.find(state.Active, extItem => {
+            return extItem.ID === item.ID && extItem.ActiveID !== item.ActiveID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.ActiveID
+              let newVal = {...extant, ...item}
+              newVal.ActiveID = extId
+              Vue.set(state.Active, newVal.ActiveID, newVal)
+              Vue.delete(state.Active, item.ActiveID)
+            } else {
+              Vue.delete(state.Active, item.ActiveID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_Active', state.Active)
     }
   },
   SET_BODYPART (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.BodyPart, payload.BodyPartID, payload)
-      localForage.setItem('Core_BodyPart', payload)
+      localForage.setItem('Core_BodyPart', state.BodyPart)
     }
-  },
-  SET_BODYPARTITEM (state, payload) {
-    state.BodyPartItem = payload
   },
   SET_BODYPART_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.BodyPart, element.BodyPartID, element)
-        state.BodyPartList.push(element.BodyPartID)
       }, this)
-      localForage.setItem('Core_BodyPart', fullList)
-    }
-  },
-  GET_BODYPARTTYPE (state, payload) {
-    if ('' + payload.BodyPartTypeID === '0') {
-      state.BodyPartTypeItem = {
-        BodyPartTypeID: null,
-        Code: null,
-        Name: null,
-        Active: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.BodyPartTypeItem = state.BodyPartType[payload.BodyPartTypeID]
+      _.each(state.BodyPart, (item, idx) => {
+        if (item.BodyPartID >= 1073741824 || item.BodyPartID === null) {
+          let extant = _.find(state.BodyPart, extItem => {
+            return extItem.ID === item.ID && extItem.BodyPartID !== item.BodyPartID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.BodyPartID
+              let newVal = {...extant, ...item}
+              newVal.BodyPartID = extId
+              Vue.set(state.BodyPart, newVal.BodyPartID, newVal)
+              Vue.delete(state.BodyPart, item.BodyPartID)
+            } else {
+              Vue.delete(state.BodyPart, item.BodyPartID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_BodyPart', state.BodyPart)
     }
   },
   SET_BODYPARTTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.BodyPartType, payload.BodyPartTypeID, payload)
-      localForage.setItem('Core_BodyPartType', payload)
+      localForage.setItem('Core_BodyPartType', state.BodyPartType)
     }
-  },
-  SET_BODYPARTTYPEITEM (state, payload) {
-    state.BodyPartTypeItem = payload
   },
   SET_BODYPARTTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.BodyPartType, element.BodyPartTypeID, element)
-        state.BodyPartTypeList.push(element.BodyPartTypeID)
       }, this)
-      localForage.setItem('Core_BodyPartType', fullList)
-    }
-  },
-  GET_DATES (state, payload) {
-    if ('' + payload.DatesID === '0') {
-      state.DatesItem = {
-        DateID: null,
-        FullDate: null,
-        Date: null,
-        DateCounter: null,
-        Day: null,
-        DaySuffix: null,
-        DayOfWeekNumber: null,
-        DayOfWeek: null,
-        DayOfYear: null,
-        WeekOfMonth: null,
-        WeekOfMonthName: null,
-        WeekOfYear: null,
-        WeekOfYearName: null,
-        MonthNumber: null,
-        ShortMonthName: null,
-        MonthName: null,
-        Quarter: null,
-        QuarterName: null,
-        YearName: null,
-        YearNumber: null,
-        YearMonth: null,
-        YearMonthNumber: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.DatesItem = state.Dates[payload.DatesID]
+      _.each(state.BodyPartType, (item, idx) => {
+        if (item.BodyPartTypeID >= 1073741824 || item.BodyPartTypeID === null) {
+          let extant = _.find(state.BodyPartType, extItem => {
+            return extItem.ID === item.ID && extItem.BodyPartTypeID !== item.BodyPartTypeID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.BodyPartTypeID
+              let newVal = {...extant, ...item}
+              newVal.BodyPartTypeID = extId
+              Vue.set(state.BodyPartType, newVal.BodyPartTypeID, newVal)
+              Vue.delete(state.BodyPartType, item.BodyPartTypeID)
+            } else {
+              Vue.delete(state.BodyPartType, item.BodyPartTypeID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_BodyPartType', state.BodyPartType)
     }
   },
   SET_DATES (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Dates, payload.DatesID, payload)
-      localForage.setItem('Core_Dates', payload)
+      localForage.setItem('Core_Dates', state.Dates)
     }
-  },
-  SET_DATESITEM (state, payload) {
-    state.DatesItem = payload
   },
   SET_DATES_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.Dates, element.DatesID, element)
-        state.DatesList.push(element.DatesID)
       }, this)
-      localForage.setItem('Core_Dates', fullList)
-    }
-  },
-  GET_MEASUREMENTTYPE (state, payload) {
-    if ('' + payload.MeasurementTypeID === '0') {
-      state.MeasurementTypeItem = {
-        MeasurementTypeID: null,
-        MeasurementTypeCategoryID: null,
-        Code: null,
-        Name: null,
-        Description: null,
-        Active: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.MeasurementTypeItem = state.MeasurementType[payload.MeasurementTypeID]
+      _.each(state.Dates, (item, idx) => {
+        if (item.DatesID >= 1073741824 || item.DatesID === null) {
+          let extant = _.find(state.Dates, extItem => {
+            return extItem.ID === item.ID && extItem.DatesID !== item.DatesID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.DatesID
+              let newVal = {...extant, ...item}
+              newVal.DatesID = extId
+              Vue.set(state.Dates, newVal.DatesID, newVal)
+              Vue.delete(state.Dates, item.DatesID)
+            } else {
+              Vue.delete(state.Dates, item.DatesID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_Dates', state.Dates)
     }
   },
   SET_MEASUREMENTTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.MeasurementType, payload.MeasurementTypeID, payload)
-      localForage.setItem('Core_MeasurementType', payload)
+      localForage.setItem('Core_MeasurementType', state.MeasurementType)
     }
-  },
-  SET_MEASUREMENTTYPEITEM (state, payload) {
-    state.MeasurementTypeItem = payload
   },
   SET_MEASUREMENTTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.MeasurementType, element.MeasurementTypeID, element)
-        state.MeasurementTypeList.push(element.MeasurementTypeID)
       }, this)
-      localForage.setItem('Core_MeasurementType', fullList)
-    }
-  },
-  GET_MEASUREMENTTYPECATEGORY (state, payload) {
-    if ('' + payload.MeasurementTypeCategoryID === '0') {
-      state.MeasurementTypeCategoryItem = {
-        MeasurementTypeCategoryID: null,
-        Code: null,
-        Name: null,
-        Active: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.MeasurementTypeCategoryItem = state.MeasurementTypeCategory[payload.MeasurementTypeCategoryID]
+      _.each(state.MeasurementType, (item, idx) => {
+        if (item.MeasurementTypeID >= 1073741824 || item.MeasurementTypeID === null) {
+          let extant = _.find(state.MeasurementType, extItem => {
+            return extItem.ID === item.ID && extItem.MeasurementTypeID !== item.MeasurementTypeID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.MeasurementTypeID
+              let newVal = {...extant, ...item}
+              newVal.MeasurementTypeID = extId
+              Vue.set(state.MeasurementType, newVal.MeasurementTypeID, newVal)
+              Vue.delete(state.MeasurementType, item.MeasurementTypeID)
+            } else {
+              Vue.delete(state.MeasurementType, item.MeasurementTypeID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_MeasurementType', state.MeasurementType)
     }
   },
   SET_MEASUREMENTTYPECATEGORY (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.MeasurementTypeCategory, payload.MeasurementTypeCategoryID, payload)
-      localForage.setItem('Core_MeasurementTypeCategory', payload)
+      localForage.setItem('Core_MeasurementTypeCategory', state.MeasurementTypeCategory)
     }
-  },
-  SET_MEASUREMENTTYPECATEGORYITEM (state, payload) {
-    state.MeasurementTypeCategoryItem = payload
   },
   SET_MEASUREMENTTYPECATEGORY_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.MeasurementTypeCategory, element.MeasurementTypeCategoryID, element)
-        state.MeasurementTypeCategoryList.push(element.MeasurementTypeCategoryID)
       }, this)
-      localForage.setItem('Core_MeasurementTypeCategory', fullList)
-    }
-  },
-  GET_STATTYPE (state, payload) {
-    if ('' + payload.StatTypeID === '0') {
-      state.StatTypeItem = {
-        StatTypeID: null,
-        Code: null,
-        Name: null,
-        Description: null,
-        TableName: null,
-        ColumnName: null,
-        MeasurementTypeCategoryID: null,
-        Active: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.StatTypeItem = state.StatType[payload.StatTypeID]
+      _.each(state.MeasurementTypeCategory, (item, idx) => {
+        if (item.MeasurementTypeCategoryID >= 1073741824 || item.MeasurementTypeCategoryID === null) {
+          let extant = _.find(state.MeasurementTypeCategory, extItem => {
+            return extItem.ID === item.ID && extItem.MeasurementTypeCategoryID !== item.MeasurementTypeCategoryID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.MeasurementTypeCategoryID
+              let newVal = {...extant, ...item}
+              newVal.MeasurementTypeCategoryID = extId
+              Vue.set(state.MeasurementTypeCategory, newVal.MeasurementTypeCategoryID, newVal)
+              Vue.delete(state.MeasurementTypeCategory, item.MeasurementTypeCategoryID)
+            } else {
+              Vue.delete(state.MeasurementTypeCategory, item.MeasurementTypeCategoryID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_MeasurementTypeCategory', state.MeasurementTypeCategory)
     }
   },
   SET_STATTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.StatType, payload.StatTypeID, payload)
-      localForage.setItem('Core_StatType', payload)
+      localForage.setItem('Core_StatType', state.StatType)
     }
-  },
-  SET_STATTYPEITEM (state, payload) {
-    state.StatTypeItem = payload
   },
   SET_STATTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.StatType, element.StatTypeID, element)
-        state.StatTypeList.push(element.StatTypeID)
       }, this)
-      localForage.setItem('Core_StatType', fullList)
-    }
-  },
-  GET_TIME (state, payload) {
-    if ('' + payload.TimeID === '0') {
-      state.TimeItem = {
-        TimeID: null,
-        TimeInt: null,
-        Time: null,
-        SecondOfMinute: null,
-        MinuteOfHour: null,
-        HourOfDay: null,
-        SecondOfHour: null,
-        SecondOfDay: null,
-        MinuteOfDay: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.TimeItem = state.Time[payload.TimeID]
+      _.each(state.StatType, (item, idx) => {
+        if (item.StatTypeID >= 1073741824 || item.StatTypeID === null) {
+          let extant = _.find(state.StatType, extItem => {
+            return extItem.ID === item.ID && extItem.StatTypeID !== item.StatTypeID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.StatTypeID
+              let newVal = {...extant, ...item}
+              newVal.StatTypeID = extId
+              Vue.set(state.StatType, newVal.StatTypeID, newVal)
+              Vue.delete(state.StatType, item.StatTypeID)
+            } else {
+              Vue.delete(state.StatType, item.StatTypeID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_StatType', state.StatType)
     }
   },
   SET_TIME (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Time, payload.TimeID, payload)
-      localForage.setItem('Core_Time', payload)
+      localForage.setItem('Core_Time', state.Time)
     }
-  },
-  SET_TIMEITEM (state, payload) {
-    state.TimeItem = payload
   },
   SET_TIME_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.Time, element.TimeID, element)
-        state.TimeList.push(element.TimeID)
       }, this)
-      localForage.setItem('Core_Time', fullList)
-    }
-  },
-  GET_UNIT (state, payload) {
-    if ('' + payload.UnitID === '0') {
-      state.UnitItem = {
-        UnitID: null,
-        UnitTypeID: null,
-        Code: null,
-        Name: null,
-        Description: null,
-        ParentUnitID: null,
-        Active: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.UnitItem = state.Unit[payload.UnitID]
+      _.each(state.Time, (item, idx) => {
+        if (item.TimeID >= 1073741824 || item.TimeID === null) {
+          let extant = _.find(state.Time, extItem => {
+            return extItem.ID === item.ID && extItem.TimeID !== item.TimeID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.TimeID
+              let newVal = {...extant, ...item}
+              newVal.TimeID = extId
+              Vue.set(state.Time, newVal.TimeID, newVal)
+              Vue.delete(state.Time, item.TimeID)
+            } else {
+              Vue.delete(state.Time, item.TimeID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_Time', state.Time)
     }
   },
   SET_UNIT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Unit, payload.UnitID, payload)
-      localForage.setItem('Core_Unit', payload)
+      localForage.setItem('Core_Unit', state.Unit)
     }
-  },
-  SET_UNITITEM (state, payload) {
-    state.UnitItem = payload
   },
   SET_UNIT_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.Unit, element.UnitID, element)
-        state.UnitList.push(element.UnitID)
       }, this)
-      localForage.setItem('Core_Unit', fullList)
-    }
-  },
-  GET_UNITTYPE (state, payload) {
-    if ('' + payload.UnitTypeID === '0') {
-      state.UnitTypeItem = {
-        UnitTypeID: null,
-        Code: null,
-        Name: null,
-        Active: null,
-        ID: null,
-        CreatedAt: null,
-        UpdatedAt: null,
-        Deleted: null,
-        Version: null,
-        NeedsSync: true
-      }
-    } else {
-      state.UnitTypeItem = state.UnitType[payload.UnitTypeID]
+      _.each(state.Unit, (item, idx) => {
+        if (item.UnitID >= 1073741824 || item.UnitID === null) {
+          let extant = _.find(state.Unit, extItem => {
+            return extItem.ID === item.ID && extItem.UnitID !== item.UnitID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.UnitID
+              let newVal = {...extant, ...item}
+              newVal.UnitID = extId
+              Vue.set(state.Unit, newVal.UnitID, newVal)
+              Vue.delete(state.Unit, item.UnitID)
+            } else {
+              Vue.delete(state.Unit, item.UnitID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_Unit', state.Unit)
     }
   },
   SET_UNITTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.UnitType, payload.UnitTypeID, payload)
-      localForage.setItem('Core_UnitType', payload)
+      localForage.setItem('Core_UnitType', state.UnitType)
     }
-  },
-  SET_UNITTYPEITEM (state, payload) {
-    state.UnitTypeItem = payload
   },
   SET_UNITTYPE_LIST: function (state, fullList) {
     if (typeof (fullList) !== 'undefined') {
       fullList.forEach(function (element) {
         Vue.set(state.UnitType, element.UnitTypeID, element)
-        state.UnitTypeList.push(element.UnitTypeID)
       }, this)
-      localForage.setItem('Core_UnitType', fullList)
+      _.each(state.UnitType, (item, idx) => {
+        if (item.UnitTypeID >= 1073741824 || item.UnitTypeID === null) {
+          let extant = _.find(state.UnitType, extItem => {
+            return extItem.ID === item.ID && extItem.UnitTypeID !== item.UnitTypeID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.UnitTypeID
+              let newVal = {...extant, ...item}
+              newVal.UnitTypeID = extId
+              Vue.set(state.UnitType, newVal.UnitTypeID, newVal)
+              Vue.delete(state.UnitType, item.UnitTypeID)
+            } else {
+              Vue.delete(state.UnitType, item.UnitTypeID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_UnitType', state.UnitType)
     }
   },
   SET_FLAG (state, payload) {

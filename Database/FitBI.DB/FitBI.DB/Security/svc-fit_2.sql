@@ -1,2 +1,4 @@
-﻿CREATE USER [svc-fit] FOR LOGIN [svc-fit];
+﻿--CREATE USER [svc-fit] FOR LOGIN [svc-fit];
+
+
 

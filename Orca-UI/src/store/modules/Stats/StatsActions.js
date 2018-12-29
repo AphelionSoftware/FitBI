@@ -30,14 +30,16 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
     if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) item.MeasurementDate = new Date()
     item.MeasurementDate = item.MeasurementDate.toUTCString()
-    if (item.DailyMeasurementID === null) item.DailyMeasurementID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.DailyMeasurementID === null) item.DailyMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
@@ -63,12 +65,14 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.MetricID === null) item.MetricID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.MetricID === null) item.MetricID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
@@ -91,14 +95,16 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
     if (typeof item.DateOfBirth === 'undefined' || item.DateOfBirth === null) item.DateOfBirth = new Date()
     item.DateOfBirth = item.DateOfBirth.toUTCString()
-    if (item.PersonID === null) item.PersonID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.PersonID === null) item.PersonID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
@@ -122,14 +128,16 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
     if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) item.MeasurementDate = new Date()
     item.MeasurementDate = item.MeasurementDate.toUTCString()
-    if (item.SkinfoldMeasurementID === null) item.SkinfoldMeasurementID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.SkinfoldMeasurementID === null) item.SkinfoldMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
@@ -153,14 +161,16 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
     if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) item.MeasurementDate = new Date()
     item.MeasurementDate = item.MeasurementDate.toUTCString()
-    if (item.TapeMeasurementID === null) item.TapeMeasurementID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.TapeMeasurementID === null) item.TapeMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
@@ -188,14 +198,16 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
     if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) item.MeasurementDate = new Date()
     item.MeasurementDate = item.MeasurementDate.toUTCString()
-    if (item.WeightMeasurementID === null) item.WeightMeasurementID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.WeightMeasurementID === null) item.WeightMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}

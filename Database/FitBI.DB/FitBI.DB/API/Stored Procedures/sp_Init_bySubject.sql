@@ -15,5 +15,23 @@ BEGIN
 	SELECT @UserID = UserID FROM [Security].[User] U 
 		WHERE U.auth_subject = @Subject
 
+	IF @UserID IS NULL 
+	BEGIN
+	Declare @tblPerson table(PersonID int)
+	Declare @tblUser table(UserID int)
+
+	INSERT INTO [Stats].[Person]
+	(
+	ID)
+	OUTPUT Inserted.PersonID INTO @tblPerson 
+	SELECT Newid() ID	
+
+	INSERT INTO [Security].[User]
+	(PersonID, auth_subject)
+	OUTPUT inserted.UserID INTO @tblUser
+	SELECT PersonID, @Subject FROM @tblPerson
+
+	SELECT @UserID = UserID FROM @tblUser
+	END
 	EXEC API.sp_Init @UserID = @UserID, @Version = @Version
 END

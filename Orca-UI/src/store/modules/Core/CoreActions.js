@@ -15,16 +15,18 @@ const actions = {
       Id: uuidv1(),
       Version: null,
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       NeedsSync: true
     }
-    if (item.ActiveID === null) item.ActiveID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.ActiveID === null) item.ActiveID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_ACTIVE', item)
-    APIinstance.mergeStats.mergeActive(item)
+    APIinstance.mergeCore.mergeActive(item)
   },
   saveBodyPart (context, payload) {
     let item = {}
@@ -43,17 +45,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.BodyPartID === null) item.BodyPartID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.BodyPartID === null) item.BodyPartID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_BODYPART', item)
-    APIinstance.mergeStats.mergeBodyPart(item)
+    APIinstance.mergeCore.mergeBodyPart(item)
   },
   saveBodyPartType (context, payload) {
     let item = {}
@@ -69,17 +73,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.BodyPartTypeID === null) item.BodyPartTypeID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.BodyPartTypeID === null) item.BodyPartTypeID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_BODYPARTTYPE', item)
-    APIinstance.mergeStats.mergeBodyPartType(item)
+    APIinstance.mergeCore.mergeBodyPartType(item)
   },
   saveDates (context, payload) {
     let item = {}
@@ -113,7 +119,7 @@ const actions = {
       YearMonthNumber: null,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
@@ -122,12 +128,14 @@ const actions = {
     item.FullDate = item.FullDate.toUTCString()
     if (typeof item.Date === 'undefined' || item.Date === null) item.Date = new Date()
     item.Date = item.Date.toUTCString()
-    if (item.DatesID === null) item.DatesID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.DatesID === null) item.DatesID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_DATES', item)
-    APIinstance.mergeStats.mergeDates(item)
+    APIinstance.mergeCore.mergeDates(item)
   },
   saveMeasurementType (context, payload) {
     let item = {}
@@ -145,17 +153,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.MeasurementTypeID === null) item.MeasurementTypeID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.MeasurementTypeID === null) item.MeasurementTypeID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_MEASUREMENTTYPE', item)
-    APIinstance.mergeStats.mergeMeasurementType(item)
+    APIinstance.mergeCore.mergeMeasurementType(item)
   },
   saveMeasurementTypeCategory (context, payload) {
     let item = {}
@@ -171,17 +181,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.MeasurementTypeCategoryID === null) item.MeasurementTypeCategoryID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.MeasurementTypeCategoryID === null) item.MeasurementTypeCategoryID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_MEASUREMENTTYPECATEGORY', item)
-    APIinstance.mergeStats.mergeMeasurementTypeCategory(item)
+    APIinstance.mergeCore.mergeMeasurementTypeCategory(item)
   },
   saveStatType (context, payload) {
     let item = {}
@@ -201,17 +213,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.StatTypeID === null) item.StatTypeID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.StatTypeID === null) item.StatTypeID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_STATTYPE', item)
-    APIinstance.mergeStats.mergeStatType(item)
+    APIinstance.mergeCore.mergeStatType(item)
   },
   saveTime (context, payload) {
     let item = {}
@@ -232,17 +246,19 @@ const actions = {
       MinuteOfDay: null,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.TimeID === null) item.TimeID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.TimeID === null) item.TimeID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_TIME', item)
-    APIinstance.mergeStats.mergeTime(item)
+    APIinstance.mergeCore.mergeTime(item)
   },
   saveUnit (context, payload) {
     let item = {}
@@ -261,17 +277,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.UnitID === null) item.UnitID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.UnitID === null) item.UnitID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_UNIT', item)
-    APIinstance.mergeStats.mergeUnit(item)
+    APIinstance.mergeCore.mergeUnit(item)
   },
   saveUnitType (context, payload) {
     let item = {}
@@ -287,17 +305,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.UnitTypeID === null) item.UnitTypeID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.UnitTypeID === null) item.UnitTypeID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_UNITTYPE', item)
-    APIinstance.mergeStats.mergeUnitType(item)
+    APIinstance.mergeCore.mergeUnitType(item)
   },
   stub () {}
 }

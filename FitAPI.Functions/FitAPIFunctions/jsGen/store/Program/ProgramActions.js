@@ -19,19 +19,21 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
     if (typeof item.StartDate === 'undefined' || item.StartDate === null) item.StartDate = new Date()
     item.StartDate = item.StartDate.toUTCString()
-    if (item.PlanID === null) item.PlanID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.PlanID === null) item.PlanID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_PLAN', item)
-    APIinstance.mergeStats.mergePlan(item)
+    APIinstance.mergeProgram.mergePlan(item)
   },
   saveWorkout (context, payload) {
     let item = {}
@@ -50,17 +52,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.WorkoutID === null) item.WorkoutID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.WorkoutID === null) item.WorkoutID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_WORKOUT', item)
-    APIinstance.mergeStats.mergeWorkout(item)
+    APIinstance.mergeProgram.mergeWorkout(item)
   },
   saveWorkout_Exercise (context, payload) {
     let item = {}
@@ -78,17 +82,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.Workout_ExerciseID === null) item.Workout_ExerciseID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.Workout_ExerciseID === null) item.Workout_ExerciseID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_WORKOUT_EXERCISE', item)
-    APIinstance.mergeStats.mergeWorkout_Exercise(item)
+    APIinstance.mergeProgram.mergeWorkout_Exercise(item)
   },
   saveWorkoutStage (context, payload) {
     let item = {}
@@ -106,17 +112,19 @@ const actions = {
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
-      UpdatedAt: null,
+      UpdatedAt: new Date(),
       Deleted: false,
       Version: null,
       NeedsSync: true
     }
-    if (item.WorkoutStageID === null) item.WorkoutStageID = 0
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    if (item.WorkoutStageID === null) item.WorkoutStageID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
     context.commit('SET_WORKOUTSTAGE', item)
-    APIinstance.mergeStats.mergeWorkoutStage(item)
+    APIinstance.mergeProgram.mergeWorkoutStage(item)
   },
   stub () {}
 }

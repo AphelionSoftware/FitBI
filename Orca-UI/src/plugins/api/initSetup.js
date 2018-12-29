@@ -22,4 +22,7 @@ export default function (initValues) {
   // Assuming only a single person value
   // store.commit('Stats/GET_PERSON', initValues.Person[0])
   store.commit('Stats/SET_CURRENT_PERSONID', initValues.Person[0].PersonID)
+  store.commit('Exercise/SET_FLAG', {loaded: true})
+  store.commit('Program/SET_FLAG', {loaded: true})
+  store.commit('Stats/SET_FLAG', {loaded: true})
 }

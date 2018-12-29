@@ -195,6 +195,11 @@
     <Build Include="Stats\User Defined Types\tvp_DailyMeasurement.sql" />
     <Build Include="Utility\Functions\fnColumnList.sql" />
     <Build Include="Settings\Tables\GlobalSettings.sql" />
+    <Build Include="Security\XPS15_mg_st.sql" />
+    <Build Include="Security\svc-fit_2.sql" />
+    <Build Include="Security\fitbi_2.sql" />
+    <Build Include="API\Stored Procedures\sp_Init_bySubject.sql" />
+    <Build Include="Security\XPS15_mg_st_1.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

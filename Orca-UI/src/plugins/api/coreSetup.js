@@ -8,4 +8,5 @@ export default function (coreValues) {
   store.commit('Core/SET_STATTYPE_LIST', coreValues.StatType)
   store.commit('Core/SET_UNIT_LIST', coreValues.Unit)
   store.commit('Core/SET_UNITTYPE_LIST', coreValues.UnitType)
+  store.commit('Core/SET_FLAG', {loaded: true})
 }

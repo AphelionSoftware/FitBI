@@ -232,7 +232,7 @@ export default {
     }
   },
   mounted () {
-    this.$API.Initialize()
+    // this.$API.Initialize()
     // var store = this.$store
     var localVue = this
     var store = this.$store

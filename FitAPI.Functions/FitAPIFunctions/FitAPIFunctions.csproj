@@ -89,16 +89,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_actions.js</LastGenOutput>
     </None>
-    <None Update="jsGen\store\_actionGenerator.tt">
+    <None Update="jsGen\store\_actionGenerator.tt.old">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastOutputs>
-.\_actionGenerator.cs
+.\_actionGenerator.tt.cs
 .\Core\CoreActions.js
 .\Exercise\ExerciseActions.js
 .\Program\ProgramActions.js
 .\Stats\StatsActions.js
 </LastOutputs>
-      <LastGenOutput>_actionGenerator.cs</LastGenOutput>
+      <LastGenOutput>_actionGenerator.tt.cs</LastGenOutput>
     </None>
     <None Update="jsGen\store\_getters.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -230,11 +230,6 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Update="jsGen\store\_storeGenerator - Copy.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>_storeGenerator.tt</DependentUpon>
-    </Compile>
-    <Compile Update="jsGen\store\_storeGenerator.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>_storeGenerator.tt</DependentUpon>

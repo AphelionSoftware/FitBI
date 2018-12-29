@@ -40,7 +40,10 @@ export default async function () {
                   payload.push(results[key][itemKey])
                 }
               })
-              store.commit(committer, payload)
+              if (payload.length > 0) {
+                store.commit(committer, payload)
+                store.commit(key.split('_')[0] + '/SET_FLAG', {loaded: true})
+              }
             }
           }
         } catch (error) {

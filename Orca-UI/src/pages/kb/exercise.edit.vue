@@ -145,7 +145,7 @@ export default {
     }
   },
   mounted () {
-    this.$API.Initialize()
+    // this.$API.Initialize()
     let payload = {
       ExerciseID: this.exerciseid
     }

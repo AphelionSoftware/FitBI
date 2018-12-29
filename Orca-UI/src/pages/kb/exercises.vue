@@ -38,7 +38,7 @@ export default {
   created () {
   },
   mounted () {
-    this.$API.Initialize()
+    // this.$API.Initialize()
     // Set the add action to enable the toolbar add button
     // var store = this.$store
     let router = this.$router

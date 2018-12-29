@@ -15,6 +15,7 @@ const actions = {
     day.WeightMeasurements = _.filter(context.state.TapeMeasurement,
       item => item.MeasurementDate === payload
     )
+    debugger /// Check if we can delete this
     context.commit('SET_DAILYMEASUREMENT_ITEM', day)
   },
   Save_DailyMeasurement ({commit, dispatch, getters, rootState, rootGetters, state}, payload) {

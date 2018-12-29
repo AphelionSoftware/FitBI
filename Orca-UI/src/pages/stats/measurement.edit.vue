@@ -42,7 +42,7 @@ export default {
   created () {
   },
   mounted () {
-    this.$API.Initialize()
+    // this.$API.Initialize()
     this.$store.dispatch('Stats/Set_StatsItem_ByMeasurementDate')
   },
   beforeDestroy () {

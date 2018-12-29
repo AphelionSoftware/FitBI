@@ -33,8 +33,9 @@ export default async function () {
         if (key.split('_')[0].indexOf('auth0') === -1) {
           // Authentication stored in localforage but not really state
           store.commit(committer, results[key])
+          store.commit(key.split('_')[0] + '/SET_FLAG', {loaded: true})
         } else {
-          debugger /// Query>
+          debugger /// Query?
         }
       })
       // if (results[0] !== null) {

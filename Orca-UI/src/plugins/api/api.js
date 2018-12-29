@@ -51,20 +51,38 @@ export default class {
       }).catch(this.ErrorHandler)
   }
   OnlineOfflineLoad () {
-    var flagCore = true
+    let core = store.getters['Core/Get_Flags']
+    let stats = store.getters['Stats/Get_Flags']
+    let exercise = store.getters['Exercise/Get_Flags']
+    let program = store.getters['Program/Get_Flags']
+    let coreExp = store.getters['AppState/GetCoreExpiry']
+    let initExp = store.getters['AppState/GetInitExpiry']
+    if ((
+      (new Date(coreExp) >= new Date()) &&
+      (new Date(initExp) >= new Date()) &&
+      core.loaded === true &&
+      stats.loaded === true &&
+      exercise.loaded === true &&
+      program.loaded === true
+    )) {
+      // No need to re-read storage each time we check initialization
+      return
+    }
     getLocalForageDataByKeys().then(result => {
+      var flagCore = true
       let subject = store.getters['AppState/Get_User']
       subject = subject.sub
-      if (new Date(store.getters['AppState/GetCoreExpiry']) >= new Date()) {
+      if (new Date(store.getters['AppState/GetCoreExpiry']) >= new Date() &&
+      store.getters['Core/Get_Flags'].loaded === true) {
         flagCore = false
       }
       // ///TODO: Do checks to see if it exists in localForage and if there are newer items
-      if (store.getters['Core/Get_Flags'].loaded === true) {
-        flagCore = false
-      }
+      // if (store.getters['Core/Get_Flags'].loaded === true) {
+      //   flagCore = false
+      // }
       if (flagCore) {
-        console.log(this.config.API_URL + this.config.coreURL + this.config.UserID + '?' + this.config.coreToken)
-        this.axios.get(this.config.coreURL + this.config.UserID + '?' + this.config.coreToken).then(
+        console.log(this.config.API_URL + this.config.coreURL + subject + '?' + this.config.coreToken)
+        this.axios.get(this.config.coreURL + subject + '?' + this.config.coreToken).then(
           function (response) {
             coreSetup(JSON.parse(response.data))
           }
@@ -76,11 +94,11 @@ export default class {
       if (moment(new Date()).isBefore(dt)) {
         flagInit = false
       }
-      if (store.getters['Stats/Get_Flags'].loaded === true &&
-        store.getters['Exercise/Get_Flags'].loaded === true &&
-        store.getters['Program/Get_Flags'].loaded === true) {
-        flagInit = false
-      }
+      // if (store.getters['Stats/Get_Flags'].loaded === true &&
+      //   store.getters['Exercise/Get_Flags'].loaded === true &&
+      //   store.getters['Program/Get_Flags'].loaded === true) {
+      //   flagInit = false
+      // }
       // ///TODO: Do checks to see if it exists in localForage and if there are newer items
       if (flagInit) {
         console.log(this.config.API_URL + this.config.initURL + subject + '?' + this.config.initToken)

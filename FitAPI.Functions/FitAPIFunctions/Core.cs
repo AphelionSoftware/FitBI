@@ -16,7 +16,7 @@ namespace FitAPIFunctions
     public static class Core
     {
         [FunctionName("Core")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "setup/Core/{pUserID}")]HttpRequestMessage req, string pUserID, TraceWriter log)
+        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "setup/Core/{pSubscriptionID}")]HttpRequestMessage req, string pSubscriptionID, TraceWriter log)
         {
             CoreValues objCore = new CoreValues();
             log.Info("C# HTTP trigger function processed a request.");
@@ -31,7 +31,7 @@ namespace FitAPIFunctions
                 using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();
-                    using (var multi = conn.QueryMultiple(sp_Core, new { UserID = System.Convert.ToInt32(pUserID) },
+                    using (var multi = conn.QueryMultiple(sp_Core, new { Subject = pSubscriptionID },
                                          commandType: CommandType.StoredProcedure))
                     {
                         objCore.Version = multi.Read<dynamic>().ToList();
@@ -51,14 +51,59 @@ namespace FitAPIFunctions
                 // Fetching the name from the path parameter in the request URL
 
             }
-             catch (System.Exception ex)
+            catch (System.Exception ex)
             {
-                log.Error("C# HTTP trigger function encountered an error " , ex);
+                log.Error("C# HTTP trigger function encountered an error ", ex);
                 statusCode = HttpStatusCode.InternalServerError;
-                
+
             }
             //Always return to not leave the client hanging
             return req.CreateResponse(statusCode, JSON);
         }
+        //[FunctionName("Core")]
+        //public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "setup/Core/{pUserID}")]HttpRequestMessage req, string pUserID, TraceWriter log)
+        //{
+        //    CoreValues objCore = new CoreValues();
+        //    log.Info("C# HTTP trigger function processed a request.");
+        //    var sqlConnectionString =
+        //        ConfigurationManager
+        //           .ConnectionStrings["FitDB_conn"].ConnectionString;
+        //    var sp_Core = ConfigurationManager.AppSettings["sp_Core"];
+        //    string JSON = "Error occurred";
+        //    HttpStatusCode statusCode = HttpStatusCode.OK;
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(sqlConnectionString))
+        //        {
+        //            conn.Open();
+        //            using (var multi = conn.QueryMultiple(sp_Core, new { UserID = System.Convert.ToInt32(pUserID) },
+        //                                 commandType: CommandType.StoredProcedure))
+        //            {
+        //                objCore.Version = multi.Read<dynamic>().ToList();
+        //                objCore.BodyPart = multi.Read<dynamic>().ToList();
+        //                objCore.BodyPartType = multi.Read<dynamic>().ToList();
+        //                objCore.MeasurementType = multi.Read<dynamic>().ToList();
+        //                objCore.MeasurementTypeCategory = multi.Read<dynamic>().ToList();
+        //                objCore.StatType = multi.Read<dynamic>().ToList();
+        //                objCore.Unit = multi.Read<dynamic>().ToList();
+        //                objCore.UnitType = multi.Read<dynamic>().ToList();
+
+        //                JSON = JsonConvert.SerializeObject(objCore);
+
+        //            }
+        //        }
+        //        //JObject 
+        //        // Fetching the name from the path parameter in the request URL
+
+        //    }
+        //     catch (System.Exception ex)
+        //    {
+        //        log.Error("C# HTTP trigger function encountered an error " , ex);
+        //        statusCode = HttpStatusCode.InternalServerError;
+
+        //    }
+        //    //Always return to not leave the client hanging
+        //    return req.CreateResponse(statusCode, JSON);
+        //}
     }
 }

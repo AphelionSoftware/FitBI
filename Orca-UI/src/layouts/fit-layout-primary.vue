@@ -130,7 +130,7 @@ export default {
     }
   },
   mounted () {
-    this.$API.Initialize()
+    // this.$API.Initialize()
   }
 }
 </script>

@@ -25,7 +25,6 @@ const state = {
             {#>
   <#=tTable.Name#>: { },
   <#=tTable.Name#>List: [],
-  <#=tTable.Name#>Item: {},
 <#
 			}
 #>
