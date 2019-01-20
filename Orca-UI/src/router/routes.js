@@ -1,26 +1,38 @@
 import fitLayoutPrimary from '../layouts/fit-layout-primary'
 import moment from 'moment'
 export default [
-  { path: '/', component: fitLayoutPrimary, props: true }, // Default
+  { path: '/', component: fitLayoutPrimary, props: true, meta: { homePage: true } }, // Default
   { path: '/callback', name: 'callback', component: () => import('src/pages/auth/callback') }, // Auth0 Callback
-  { path: '/measurements', component: () => import('../pages/stats/statsList') }, // Default
-  { path: '/record',
+  // { path: '/measurements', component: () => import('../pages/stats/statsList') }, // Default
+  // { path: '/record',
+  //   component: fitLayoutPrimary,
+  //   children: [
+  //     {
+  //       path: 'weigh-in',
+  //       name: 'dailyweighin',
+  //       component: () => import('../pages/stats/dailyMeasurement.vue'),
+  //       props: { measurementDate: new Date() }
+  //     }
+  //   ]
+  // },
+  { path: '/program',
     component: fitLayoutPrimary,
     children: [
       {
-        path: 'weigh-in',
-        component: () => import('../pages/stats/dailyMeasurement'),
-        props: { measurementDate: new Date() },
-        beforeEnter: (to, from, next) => {
-          // store.dispatch('DailyMeasurement/Set_NewDailyMeasurement')
-          next()
-        }
+        path: 'calendar',
+        name: 'Calendar',
+        component: () => import('../pages/plan/program.plan.calendar')
       }
     ]
   },
   { path: '/stats',
     component: fitLayoutPrimary,
     children: [
+      {
+        path: 'personedit',
+        name: 'PersonEdit',
+        component: () => import('../pages/person/person.edit')
+      },
       {
         path: 'timeList',
         name: 'timeList',
@@ -36,7 +48,7 @@ export default [
         name: 'dailymeasurementedit',
         component: () => import('../pages/stats/dailyMeasurement.vue'),
         props: (route) => ({
-          measurementDate: moment(route.params.measurementdateid, 'YYYYMMDD')
+          measurementDate: new Date(moment(route.params.measurementdateid, 'YYYYMMDD').utc())
           // debugger
           // console.log('src ' + route.params.measurementdateid)
           // console.log(moment(route.params.measurementdateid, 'YYYYMMDD'))

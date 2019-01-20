@@ -60,6 +60,7 @@ export default {
     updateValue: function () {
       // this.value = this.numberValue
       this.$emit('input', this.numberValue)
+      this.$emit('change', this.numberValue)
     },
     adjustValue: function (val) {
       this.numberValue += val

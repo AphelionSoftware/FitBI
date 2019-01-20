@@ -10,9 +10,7 @@ const saveAction = function (next, fnSave) {
         icon: 'fa-save', // specify ONLY IF using icon
         handler: function () {
           // store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-          debugger
           fnSave()
-          debugger
           next()
         }
       },

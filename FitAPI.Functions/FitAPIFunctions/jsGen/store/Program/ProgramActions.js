@@ -24,14 +24,22 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.StartDate === 'undefined' || item.StartDate === null) item.StartDate = new Date()
+    if (typeof item.StartDate === 'undefined' || item.StartDate === null) {
+      item.StartDate = new Date()
+    } else {
+      item.StartDate = new Date(item.StartDate)
+    }
     item.StartDate = item.StartDate.toUTCString()
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.PlanID === null) item.PlanID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.PlanID === null) item.PlanID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_PLAN', item)
     APIinstance.mergeProgram.mergePlan(item)
   },
@@ -57,12 +65,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.WorkoutID === null) item.WorkoutID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.WorkoutID === null) item.WorkoutID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_WORKOUT', item)
     APIinstance.mergeProgram.mergeWorkout(item)
   },
@@ -87,12 +99,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.Workout_ExerciseID === null) item.Workout_ExerciseID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.Workout_ExerciseID === null) item.Workout_ExerciseID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_WORKOUT_EXERCISE', item)
     APIinstance.mergeProgram.mergeWorkout_Exercise(item)
   },
@@ -117,12 +133,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.WorkoutStageID === null) item.WorkoutStageID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.WorkoutStageID === null) item.WorkoutStageID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_WORKOUTSTAGE', item)
     APIinstance.mergeProgram.mergeWorkoutStage(item)
   },

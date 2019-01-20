@@ -2,7 +2,7 @@
 <q-layout-drawer ref="left" side="left" v-model="internalValue" @input="updateValue">
     <q-list no-border link inset-separator>
       <q-list-header>Daily</q-list-header>
-      <q-item to="/record/weigh-in">
+      <q-item :to="'/stats/measurement.edit/' + todayid">
         <q-item-side icon="fa-balance-scale" />
         <q-item-main label="Weigh-in" />
       </q-item>
@@ -50,10 +50,16 @@
     </q-layout-drawer>
 </template>
 <script>
+import moment from 'moment'
 export default {
   data () {
     return {
       internalValue: this.value
+    }
+  },
+  computed: {
+    todayid () {
+      return moment(new Date()).format('YYYYMMDD')
     }
   },
   watch: {

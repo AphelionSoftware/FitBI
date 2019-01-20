@@ -76,15 +76,19 @@ const actions = {
 	if (col.DataType.ToString() == "date" || col.DataType.ToString() == "datetime") {
 	#>
 
-    if (typeof item.<#=col.Name#> === 'undefined' || item.<#=col.Name#> === null) item.<#=col.Name#> = new Date()
+    if (typeof item.<#=col.Name#> === 'undefined' || item.<#=col.Name#> === null) {
+      item.<#=col.Name#> = new Date()
+    } else {
+      item.<#=col.Name#> = new Date(item.<#=col.Name#>)
+    }
     item.<#=col.Name#> = item.<#=col.Name#>.toUTCString()<#}
 	#><#
 	}#>
 
-    if (item.<#= tTable.Name #>ID === null) item.<#= tTable.Name #>ID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.<#= tTable.Name #>ID === null) item.<#= tTable.Name #>ID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_<#= tTable.Name.ToUpper() #>', item)
     APIinstance.merge<#= tTable.Schema #>.merge<#= tTable.Name #>(item)
   },

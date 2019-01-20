@@ -3,15 +3,20 @@ import enumCore from '../../../plugins/libraries/enumCore'
 import moment from 'moment'
 const getters = {
   Get_Current_Person: function (state, getters, rootState, rootGetters) {
-    return state.Person[state.Current_PersonID]
+    if (state.Current_PersonID > 0) {
+      return state.Person[state.Current_PersonID]
+    } else {
+      return state.Person[Object.keys(state.Person)[0]] /// TODO: Issue when planning for multiple people
+    }
   },
   Get_NeckTapeMeasurementByDay: function (state, getters, rootState, rootGetters) {
-    return _.chain(rootState.TapeMeasurement)
+    return _.chain(state.TapeMeasurement)
       .filter(function (item) {
-        return item.BodyPartID === enumCore.BodyPart.NECK.intID
+        return item.BodyPartID === enumCore.BodyPart.NECK.intID &&
+        item.TapeLength !== null
       })
       .map(item => {
-        item.MeasurementDateID = moment(item.MeasurementDate, 'YYYYMMDD')
+        item.MeasurementDateID = moment(item.MeasurementDate).format('YYYYMMDD')
         return item
       })
       .groupBy(item => {
@@ -19,8 +24,8 @@ const getters = {
       })
       .map(item => {
         let ret = {
-          MeasurementDateID: item.MeasurementDateID,
-          MeasurementDate: item[0].MeasurementDate,
+          MeasurementDateID: item[0].MeasurementDateID,
+          MeasurementDate: new Date(item[0].MeasurementDate),
           BodyPartID: item[0].BodyPartID,
           TapeLength: item[0].TapeLength
         }
@@ -35,12 +40,13 @@ const getters = {
       .value()
   },
   Get_BellyTapeMeasurementByDay: function (state, getters, rootState, rootGetters) {
-    return _.chain(rootState.TapeMeasurement)
+    return _.chain(state.TapeMeasurement)
       .filter(function (item) {
-        return item.BodyPartID === enumCore.BodyPart.NECK.intID
+        return item.BodyPartID === enumCore.BodyPart.BELLYBUTTON_CIRC.intID &&
+        item.TapeLength !== null
       })
       .map(item => {
-        item.MeasurementDateID = moment(item.MeasurementDate, 'YYYYMMDD')
+        item.MeasurementDateID = moment(item.MeasurementDate).format('YYYYMMDD')
         return item
       })
       .groupBy(item => {
@@ -48,10 +54,10 @@ const getters = {
       })
       .map(item => {
         let ret = {
-          MeasurementDateID: item.MeasurementDateID,
-          MeasurementDate: item[0].MeasurementDate,
+          MeasurementDateID: item[0].MeasurementDateID,
+          MeasurementDate: new Date(item[0].MeasurementDate),
           BodyPartID: item[0].BodyPartID,
-          TapeLength: item.TapeLength
+          TapeLength: item[0].TapeLength
         }
         return ret
       })
@@ -64,13 +70,13 @@ const getters = {
       .value()
   },
   Get_WeightMeasurementByDay: function (state, getters, rootState, rootGetters) {
-    return _.chain(rootState.TapeMeasurement)
+    return _.chain(state.WeightMeasurement)
       .filter(function (item) {
         // Check this
-        return true
+        return item.Weight !== null
       })
       .map(item => {
-        item.MeasurementDateID = moment(item.MeasurementDate, 'YYYYMMDD')
+        item.MeasurementDateID = moment(item.MeasurementDate).format('YYYYMMDD')
         return item
       })
       .groupBy(item => {
@@ -78,11 +84,11 @@ const getters = {
       })
       .map(item => {
         let ret = {
-          MeasurementDateID: item.MeasurementDateID,
-          MeasurementDate: item[0].MeasurementDate,
+          MeasurementDateID: item[0].MeasurementDateID,
+          MeasurementDate: new Date(item[0].MeasurementDate),
           BodyPartID: item[0].BodyPartID,
-          Value: item.Weight,
-          Weight: item.Weight
+          Value: item[0].Weight,
+          Weight: item[0].Weight
         }
         return ret
       })
@@ -113,16 +119,20 @@ const getters = {
     })
     return _.sortBy(dateObj, 'MeasurementDate').reverse()
   },
-  Get_DailyMeasurement_Dates: function (state) {
+  Get_DailyMeasurement_DateIDs: function (state, getters) {
+    return _.pluck(getters.Get_DailyMeasurement_Dates, 'MeasurementDateID')
+  },
+  Get_DailyMeasurement_Dates: function (state, getters) {
     let measure = state.DailyMeasurement
-    measure = _.chain(state.DailyMeasurement)
+    // measure = _.chain(state.DailyMeasurement)
+    measure = _.chain(getters.Get_DailyMeasurements)
       .mapObject(item => {
         if ((new Date(item.MeasurementDate)) === 'Invalid Date') {
           debugger // Invalid date
         }
         item.MeasurementDateOriginal = item.MeasurementDate
         // item.MeasurementDate = (new Date(item.MeasurementDate)).toLocaleString()
-        item.MeasurementDateDisplay = (new Date(item.MeasurementDate)).toLocaleString()
+        item.MeasurementDateDisplay = (new Date(item.MeasurementDate)).toLocaleDateString()
         return item
       }).sortBy('MeasurementDateID')
       .value()
@@ -135,11 +145,15 @@ const getters = {
   },
   Get_DailyMeasurements: function (state, getters) {
     let arr = []
+    let height
+    if (typeof getters.Get_Current_Person !== 'undefined') {
+      height = getters.Get_Current_Person.Height
+    }
     _.each(getters.Get_WeightMeasurementByDay, item => {
       if (typeof arr[item.MeasurementDateID] === 'undefined') {
         arr[item.MeasurementDateID] = {
           MeasurementDateID: item.MeasurementDateID,
-          MeasurementDate: item.MeasurementDateID
+          MeasurementDate: item.MeasurementDate
         }
       }
       arr[item.MeasurementDateID].Weight = item.Weight
@@ -148,24 +162,29 @@ const getters = {
       if (typeof arr[item.MeasurementDateID] === 'undefined') {
         arr[item.MeasurementDateID] = {
           MeasurementDateID: item.MeasurementDateID,
-          MeasurementDate: item.MeasurementDateID
+          MeasurementDate: item.MeasurementDate
         }
       }
       arr[item.MeasurementDateID].NeckCircumference = item.TapeLength
+      arr[item.MeasurementDateID].HasTape = true
     })
     _.each(getters.Get_BellyTapeMeasurementByDay, item => {
       if (typeof arr[item.MeasurementDateID] === 'undefined') {
         arr[item.MeasurementDateID] = {
           MeasurementDateID: item.MeasurementDateID,
-          MeasurementDate: item.MeasurementDateID
+          MeasurementDate: item.MeasurementDate
         }
       }
-      arr[item.MeasurementDateID].BellyCircumference = item.TapeLength
+      arr[item.MeasurementDateID].BellyButtonCircumference = item.TapeLength
+      arr[item.MeasurementDateID].HasTape = true
+      if (+height > 0 && +arr[item.MeasurementDateID].NeckCircumference > 0) {
+        let neck = +arr[item.MeasurementDateID].NeckCircumference
+        let belly = item.TapeLength
+        arr[item.MeasurementDateID].BodyFatEstimate = (86.01 * Math.log10((belly - neck) / 2.54) - 70.041 * Math.log10(height / 2.54) + 36.76) / 100
+        arr[item.MeasurementDateID].WHR = belly / height
+      }
     })
     return arr
-    // commit('SET_WEIGHTMEASUREMENT', weight)
-    // commit('SET_NECKTAPEMEASUREMENT', tapeNeck)
-    // commit('SET_BELLYTAPEMEASUREMENT', tapeBelly)
   }
 }
 export default getters

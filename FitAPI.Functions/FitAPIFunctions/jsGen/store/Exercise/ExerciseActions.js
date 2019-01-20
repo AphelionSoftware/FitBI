@@ -24,12 +24,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.ExerciseID === null) item.ExerciseID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.ExerciseID === null) item.ExerciseID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_EXERCISE', item)
     APIinstance.mergeExercise.mergeExercise(item)
   },
@@ -54,12 +58,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.Exercise_SportID === null) item.Exercise_SportID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.Exercise_SportID === null) item.Exercise_SportID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_EXERCISE_SPORT', item)
     APIinstance.mergeExercise.mergeExercise_Sport(item)
   },
@@ -85,12 +93,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.ExerciseLinkID === null) item.ExerciseLinkID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.ExerciseLinkID === null) item.ExerciseLinkID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_EXERCISELINK', item)
     APIinstance.mergeExercise.mergeExerciseLink(item)
   },
@@ -115,12 +127,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.ExerciseTypeID === null) item.ExerciseTypeID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.ExerciseTypeID === null) item.ExerciseTypeID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_EXERCISETYPE', item)
     APIinstance.mergeExercise.mergeExerciseType(item)
   },
@@ -146,12 +162,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.SportID === null) item.SportID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.SportID === null) item.SportID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_SPORT', item)
     APIinstance.mergeExercise.mergeSport(item)
   },

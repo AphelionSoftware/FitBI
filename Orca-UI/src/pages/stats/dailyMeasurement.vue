@@ -2,7 +2,7 @@
   <!-- Navigation -->
     <q-layout>
     <div class="layout-padding">
-      <measurement v-model="dailyMeasurement" :previousMeasurement="previousMeasurement" />
+      <measurement ref="measurementComponent" v-model="dailyMeasurement" :previousMeasurement="previousMeasurement" :extantDateIDs="Get_DailyMeasurement_DateIDs"/>
     </div>
   </q-layout>
 </template>
@@ -49,6 +49,7 @@ export default {
         // this.dailyMeasurement = this.Get_DailyMeasurements[moment(newVal).format('YYYYMMDD')]
         this.setMeasurements(newVal)
         this.SET_TITLETEXT(moment(newVal).format('DD MMM YYYY'))
+        this.SET_TITLEACTION(this.$refs.measurementComponent.showDatePicker)
       }
     },
     Get_DailyMeasurement_Dates: {
@@ -63,18 +64,41 @@ export default {
         this.setMeasurements(this.measurementDate)
       }
     },
-    dailyMeasurement: {
-      immmediate: true,
+    dailyMeasurementDate: {
+      immmediate: false,
       handler: function (newVal, oldVal) {
+        /// Very special case. Override of date specifically
+        if (typeof this.dailyMeasurement.MeasurementDate !== 'undefined' && this.dailyMeasurement.MeasurementDate !== null && moment(this.measurementDate).format('YYYYMMDD') !== moment(this.dailyMeasurement.MeasurementDate).format('YYYYMMDD')) {
+          let localVue = this
+          let resultDate = this.dailyMeasurement.MeasurementDate
+          this.$store.dispatch('Stats/Save_DailyMeasurement', this.dailyMeasurement).then(results => {
+            localVue.$q.notify({
+              message: 'Measurements saved',
+              icon: 'fa-thumbs-up',
+              timeout: 2400,
+              color: 'positive',
+              bgColor: '#99d8c9'
+            })
+            let route = '/stats/measurement.edit/' + moment(resultDate).format('YYYYMMDD')
+            localVue.$router.push(route)
+            // this.SET_TITLETEXT(moment(this.dailyMeasurement.MeasurementDate).format('DD MMM YYYY'))
+          })
+        }
+        // this.SET_TITLETEXT(moment(this.dailyMeasurement.MeasurementDate).format('DD MMM YYYY'))
         // this.setMeasurements(this.measurementDate)
-        debugger
       }
     }
   },
   computed: {
     ...mapGetters('Stats', ['Get_DailyMeasurement_Dates',
-      'Get_Current_Person'
-    ])
+      'Get_Current_Person',
+      'Get_DailyMeasurement_DateIDs'
+    ]),
+    dailyMeasurementDate () {
+      if (typeof this.dailyMeasurement !== 'undefined') {
+        return this.dailyMeasurement.MeasurementDate
+      }
+    }
   },
   mounted () {
     // this.$API.Initialize()
@@ -84,6 +108,7 @@ export default {
       debugger
       let payload = localVue.dailyMeasurement
       payload.MeasurementDate = localVue.measurementDate
+      payload.MeasurementDateID = moment(localVue.measurementDate).format('YYYYMMDD')
       store.dispatch('Stats/Save_DailyMeasurement', payload).then(results => {
         debugger
         localVue.$q.notify({
@@ -109,10 +134,10 @@ export default {
   methods: {
     ...mapMutations('AppState', [
       'SET_TITLETEXT',
-      'CLEAR_TITLETEXT'
+      'CLEAR_TITLETEXT',
+      'SET_TITLEACTION'
     ]),
     setMeasurements (measurementDate) {
-      debugger
       let vueThis = this
       if (typeof this.Get_DailyMeasurement_Dates !== 'undefined') {
         let dm = this.Get_DailyMeasurement_Dates[moment(measurementDate).format('YYYYMMDD')]
@@ -154,7 +179,9 @@ export default {
     // }
     // else {
     try {
-      let extant = this.Get_DailyMeasurement_Dates[moment(this.measurementDate).format('YYYYMMDD')]
+      let dateID = +moment(this.measurementDate).format('YYYYMMDD')
+      debugger
+      let extant = this.Get_DailyMeasurement_Dates[dateID]
       if (typeof extant === 'undefined') {
         extant = this.previousMeasurement
       }

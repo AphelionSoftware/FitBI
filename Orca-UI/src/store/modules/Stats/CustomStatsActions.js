@@ -21,19 +21,19 @@ const actions = {
   Save_DailyMeasurement ({commit, dispatch, getters, rootState, rootGetters, state}, payload) {
     let weightPayload = {
       MeasurementDate: payload.MeasurementDate,
-      MeasurementDateID: payload.MeasurementDateID,
+      MeasurementDateID: +payload.MeasurementDateID,
       Weight: payload.Weight
     }
     let neckPayload = {
       MeasurementDate: payload.MeasurementDate,
-      MeasurementDateID: payload.MeasurementDateID,
+      MeasurementDateID: +payload.MeasurementDateID,
       TapeLength: payload.NeckCircumference,
       BodyPartID: enumCore.BodyPart.NECK.intID
     }
     let bellyPayload = {
       MeasurementDate: payload.MeasurementDate,
-      MeasurementDateID: payload.MeasurementDateID,
-      TapeLength: payload.BellyCircumference,
+      MeasurementDateID: +payload.MeasurementDateID,
+      TapeLength: payload.BellyButtonCircumference,
       BodyPartID: enumCore.BodyPart.BELLYBUTTON_CIRC.intID
     }
     debugger

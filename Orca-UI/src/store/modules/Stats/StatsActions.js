@@ -35,14 +35,22 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) item.MeasurementDate = new Date()
+    if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) {
+      item.MeasurementDate = new Date()
+    } else {
+      item.MeasurementDate = new Date(item.MeasurementDate)
+    }
     item.MeasurementDate = item.MeasurementDate.toUTCString()
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.DailyMeasurementID === null) item.DailyMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.DailyMeasurementID === null) item.DailyMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_DAILYMEASUREMENT', item)
     APIinstance.mergeStats.mergeDailyMeasurement(item)
   },
@@ -70,12 +78,16 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.MetricID === null) item.MetricID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.MetricID === null) item.MetricID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_METRIC', item)
     APIinstance.mergeStats.mergeMetric(item)
   },
@@ -100,14 +112,22 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.DateOfBirth === 'undefined' || item.DateOfBirth === null) item.DateOfBirth = new Date()
+    if (typeof item.DateOfBirth === 'undefined' || item.DateOfBirth === null) {
+      item.DateOfBirth = new Date()
+    } else {
+      item.DateOfBirth = new Date(item.DateOfBirth)
+    }
     item.DateOfBirth = item.DateOfBirth.toUTCString()
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.PersonID === null) item.PersonID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.PersonID === null) item.PersonID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_PERSON', item)
     APIinstance.mergeStats.mergePerson(item)
   },
@@ -133,14 +153,22 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) item.MeasurementDate = new Date()
+    if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) {
+      item.MeasurementDate = new Date()
+    } else {
+      item.MeasurementDate = new Date(item.MeasurementDate)
+    }
     item.MeasurementDate = item.MeasurementDate.toUTCString()
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.SkinfoldMeasurementID === null) item.SkinfoldMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.SkinfoldMeasurementID === null) item.SkinfoldMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_SKINFOLDMEASUREMENT', item)
     APIinstance.mergeStats.mergeSkinfoldMeasurement(item)
   },
@@ -166,14 +194,22 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) item.MeasurementDate = new Date()
+    if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) {
+      item.MeasurementDate = new Date()
+    } else {
+      item.MeasurementDate = new Date(item.MeasurementDate)
+    }
     item.MeasurementDate = item.MeasurementDate.toUTCString()
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.TapeMeasurementID === null) item.TapeMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.TapeMeasurementID === null) item.TapeMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_TAPEMEASUREMENT', item)
     APIinstance.mergeStats.mergeTapeMeasurement(item)
   },
@@ -203,14 +239,22 @@ const actions = {
       Version: null,
       NeedsSync: true
     }
-    if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) item.MeasurementDate = new Date()
+    if (typeof item.MeasurementDate === 'undefined' || item.MeasurementDate === null) {
+      item.MeasurementDate = new Date()
+    } else {
+      item.MeasurementDate = new Date(item.MeasurementDate)
+    }
     item.MeasurementDate = item.MeasurementDate.toUTCString()
-    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) item.UpdatedAt = new Date()
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
     item.UpdatedAt = item.UpdatedAt.toUTCString()
-    if (item.WeightMeasurementID === null) item.WeightMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     item.UpdatedAt = (new Date()).toUTCString()
     item.NeedsSync = true
     item = {...defaults, ...item}
+    if (item.WeightMeasurementID === null) item.WeightMeasurementID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_WEIGHTMEASUREMENT', item)
     APIinstance.mergeStats.mergeWeightMeasurement(item)
   },

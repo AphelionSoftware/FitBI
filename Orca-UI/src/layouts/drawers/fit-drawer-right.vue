@@ -2,7 +2,7 @@
 <q-layout-drawer ref="right" side="right" v-model="internalValue" @input="updateValue">
     <q-list no-border link inset-separator>
     <q-list-header>Account</q-list-header>
-      <q-item to="PersonEdit">
+      <q-item :to="{name: 'PersonEdit'}">
         <q-item-side icon="fa fa-user-circle" />
         <q-item-main label="Personal Details" />
       </q-item>

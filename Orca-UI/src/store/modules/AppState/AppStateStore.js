@@ -15,6 +15,7 @@ const state = {
   SaveAction: {},
   RightHandMenu: {},
   TitleText: '',
+  TitleAction: function () {},
   Error: false,
   Flags: {
     Loaded: false,
@@ -142,6 +143,13 @@ const mutations = {
   },
   CLEAR_TITLETEXT (state) {
     state.TitleText = ''
+    state.TitleAction = function () {}
+  },
+  SET_TITLEACTION (state, payload) {
+    state.TitleAction = payload
+  },
+  CLEAR_TITLEACTION (state) {
+    state.TitleAction = function () {}
   },
   SET_APIFLAG_PROPERTY (state, payload) {
     if (typeof payload.Loaded !== 'undefined') Vue.set(state.Flags, 'Loaded', payload.Loaded)

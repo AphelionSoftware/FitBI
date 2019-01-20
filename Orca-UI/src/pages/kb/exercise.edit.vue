@@ -99,7 +99,6 @@ export default {
     let router = this.$router
     let vueThis = this
     let fnSave = function () {
-      debugger
       store.dispatch('Exercise/saveExercise', vueThis.item)
       this.$q.notify({
         html: 'Exercise saved',

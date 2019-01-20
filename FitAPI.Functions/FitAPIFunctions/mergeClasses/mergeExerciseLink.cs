@@ -23,6 +23,11 @@ namespace FitAPIFunctions
 	    [FunctionName("mergeExerciseLink")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/ExerciseLink")]HttpRequestMessage req, TraceWriter log)
 		{
+
+			string JSON = "Running API call";
+            HttpStatusCode statusCode = HttpStatusCode.OK;
+			try
+            {
             var postData = await req.Content.ReadAsStringAsync();
             
             var container = JsonConvert.DeserializeObject<FitAPIFunctions.Schema.ExerciseLinkContainer>(postData);
@@ -31,10 +36,8 @@ namespace FitAPIFunctions
             var sqlConnectionString =
                 ConfigurationManager
                    .ConnectionStrings["FitDB_conn"].ConnectionString;
-            string JSON = "Running API call";
-            HttpStatusCode statusCode = HttpStatusCode.OK;
-            try
-            {
+            
+            
 			using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();

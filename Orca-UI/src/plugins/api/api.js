@@ -45,6 +45,7 @@ export default class {
   }
 
   genericPost (url, postData) {
+    console.log('Post to ' + url)
     this.http.post(url, postData).then(
       function (response) {
         store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: true, Failed: false, InProgress: false})

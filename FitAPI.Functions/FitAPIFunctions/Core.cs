@@ -54,6 +54,7 @@ namespace FitAPIFunctions
             catch (System.Exception ex)
             {
                 log.Error("C# HTTP trigger function encountered an error ", ex);
+                JSON = JsonConvert.SerializeObject(ex);
                 statusCode = HttpStatusCode.InternalServerError;
 
             }

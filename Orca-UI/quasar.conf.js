@@ -80,8 +80,8 @@ module.exports = function (ctx) {
           mergeMetricToken: JSON.stringify(''),
           mergePersonToken: JSON.stringify(''),
           mergeSkinfoldMeasurementToken: JSON.stringify(''),
-          mergeTapeMeasurementToken: JSON.stringify(''),
-          mergeWeightMeasurementToken: JSON.stringify(''),
+          mergeTapeMeasurementToken: JSON.stringify('code=HKcdaGbZW8xYzevs2loRNaTvHTLvSgd1M4wKcQ7z/FHaNn2Mibg7KQ=='),
+          mergeWeightMeasurementToken: JSON.stringify('code=7m4xU8bDJhIPWy2zl2Lu3Is0JgrWirsTRcU/aa7R78x4VPKF0WVn7w=='),
           auth0domain: JSON.stringify('orcafit.eu.auth0.com'),
           auth0clientID: JSON.stringify('7HG6PvXW3BePnn0UzuwvwcbjsvcNg3hF'),
           auth0redirectUri: JSON.stringify('https://fitquasar.azurewebsites.net/#/'),
@@ -147,7 +147,9 @@ module.exports = function (ctx) {
         'QCard',
         'QCardTitle',
         'QCardMain',
-        'QPopover'
+        'QPopover',
+        'QPageSticky',
+        'QDatetimePicker'
       ],
       directives: [
         'Ripple'
