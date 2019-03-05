@@ -14,7 +14,7 @@ using System.Collections.Generic;
 			public string ID  { get; set; }
 			public bool? isTemplate  { get; set; }
 			public int? PersonID  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public byte[] Version  { get; set; }
 			public int? WorkoutID  { get; set; }
 			public int? WorkoutStageID  { get; set; }

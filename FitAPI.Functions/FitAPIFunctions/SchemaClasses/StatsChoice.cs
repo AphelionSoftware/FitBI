@@ -13,7 +13,7 @@ using System.Collections.Generic;
 			public string ID  { get; set; }
 			public int? StatsChoiceID  { get; set; }
 			public int? StatTypeID  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public int? UserID  { get; set; }
 			public byte[] Version  { get; set; }
 	}

@@ -201,6 +201,72 @@ const mutations = {
       localForage.setItem('Core_MeasurementTypeCategory', state.MeasurementTypeCategory)
     }
   },
+  SET_METRICDETAIL (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MetricDetail, payload.MetricDetailID, payload)
+      localForage.setItem('Core_MetricDetail', state.MetricDetail)
+    }
+  },
+  SET_METRICDETAIL_LIST: function (state, fullList) {
+    if (typeof (fullList) !== 'undefined') {
+      fullList.forEach(function (element) {
+        Vue.set(state.MetricDetail, element.MetricDetailID, element)
+      }, this)
+      _.each(state.MetricDetail, (item, idx) => {
+        if (item.MetricDetailID >= 1073741824 || item.MetricDetailID === null) {
+          let extant = _.find(state.MetricDetail, extItem => {
+            return extItem.ID === item.ID && extItem.MetricDetailID !== item.MetricDetailID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.MetricDetailID
+              let newVal = {...extant, ...item}
+              newVal.MetricDetailID = extId
+              Vue.set(state.MetricDetail, newVal.MetricDetailID, newVal)
+              Vue.delete(state.MetricDetail, item.MetricDetailID)
+            } else {
+              Vue.delete(state.MetricDetail, item.MetricDetailID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_MetricDetail', state.MetricDetail)
+    }
+  },
+  SET_METRICSET (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MetricSet, payload.MetricSetID, payload)
+      localForage.setItem('Core_MetricSet', state.MetricSet)
+    }
+  },
+  SET_METRICSET_LIST: function (state, fullList) {
+    if (typeof (fullList) !== 'undefined') {
+      fullList.forEach(function (element) {
+        Vue.set(state.MetricSet, element.MetricSetID, element)
+      }, this)
+      _.each(state.MetricSet, (item, idx) => {
+        if (item.MetricSetID >= 1073741824 || item.MetricSetID === null) {
+          let extant = _.find(state.MetricSet, extItem => {
+            return extItem.ID === item.ID && extItem.MetricSetID !== item.MetricSetID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.MetricSetID
+              let newVal = {...extant, ...item}
+              newVal.MetricSetID = extId
+              Vue.set(state.MetricSet, newVal.MetricSetID, newVal)
+              Vue.delete(state.MetricSet, item.MetricSetID)
+            } else {
+              Vue.delete(state.MetricSet, item.MetricSetID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_MetricSet', state.MetricSet)
+    }
+  },
   SET_STATTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.StatType, payload.StatTypeID, payload)

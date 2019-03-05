@@ -17,7 +17,7 @@ using System.Collections.Generic;
 			public decimal? MusclePercentage  { get; set; }
 			public int? PercentMeasurementTypeID  { get; set; }
 			public int? PersonID  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public byte[] Version  { get; set; }
 			public decimal? WaterPercentage  { get; set; }
 			public decimal? Weight  { get; set; }

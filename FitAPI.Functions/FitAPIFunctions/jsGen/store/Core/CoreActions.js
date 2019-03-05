@@ -46,6 +46,7 @@ const actions = {
       Name: null,
       Description: null,
       ParentBodyPartID: null,
+      Bilateral: true,
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),
@@ -226,6 +227,72 @@ const actions = {
     if (item.MeasurementTypeCategoryID === null) item.MeasurementTypeCategoryID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
     context.commit('SET_MEASUREMENTTYPECATEGORY', item)
     APIinstance.mergeCore.mergeMeasurementTypeCategory(item)
+  },
+  saveMetricDetail (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MetricDetailItem
+    } else {
+      item = payload
+    }
+    let defaults = {
+      MetricDetailID: null,
+      MetricSetID: 1,
+      MeasurementTypeID: 1,
+      BodyPartID: null,
+      OrdinalPosition: 0,
+      Active: 1,
+      ID: uuidv1(),
+      CreatedAt: new Date().toUTCString(),
+      UpdatedAt: new Date(),
+      Deleted: false,
+      Version: null,
+      NeedsSync: true
+    }
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    item.UpdatedAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    item = {...defaults, ...item}
+    if (item.MetricDetailID === null) item.MetricDetailID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
+    context.commit('SET_METRICDETAIL', item)
+    APIinstance.mergeCore.mergeMetricDetail(item)
+  },
+  saveMetricSet (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MetricSetItem
+    } else {
+      item = payload
+    }
+    let defaults = {
+      MetricSetID: null,
+      Code: null,
+      Name: null,
+      Active: 1,
+      ID: uuidv1(),
+      CreatedAt: new Date().toUTCString(),
+      UpdatedAt: new Date(),
+      Deleted: false,
+      Version: null,
+      NeedsSync: true
+    }
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    item.UpdatedAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    item = {...defaults, ...item}
+    if (item.MetricSetID === null) item.MetricSetID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
+    context.commit('SET_METRICSET', item)
+    APIinstance.mergeCore.mergeMetricSet(item)
   },
   saveStatType (context, payload) {
     let item = {}

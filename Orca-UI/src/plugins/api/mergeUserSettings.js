@@ -1,6 +1,7 @@
 ﻿/* eslint camelcase: 0 */
 import {APIinstance} from '../api.js'
 import store from '../../store/index'
+import * as defaultSettings from './defaultSettings'
 function mergeColumnChoice (payload) {
   let postData = {}
   if (payload.ColumnChoice) {
@@ -22,6 +23,7 @@ function mergeGeneralSettings (payload) {
   }
   store.commit('AppState/SET_APIFLAG_PROPERTY', {Saved: false, Failed: false, InProgress: true})
   APIinstance.genericPost('/merge/GeneralSettings?' + APIinstance.config.mergeGeneralSettingsToken, postData)
+  defaultSettings()
 }
 function mergeStatsChoice (payload) {
   let postData = {}

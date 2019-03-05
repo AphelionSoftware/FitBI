@@ -3,7 +3,7 @@
    <q-layout ref="primary_layout">
      <q-layout-header>
     <q-toolbar class="justify-between">
-    <q-btn flat @click="left = !left">
+    <q-btn flat @click="left = !left" class="driverjs_01" id="driverjs_01">
       <q-icon name="menu"/>
     </q-btn>
     <q-toolbar-title v-if="left || TitleText === ''">
@@ -11,12 +11,12 @@
       <span slot="subtitle"> Private pre-alpha only</span>
     </q-toolbar-title>
     <!-- <q-btn flat @click="$refs.layout.toggleRight()">
-      <q-icon name="fa-square" />
+      <q-icon name="fa fa-square" />
     </q-btn> -->
      <!-- <q-fixed-position corner="top-right" :offset="[18, 24]"> -->
        <q-chip v-if="this.TitleText !== ''" color="tertiary" class="on-left q-ma-md" @click="TitleAction()">{{this.TitleText}}</q-chip>
-      <q-btn v-if="typeof this.SaveAction === 'function'" @click="fnSaveAction" icon="fa-save" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
-      <q-btn v-if="typeof this.AddAction === 'function'" @click="fnAddAction" icon="fa-plus" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
+      <q-btn v-if="typeof this.SaveAction === 'function'" @click="fnSaveAction" icon="fa fa-save" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
+      <q-btn v-if="typeof this.AddAction === 'function'" @click="fnAddAction" icon="fa fa-plus" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
       <q-btn icon="fa fa-user-circle" @click="right = !right">
       </q-btn>
     <!-- </q-fixed-position> -->
@@ -39,9 +39,10 @@
 // import { QKnob, QIcon, QBtn } from 'quasar'
 // import { QTab, QTabs, QTabPane } from 'quasar'
 import basicTrends from '../pages/stats/basicTrends'
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 import fitDrawerLeft from './drawers/fit-drawer-left'
 import fitDrawerRight from './drawers/fit-drawer-right'
+// import {fnIntro} from './driver/intro' /// TODO
 export default {
   data: function () {
     return {
@@ -59,6 +60,13 @@ export default {
     ...mapState(
       'AppState', ['SaveAction', 'AddAction', 'TitleText', 'TitleAction']
     ),
+    ...mapGetters(
+      'UserSettings', {
+        Settings: 'Get_GeneralSetting_ByCode'}
+    ),
+    ...mapGetters('Stats', [
+      'Get_Current_Person'
+    ]),
     isHomePage () {
       let ret = this.$route.meta.homePage === true
       return ret
@@ -85,6 +93,22 @@ export default {
   },
   mounted () {
     // this.$API.Initialize()
+  },
+  watch: {
+    Get_Current_Person: {
+      immmediate: true,
+      handler: function (newVal, oldVal) {
+        if (typeof newVal !== 'undefined' && typeof oldVal === 'undefined') { // Only fire once
+          if (newVal.Height === null || newVal.Height === 0) {
+            this.$q.notify('Please enter your height for use in calculations')
+            this.$router.push('/stats/personedit')
+          }
+        }
+        if (typeof this.Settings['SHOWINTRO'] === 'undefined' || this.Settings['SHOWINTRO'].BooleanValue) {
+          // fnIntro()
+        }
+      }
+    }
   }
 }
 </script>

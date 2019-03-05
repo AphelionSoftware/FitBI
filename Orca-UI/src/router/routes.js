@@ -1,7 +1,8 @@
 import fitLayoutPrimary from '../layouts/fit-layout-primary'
-import moment from 'moment'
-export default [
+import stats from './stats/stats.js'
+let baseRoute = [
   { path: '/', component: fitLayoutPrimary, props: true, meta: { homePage: true } }, // Default
+  { path: '/home', component: fitLayoutPrimary, props: true, meta: { homePage: true } }, // Default
   { path: '/callback', name: 'callback', component: () => import('src/pages/auth/callback') }, // Auth0 Callback
   // { path: '/measurements', component: () => import('../pages/stats/statsList') }, // Default
   // { path: '/record',
@@ -22,38 +23,6 @@ export default [
         path: 'calendar',
         name: 'Calendar',
         component: () => import('../pages/plan/program.plan.calendar')
-      }
-    ]
-  },
-  { path: '/stats',
-    component: fitLayoutPrimary,
-    children: [
-      {
-        path: 'personedit',
-        name: 'PersonEdit',
-        component: () => import('../pages/person/person.edit')
-      },
-      {
-        path: 'timeList',
-        name: 'timeList',
-        component: () => import('../pages/stats/statsList')
-      },
-      {
-        path: 'dailyMeasurements',
-        name: 'dailyMeasurements',
-        component: () => import('../pages/stats/statsList')
-      },
-      {
-        path: 'measurement.edit/:measurementdateid',
-        name: 'dailymeasurementedit',
-        component: () => import('../pages/stats/dailyMeasurement.vue'),
-        props: (route) => ({
-          measurementDate: new Date(moment(route.params.measurementdateid, 'YYYYMMDD').utc())
-          // debugger
-          // console.log('src ' + route.params.measurementdateid)
-          // console.log(moment(route.params.measurementdateid, 'YYYYMMDD'))
-          // moment(route.params.measurementdateid, 'YYYYMMDD')
-        })
       }
     ]
   },
@@ -95,3 +64,7 @@ export default [
     ]
   }
 ]
+let route = []
+route.push(...stats)
+route.push(...baseRoute)
+export default route

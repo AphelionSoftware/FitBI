@@ -8,6 +8,7 @@ import getLocalForageDataByKeys from './localForageKeys'
 import * as mergeExercise from './mergeExercise'
 import * as mergeProgram from './mergeProgram'
 import * as mergeStats from './mergeStats'
+
 import store from '../../store/index'
 import moment from 'moment'
 // import auth0 from './auth/auth0'
@@ -83,11 +84,15 @@ export default class {
       // }
       if (flagCore) {
         console.log(this.config.API_URL + this.config.coreURL + subject + '?' + this.config.coreToken)
-        this.axios.get(this.config.coreURL + subject + '?' + this.config.coreToken).then(
-          function (response) {
-            coreSetup(JSON.parse(response.data))
-          }
-        )
+        try {
+          this.axios.get(this.config.coreURL + subject + '?' + this.config.coreToken).then(
+            function (response) {
+              coreSetup(JSON.parse(response.data))
+            }
+          )
+        } catch (ex) {
+          console.log(ex)
+        }
       }
       var flagInit = true
       let gt = store.getters['AppState/GetInitExpiry']
@@ -102,13 +107,18 @@ export default class {
       // }
       // ///TODO: Do checks to see if it exists in localForage and if there are newer items
       if (flagInit) {
-        console.log(this.config.API_URL + this.config.initURL + subject + '?' + this.config.initToken)
-        this.axios.get(this.config.initURL + subject + '?' + this.config.initToken).then(
-        // this.axios.get(this.config.initURL + this.config.UserID + '?' + this.config.initToken).then(
-          function (response) {
-            initSetup(JSON.parse(response.data))
-          }
-        )
+        try {
+          console.log(this.config.API_URL + this.config.initURL + subject + '?' + this.config.initToken)
+          this.axios.get(this.config.initURL + subject + '?' + this.config.initToken).then(
+            // this.axios.get(this.config.initURL + this.config.UserID + '?' + this.config.initToken).then(
+            function (response) {
+              initSetup(JSON.parse(response.data))
+            }
+          )
+        } catch (ex) {
+          console.log(ex)
+          store.commit('Stats/SET_CURRENT_PERSONID', store.getters['Stats/Get_Person_List'][0].PersonID)
+        }
       } else {
         store.commit('Stats/SET_CURRENT_PERSONID', store.getters['Stats/Get_Person_List'][0].PersonID)
       }
@@ -140,6 +150,7 @@ export default class {
     this.axios.defaults.baseURL = this.config.API_URL
     var api = this
     console.log(this.config.API_URL + this.config.latestTimestampsURL + this.config.UserID + '?' + this.config.latestTimestampsToken)
+    store.commit('AppState/SET_CONFIG', this.config)
     // this.auth = auth0(this.config)
     // this.auth.login()
     api.OnlineOfflineLoad()

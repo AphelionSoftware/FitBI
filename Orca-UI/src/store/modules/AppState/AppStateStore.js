@@ -27,11 +27,15 @@ const state = {
   initExpiry: new Date('1 Jan 2000'),
   coreTimeStamp: 0x0000000000000000,
   coreExpiry: new Date('1 Jan 2000'),
-  user: ''
+  user: '',
+  config: {}
 }
 
 // #region Getter
 const getters = {
+  Get_Config: function (state, getters, rootState) {
+    return state.config
+  },
   Get_User: function (state, getters, rootState) {
     return state.user
   },
@@ -57,6 +61,11 @@ const getters = {
 // #endregion
 // #region Mutations
 const mutations = {
+  SET_CONFIG (state, payload) {
+    if (typeof payload !== 'undefined') {
+      state.config = payload
+    }
+  },
   SET_USER (state, payload) {
     if (typeof payload !== 'undefined') {
       state.user = payload

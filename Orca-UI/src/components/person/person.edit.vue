@@ -3,7 +3,7 @@
    <q-input v-model="item.FirstName" stack-label="FirstName" @change="update"/>
    <q-input v-model="item.Surname" stack-label="Surname"  @change="update"/>
    <q-input v-model="item.Height" :decimals="2" type="number" stack-label="Height"  @change="update"/>
-   <q-datetime v-model="item.DateOfBirth" type="date" />
+   <q-datetime v-model="item.DateOfBirth" type="date" float-label="Date of birth"  @blur="countDateChange = 0" @input="++countDateChange"/>
     </div>
 </template>
 <script>
@@ -21,10 +21,18 @@ export default {
   },
   data () {
     return {
-      item: {}
+      item: {},
+      countDateChange: 0
     }
   },
   watch: {
+    countDateChange: {
+      handler: function (newVal, oldVal) {
+        if (newVal === 5) {
+          this.$q.notify('You can click on the year to fast track selecting a year further back')
+        }
+      }
+    },
     value: {
       immediate: true,
       deep: true,

@@ -160,16 +160,19 @@
     <None Update="mergeClasses\_mergeClassCreate.tt">
       <LastOutputs>
 .\_mergeClassCreate.cs
+.\mergeColumnChoice.cs
 .\mergeDailyMeasurement.cs
 .\mergeExercise.cs
 .\mergeExercise_Sport.cs
 .\mergeExerciseLink.cs
 .\mergeExerciseType.cs
+.\mergeGeneralSettings.cs
 .\mergeMetric.cs
 .\mergePerson.cs
 .\mergePlan.cs
 .\mergeSkinfoldMeasurement.cs
 .\mergeSport.cs
+.\mergeStatsChoice.cs
 .\mergeTapeMeasurement.cs
 .\mergeWeightMeasurement.cs
 .\mergeWorkout.cs

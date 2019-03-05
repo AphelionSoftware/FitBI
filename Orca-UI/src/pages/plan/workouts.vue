@@ -5,7 +5,7 @@
    <q-list>
        <q-list-header>Exercise Types</q-list-header>
         <q-item v-for="(ExerciseType, index) in exerciseTypes" :key=index>
-            <q-btn icon="fa-edit" name="edit" @click="$router.push('/kb/exerciseTypes.edit/'+ ExerciseType.ExerciseTypeID)">
+            <q-btn icon="fa fa-edit" name="edit" @click="$router.push('/kb/exerciseTypes.edit/'+ ExerciseType.ExerciseTypeID)">
             <q-item-main :label=ExerciseType.Name></q-item-main>
             </q-btn>
         </q-item>

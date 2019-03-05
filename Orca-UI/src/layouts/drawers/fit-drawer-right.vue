@@ -6,7 +6,7 @@
         <q-item-side icon="fa fa-user-circle" />
         <q-item-main label="Personal Details" />
       </q-item>
-      <q-item @click.native="$auth.logout()">
+      <q-item @click.native="logout()">
         <q-item-side icon="fa fa-sign-out" />
         <q-item-main label="Log out" />
       </q-item>
@@ -36,6 +36,10 @@ export default {
     updateValue (newVal) {
       this.internalValue = newVal
       this.$emit('input', this.internalValue)
+    },
+    logout () {
+      this.$store.dispatch('AppState/Clear_LocalForage')
+      this.$auth.logout()
     }
   },
   props: {

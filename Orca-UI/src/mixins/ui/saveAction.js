@@ -19,7 +19,7 @@ const saveAction = function (next, fnSave) {
         icon: 'fa-bookmark',
         handler: function () {
           // store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-          fnSave()
+          fnSave(false)
           next(false)
         }
       },
@@ -41,7 +41,7 @@ const saveAction = function (next, fnSave) {
     // optional:
     dismiss: {
       // tell what to do when Action Sheet
-      // is dismised (doesn't trigger when
+      // is dismissed (doesn't trigger when
       // any of the actions above are clicked/tapped)
       handler: function () {
         // console.log('Cancelled...')

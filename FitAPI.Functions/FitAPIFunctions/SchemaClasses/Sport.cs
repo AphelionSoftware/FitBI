@@ -17,7 +17,7 @@ using System.Collections.Generic;
 			public int? ParentSportID  { get; set; }
 			public int? PersonID  { get; set; }
 			public int? SportID  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public byte[] Version  { get; set; }
 	}
 

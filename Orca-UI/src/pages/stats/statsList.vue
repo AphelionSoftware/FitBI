@@ -25,14 +25,14 @@
               </q-chip>
             </q-item-side>
               <!--<q-item-tile avatar>
-                <q-btn icon="fa-edit" name="edit" @click="$router.push('/stats/measurement.edit/'+ Date.MeasurementDateID)"/>
+                <q-btn icon="fa fa-edit" name="edit" @click="$router.push('/stats/measurement.edit/'+ Date.MeasurementDateID)"/>
               </q-item-tile>
             </q-item-side> -->
             <!-- <q-item-main :label="Date.MeasurementDateDisplay" class="q-pa-sm">
             </q-item-main> -->
              <!-- <q-item-side right>
               <q-item-tile v-if="Date.Weight !== ''" icon="fa fa-balance-scale"/>
-              <q-item-tile v-if="Date.icnTape !== ''" icon="fa-th-list"/>
+              <q-item-tile v-if="Date.icnTape !== ''" icon="fa fa-th-list"/>
             </q-item-side> -->
         </q-item>
    </q-list>

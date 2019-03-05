@@ -2,7 +2,7 @@
    <!-- Navigation -->
    <q-layout>
      <div slot="toolButtons"> <q-btn flat @click="$refs.layout.toggleRight()">
-      <q-icon name="fa-close" />
+      <q-icon name="fa fa-close" />
     </q-btn>
      </div>
  <div class="layout-padding">

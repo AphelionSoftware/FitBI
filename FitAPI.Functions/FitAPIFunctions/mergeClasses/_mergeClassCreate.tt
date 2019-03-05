@@ -20,7 +20,7 @@ var server = new Server(".\\SQL2017");
 <#
     foreach (Table tTable in database.Tables)
     {
-		if ( (tTable.Schema == "Exercise" || tTable.Schema == "Program" || tTable.Schema == "Stats")
+		if ( (tTable.Schema == "Exercise" || tTable.Schema == "Program" || tTable.Schema == "Stats" || tTable.Schema == "UserSettings")
 		) {
 			string fileName = tTable.Name;
 			var lt = new ValuesTemplate(tTable, fileName);

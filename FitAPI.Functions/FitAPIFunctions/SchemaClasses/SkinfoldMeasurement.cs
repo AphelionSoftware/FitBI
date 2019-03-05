@@ -17,7 +17,7 @@ using System.Collections.Generic;
 			public int? SideMeasurementTypeID  { get; set; }
 			public int? SkinfoldMeasurementID  { get; set; }
 			public decimal? SkinfoldThickness  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public byte[] Version  { get; set; }
 	}
 

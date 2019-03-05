@@ -47,7 +47,7 @@ module.exports = function (ctx) {
         mergeWorkoutStageToken: JSON.stringify(''),
         mergeDailyMeasurementToken: JSON.stringify('code=Q77kQaUmWmBdRfl4c1DIWbWZ3U/2lb86q2EQGQwzD3r0u4JXkmdagg=='),
         mergeMetricToken: JSON.stringify(''),
-        mergePersonToken: JSON.stringify(''),
+        mergePersonToken: JSON.stringify('code=/cuHac4rLHR1bjUQP0efciEXna8P6LNFMZouADss/dBHeOnAz9rnOg=='),
         mergeSkinfoldMeasurementToken: JSON.stringify(''),
         mergeTapeMeasurementToken: JSON.stringify(''),
         mergeWeightMeasurementToken: JSON.stringify(''),
@@ -78,7 +78,7 @@ module.exports = function (ctx) {
           mergeWorkoutStageToken: JSON.stringify(''),
           mergeDailyMeasurementToken: JSON.stringify('code=Q77kQaUmWmBdRfl4c1DIWbWZ3U/2lb86q2EQGQwzD3r0u4JXkmdagg=='),
           mergeMetricToken: JSON.stringify(''),
-          mergePersonToken: JSON.stringify(''),
+          mergePersonToken: JSON.stringify('code=/cuHac4rLHR1bjUQP0efciEXna8P6LNFMZouADss/dBHeOnAz9rnOg=='),
           mergeSkinfoldMeasurementToken: JSON.stringify(''),
           mergeTapeMeasurementToken: JSON.stringify('code=HKcdaGbZW8xYzevs2loRNaTvHTLvSgd1M4wKcQ7z/FHaNn2Mibg7KQ=='),
           mergeWeightMeasurementToken: JSON.stringify('code=7m4xU8bDJhIPWy2zl2Lu3Is0JgrWirsTRcU/aa7R78x4VPKF0WVn7w=='),
@@ -128,7 +128,6 @@ module.exports = function (ctx) {
         'QItemSide',
         'QItemTile',
         'QSlider',
-        'QSlider',
         'QSelect',
         'QSearch',
         'QKnob',
@@ -139,8 +138,6 @@ module.exports = function (ctx) {
         'QChip',
         'QToggle',
         'QDatetime',
-        'QToolbar',
-        'QToolbarTitle',
         'QInput',
         'QField',
         'QScrollArea',
@@ -149,7 +146,8 @@ module.exports = function (ctx) {
         'QCardMain',
         'QPopover',
         'QPageSticky',
-        'QDatetimePicker'
+        'QDatetimePicker',
+        'QCollapsible'
       ],
       directives: [
         'Ripple'

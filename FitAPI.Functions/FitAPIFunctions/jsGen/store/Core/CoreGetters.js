@@ -157,6 +157,58 @@ const getters = {
   Get_MeasurementTypeCategory_List: function (state) {
     return _.sortBy(state.MeasurementTypeCategory, 'Name')
   },
+  Get_MetricDetail_ByRouteID: function (state, getters, rootState) {
+    return state.MetricDetail[+rootState.route.params.MetricDetailid]
+  },
+  Get_MetricDetail_Select: function (state) {
+    return _.chain(state.MetricDetail)
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item.MetricDetailID
+        }
+      })
+      .sortBy('Name')
+      .value()
+  },
+  Get_MetricDetail_SelectObject: function (state) {
+    return _.mapObject(
+      _.indexBy(state.MetricDetail, 'MetricDetailID'),
+      item => ({
+        label: item.Name,
+        value: item.MetricDetailID
+      })
+    )
+  },
+  Get_MetricDetail_List: function (state) {
+    return _.sortBy(state.MetricDetail, 'Name')
+  },
+  Get_MetricSet_ByRouteID: function (state, getters, rootState) {
+    return state.MetricSet[+rootState.route.params.MetricSetid]
+  },
+  Get_MetricSet_Select: function (state) {
+    return _.chain(state.MetricSet)
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item.MetricSetID
+        }
+      })
+      .sortBy('Name')
+      .value()
+  },
+  Get_MetricSet_SelectObject: function (state) {
+    return _.mapObject(
+      _.indexBy(state.MetricSet, 'MetricSetID'),
+      item => ({
+        label: item.Name,
+        value: item.MetricSetID
+      })
+    )
+  },
+  Get_MetricSet_List: function (state) {
+    return _.sortBy(state.MetricSet, 'Name')
+  },
   Get_StatType_ByRouteID: function (state, getters, rootState) {
     return state.StatType[+rootState.route.params.StatTypeid]
   },

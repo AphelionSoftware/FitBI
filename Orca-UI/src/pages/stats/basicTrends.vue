@@ -12,8 +12,24 @@
         <q-chip color="secondary" @click="setStart(-1, 'M')">1 month</q-chip>
       </q-card-title>
     </q-card>
-
-   <q-card>
+   <!-- <q-card>
+    <q-card-title>
+      Vital stats
+    </q-card-title>
+    <q-card-main>
+      <vue-apex-charts type="line" :height="250" :options="multiChartOptions" :series="multiChartOptions.series" />
+    </q-card-main>
+  </q-card> -->
+  <q-collapsible icon="fa fa-balance-scale" label="Body weight" v-model="bwOpen">
+    <vue-apex-charts type="line" :height="250" :options="bwChartOptions" :series="seriesWeights" />
+  </q-collapsible>
+  <q-collapsible icon="compare_arrows" label="Body fat percentage">
+    <vue-apex-charts type="line" :height="250" :options="bfChartOptions" :series="seriesBodyFat" />
+  </q-collapsible>
+  <q-collapsible icon="compare_arrows" label="Waist / height ratio">
+    <vue-apex-charts type="line" :height="250" :options="whrChartOptions" :series="seriesWHR" />
+  </q-collapsible>
+   <!-- <q-card>
     <q-card-title>
       Body weight
     </q-card-title>
@@ -36,7 +52,7 @@
     <q-card-main>
       <vue-apex-charts type="line" :height="250" :options="whrChartOptions" :series="seriesWHR" />
     </q-card-main>
-  </q-card>
+  </q-card> -->
    <!--<q-card>
      <q-card-title>
       Body weight
@@ -85,6 +101,7 @@ import vueTrend from 'vuetrend'
 import _ from 'underscore'
 import VueApexCharts from 'vue-apexcharts'
 import moment from 'moment'
+import numeral from 'numeral'
 export default {
   components: {
     vueTrend,
@@ -92,6 +109,7 @@ export default {
   },
   data () {
     return {
+      bwOpen: true,
       minDate: new Date(1900, 1, 1),
       chartOptions: {
         chart: {
@@ -127,8 +145,18 @@ export default {
           enabled: false
         },
         markers: {
-          size: 0,
-          style: 'full'
+          size: 2,
+          // style: 'full'
+          shape: 'circle',
+          // strokeWidth: 5,
+          strokeColor: 'light-blue',
+          strokeOpacity: 0.5,
+          fillOpacity: 0.2,
+          hover: {
+            strokeOpacity: 1,
+            fillOpacity: 1,
+            sizeOffset: 3
+          }
         },
         // colors: ['#0165fc'],
         // title: {
@@ -192,7 +220,7 @@ export default {
       let startDate = new Date(
           _.chain(this.statsDates)
             .filter(item => {
-              return item[filter] !== null && typeof item[filter] !== 'undefined' && item[filter] !== 0 &&
+              return (typeof filter === 'undefined' || (item[filter] !== null && typeof item[filter] !== 'undefined' && item[filter] !== 0)) &&
               item.MeasurementDate > minDate
             })
             .min(item => { return item.MeasurementDate })
@@ -200,7 +228,7 @@ export default {
             .MeasurementDate),
         startY = startDate.getFullYear(),
         startM = startDate.getMonth()
-      return moment([startY, startM - 1]).format('YYYY-MM-DD')
+      return moment([startY || 1900, (startM || 1) - 1]).format('YYYY-MM-DD')
     }
   },
   computed: {
@@ -210,10 +238,75 @@ export default {
     statsDatesReverse () {
       return _.sortBy(this.statsDates, 'MeasurementDateID').reverse()
     },
+    statsDatesFilled () {
+      var startM = moment(this.startDate())
+      let ret = {
+        series: []
+      }
+      if (startM.isAfter('1900-01-01')) {
+        var endM = moment()
+        let seriesWeights = {
+          name: 'Body Weight',
+          data: []
+        }
+        let seriesBodyFat = {
+          name: 'Body Fat Estimate',
+          data: []
+        }
+        let seriesWHR = {
+          name: 'Waist Height Ratio',
+          data: []
+        }
+        try {
+          let datesArr = []
+          let endI = endM.diff(startM, 'days')
+          for (let i = 0; i <= endI; i++) {
+            let dateID = +moment(startM).add(i, 'd').format('YYYYMMDD')
+            datesArr.push(moment(startM).add(i, 'd').toDate())
+            if (typeof this.statsDates[dateID] !== 'undefined') {
+              seriesWeights.data.push(this.statsDates[dateID].Weight || null)
+              seriesBodyFat.data.push(this.statsDates[dateID].BodyFatEstimate || null)
+              seriesWHR.data.push(this.statsDates[dateID].WHR || null)
+            }
+          }
+          ret.series.push(seriesWeights)
+          ret.series.push(seriesBodyFat)
+          ret.series.push(seriesWHR)
+          ret.xaxis = {
+            categories: datesArr
+          }
+        } catch (ex) {
+          debugger
+        }
+      }
+      return ret
+    },
     statsDatesFiltered () {
       let minDate = this.minDate
       let ret = _.filter(this.statsDates, item => { return item.MeasurementDate >= minDate })
       return ret
+    },
+    multiChartOptions () {
+      let options = JSON.parse(JSON.stringify(this.chartOptions))
+      options.xaxis = {...options.xaxis, ...this.statsDatesFilled.xaxis}
+      options.xaxis.type = null
+      options.series = this.statsDatesFilled.series
+      debugger
+      return options
+    },
+    series () {
+      let weights = _.chain(this.statsDatesFiltered)
+        .map(item => {
+          return {
+            x: new Date(item.MeasurementDate),
+            y: item.Weight
+          }
+        })
+        .value()
+      return [{
+        name: 'Body weight',
+        data: weights
+      }]
     },
     seriesWeights () {
       let weights = _.chain(this.statsDatesFiltered)
@@ -253,7 +346,7 @@ export default {
         })
         .value()
       return [{
-        name: 'Waist Hip Ratio',
+        name: 'Waist Height Ratio',
         data: WHR
       }]
     },
@@ -341,6 +434,7 @@ export default {
       options.yaxis.min = (Math.floor(this.minBodyFat * 10) / 10) - 0.1
       options.xaxis.min = this.startDate('BodyFatEstimate')
       options.xaxis.max = this.endDate
+      options.yaxis.labels.formatter = function (value) { return numeral(value).format('0.00%') }
       // options.xaxis.labels = {...options.xaxis.labels, ...{show: false, axisTicks: {show: false}, axisBorder: {show: false}}}
       // options.title.text = ''
       return options
@@ -351,6 +445,7 @@ export default {
       options.yaxis.min = (Math.floor(this.minWHR * 10) / 10) - 0.1
       options.xaxis.min = this.startDate('WHR')
       options.xaxis.max = this.endDate
+      options.yaxis.labels.formatter = function (value) { return numeral(value).format('0.00%') }
       // options.title.text = ''
       return options
     }

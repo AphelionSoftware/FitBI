@@ -27,7 +27,7 @@ using System.Collections.Generic;
 			public int? PersonID  { get; set; }
 			public decimal? QuadCircumference  { get; set; }
 			public int? UnitID  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public byte[] Version  { get; set; }
 			public decimal? WaistCircumference  { get; set; }
 			public decimal? WaterPercentage  { get; set; }

@@ -11,7 +11,7 @@
                 </q-item-tile>
             </q-item-main>
             -->
-            <q-btn icon="fa-edit" name="edit" @click="$router.push('/kb/exercise.edit/'+ Exercise.ExerciseID)">
+            <q-btn icon="fa fa-edit" name="edit" @click="$router.push('/kb/exercise.edit/'+ Exercise.ExerciseID)">
             <q-item-main :label=Exercise.Name></q-item-main>
             </q-btn>
         </q-item>

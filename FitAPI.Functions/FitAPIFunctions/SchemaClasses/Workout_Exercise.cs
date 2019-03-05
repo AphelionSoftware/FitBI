@@ -14,7 +14,7 @@ using System.Collections.Generic;
 			public string GoalNarrative  { get; set; }
 			public string ID  { get; set; }
 			public int? PersonID  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public byte[] Version  { get; set; }
 			public int? Workout_ExerciseID  { get; set; }
 			public int? WorkoutID  { get; set; }

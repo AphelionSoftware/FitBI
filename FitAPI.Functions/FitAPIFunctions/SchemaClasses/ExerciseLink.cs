@@ -16,7 +16,7 @@ using System.Collections.Generic;
 			public string ID  { get; set; }
 			public string Name  { get; set; }
 			public int? PersonID  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public string URL  { get; set; }
 			public byte[] Version  { get; set; }
 	}

@@ -27,7 +27,6 @@ export default {
     exercisetypeid: {
       immediate: true,
       handler: function (newVal, oldVal) {
-        debugger
         if (+newVal === 0) {
           this.item = {}
         } else {

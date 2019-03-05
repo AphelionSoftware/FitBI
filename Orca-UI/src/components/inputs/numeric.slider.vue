@@ -1,9 +1,9 @@
 <template>
 <div class="row no-wrap">
 <div class="column">
-  <q-btn @click="adjustValue(-1)" round color="secondary" icon="fa-minus-circle" size="xs" class="q-ma-xs"/>
-  <q-btn v-if="this.adjustment > 0" @click="adjustValue(adjustment * -1)"  round color="secondary" icon="fa-minus-circle" size="xs" class="q-ma-xs"/>
-  <!--<q-btn round color="secondary" icon="fa-minus-circle" size="xs" class="q-ma-xs"/>-->
+  <q-btn @click="adjustValue(-1)" round color="secondary" icon="fa fa-minus-circle" size="xs" class="q-ma-xs"/>
+  <q-btn v-if="this.adjustment > 0" @click="adjustValue(adjustment * -1)"  round color="secondary" icon="fa fa-minus-circle" size="xs" class="q-ma-xs"/>
+  <!--<q-btn round color="secondary" icon="fa fa-minus-circle" size="xs" class="q-ma-xs"/>-->
 </div>
 <q-slider color="primary"
             v-model="numberValue"
@@ -15,9 +15,9 @@
         />
 
 <div class="column">
-    <q-btn @click="adjustValue(1)"  round color="secondary" icon="fa-plus-circle" size="xs" class="q-ma-xs" />
-  <q-btn v-if="this.adjustment > 0" @click="adjustValue(adjustment)"  round color="secondary" icon="fa-plus-circle"   size="xs" class="q-ma-xs"/>
-  <!--<q-btn round color="secondary" icon="fa-plus-circle"   size="xs" class="q-ma-xs"/>-->
+    <q-btn @click="adjustValue(1)"  round color="secondary" icon="fa fa-plus-circle" size="xs" class="q-ma-xs" />
+  <q-btn v-if="this.adjustment > 0" @click="adjustValue(adjustment)"  round color="secondary" icon="fa fa-plus-circle"   size="xs" class="q-ma-xs"/>
+  <!--<q-btn round color="secondary" icon="fa fa-plus-circle"   size="xs" class="q-ma-xs"/>-->
 
 </div>
 </div>

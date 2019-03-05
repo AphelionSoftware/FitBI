@@ -18,7 +18,7 @@ using System.Collections.Generic;
 			public int? PlanID  { get; set; }
 			public int? PlannerPersonID  { get; set; }
 			public DateTime? StartDate  { get; set; }
-			public DateTimeOffset? UpdatedAt  { get; set; }
+			public DateTime? UpdatedAt  { get; set; }
 			public byte[] Version  { get; set; }
 	}
 

@@ -23,11 +23,10 @@ export default {
     Get_Current_Person: {
       immediate: true,
       handler: function (newVal, oldVal) {
-        debugger
         if (+newVal === 0) {
           this.item = {}
         } else {
-          this.item = newVal
+          this.item = {...{}, ...newVal}
         }
       }
     }
@@ -40,14 +39,15 @@ export default {
   },
   methods: {
     saveAction () {
-      debugger
       this.$store.dispatch('Stats/savePerson', this.item)
+
+      this.$router.push('/home')
     }
   },
   beforeRouteLeave (to, from, next) {
     let vueThis = this
     let equal = _.reduce(Object.keys(this.item), (memo, key) => {
-      return memo
+      return memo && vueThis.item[key] === vueThis.Get_Current_Person[key]
     }, true)
     if (typeof (this.item) === 'undefined' ||
       equal) {
@@ -55,9 +55,20 @@ export default {
     } else {
       // this.testEmpty()
       var store = this.$store
-      let fnSave = function () {
-        debugger
-        store.dispatch('Stats/savePerson', vueThis.item)
+      let router = this.$router
+      let fnSave = function (redirect) {
+        store.dispatch('Stats/savePerson', vueThis.item).then(() => {
+          vueThis.$q.notify({
+            html: 'Details saved',
+            icon: 'fa-thumbs-up',
+            timeout: 2400,
+            color: '#99d8c9',
+            bgColor: 'white'
+          })
+          if (redirect === true) {
+            router.push('/home')
+          }
+        })
       }
       this.uiSaveAction(next, fnSave)
     }
@@ -72,11 +83,13 @@ export default {
     var store = this.$store
     // let router = this.$router
     let vueThis = this
+    let router = this.$router
     let fnSave = function () {
       store.dispatch('Stats/savePerson', vueThis.item)
+      router.push('/home')
     }
     this.$store.commit('AppState/SET_SAVE', fnSave)
-    this.item = this.Get_Current_Person
+    this.item = {...{}, ...this.Get_Current_Person}
   },
   beforeDestroy () {
     this.$store.commit('AppState/CLEAR_SAVE')
