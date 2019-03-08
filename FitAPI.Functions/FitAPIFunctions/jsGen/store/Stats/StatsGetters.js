@@ -53,6 +53,32 @@ const getters = {
   Get_Metric_List: function (state) {
     return _.sortBy(state.Metric, 'Name')
   },
+  Get_MetricValue_ByRouteID: function (state, getters, rootState) {
+    return state.MetricValue[+rootState.route.params.MetricValueid]
+  },
+  Get_MetricValue_Select: function (state) {
+    return _.chain(state.MetricValue)
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item.MetricValueID
+        }
+      })
+      .sortBy('Name')
+      .value()
+  },
+  Get_MetricValue_SelectObject: function (state) {
+    return _.mapObject(
+      _.indexBy(state.MetricValue, 'MetricValueID'),
+      item => ({
+        label: item.Name,
+        value: item.MetricValueID
+      })
+    )
+  },
+  Get_MetricValue_List: function (state) {
+    return _.sortBy(state.MetricValue, 'Name')
+  },
   Get_Person_ByRouteID: function (state, getters, rootState) {
     return state.Person[+rootState.route.params.Personid]
   },

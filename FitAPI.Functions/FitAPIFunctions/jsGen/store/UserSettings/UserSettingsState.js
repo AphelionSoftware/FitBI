@@ -1,6 +1,8 @@
 const state = {
   ColumnChoice: { },
   ColumnChoiceList: [],
+  Favorite: { },
+  FavoriteList: [],
   GeneralSettings: { },
   GeneralSettingsList: [],
   StatsChoice: { },

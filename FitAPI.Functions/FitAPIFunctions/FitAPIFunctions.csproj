@@ -54,6 +54,8 @@
 .\coreSetup.js
 .\initLocalForage.js
 .\initSetup.js
+.\userSettingsLocalForage.js
+.\userSettingsSetup.js
 </LastOutputs>
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_apiGenerator.cs</LastGenOutput>
@@ -103,11 +105,6 @@
     <None Update="jsGen\store\_getters.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>_getters.js</LastGenOutput>
-    </None>
-    <None Update="jsGen\store\_runner.js">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>_runner.tt</DependentUpon>
     </None>
     <None Update="jsGen\store\_runner.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -168,6 +165,7 @@
 .\mergeExerciseType.cs
 .\mergeGeneralSettings.cs
 .\mergeMetric.cs
+.\mergeMetricValue.cs
 .\mergePerson.cs
 .\mergePlan.cs
 .\mergeSkinfoldMeasurement.cs
@@ -193,8 +191,10 @@
 .\Exercise_Sport.cs
 .\ExerciseLink.cs
 .\ExerciseType.cs
+.\Favorite.cs
 .\GeneralSettings.cs
 .\Metric.cs
+.\MetricValue.cs
 .\Person.cs
 .\Plan.cs
 .\SkinfoldMeasurement.cs
@@ -257,7 +257,7 @@
     <Folder Include="jsGen\store\UserSettings\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="jsGen\store\_runner.cs">
+    <None Include="jsGen\store\_runner.js">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>_runner.tt</DependentUpon>

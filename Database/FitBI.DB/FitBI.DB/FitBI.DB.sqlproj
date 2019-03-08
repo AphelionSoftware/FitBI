@@ -206,6 +206,19 @@
     <Build Include="Security\svc-fit_3.sql" />
     <Build Include="Security\fitbi_3.sql" />
     <Build Include="API\Stored Procedures\sp_Core_bySubject.sql" />
+    <Build Include="Core\PostDeploymentScripts\PDS.BodyPart.sql" />
+    <Build Include="Core\PostDeploymentScripts\PDS.BodyPartType.sql" />
+    <Build Include="Core\PostDeploymentScripts\PDS.Unit.sql" />
+    <Build Include="Core\PostDeploymentScripts\PDS.UnitType.sql" />
+    <Build Include="UserSettings\Tables\Favorite.sql" />
+    <Build Include="Stats\Tables\MetricValue.sql" />
+    <Build Include="Core\Tables\MetricSet.sql" />
+    <Build Include="Core\Tables\MetricDetail.sql" />
+    <Build Include="API\Stored Procedures\sp_UserSettings_bySubject.sql" />
+    <Build Include="API\Stored Procedures\merge_UserSettings_Favorite.sql" />
+    <Build Include="API\Stored Procedures\merge_stats_MetricValue.sql" />
+    <Build Include="UserSettings\User Defined Types\tvp_Favorite.sql" />
+    <Build Include="Stats\User Defined Types\tvp_MetricValue.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />

@@ -14,13 +14,11 @@ export default async function () {
   arrGet.push(localForage.getItem('Program_WorkoutStage'))
   arrGet.push(localForage.getItem('Stats_DailyMeasurement'))
   arrGet.push(localForage.getItem('Stats_Metric'))
+  arrGet.push(localForage.getItem('Stats_MetricValue'))
   arrGet.push(localForage.getItem('Stats_Person'))
   arrGet.push(localForage.getItem('Stats_SkinfoldMeasurement'))
   arrGet.push(localForage.getItem('Stats_TapeMeasurement'))
   arrGet.push(localForage.getItem('Stats_WeightMeasurement'))
-  arrGet.push(localForage.getItem('UserSettings_ColumnChoice'))
-  arrGet.push(localForage.getItem('UserSettings_GeneralSettings'))
-  arrGet.push(localForage.getItem('UserSettings_StatsChoice'))
   // Assuming only a single person value
   arrGet.push(localForage.getItem('Stats_Person'))
   await Promise.all(arrGet)
@@ -62,28 +60,22 @@ export default async function () {
         store.commit('Stats/SET_METRIC', results[13])
       }
       if (results[14] !== null) {
-        store.commit('Stats/SET_PERSON', results[14])
+        store.commit('Stats/SET_METRICVALUE', results[14])
       }
       if (results[15] !== null) {
-        store.commit('Stats/SET_SKINFOLDMEASUREMENT', results[15])
+        store.commit('Stats/SET_PERSON', results[15])
       }
       if (results[16] !== null) {
-        store.commit('Stats/SET_TAPEMEASUREMENT', results[16])
+        store.commit('Stats/SET_SKINFOLDMEASUREMENT', results[16])
       }
       if (results[17] !== null) {
-        store.commit('Stats/SET_WEIGHTMEASUREMENT', results[17])
+        store.commit('Stats/SET_TAPEMEASUREMENT', results[17])
+      }
+      if (results[18] !== null) {
+        store.commit('Stats/SET_WEIGHTMEASUREMENT', results[18])
       }
       if (results[19] !== null) {
-        store.commit('UserSettings/SET_COLUMNCHOICE', results[19])
-      }
-      if (results[20] !== null) {
-        store.commit('UserSettings/SET_GENERALSETTINGS', results[20])
-      }
-      if (results[21] !== null) {
-        store.commit('UserSettings/SET_STATSCHOICE', results[21])
-      }
-      if (results[22] !== null) {
-        store.commit('AppState/SET_INIT', results[22])
+        store.commit('AppState/SET_INIT', results[19])
       }
     })
 }

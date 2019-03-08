@@ -12,13 +12,11 @@ export default function (initValues) {
   store.commit('Program/SET_WORKOUTSTAGE_LIST', initValues.WorkoutStage)
   store.commit('Stats/SET_DAILYMEASUREMENT_LIST', initValues.DailyMeasurement)
   store.commit('Stats/SET_METRIC_LIST', initValues.Metric)
+  store.commit('Stats/SET_METRICVALUE_LIST', initValues.MetricValue)
   store.commit('Stats/SET_PERSON_LIST', initValues.Person)
   store.commit('Stats/SET_SKINFOLDMEASUREMENT_LIST', initValues.SkinfoldMeasurement)
   store.commit('Stats/SET_TAPEMEASUREMENT_LIST', initValues.TapeMeasurement)
   store.commit('Stats/SET_WEIGHTMEASUREMENT_LIST', initValues.WeightMeasurement)
-  store.commit('UserSettings/SET_COLUMNCHOICE_LIST', initValues.ColumnChoice)
-  store.commit('UserSettings/SET_GENERALSETTINGS_LIST', initValues.GeneralSettings)
-  store.commit('UserSettings/SET_STATSCHOICE_LIST', initValues.StatsChoice)
   // Assuming only a single person value
   store.commit('Stats/GET_PERSON', initValues.Person[0])
 }

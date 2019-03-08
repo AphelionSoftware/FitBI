@@ -3,6 +3,12 @@ import Vue from 'vue'
 import localForage from 'localforage'
 import _ from 'underscore'
 const mutations = {
+  SET_COLUMNCHOICE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.ColumnChoice, payload.ColumnChoiceID, {...state.ColumnChoice[payload.ColumnChoiceID], ...payload})
+      localForage.setItem('UserSettings_ColumnChoice', state.ColumnChoice)
+    }
+  },
   SET_COLUMNCHOICE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.ColumnChoice, payload.ColumnChoiceID, payload)
@@ -36,6 +42,51 @@ const mutations = {
       localForage.setItem('UserSettings_ColumnChoice', state.ColumnChoice)
     }
   },
+  SET_FAVORITE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Favorite, payload.FavoriteID, {...state.Favorite[payload.FavoriteID], ...payload})
+      localForage.setItem('UserSettings_Favorite', state.Favorite)
+    }
+  },
+  SET_FAVORITE (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Favorite, payload.FavoriteID, payload)
+      localForage.setItem('UserSettings_Favorite', state.Favorite)
+    }
+  },
+  SET_FAVORITE_LIST: function (state, fullList) {
+    if (typeof (fullList) !== 'undefined') {
+      fullList.forEach(function (element) {
+        Vue.set(state.Favorite, element.FavoriteID, element)
+      }, this)
+      _.each(state.Favorite, (item, idx) => {
+        if (item.FavoriteID >= 1073741824 || item.FavoriteID === null) {
+          let extant = _.find(state.Favorite, extItem => {
+            return extItem.ID === item.ID && extItem.FavoriteID !== item.FavoriteID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.FavoriteID
+              let newVal = {...extant, ...item}
+              newVal.FavoriteID = extId
+              Vue.set(state.Favorite, newVal.FavoriteID, newVal)
+              Vue.delete(state.Favorite, item.FavoriteID)
+            } else {
+              Vue.delete(state.Favorite, item.FavoriteID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('UserSettings_Favorite', state.Favorite)
+    }
+  },
+  SET_GENERALSETTINGS_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.GeneralSettings, payload.GeneralSettingsID, {...state.GeneralSettings[payload.GeneralSettingsID], ...payload})
+      localForage.setItem('UserSettings_GeneralSettings', state.GeneralSettings)
+    }
+  },
   SET_GENERALSETTINGS (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.GeneralSettings, payload.GeneralSettingsID, payload)
@@ -67,6 +118,12 @@ const mutations = {
       })
 
       localForage.setItem('UserSettings_GeneralSettings', state.GeneralSettings)
+    }
+  },
+  SET_STATSCHOICE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.StatsChoice, payload.StatsChoiceID, {...state.StatsChoice[payload.StatsChoiceID], ...payload})
+      localForage.setItem('UserSettings_StatsChoice', state.StatsChoice)
     }
   },
   SET_STATSCHOICE (state, payload) {

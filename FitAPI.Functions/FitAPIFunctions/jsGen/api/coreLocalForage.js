@@ -7,6 +7,8 @@ export default async function () {
   arrGet.push(localForage.getItem('Core_BodyPartType'))
   arrGet.push(localForage.getItem('Core_MeasurementType'))
   arrGet.push(localForage.getItem('Core_MeasurementTypeCategory'))
+  arrGet.push(localForage.getItem('Core_MetricDetail'))
+  arrGet.push(localForage.getItem('Core_MetricSet'))
   arrGet.push(localForage.getItem('Core_StatType'))
   arrGet.push(localForage.getItem('Core_Unit'))
   arrGet.push(localForage.getItem('Core_UnitType'))
@@ -28,13 +30,19 @@ export default async function () {
         store.commit('Core/SET_MEASUREMENTTYPECATEGORY', results[4])
       }
       if (results[5] !== null) {
-        store.commit('Core/SET_STATTYPE', results[5])
+        store.commit('Core/SET_METRICDETAIL', results[5])
       }
       if (results[6] !== null) {
-        store.commit('Core/SET_UNIT', results[6])
+        store.commit('Core/SET_METRICSET', results[6])
       }
       if (results[7] !== null) {
-        store.commit('Core/SET_UNITTYPE', results[7])
+        store.commit('Core/SET_STATTYPE', results[7])
+      }
+      if (results[8] !== null) {
+        store.commit('Core/SET_UNIT', results[8])
+      }
+      if (results[9] !== null) {
+        store.commit('Core/SET_UNITTYPE', results[9])
       }
     })
 }

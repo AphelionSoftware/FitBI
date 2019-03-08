@@ -273,6 +273,8 @@ const actions = {
       MetricSetID: null,
       Code: null,
       Name: null,
+      Description: null,
+      icon: null,
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),

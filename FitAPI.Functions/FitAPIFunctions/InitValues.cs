@@ -19,6 +19,7 @@ namespace FitAPIFunctions
         public object Workout_Exercise;
         public object WorkoutStage;
         public object Metric;
+        public object MetricValue;
         public object Person;
         public object DailyMeasurement;
         public object SkinfoldMeasurement;

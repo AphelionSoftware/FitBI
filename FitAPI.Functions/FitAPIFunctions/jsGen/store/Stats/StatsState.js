@@ -3,6 +3,8 @@ const state = {
   DailyMeasurementList: [],
   Metric: { },
   MetricList: [],
+  MetricValue: { },
+  MetricValueList: [],
   Person: { },
   PersonList: [],
   SkinfoldMeasurement: { },

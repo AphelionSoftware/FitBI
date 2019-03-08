@@ -28,6 +28,12 @@ const mutations = {
             foreach (Table tTable in tTables)
             {
 #>
+  SET_<#= tTable.Name.ToUpper() #>_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.<#= tTable.Name #>, payload.<#= tTable.Name #>ID, {...state.<#= tTable.Name #>[payload.<#= tTable.Name #>ID], ...payload})
+      localForage.setItem('<#= SchemaName #>_<#= tTable.Name #>', state.<#= tTable.Name #>)
+    }
+  },
   SET_<#= tTable.Name.ToUpper() #> (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.<#= tTable.Name #>, payload.<#= tTable.Name #>ID, payload)

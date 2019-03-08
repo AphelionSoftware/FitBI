@@ -27,6 +27,32 @@ const getters = {
   Get_ColumnChoice_List: function (state) {
     return _.sortBy(state.ColumnChoice, 'Name')
   },
+  Get_Favorite_ByRouteID: function (state, getters, rootState) {
+    return state.Favorite[+rootState.route.params.Favoriteid]
+  },
+  Get_Favorite_Select: function (state) {
+    return _.chain(state.Favorite)
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item.FavoriteID
+        }
+      })
+      .sortBy('Name')
+      .value()
+  },
+  Get_Favorite_SelectObject: function (state) {
+    return _.mapObject(
+      _.indexBy(state.Favorite, 'FavoriteID'),
+      item => ({
+        label: item.Name,
+        value: item.FavoriteID
+      })
+    )
+  },
+  Get_Favorite_List: function (state) {
+    return _.sortBy(state.Favorite, 'Name')
+  },
   Get_GeneralSettings_ByRouteID: function (state, getters, rootState) {
     return state.GeneralSettings[+rootState.route.params.GeneralSettingsid]
   },

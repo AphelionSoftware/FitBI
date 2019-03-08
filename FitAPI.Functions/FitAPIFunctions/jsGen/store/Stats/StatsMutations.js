@@ -3,6 +3,12 @@ import Vue from 'vue'
 import localForage from 'localforage'
 import _ from 'underscore'
 const mutations = {
+  SET_DAILYMEASUREMENT_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.DailyMeasurement, payload.DailyMeasurementID, {...state.DailyMeasurement[payload.DailyMeasurementID], ...payload})
+      localForage.setItem('Stats_DailyMeasurement', state.DailyMeasurement)
+    }
+  },
   SET_DAILYMEASUREMENT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.DailyMeasurement, payload.DailyMeasurementID, payload)
@@ -34,6 +40,12 @@ const mutations = {
       })
 
       localForage.setItem('Stats_DailyMeasurement', state.DailyMeasurement)
+    }
+  },
+  SET_METRIC_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Metric, payload.MetricID, {...state.Metric[payload.MetricID], ...payload})
+      localForage.setItem('Stats_Metric', state.Metric)
     }
   },
   SET_METRIC (state, payload) {
@@ -69,6 +81,51 @@ const mutations = {
       localForage.setItem('Stats_Metric', state.Metric)
     }
   },
+  SET_METRICVALUE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MetricValue, payload.MetricValueID, {...state.MetricValue[payload.MetricValueID], ...payload})
+      localForage.setItem('Stats_MetricValue', state.MetricValue)
+    }
+  },
+  SET_METRICVALUE (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MetricValue, payload.MetricValueID, payload)
+      localForage.setItem('Stats_MetricValue', state.MetricValue)
+    }
+  },
+  SET_METRICVALUE_LIST: function (state, fullList) {
+    if (typeof (fullList) !== 'undefined') {
+      fullList.forEach(function (element) {
+        Vue.set(state.MetricValue, element.MetricValueID, element)
+      }, this)
+      _.each(state.MetricValue, (item, idx) => {
+        if (item.MetricValueID >= 1073741824 || item.MetricValueID === null) {
+          let extant = _.find(state.MetricValue, extItem => {
+            return extItem.ID === item.ID && extItem.MetricValueID !== item.MetricValueID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.MetricValueID
+              let newVal = {...extant, ...item}
+              newVal.MetricValueID = extId
+              Vue.set(state.MetricValue, newVal.MetricValueID, newVal)
+              Vue.delete(state.MetricValue, item.MetricValueID)
+            } else {
+              Vue.delete(state.MetricValue, item.MetricValueID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Stats_MetricValue', state.MetricValue)
+    }
+  },
+  SET_PERSON_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Person, payload.PersonID, {...state.Person[payload.PersonID], ...payload})
+      localForage.setItem('Stats_Person', state.Person)
+    }
+  },
   SET_PERSON (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Person, payload.PersonID, payload)
@@ -100,6 +157,12 @@ const mutations = {
       })
 
       localForage.setItem('Stats_Person', state.Person)
+    }
+  },
+  SET_SKINFOLDMEASUREMENT_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.SkinfoldMeasurement, payload.SkinfoldMeasurementID, {...state.SkinfoldMeasurement[payload.SkinfoldMeasurementID], ...payload})
+      localForage.setItem('Stats_SkinfoldMeasurement', state.SkinfoldMeasurement)
     }
   },
   SET_SKINFOLDMEASUREMENT (state, payload) {
@@ -135,6 +198,12 @@ const mutations = {
       localForage.setItem('Stats_SkinfoldMeasurement', state.SkinfoldMeasurement)
     }
   },
+  SET_TAPEMEASUREMENT_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.TapeMeasurement, payload.TapeMeasurementID, {...state.TapeMeasurement[payload.TapeMeasurementID], ...payload})
+      localForage.setItem('Stats_TapeMeasurement', state.TapeMeasurement)
+    }
+  },
   SET_TAPEMEASUREMENT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.TapeMeasurement, payload.TapeMeasurementID, payload)
@@ -166,6 +235,12 @@ const mutations = {
       })
 
       localForage.setItem('Stats_TapeMeasurement', state.TapeMeasurement)
+    }
+  },
+  SET_WEIGHTMEASUREMENT_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.WeightMeasurement, payload.WeightMeasurementID, {...state.WeightMeasurement[payload.WeightMeasurementID], ...payload})
+      localForage.setItem('Stats_WeightMeasurement', state.WeightMeasurement)
     }
   },
   SET_WEIGHTMEASUREMENT (state, payload) {

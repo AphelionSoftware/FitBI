@@ -46,6 +46,7 @@ namespace FitAPIFunctions
                         objInit.WorkoutStage = multi.Read<dynamic>().ToList();
                         objInit.DailyMeasurement = multi.Read<dynamic>().ToList();
                         objInit.Metric = multi.Read<dynamic>().ToList();
+                        objInit.MetricValue = multi.Read<dynamic>().ToList();
                         objInit.Person = multi.Read<dynamic>().ToList();
                         objInit.SkinfoldMeasurement = multi.Read<dynamic>().ToList();
                         objInit.TapeMeasurement = multi.Read<dynamic>().ToList();

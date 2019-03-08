@@ -13,25 +13,25 @@ BEGIN
 	SET NOCOUNT ON;
 
 	/*
-	SELECT 'SELECT ' + Utility.fnColumnList(TABLE_SCHEMA, TABLE_NAME, 'Tbl') + ' FROM [' + TABLE_SCHEMA + '].[' + TABLE_NAME + '] Tbl
+	SELECT 'SELECT ' + Utility.fnColumnList(table_schema, table_name, 'Tbl') + ' FROM [' + table_schema + '].[' + table_name + '] Tbl
 	WHERE Tbl.[Version] > @Version
 	AND Active = 1
 	' 
 	FROM INFORMATION_SCHEMA.TABLES where 
 	TABLE_SCHEMA not like '%settings%'
 	and TABLE_SCHEMA  like '%core%'
-	and TABLE_NAME not in ('Active','Dates', 'Time')
-	ORDER BY TABLE_SCHEMA, TABLE_NAME
+	and table_name not in ('Active','Dates', 'Time')
+	ORDER BY TABLE_SCHEMA, TABLE_Name
 
 
-	SELECT 'objCore.' + TABLE_NAME + ' = multi.Read<dynamic>().ToList();
+	SELECT 'objCore.' + table_name + ' = multi.Read<dynamic>().ToList();
 	' 
 	
 	FROM INFORMATION_SCHEMA.TABLES where 
 	TABLE_SCHEMA not like '%settings%'
 	and TABLE_SCHEMA  like '%core%'
-	and TABLE_NAME not in ('Active','Dates', 'Time')
-	ORDER BY TABLE_SCHEMA, TABLE_NAME
+	and table_name not in ('Active','Dates', 'Time')
+	ORDER BY TABLE_SCHEMA, TABLE_Name
 	*/
 	SELECT @@DBTS as Version, CONVERT(varchar(255), DATEADD(SECOND, intValue, getutcdate()), 127) + 'Z' AS CacheExpiry
 	FROM Settings.GlobalSettings 
@@ -39,6 +39,7 @@ BEGIN
 
 	
 SELECT 	[Tbl].[Active]
+	,[Tbl].[Bilateral]
 	,[Tbl].[BodyPartID]
 	,[Tbl].[BodyPartTypeID]
 	,[Tbl].[Code]
@@ -48,7 +49,7 @@ SELECT 	[Tbl].[Active]
 	,[Tbl].[ID]
 	,[Tbl].[Name]
 	,[Tbl].[ParentBodyPartID]
-	,[Tbl].[UpdatedAt]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
 	,[Tbl].[Version]
  FROM [Core].[BodyPart] Tbl
 	WHERE Tbl.[Version] > @Version
@@ -61,7 +62,7 @@ SELECT 	[Tbl].[Active]
 	,[Tbl].[Deleted]
 	,[Tbl].[ID]
 	,[Tbl].[Name]
-	,[Tbl].[UpdatedAt]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
 	,[Tbl].[Version]
  FROM [Core].[BodyPartType] Tbl
 	WHERE Tbl.[Version] > @Version
@@ -76,7 +77,7 @@ SELECT 	[Tbl].[Active]
 	,[Tbl].[MeasurementTypeCategoryID]
 	,[Tbl].[MeasurementTypeID]
 	,[Tbl].[Name]
-	,[Tbl].[UpdatedAt]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
 	,[Tbl].[Version]
  FROM [Core].[MeasurementType] Tbl
 	WHERE Tbl.[Version] > @Version
@@ -89,9 +90,39 @@ SELECT 	[Tbl].[Active]
 	,[Tbl].[ID]
 	,[Tbl].[MeasurementTypeCategoryID]
 	,[Tbl].[Name]
-	,[Tbl].[UpdatedAt]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
 	,[Tbl].[Version]
  FROM [Core].[MeasurementTypeCategory] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+SELECT 	[Tbl].[Active]
+	,[Tbl].[BodyPartID]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[ID]
+	,[Tbl].[MeasurementTypeID]
+	,[Tbl].[MetricDetailID]
+	,[Tbl].[MetricSetID]
+	,[Tbl].[OrdinalPosition]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[MetricDetail] Tbl
+	WHERE Tbl.[Version] > @Version
+	AND Active = 1
+	
+SELECT 	[Tbl].[Active]
+	,[Tbl].[Code]
+	,[Tbl].[CreatedAt]
+	,[Tbl].[Deleted]
+	,[Tbl].[Description]
+	,[Tbl].[icon]
+	,[Tbl].[ID]
+	,[Tbl].[MetricSetID]
+	,[Tbl].[Name]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
+	,[Tbl].[Version]
+ FROM [Core].[MetricSet] Tbl
 	WHERE Tbl.[Version] > @Version
 	AND Active = 1
 	
@@ -106,7 +137,7 @@ SELECT 	[Tbl].[Active]
 	,[Tbl].[Name]
 	,[Tbl].[StatTypeID]
 	,[Tbl].[TableName]
-	,[Tbl].[UpdatedAt]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
 	,[Tbl].[Version]
  FROM [Core].[StatType] Tbl
 	WHERE Tbl.[Version] > @Version
@@ -122,7 +153,7 @@ SELECT 	[Tbl].[Active]
 	,[Tbl].[ParentUnitID]
 	,[Tbl].[UnitID]
 	,[Tbl].[UnitTypeID]
-	,[Tbl].[UpdatedAt]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
 	,[Tbl].[Version]
  FROM [Core].[Unit] Tbl
 	WHERE Tbl.[Version] > @Version
@@ -135,11 +166,9 @@ SELECT 	[Tbl].[Active]
 	,[Tbl].[ID]
 	,[Tbl].[Name]
 	,[Tbl].[UnitTypeID]
-	,[Tbl].[UpdatedAt]
+	,CONVERT(varchar(255), [Tbl].[UpdatedAt], 127) + 'Z' AS [UpdatedAt]
 	,[Tbl].[Version]
  FROM [Core].[UnitType] Tbl
 	WHERE Tbl.[Version] > @Version
-	AND Active = 1
-	
-   
+	AND Active = 1	   
 END

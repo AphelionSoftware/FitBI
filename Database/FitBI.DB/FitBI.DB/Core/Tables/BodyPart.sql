@@ -5,10 +5,11 @@
     [Name]             VARCHAR (255)      NOT NULL,
     [Description]      VARCHAR (MAX)      NULL,
     [ParentBodyPartID] INT                NULL,
+    [Bilateral]        BIT                CONSTRAINT [DF_BodyPart_Bilateral] DEFAULT ((1)) NOT NULL,
     [Active]           SMALLINT           CONSTRAINT [DF_BodyPart_Active] DEFAULT ((1)) NOT NULL,
     [ID]               VARCHAR (38)       CONSTRAINT [DF_BodyPart_ID] DEFAULT (newid()) NOT NULL,
     [CreatedAt]        DATETIMEOFFSET (7) CONSTRAINT [DF_BodyPart_CreatedAt] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]        DATETIMEOFFSET           CONSTRAINT [DF_BodyPart_UpdatedAt] DEFAULT (getdate()) NOT NULL,
+    [UpdatedAt]        DATETIME           CONSTRAINT [DF_BodyPart_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]          BIT                CONSTRAINT [DF_BodyPart_Deleted] DEFAULT ((0)) NOT NULL,
     [Version]          ROWVERSION         NOT NULL,
     CONSTRAINT [PK_BodyPart] PRIMARY KEY CLUSTERED ([BodyPartID] ASC),
@@ -17,6 +18,8 @@
     CONSTRAINT [FK_BodyPart_BodyPart1] FOREIGN KEY ([ParentBodyPartID]) REFERENCES [Core].[BodyPart] ([BodyPartID]),
     CONSTRAINT [FK_BodyPart_BodyPartType] FOREIGN KEY ([BodyPartTypeID]) REFERENCES [Core].[BodyPartType] ([BodyPartTypeID])
 );
+
+
 
 
 

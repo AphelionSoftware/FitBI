@@ -81,7 +81,9 @@ export default {
     },
     clearLocalStorage: function () {
       // localForage.clearAll()
-      this.$store.dispatch('AppState/Clear_LocalForage')
+      this.$store.dispatch('AppState/Clear_LocalForage').then(() => {
+        this.$q.notify({message: 'LocalForage cleared'})
+      })
       // this.$q.notify({
       //   message: 'Storage cleared',
       //   icon: 'fa-thumbs-up',

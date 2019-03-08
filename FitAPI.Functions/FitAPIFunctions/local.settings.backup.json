@@ -9,6 +9,7 @@
   },
   "Values": {
     "sp_Init": "API.sp_init",
+    "sp_UserSettings": "API.sp_UserSettings",
     "sp_Core": "API.sp_core",
     "sp_LatestTimestamps": "API.sp_LatestTimestamps"
   }

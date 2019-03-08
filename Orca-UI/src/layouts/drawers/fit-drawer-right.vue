@@ -38,7 +38,9 @@ export default {
       this.$emit('input', this.internalValue)
     },
     logout () {
-      this.$store.dispatch('AppState/Clear_LocalForage')
+      this.$store.dispatch('AppState/Clear_LocalForage').then(() => {
+        this.$q.notify({message: 'LocalForage cleared'})
+      })
       this.$auth.logout()
     }
   },

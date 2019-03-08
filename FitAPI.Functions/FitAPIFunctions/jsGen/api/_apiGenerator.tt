@@ -31,7 +31,7 @@ var server = new Server(".\\SQL2017");
 	var ft = new ForageTemplate(database, sorted, "Core");
 	ft.RenderToFile(fileName);
 				
-	sorted = (from Schema s in database.Schemas where s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" || s.Name == "UserSettings" orderby s.Name select s).ToArray();
+	sorted = (from Schema s in database.Schemas where s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
 	fileName =  "initSetup.js";
 	lt = new APITemplate(database, sorted, "Init");
 	lt.RenderToFile(fileName);
@@ -40,12 +40,28 @@ var server = new Server(".\\SQL2017");
 	ft = new ForageTemplate(database, sorted, "Init");
 	ft.RenderToFile(fileName);
 
+					
+	sorted = (from Schema s in database.Schemas where  s.Name == "UserSettings" orderby s.Name select s).ToArray();
+	fileName =  "userSettingsSetup.js";
+	lt = new APITemplate(database, sorted, "UserSettings");
+	lt.RenderToFile(fileName);
+
+	fileName =  "userSettingsLocalForage.js";
+	ft = new ForageTemplate(database, sorted, "UserSettings");
+	ft.RenderToFile(fileName);
+					
+	
+
 	File.Copy( jsGenPath + "coreSetup.js",
 						 basePath  + "coreSetup.js",
 						 true);
 	
 	File.Copy( jsGenPath + "initSetup.js",
 						 basePath  + "initSetup.js",
+						 true);
+
+	File.Copy( jsGenPath + "userSettingsSetup.js",
+						 basePath  + "userSettingsSetup.js",
 						 true);
 			
 	File.Copy( jsGenPath + "coreLocalForage.js",
@@ -54,6 +70,10 @@ var server = new Server(".\\SQL2017");
 	
 	File.Copy( jsGenPath + "initLocalForage.js",
 						 basePath  + "initLocalForage.js",
+						 true);
+			
+	File.Copy( jsGenPath + "userSettingsLocalForage.js",
+						 basePath  + "userSettingsLocalForage.js",
 						 true);
 			
 

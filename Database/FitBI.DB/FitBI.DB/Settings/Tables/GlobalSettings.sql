@@ -8,11 +8,13 @@
     [intValue]         INT                NULL,
     [floatValue]       FLOAT (53)         NULL,
     [CreatedAt]        DATETIMEOFFSET (7) CONSTRAINT [DF__GlobalSe__Creat__33CA93F7] DEFAULT (CONVERT([datetimeoffset],sysutcdatetime())) NOT NULL,
-    [UpdatedAt]        DATETIMEOFFSET           CONSTRAINT [DF_GlobalSettings_UpdatedAt] DEFAULT (getdate()) NOT NULL,
+    [UpdatedAt]        DATETIME           CONSTRAINT [DF_GlobalSettings_UpdatedAt] DEFAULT (getdate()) NOT NULL,
     [Deleted]          BIT                CONSTRAINT [DF__GlobalSe__Delet__34BEB830] DEFAULT ((0)) NOT NULL,
     [Version]          ROWVERSION         NOT NULL,
     CONSTRAINT [PK_GlobalSettings] PRIMARY KEY CLUSTERED ([GlobalSettingsID] ASC)
 );
+
+
 
 
 

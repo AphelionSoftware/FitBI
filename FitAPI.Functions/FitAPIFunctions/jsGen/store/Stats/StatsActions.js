@@ -91,6 +91,38 @@ const actions = {
     context.commit('SET_METRIC', item)
     APIinstance.mergeStats.mergeMetric(item)
   },
+  saveMetricValue (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MetricValueItem
+    } else {
+      item = payload
+    }
+    let defaults = {
+      MetricValueID: null,
+      PersonID: context.rootGetters['Stats/Get_Person_List'][0].PersonID,
+      MetricDetailID: null,
+      Active: 1,
+      ID: uuidv1(),
+      CreatedAt: new Date().toUTCString(),
+      UpdatedAt: new Date(),
+      Deleted: false,
+      Version: null,
+      NeedsSync: true
+    }
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    item.UpdatedAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    item = {...defaults, ...item}
+    if (item.MetricValueID === null) item.MetricValueID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
+    context.commit('SET_METRICVALUE', item)
+    APIinstance.mergeStats.mergeMetricValue(item)
+  },
   savePerson (context, payload) {
     let item = {}
     if (typeof (payload) === 'undefined') {

@@ -3,11 +3,13 @@ import axios from 'axios'
 import coreSetup from './coreSetup'
 // import coreLocalForage from './coreLocalForage'
 import initSetup from './initSetup'
+import userSettingsSetup from './userSettingsSetup'
 // import initLocalForage from './initLocalForage'
 import getLocalForageDataByKeys from './localForageKeys'
 import * as mergeExercise from './mergeExercise'
 import * as mergeProgram from './mergeProgram'
 import * as mergeStats from './mergeStats'
+import * as mergeUserSettings from './mergeUserSettings'
 
 import store from '../../store/index'
 import moment from 'moment'
@@ -45,6 +47,9 @@ export default class {
     return mergeStats
   }
 
+  get mergeUserSettings () {
+    return mergeUserSettings
+  }
   genericPost (url, postData) {
     console.log('Post to ' + url)
     this.http.post(url, postData).then(
@@ -121,6 +126,27 @@ export default class {
         }
       } else {
         store.commit('Stats/SET_CURRENT_PERSONID', store.getters['Stats/Get_Person_List'][0].PersonID)
+      }
+
+      var flagUserSettings = true
+      gt = store.getters['AppState/GetInitExpiry']
+      dt = moment(gt)
+      if (moment(new Date()).isBefore(dt)) {
+        flagUserSettings = false
+      }
+      // ///TODO: Do checks to see if it exists in localForage and if there are newer items
+      if (flagUserSettings) {
+        try {
+          console.log(this.config.API_URL + this.config.userSettingsURL + subject + '?' + this.config.userSettingsToken)
+          this.axios.get(this.config.userSettingsURL + subject + '?' + this.config.userSettingsToken).then(
+            // this.axios.get(this.config.initURL + this.config.UserID + '?' + this.config.initToken).then(
+            function (response) {
+              userSettingsSetup(JSON.parse(response.data))
+            }
+          )
+        } catch (ex) {
+          console.log(ex)
+        }
       }
     })
   }

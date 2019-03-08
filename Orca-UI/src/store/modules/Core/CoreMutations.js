@@ -3,6 +3,12 @@ import Vue from 'vue'
 import localForage from 'localforage'
 import _ from 'underscore'
 const mutations = {
+  SET_ACTIVE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Active, payload.ActiveID, {...state.Active[payload.ActiveID], ...payload})
+      localForage.setItem('Core_Active', state.Active)
+    }
+  },
   SET_ACTIVE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Active, payload.ActiveID, payload)
@@ -34,6 +40,12 @@ const mutations = {
       })
 
       localForage.setItem('Core_Active', state.Active)
+    }
+  },
+  SET_BODYPART_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.BodyPart, payload.BodyPartID, {...state.BodyPart[payload.BodyPartID], ...payload})
+      localForage.setItem('Core_BodyPart', state.BodyPart)
     }
   },
   SET_BODYPART (state, payload) {
@@ -69,6 +81,12 @@ const mutations = {
       localForage.setItem('Core_BodyPart', state.BodyPart)
     }
   },
+  SET_BODYPARTTYPE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.BodyPartType, payload.BodyPartTypeID, {...state.BodyPartType[payload.BodyPartTypeID], ...payload})
+      localForage.setItem('Core_BodyPartType', state.BodyPartType)
+    }
+  },
   SET_BODYPARTTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.BodyPartType, payload.BodyPartTypeID, payload)
@@ -100,6 +118,12 @@ const mutations = {
       })
 
       localForage.setItem('Core_BodyPartType', state.BodyPartType)
+    }
+  },
+  SET_DATES_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Dates, payload.DatesID, {...state.Dates[payload.DatesID], ...payload})
+      localForage.setItem('Core_Dates', state.Dates)
     }
   },
   SET_DATES (state, payload) {
@@ -135,6 +159,12 @@ const mutations = {
       localForage.setItem('Core_Dates', state.Dates)
     }
   },
+  SET_MEASUREMENTTYPE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MeasurementType, payload.MeasurementTypeID, {...state.MeasurementType[payload.MeasurementTypeID], ...payload})
+      localForage.setItem('Core_MeasurementType', state.MeasurementType)
+    }
+  },
   SET_MEASUREMENTTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.MeasurementType, payload.MeasurementTypeID, payload)
@@ -166,6 +196,12 @@ const mutations = {
       })
 
       localForage.setItem('Core_MeasurementType', state.MeasurementType)
+    }
+  },
+  SET_MEASUREMENTTYPECATEGORY_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MeasurementTypeCategory, payload.MeasurementTypeCategoryID, {...state.MeasurementTypeCategory[payload.MeasurementTypeCategoryID], ...payload})
+      localForage.setItem('Core_MeasurementTypeCategory', state.MeasurementTypeCategory)
     }
   },
   SET_MEASUREMENTTYPECATEGORY (state, payload) {
@@ -201,6 +237,12 @@ const mutations = {
       localForage.setItem('Core_MeasurementTypeCategory', state.MeasurementTypeCategory)
     }
   },
+  SET_METRICDETAIL_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MetricDetail, payload.MetricDetailID, {...state.MetricDetail[payload.MetricDetailID], ...payload})
+      localForage.setItem('Core_MetricDetail', state.MetricDetail)
+    }
+  },
   SET_METRICDETAIL (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.MetricDetail, payload.MetricDetailID, payload)
@@ -232,6 +274,12 @@ const mutations = {
       })
 
       localForage.setItem('Core_MetricDetail', state.MetricDetail)
+    }
+  },
+  SET_METRICSET_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MetricSet, payload.MetricSetID, {...state.MetricSet[payload.MetricSetID], ...payload})
+      localForage.setItem('Core_MetricSet', state.MetricSet)
     }
   },
   SET_METRICSET (state, payload) {
@@ -267,6 +315,12 @@ const mutations = {
       localForage.setItem('Core_MetricSet', state.MetricSet)
     }
   },
+  SET_STATTYPE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.StatType, payload.StatTypeID, {...state.StatType[payload.StatTypeID], ...payload})
+      localForage.setItem('Core_StatType', state.StatType)
+    }
+  },
   SET_STATTYPE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.StatType, payload.StatTypeID, payload)
@@ -298,6 +352,12 @@ const mutations = {
       })
 
       localForage.setItem('Core_StatType', state.StatType)
+    }
+  },
+  SET_TIME_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Time, payload.TimeID, {...state.Time[payload.TimeID], ...payload})
+      localForage.setItem('Core_Time', state.Time)
     }
   },
   SET_TIME (state, payload) {
@@ -333,6 +393,12 @@ const mutations = {
       localForage.setItem('Core_Time', state.Time)
     }
   },
+  SET_UNIT_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Unit, payload.UnitID, {...state.Unit[payload.UnitID], ...payload})
+      localForage.setItem('Core_Unit', state.Unit)
+    }
+  },
   SET_UNIT (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Unit, payload.UnitID, payload)
@@ -364,6 +430,12 @@ const mutations = {
       })
 
       localForage.setItem('Core_Unit', state.Unit)
+    }
+  },
+  SET_UNITTYPE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.UnitType, payload.UnitTypeID, {...state.UnitType[payload.UnitTypeID], ...payload})
+      localForage.setItem('Core_UnitType', state.UnitType)
     }
   },
   SET_UNITTYPE (state, payload) {

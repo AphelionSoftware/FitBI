@@ -14,11 +14,11 @@ BEGIN
 	SET NOCOUNT ON;
 
 	/*
-SELECT TABLE_SCHEMA + '_' + TABLE_NAME  As TableName, '
+SELECT table_schema + '_' + table_name  As TableName, '
 UNION ALL
 SELECT 
-	''' + TABLE_SCHEMA + '_' + TABLE_NAME + ''' TableName ,
-	MAX(ISNULL(Tbl.UpdatedAt, Tbl.CreatedAt)) LatestDate  FROM [' + TABLE_SCHEMA + '].[' + TABLE_NAME + '] Tbl
+	''' + table_schema + '_' + table_name + ''' TableName ,
+	MAX(ISNULL(Tbl.UpdatedAt, Tbl.CreatedAt)) LatestDate  FROM [' + table_schema + '].[' + table_name + '] Tbl
 	WHERE Tbl.Active = 1
 	' TableQuery
 	FROM INFORMATION_SCHEMA.COLUMNS  c1 where TABLE_SCHEMA not like '%settings%'
@@ -29,11 +29,11 @@ SELECT
 		and c2.COLUMN_NAME = 'PersonID'
 	)
 	UNION ALL
-	SELECT TABLE_SCHEMA + '_' + TABLE_NAME  As TableName, '
+	SELECT table_schema + '_' + table_name  As TableName, '
 	UNION ALL
 	SELECT 
-	''' + TABLE_SCHEMA + '_' + TABLE_NAME + ''' TableName ,
-	MAX(ISNULL(Tbl.UpdatedAt, Tbl.CreatedAt)) LatestDate  FROM [' + TABLE_SCHEMA + '].[' + TABLE_NAME + '] Tbl
+	''' + table_schema + '_' + table_name + ''' TableName ,
+	MAX(ISNULL(Tbl.UpdatedAt, Tbl.CreatedAt)) LatestDate  FROM [' + table_schema + '].[' + table_name + '] Tbl
 	LEFT JOIN [Security].[User] U ON Tbl.PersonID = U.PersonID
 	WHERE Tbl.Active = 1
 	AND (U.UserID = @UserID OR Tbl.PersonID IS NULL)
@@ -45,7 +45,7 @@ SELECT
 		and c1.TABLE_NAME = c2.TABLE_NAME
 		and c2.COLUMN_NAME = 'PersonID'
 	)
-	ORDER BY TABLE_SCHEMA + '_' + TABLE_NAME 
+	ORDER BY table_schema + '_' + table_name 
 
 	*/
 

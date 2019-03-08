@@ -3,6 +3,12 @@ import Vue from 'vue'
 import localForage from 'localforage'
 import _ from 'underscore'
 const mutations = {
+  SET_PLAN_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Plan, payload.PlanID, {...state.Plan[payload.PlanID], ...payload})
+      localForage.setItem('Program_Plan', state.Plan)
+    }
+  },
   SET_PLAN (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Plan, payload.PlanID, payload)
@@ -34,6 +40,12 @@ const mutations = {
       })
 
       localForage.setItem('Program_Plan', state.Plan)
+    }
+  },
+  SET_WORKOUT_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Workout, payload.WorkoutID, {...state.Workout[payload.WorkoutID], ...payload})
+      localForage.setItem('Program_Workout', state.Workout)
     }
   },
   SET_WORKOUT (state, payload) {
@@ -69,6 +81,12 @@ const mutations = {
       localForage.setItem('Program_Workout', state.Workout)
     }
   },
+  SET_WORKOUT_EXERCISE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.Workout_Exercise, payload.Workout_ExerciseID, {...state.Workout_Exercise[payload.Workout_ExerciseID], ...payload})
+      localForage.setItem('Program_Workout_Exercise', state.Workout_Exercise)
+    }
+  },
   SET_WORKOUT_EXERCISE (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.Workout_Exercise, payload.Workout_ExerciseID, payload)
@@ -100,6 +118,12 @@ const mutations = {
       })
 
       localForage.setItem('Program_Workout_Exercise', state.Workout_Exercise)
+    }
+  },
+  SET_WORKOUTSTAGE_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.WorkoutStage, payload.WorkoutStageID, {...state.WorkoutStage[payload.WorkoutStageID], ...payload})
+      localForage.setItem('Program_WorkoutStage', state.WorkoutStage)
     }
   },
   SET_WORKOUTSTAGE (state, payload) {
