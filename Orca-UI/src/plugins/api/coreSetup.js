@@ -3,6 +3,7 @@ export default function (coreValues) {
   store.commit('AppState/SET_CORE', coreValues.Version)
   store.commit('Core/SET_BODYPART_LIST', coreValues.BodyPart)
   store.commit('Core/SET_BODYPARTTYPE_LIST', coreValues.BodyPartType)
+  store.commit('Core/SET_MEASUREMENTCONTROL_LIST', coreValues.MeasurementControl)
   store.commit('Core/SET_MEASUREMENTTYPE_LIST', coreValues.MeasurementType)
   store.commit('Core/SET_MEASUREMENTTYPECATEGORY_LIST', coreValues.MeasurementTypeCategory)
   store.commit('Core/SET_METRICDETAIL_LIST', coreValues.MetricDetail)

@@ -9,8 +9,10 @@ namespace FitAPIFunctions
     class CoreValues
     {
         public object Version;
+        // Paste from SQL
         public object BodyPart;
         public object BodyPartType;
+        public object MeasurementControl;
         public object MeasurementType;
         public object MeasurementTypeCategory;
         public object MetricDetail;
@@ -18,5 +20,6 @@ namespace FitAPIFunctions
         public object StatType;
         public object Unit;
         public object UnitType;
+        // End Paste
     }
 }

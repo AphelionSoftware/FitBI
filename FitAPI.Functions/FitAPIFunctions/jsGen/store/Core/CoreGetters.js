@@ -105,6 +105,32 @@ const getters = {
   Get_Dates_List: function (state) {
     return _.sortBy(state.Dates, 'Name')
   },
+  Get_MeasurementControl_ByRouteID: function (state, getters, rootState) {
+    return state.MeasurementControl[+rootState.route.params.MeasurementControlid]
+  },
+  Get_MeasurementControl_Select: function (state) {
+    return _.chain(state.MeasurementControl)
+      .map(item => {
+        return {
+          label: item.Name,
+          value: item.MeasurementControlID
+        }
+      })
+      .sortBy('Name')
+      .value()
+  },
+  Get_MeasurementControl_SelectObject: function (state) {
+    return _.mapObject(
+      _.indexBy(state.MeasurementControl, 'MeasurementControlID'),
+      item => ({
+        label: item.Name,
+        value: item.MeasurementControlID
+      })
+    )
+  },
+  Get_MeasurementControl_List: function (state) {
+    return _.sortBy(state.MeasurementControl, 'Name')
+  },
   Get_MeasurementType_ByRouteID: function (state, getters, rootState) {
     return state.MeasurementType[+rootState.route.params.MeasurementTypeid]
   },

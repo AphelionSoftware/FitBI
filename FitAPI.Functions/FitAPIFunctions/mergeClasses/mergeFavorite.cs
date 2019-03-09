@@ -18,10 +18,10 @@ using System.Collections.Generic;
 
 namespace FitAPIFunctions
 {
-    public static class mergeMetricValue
+    public static class mergeFavorite
     {
-	    [FunctionName("mergeMetricValue")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/MetricValue")]HttpRequestMessage req, TraceWriter log)
+	    [FunctionName("mergeFavorite")]
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/Favorite")]HttpRequestMessage req, TraceWriter log)
 		{
 
 			string JSON = "Running API call";
@@ -30,7 +30,7 @@ namespace FitAPIFunctions
             {
             var postData = await req.Content.ReadAsStringAsync();
             
-            var container = JsonConvert.DeserializeObject<FitAPIFunctions.Schema.MetricValueContainer>(postData);
+            var container = JsonConvert.DeserializeObject<FitAPIFunctions.Schema.FavoriteContainer>(postData);
 
 		log.Info("C# HTTP trigger function processed a request.");
             var sqlConnectionString =
@@ -41,11 +41,11 @@ namespace FitAPIFunctions
 			using (SqlConnection conn = new SqlConnection(sqlConnectionString))
                 {
                     conn.Open();
-                    conn.Execute("API.merge_Stats_MetricValue",
+                    conn.Execute("API.merge_UserSettings_Favorite",
                     new
                     {
-                        tvp_MetricValue = container.MetricValue.AsTableValuedParameter("Stats.tvp_MetricValue"
-						, (new string[] { "Active", "CreatedAt", "DecimalValue", "Deleted", "FloatValue", "ID", "IntegerValue", "MeasurementDate", "MetricDetailID", "MetricValueID", "PersonID", "UpdatedAt", "Version" })
+                        tvp_Favorite = container.Favorite.AsTableValuedParameter("UserSettings.tvp_Favorite"
+						, (new string[] { "Active", "Code", "CreatedAt", "Deleted", "FavoriteID", "ID", "isFavorite", "MetricSetID", "Name", "UpdatedAt", "UserID", "Version" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    

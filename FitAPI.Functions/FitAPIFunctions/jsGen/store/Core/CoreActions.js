@@ -162,6 +162,38 @@ const actions = {
     context.commit('SET_DATES', item)
     APIinstance.mergeCore.mergeDates(item)
   },
+  saveMeasurementControl (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MeasurementControlItem
+    } else {
+      item = payload
+    }
+    let defaults = {
+      MeasurementControlID: null,
+      Code: null,
+      Name: null,
+      Active: 1,
+      ID: uuidv1(),
+      CreatedAt: new Date().toUTCString(),
+      UpdatedAt: new Date(),
+      Deleted: false,
+      Version: null,
+      NeedsSync: true
+    }
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    item.UpdatedAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    item = {...defaults, ...item}
+    if (item.MeasurementControlID === null) item.MeasurementControlID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
+    context.commit('SET_MEASUREMENTCONTROL', item)
+    APIinstance.mergeCore.mergeMeasurementControl(item)
+  },
   saveMeasurementType (context, payload) {
     let item = {}
     if (typeof (payload) === 'undefined') {
@@ -172,6 +204,7 @@ const actions = {
     let defaults = {
       MeasurementTypeID: null,
       MeasurementTypeCategoryID: null,
+      MeasurementControlID: null,
       Code: null,
       Name: null,
       Description: null,
@@ -241,6 +274,9 @@ const actions = {
       MeasurementTypeID: 1,
       BodyPartID: null,
       OrdinalPosition: 0,
+      MinValue: null,
+      MaxValue: null,
+      Increment: null,
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),

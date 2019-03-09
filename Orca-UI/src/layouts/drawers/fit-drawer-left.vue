@@ -57,6 +57,9 @@
       <q-item v-if="config.PROD === false" @click.native="fnDebug()">
         <q-item-side icon="fa fa-calendar" />
         <q-item-main label="Driver" />
+      </q-item><q-item v-if="config.PROD === false" @click.native="fnDebug()">
+        <q-item-side icon="fa fa-calendar" />
+        <q-item-main label="Debug" />
       </q-item>
      </q-list>
     </q-layout-drawer>

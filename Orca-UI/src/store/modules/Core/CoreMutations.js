@@ -159,6 +159,45 @@ const mutations = {
       localForage.setItem('Core_Dates', state.Dates)
     }
   },
+  SET_MEASUREMENTCONTROL_PROPERTIES (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MeasurementControl, payload.MeasurementControlID, {...state.MeasurementControl[payload.MeasurementControlID], ...payload})
+      localForage.setItem('Core_MeasurementControl', state.MeasurementControl)
+    }
+  },
+  SET_MEASUREMENTCONTROL (state, payload) {
+    if (typeof payload !== 'undefined') {
+      Vue.set(state.MeasurementControl, payload.MeasurementControlID, payload)
+      localForage.setItem('Core_MeasurementControl', state.MeasurementControl)
+    }
+  },
+  SET_MEASUREMENTCONTROL_LIST: function (state, fullList) {
+    if (typeof (fullList) !== 'undefined') {
+      fullList.forEach(function (element) {
+        Vue.set(state.MeasurementControl, element.MeasurementControlID, element)
+      }, this)
+      _.each(state.MeasurementControl, (item, idx) => {
+        if (item.MeasurementControlID >= 1073741824 || item.MeasurementControlID === null) {
+          let extant = _.find(state.MeasurementControl, extItem => {
+            return extItem.ID === item.ID && extItem.MeasurementControlID !== item.MeasurementControlID
+          })
+          if (typeof extant !== 'undefined') {
+            if (item.UpdatedAt >= extant.UpdatedAt) {
+              let extId = +extant.MeasurementControlID
+              let newVal = {...extant, ...item}
+              newVal.MeasurementControlID = extId
+              Vue.set(state.MeasurementControl, newVal.MeasurementControlID, newVal)
+              Vue.delete(state.MeasurementControl, item.MeasurementControlID)
+            } else {
+              Vue.delete(state.MeasurementControl, item.MeasurementControlID)
+            }
+          }
+        }
+      })
+
+      localForage.setItem('Core_MeasurementControl', state.MeasurementControl)
+    }
+  },
   SET_MEASUREMENTTYPE_PROPERTIES (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.MeasurementType, payload.MeasurementTypeID, {...state.MeasurementType[payload.MeasurementTypeID], ...payload})

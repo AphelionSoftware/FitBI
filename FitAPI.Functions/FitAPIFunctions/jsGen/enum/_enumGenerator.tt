@@ -25,7 +25,7 @@ var server = new Server(".\\SQL2017");
 
 #>
 <#
-	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\helpers\\enum\\";
+	string basePath = "C:\\Git\\FitBI\\Orca-UI\\src\\plugins\\libraries\\";
 	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\enum\\";
 	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core"  orderby s.Name select s).ToArray();
             foreach (Schema sSchema in sorted)
@@ -58,13 +58,13 @@ private class ValuesTemplate : Template
         Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
         foreach (Table tTable in tTables)
         {
-		if (tTable.Name != "Dates" && tTable.Name != "Time") {
+		if ( tTable.Name != "Dates" && tTable.Name != "Time" && tTable.Name != "MetricSet" && tTable.Name != "MetricDetail" ) {
 			strExport += @"
   " + tTable.Name + ",";
                 strFile += @"
 class " + tTable.Name + @" extends Enum {}
 " + tTable.Name + @".initEnum({";
-			var sqlConnectionString = "Data Source=xps13\\sql2017;Initial Catalog=FitBI;Persist Security Info=True;User ID=svc-fit;Password=F1t@1024";
+			var sqlConnectionString = "Data Source=.\\sql2017;Initial Catalog=FitBI;Persist Security Info=True;User ID=svc-fit;Password=F1t@1024";
             using (SqlConnection conn = new SqlConnection(sqlConnectionString))
             {
                 conn.Open();
@@ -95,7 +95,7 @@ class " + tTable.Name + @" extends Enum {}
         strExport = strExport.Substring(0, strExport.Length - 1);
 		strFile += @"
 
-export {" + strExport + @"
+export default {" + strExport + @"
 }
 ";
             this.FileName = strFile;

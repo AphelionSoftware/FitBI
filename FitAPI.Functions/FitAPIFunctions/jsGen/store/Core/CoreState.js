@@ -7,6 +7,8 @@ const state = {
   BodyPartTypeList: [],
   Dates: { },
   DatesList: [],
+  MeasurementControl: { },
+  MeasurementControlList: [],
   MeasurementType: { },
   MeasurementTypeList: [],
   MeasurementTypeCategory: { },

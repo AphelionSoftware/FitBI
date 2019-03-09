@@ -163,6 +163,7 @@
 .\mergeExercise_Sport.cs
 .\mergeExerciseLink.cs
 .\mergeExerciseType.cs
+.\mergeFavorite.cs
 .\mergeGeneralSettings.cs
 .\mergeMetric.cs
 .\mergeMetricValue.cs
@@ -257,6 +258,11 @@
     <Folder Include="jsGen\store\UserSettings\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="jsGen\store\_runner.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_runner.tt</DependentUpon>
+    </None>
     <None Include="jsGen\store\_runner.js">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

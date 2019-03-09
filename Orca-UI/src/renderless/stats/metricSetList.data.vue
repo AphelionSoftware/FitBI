@@ -1,5 +1,6 @@
 <script>
 import { mapState } from 'vuex'
+
 export default {
   render () {
     return this.$scopedSlots.default({

@@ -37,6 +37,7 @@ namespace FitAPIFunctions
                         objCore.Version = multi.Read<dynamic>().ToList();
                         objCore.BodyPart = multi.Read<dynamic>().ToList();
                         objCore.BodyPartType = multi.Read<dynamic>().ToList();
+                        objCore.MeasurementControl = multi.Read<dynamic>().ToList();
                         objCore.MeasurementType = multi.Read<dynamic>().ToList();
                         objCore.MeasurementTypeCategory = multi.Read<dynamic>().ToList();
                         objCore.MetricDetail = multi.Read<dynamic>().ToList();

@@ -2,6 +2,24 @@ import _ from 'underscore'
 import enumCore from '../../../plugins/libraries/enumCore'
 import moment from 'moment'
 const getters = {
+  Get_MetricValues_By_MetricDetailID: function (state, getters, rootState, rootGetters) {
+    return _.chain(state.MetricValues)
+      .sortBy('MeasurementDate')
+      .reverse()
+      .groupBy('MetricDetailID')
+      .value()
+  },
+  Get_MetricValues_By_Date: function (state, getters, rootState, rootGetters) {
+    return _.groupBy(state.MetricValues, 'MeasurementDate')
+  },
+  Get_MetricValues_Latest_By_MetricDetailID: function (state, getters, rootState, rootGetters) {
+    return _.map(getters['Get_MetricValues_By_MetricDetailID'], item => {
+      return _.chain(item)
+        .sortBy('MeasurementDate')
+        .last()
+        .value()
+    })
+  },
   Get_Current_Person: function (state, getters, rootState, rootGetters) {
     if (state.Current_PersonID > 0) {
       return state.Person[state.Current_PersonID]
