@@ -78,8 +78,6 @@ export default {
     // let payload = {
     //   PersonID: this.Personid
     // }
-    // this.$store.commit('Stats/GET_Person', payload)
-    // Set the save action to enable the toolbar save button
     var store = this.$store
     // let router = this.$router
     let vueThis = this

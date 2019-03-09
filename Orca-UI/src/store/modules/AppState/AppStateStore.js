@@ -27,6 +27,8 @@ const state = {
   initExpiry: new Date('1 Jan 2000'),
   coreTimeStamp: 0x0000000000000000,
   coreExpiry: new Date('1 Jan 2000'),
+  userSettingsTimeStamp: 0x0000000000000000,
+  userSettingsExpiry: new Date('1 Jan 2000'),
   user: '',
   config: {}
 }
@@ -133,6 +135,22 @@ const mutations = {
         CacheExpiry: state.coreExpiry
       }]
       localForage.setItem('AppState_Core', forage)
+    }
+  },
+  SET_USERSETTINGS (state, payload) {
+    if (typeof payload !== 'undefined') {
+      if (typeof payload.Version !== 'undefined') {
+        state.userSettingsTimeStamp = payload.Version
+        state.userSettingsExpiry = payload.CacheExpiry
+      } else if (typeof payload[0] !== 'undefined') {
+        state.userSettingsTimeStamp = payload[0].Version
+        state.userSettingsExpiry = payload[0].CacheExpiry
+      }
+      let forage = [{
+        Version: state.coreTimeStamp,
+        CacheExpiry: state.coreExpiry
+      }]
+      localForage.setItem('AppState_UserSettings', forage)
     }
   },
   SET_SAVE (state, payload) {

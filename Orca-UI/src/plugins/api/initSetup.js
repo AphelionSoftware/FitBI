@@ -18,5 +18,5 @@ export default function (initValues) {
   store.commit('Stats/SET_TAPEMEASUREMENT_LIST', initValues.TapeMeasurement)
   store.commit('Stats/SET_WEIGHTMEASUREMENT_LIST', initValues.WeightMeasurement)
   // Assuming only a single person value
-  store.commit('Stats/GET_PERSON', initValues.Person[0])
+  store.commit('Stats/SET_PERSON', initValues.Person[0])
 }

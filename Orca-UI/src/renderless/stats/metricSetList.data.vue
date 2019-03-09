@@ -1,6 +1,5 @@
 <script>
 import { mapState } from 'vuex'
-
 export default {
   render () {
     return this.$scopedSlots.default({
@@ -15,7 +14,6 @@ export default {
   },
   methods: {
     setFavorite (payload) {
-      debugger
       this.$store.dispatch('UserSettings/updateFavorite', {keyName: 'MetricSetID', module: 'Core', MetricSetID: payload.MetricSetID, isFavorite: payload.isFavorite})
     }
   }

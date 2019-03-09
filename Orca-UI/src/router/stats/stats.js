@@ -37,10 +37,19 @@ export default [
         ]
       },
       {
-        path: 'measurement.sets/:measurementdateid',
+        path: 'measurement.sets/:measurementdateid', /// TODO: take measurementdateid out of here, it doesn't make sense
         name: 'measurementsetedit',
         component: () => import('src/pages/stats/measurement.sets.vue'),
         props: (route) => ({
+          measurementDate: new Date(moment(route.params.measurementdateid, 'YYYYMMDD').utc())
+        })
+      },
+      {
+        path: 'measurement.sets/:metricSetID/:measurementdateid',
+        name: 'metricsettakemeasurement',
+        component: () => import('src/pages/stats/metricSet.takeMeasurement.vue'),
+        props: (route) => ({
+          metricSetID: +route.params.metricSetID,
           measurementDate: new Date(moment(route.params.measurementdateid, 'YYYYMMDD').utc())
         })
       },
