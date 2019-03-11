@@ -7,7 +7,7 @@ const saveAction = function (next, fnSave) {
       {
         label: 'Save and exit',
         // Choose one of the following two:
-        icon: 'fa-save', // specify ONLY IF using icon
+        icon: 'fa fa-save', // specify ONLY IF using icon
         handler: function () {
           // store.dispatch('DailyMeasurement/Save_DailyMeasurement')
           fnSave()
@@ -16,7 +16,7 @@ const saveAction = function (next, fnSave) {
       },
       {
         label: 'Save but stay',
-        icon: 'fa-bookmark',
+        icon: 'fa fa-bookmark',
         handler: function () {
           // store.dispatch('DailyMeasurement/Save_DailyMeasurement')
           fnSave(false)
@@ -25,14 +25,14 @@ const saveAction = function (next, fnSave) {
       },
       {
         label: 'Cancel',
-        icon: 'fa-ban',
+        icon: 'fa fa-ban',
         handler: function () {
           next(false)
         }
       },
       {
         label: 'Exit without saving',
-        icon: 'fa-times-circle',
+        icon: 'fa fa-times-circle',
         handler: function () {
           next()
         }
