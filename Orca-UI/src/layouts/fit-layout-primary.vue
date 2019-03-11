@@ -17,8 +17,9 @@
        <q-chip v-if="this.TitleText !== ''" color="tertiary" class="on-left q-ma-md" @click="TitleAction()">{{this.TitleText}}</q-chip>
       <q-btn v-if="typeof this.SaveAction === 'function'" @click="fnSaveAction" icon="fa fa-save" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
       <q-btn v-if="typeof this.AddAction === 'function'" @click="fnAddAction" icon="fa fa-plus" round small color="secondary" style='height:34xp;width:34;margin-top:2px;margin-botton:2px'/>
-      <q-btn icon="fa fa-user-circle" @click="right = !right">
-      </q-btn>
+      <router-view name="toolbar"/>
+      <q-btn icon="fa fa-user-circle" @click="right = !right"></q-btn>
+
     <!-- </q-fixed-position> -->
   </q-toolbar>
   </q-layout-header>

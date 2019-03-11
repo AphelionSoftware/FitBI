@@ -45,7 +45,7 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_MetricValue = container.MetricValue.AsTableValuedParameter("Stats.tvp_MetricValue"
-						, (new string[] { "Active", "CreatedAt", "DecimalValue", "Deleted", "FloatValue", "ID", "IntegerValue", "MeasurementDate", "MetricDetailID", "MetricValueID", "PersonID", "UpdatedAt", "Version" })
+						, (new string[] { "Active", "BooleanValue", "CreatedAt", "DecimalValue", "Deleted", "FloatValue", "ID", "IntegerValue", "MeasurementDate", "MetricDetailID", "MetricValueID", "PersonID", "UpdatedAt", "Version" })
 						)
                     },
                     commandType: CommandType.StoredProcedure);                    

@@ -1,9 +1,9 @@
 <template>
     <!-- <metricSetItem>
     </metricSetItem> -->
-    <metric-set-item-data :metricSetID="+metricSetID">
+    <metric-set-item-data ref="data" :metricSetID="+metricSetID">
       <div slot-scope="{metricSetItem, metricDetailList}">
-        <metricSetTakeMeasurements v-if="typeof metricSetItem !== 'undefined'" :metricSetItem="metricSetItem" :metricDetailList="metricDetailList">
+        <metricSetTakeMeasurements ref="control" v-if="typeof metricSetItem !== 'undefined'" :metricSetItem="metricSetItem" :metricDetailList="metricDetailList">
         </metricSetTakeMeasurements>
       </div>
     </metric-set-item-data>
@@ -12,6 +12,8 @@
 <script>
 import metricSetItemData from '../../renderless/stats/metricSetItem.data'
 import metricSetTakeMeasurements from '../../components/stats/metricSet.takeMeasurements'
+import uiMixin from '../../mixins/ui/ui' // Save checks
+import _ from 'underscore'
 export default {
   props: {
     metricSetID: {
@@ -27,13 +29,53 @@ export default {
     metricSetTakeMeasurements,
     metricSetItemData
   },
+  mixins: [uiMixin],
   methods: {
     debug (value) {
       console.log(value)
       debugger
+    },
+    saveData (msg) {
+      if (typeof this.$refs.data !== 'undefined' && typeof this.$refs.control !== 'undefined') {
+        debugger
+        console.log(this.$refs.data)
+        console.log(this.$refs.control)
+        this.$refs.data.saveData({
+          MetricSetID: this.metricSetID,
+          MeasurementDate: this.measurementDate,
+          children: this.$refs.control.metricDetailList
+        })
+      }
     }
   },
   computed: {
+  },
+  created () {
+    this.$root.$on('save', this.saveData)
+  },
+  destroyed () {
+    this.$root.$off('save')
+  },
+  beforeRouteLeave (to, from, next) {
+    let flagChanges = false
+    let control = this.$refs.control
+    let data = this.$refs.data
+    flagChanges = typeof _.first(control.metricDetailList, newData => {
+      let dataItem = data.LatestValues[newData.MetricDetailID]
+      // No need to maintain a working copy of the original values, as the Latest is where we retrieved them from anyway
+      if (typeof dataItem === 'undefined') return true
+      if (newData.DecimalValue !== dataItem.DecimalValue ||
+        newData.IntegerValue !== dataItem.IntegerValue ||
+        newData.FloatValue !== dataItem.FloatValue ||
+        newData.BoolValue !== dataItem.BoolValue
+      ) return true
+      return false
+    }) !== 'undefined'
+    if (!flagChanges) {
+      next()
+    } else {
+      uiMixin(this.saveData)
+    }
   }
 }
 </script>

@@ -38,17 +38,17 @@ export default {
       required: true
     }
   },
+  components: {
+    numericSlider
+  },
   data () {
     return {
       collapsed: {}
     }
   },
-  components: {
-    numericSlider
-  },
   methods: {
     updateMeasurement (item) {
-      this.$emit('updateMeasurement', {})
+      // this.$emit('updateMeasurement', {})
     }
   }
 }

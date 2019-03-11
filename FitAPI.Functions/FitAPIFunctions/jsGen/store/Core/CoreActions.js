@@ -277,6 +277,7 @@ const actions = {
       MinValue: null,
       MaxValue: null,
       Increment: null,
+      OverrideName: null,
       Active: 1,
       ID: uuidv1(),
       CreatedAt: new Date().toUTCString(),

@@ -1,5 +1,6 @@
 import fitLayoutPrimary from 'src/layouts/fit-layout-primary'
 import moment from 'moment'
+// import takeMeasurement from 'src/pages/stats/metricSet.takeMeasurement.vue' // ,import('src/pages/stats/metricSet.takeMeasurement.vue') // ,
 export default [
   { path: '/stats',
     component: fitLayoutPrimary,
@@ -39,7 +40,9 @@ export default [
       {
         path: 'measurement.sets/:measurementdateid', /// TODO: take measurementdateid out of here, it doesn't make sense
         name: 'measurementsetedit',
-        component: () => import('src/pages/stats/measurement.sets.vue'),
+        components: {
+          default: () => import('src/pages/stats/measurement.sets.vue')
+        },
         props: (route) => ({
           measurementDate: new Date(moment(route.params.measurementdateid, 'YYYYMMDD').utc())
         })
@@ -47,11 +50,16 @@ export default [
       {
         path: 'measurement.sets/:metricSetID/:measurementdateid',
         name: 'metricsettakemeasurement',
-        component: () => import('src/pages/stats/metricSet.takeMeasurement.vue'),
-        props: (route) => ({
-          metricSetID: +route.params.metricSetID,
-          measurementDate: new Date(moment(route.params.measurementdateid, 'YYYYMMDD').utc())
-        })
+        props: {
+          default: (route) => ({
+            metricSetID: +route.params.metricSetID,
+            measurementDate: new Date(moment(route.params.measurementdateid, 'YYYYMMDD').utc())
+          })
+        },
+        components: {
+          default: () => import('src/pages/stats/metricSet.takeMeasurement.vue'),
+          toolbar: () => import('src/layouts/saveButton')
+        }
       },
       {
         path: 'measurement.edit/:measurementdateid',

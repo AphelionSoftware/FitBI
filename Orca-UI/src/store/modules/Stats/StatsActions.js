@@ -105,6 +105,7 @@ const actions = {
       IntegerValue: null,
       FloatValue: null,
       DecimalValue: null,
+      BooleanValue: null,
       MeasurementDate: null,
       Active: 1,
       ID: uuidv1(),
