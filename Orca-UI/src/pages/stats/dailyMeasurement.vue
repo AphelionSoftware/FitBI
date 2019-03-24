@@ -8,9 +8,10 @@
 </template>
 <script>
 // import { required } from 'vuelidate/lib/validators'
-import {
-  ActionSheet
-} from 'quasar'
+import uiMixin from 'src/mixins/ui/ui'
+// import {
+//   ActionSheet
+// } from 'quasar'
 import measurement from 'src/components/stats/dailyMeasurement.basic'
 import {
   mapGetters,
@@ -28,6 +29,7 @@ export default {
       required: true
     }
   },
+  mixins: [uiMixin],
   data: function () {
     return {
       dailyMeasurement: {
@@ -194,53 +196,19 @@ export default {
       } else {
         let store = this.$store
         let clearTitle = this.CLEAR_TITLETEXT
-        ActionSheet.create({
-          title: 'Save action',
-          gallery: true,
-          actions: [{
-            label: 'Save and exit',
-            // Choose one of the following two:
-            icon: 'fa-save', // specify ONLY IF using icon
-            handler: function () {
-              store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-              clearTitle()
-              next()
-            }
-          },
-          {
-            label: 'Save but stay',
-            icon: 'fa-bookmark',
-            handler: function () {
-              store.dispatch('DailyMeasurement/Save_DailyMeasurement')
-            }
-          },
-          {
-            label: 'Cancel',
-            icon: 'fa-ban',
-            handler: function () {
-              next(false)
-            }
-          },
-          {
-            label: 'Exit without saving',
-            icon: 'fa-times-circle',
-            handler: function () {
-              clearTitle()
-              next()
-            }
-          }
-          ],
-          // optional:
-          dismiss: {
-            // tell what to do when Action Sheet
-            // is dismised (doesn't trigger when
-            // any of the actions above are clicked/tapped)
-            handler: function () {
-              // console.log('Cancelled...')
-              next(false)
-            }
-          }
-        })
+        let vueThis = this
+        let fnSave = function () {
+          store.dispatch('DailyMeasurement/Save_DailyMeasurement')
+          vueThis.$fit.notifyPerSecond({
+            html: 'Measurement saved',
+            icon: 'fa-thumbs-up',
+            timeout: 2400,
+            color: '#99d8c9',
+            bgColor: 'white'
+          })
+          clearTitle()
+        }
+        this.uiSaveAction(next, fnSave)
       }
     } catch (ex) {
       debugger

@@ -16,11 +16,14 @@ export default {
   },
   computed: {
     ...mapState(
-      /// TODO: MOve MetricSet and MetricDetail to Stats as they are UI controlled and updateable
-      'Core', ['MetricSet', 'MetricDetail', 'MeasurementControl', 'MeasurementType', 'BodyPart']
+      'Core', ['MeasurementControl', 'MeasurementType', 'BodyPart']
+    ),
+    ...mapState(
+      'Stats', ['MetricSet']
     ),
     ...mapGetters('Stats',
-      ['Get_MetricValues_By_MetricDetailID']),
+      ['Get_MetricValues_By_MetricDetailID',
+        'Get_MetricDetails_BySet']),
     metricSetItem () {
       return this.MetricSet[this.metricSetID]
     },
@@ -36,7 +39,7 @@ export default {
       let MeasurementControl = this.MeasurementControl
       let LatestValues = this.LatestValues
       /// TODO: How on earth does it make it back to Vuex from here??
-      let metricDetails = _.chain(this.MetricDetail)
+      let metricDetails = _.chain(this.Get_MetricDetails_BySet)
         .filter(item => {
           return item.MetricSetID === MetricSetID
         })

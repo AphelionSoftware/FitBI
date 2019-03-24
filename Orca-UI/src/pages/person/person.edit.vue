@@ -58,7 +58,7 @@ export default {
       let router = this.$router
       let fnSave = function (redirect) {
         store.dispatch('Stats/savePerson', vueThis.item).then(() => {
-          vueThis.$q.notify({
+          vueThis.$fit.notifyPerSecond({
             html: 'Details saved',
             icon: 'fa-thumbs-up',
             timeout: 2400,

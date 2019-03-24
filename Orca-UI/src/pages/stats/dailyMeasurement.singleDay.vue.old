@@ -145,7 +145,7 @@ export default {
     },
     'GetFlags.Saved' (newVal, oldVal) {
       if (this.GetFlags.Saved === true) {
-        this.$q.notify({
+        this.$fit.notifyPerSecond({
           message: 'Exercise saved',
           icon: 'fa-thumbs-up',
           timeout: 2400,
@@ -156,7 +156,7 @@ export default {
     },
     'GetFlags.Failed' (newVal, oldVal) {
       if (this.GetFlags.Failed === true) {
-        this.$q.notify({
+        this.$fit.notifyPerSecond({
           message: 'Issue saving',
           icon: 'fa-thumbs-down',
           timeout: 2400,

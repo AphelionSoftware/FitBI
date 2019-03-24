@@ -2,6 +2,18 @@ import _ from 'underscore'
 import enumCore from '../../../plugins/libraries/enumCore'
 import moment from 'moment'
 const getters = {
+  Get_MetricDetails_BySet: function (state, getters, rootState, rootGetters) {
+    let ret = _.chain(state.MetricSetMetricDetail)
+      .map(item => {
+        let detail = _.find(rootState.Core.MetricDetail, detail => {
+          return item.MetricDetailID === detail.MetricDetailID
+        })
+        return {...item, ...detail}
+      })
+      .value()
+    debugger
+    return ret
+  },
   Get_MetricValues_By_MetricDetailID: function (state, getters, rootState, rootGetters) {
     return _.chain(state.MetricValues)
       .sortBy('MeasurementDate')

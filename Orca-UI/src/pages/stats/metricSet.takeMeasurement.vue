@@ -40,7 +40,7 @@ export default {
         debugger
         console.log(this.$refs.data)
         console.log(this.$refs.control)
-        this.$refs.data.saveData({
+        this.$refs.data.saveMeasurements({
           MetricSetID: this.metricSetID,
           MeasurementDate: this.measurementDate,
           children: this.$refs.control.metricDetailList

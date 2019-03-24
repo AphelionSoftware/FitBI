@@ -135,17 +135,6 @@
       <LastGenOutput>_storeGenerator.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="jsGen\store\_storeGenerator.tt">
-      <LastOutputs>
-.\_storeGenerator.cs
-.\Core\CoreStore.js
-.\Exercise\ExerciseStore.js
-.\Program\ProgramStore.js
-.\Stats\StatsStore.js
-</LastOutputs>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>_storeGenerator.cs</LastGenOutput>
-    </None>
     <None Update="local.settings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
@@ -166,6 +155,7 @@
 .\mergeFavorite.cs
 .\mergeGeneralSettings.cs
 .\mergeMetric.cs
+.\mergeMetricSet.cs
 .\mergeMetricValue.cs
 .\mergePerson.cs
 .\mergePlan.cs
@@ -195,6 +185,7 @@
 .\Favorite.cs
 .\GeneralSettings.cs
 .\Metric.cs
+.\MetricSet.cs
 .\MetricValue.cs
 .\Person.cs
 .\Plan.cs

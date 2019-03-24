@@ -209,32 +209,6 @@ const getters = {
   Get_MetricDetail_List: function (state) {
     return _.sortBy(state.MetricDetail, 'Name')
   },
-  Get_MetricSet_ByRouteID: function (state, getters, rootState) {
-    return state.MetricSet[+rootState.route.params.MetricSetid]
-  },
-  Get_MetricSet_Select: function (state) {
-    return _.chain(state.MetricSet)
-      .map(item => {
-        return {
-          label: item.Name,
-          value: item.MetricSetID
-        }
-      })
-      .sortBy('Name')
-      .value()
-  },
-  Get_MetricSet_SelectObject: function (state) {
-    return _.mapObject(
-      _.indexBy(state.MetricSet, 'MetricSetID'),
-      item => ({
-        label: item.Name,
-        value: item.MetricSetID
-      })
-    )
-  },
-  Get_MetricSet_List: function (state) {
-    return _.sortBy(state.MetricSet, 'Name')
-  },
   Get_StatType_ByRouteID: function (state, getters, rootState) {
     return state.StatType[+rootState.route.params.StatTypeid]
   },

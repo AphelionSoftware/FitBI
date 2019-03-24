@@ -83,7 +83,7 @@ export default {
     } else {
       let fnSave = function () {
         store.dispatch('Exercise/saveExercise', vueThis.item)
-        vueThis.$q.notify({
+        vueThis.$fit.notifyPerSecond({
           html: 'Exercise saved',
           icon: 'fa-thumbs-up',
           timeout: 2400,
@@ -100,7 +100,7 @@ export default {
     let vueThis = this
     let fnSave = function () {
       store.dispatch('Exercise/saveExercise', vueThis.item)
-      this.$q.notify({
+      this.$fit.notifyPerSecond({
         html: 'Exercise saved',
         icon: 'fa-thumbs-up',
         timeout: 2400,

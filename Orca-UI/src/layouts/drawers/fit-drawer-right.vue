@@ -39,7 +39,7 @@ export default {
     },
     logout () {
       this.$store.dispatch('AppState/Clear_LocalForage').then(() => {
-        this.$q.notify({message: 'LocalForage cleared'})
+        this.$fit.notifyPerSecond({message: 'LocalForage cleared'})
       })
       this.$auth.logout()
     }

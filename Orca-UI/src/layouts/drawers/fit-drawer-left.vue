@@ -54,10 +54,11 @@
         <q-item-side icon="delete" />
         <q-item-main label="Clear local storage" />
       </q-item>
-      <q-item v-if="config.PROD === false" @click.native="fnDebug()">
+      <!-- <q-item v-if="config.PROD === false" @click.native="fnDebug()">
         <q-item-side icon="fa fa-calendar" />
         <q-item-main label="Driver" />
-      </q-item><q-item v-if="config.PROD === false" @click.native="fnDebug()">
+      </q-item> -->
+      <q-item v-if="config.PROD === false" @click.native="fnDebug()">
         <q-item-side icon="fa fa-calendar" />
         <q-item-main label="Debug" />
       </q-item>
@@ -102,7 +103,7 @@ export default {
     },
     clearLocalStorage: function () {
       this.$store.dispatch('AppState/Clear_LocalForage').then(() => {
-        this.$q.notify({message: 'LocalForage cleared'})
+        this.$fit.notifyPerSecond({message: 'LocalForage cleared'})
       })
     }
   },

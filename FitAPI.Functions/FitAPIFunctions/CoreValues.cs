@@ -16,7 +16,6 @@ namespace FitAPIFunctions
         public object MeasurementType;
         public object MeasurementTypeCategory;
         public object MetricDetail;
-        public object MetricSet;
         public object StatType;
         public object Unit;
         public object UnitType;

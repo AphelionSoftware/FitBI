@@ -315,45 +315,6 @@ const mutations = {
       localForage.setItem('Core_MetricDetail', state.MetricDetail)
     }
   },
-  SET_METRICSET_PROPERTIES (state, payload) {
-    if (typeof payload !== 'undefined') {
-      Vue.set(state.MetricSet, payload.MetricSetID, {...state.MetricSet[payload.MetricSetID], ...payload})
-      localForage.setItem('Core_MetricSet', state.MetricSet)
-    }
-  },
-  SET_METRICSET (state, payload) {
-    if (typeof payload !== 'undefined') {
-      Vue.set(state.MetricSet, payload.MetricSetID, payload)
-      localForage.setItem('Core_MetricSet', state.MetricSet)
-    }
-  },
-  SET_METRICSET_LIST: function (state, fullList) {
-    if (typeof (fullList) !== 'undefined') {
-      fullList.forEach(function (element) {
-        Vue.set(state.MetricSet, element.MetricSetID, element)
-      }, this)
-      _.each(state.MetricSet, (item, idx) => {
-        if (item.MetricSetID >= 1073741824 || item.MetricSetID === null) {
-          let extant = _.find(state.MetricSet, extItem => {
-            return extItem.ID === item.ID && extItem.MetricSetID !== item.MetricSetID
-          })
-          if (typeof extant !== 'undefined') {
-            if (item.UpdatedAt >= extant.UpdatedAt) {
-              let extId = +extant.MetricSetID
-              let newVal = {...extant, ...item}
-              newVal.MetricSetID = extId
-              Vue.set(state.MetricSet, newVal.MetricSetID, newVal)
-              Vue.delete(state.MetricSet, item.MetricSetID)
-            } else {
-              Vue.delete(state.MetricSet, item.MetricSetID)
-            }
-          }
-        }
-      })
-
-      localForage.setItem('Core_MetricSet', state.MetricSet)
-    }
-  },
   SET_STATTYPE_PROPERTIES (state, payload) {
     if (typeof payload !== 'undefined') {
       Vue.set(state.StatType, payload.StatTypeID, {...state.StatType[payload.StatTypeID], ...payload})

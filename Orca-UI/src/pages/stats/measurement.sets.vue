@@ -13,12 +13,12 @@
 import metricSetListData from '../../renderless/stats/metricSetList.data'
 import metricSetList from '../../components/stats/metricSetList'
 export default {
-  props: {
-    measurementDate: {
-      type: Date,
-      required: true
-    }
-  },
+  // props: {
+  //   measurementDate: {
+  //     type: Date,
+  //     required: false
+  //   }
+  // },
   components: {
     metricSetList,
     metricSetListData

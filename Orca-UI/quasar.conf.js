@@ -9,7 +9,8 @@ module.exports = function (ctx) {
       'enumCore',
       'api',
       'vuexroutersync',
-      'auth0'
+      'auth0',
+      'fit'
     ],
     css: [
       'app.styl'
@@ -57,7 +58,10 @@ module.exports = function (ctx) {
         auth0clientID: JSON.stringify('7HG6PvXW3BePnn0UzuwvwcbjsvcNg3hF'),
         auth0redirectUri: JSON.stringify('http://localhost:8080/#/'),
         auth0responseType: JSON.stringify('token id_token'),
-        auth0scope: JSON.stringify('openid')
+        auth0scope: JSON.stringify('openid'),
+        appStats: JSON.stringify('true'),
+        appKB: JSON.stringify('true'),
+        appProgram: JSON.stringify('true')
 
       }
         : {
@@ -90,7 +94,10 @@ module.exports = function (ctx) {
           auth0clientID: JSON.stringify('7HG6PvXW3BePnn0UzuwvwcbjsvcNg3hF'),
           auth0redirectUri: JSON.stringify('https://fitquasar.azurewebsites.net/#/'),
           auth0responseType: JSON.stringify('token id_token'),
-          auth0scope: JSON.stringify('openid')
+          auth0scope: JSON.stringify('openid'),
+          appStats: JSON.stringify('true'),
+          appKB: JSON.stringify('false'),
+          appProgram: JSON.stringify('false')
 
         },
       scopeHoisting: true,

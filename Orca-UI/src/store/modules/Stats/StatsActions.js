@@ -91,6 +91,74 @@ const actions = {
     context.commit('SET_METRIC', item)
     APIinstance.mergeStats.mergeMetric(item)
   },
+  saveMetricSet (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MetricSetItem
+    } else {
+      item = payload
+    }
+    let defaults = {
+      MetricSetID: null,
+      Code: null,
+      Name: null,
+      Description: null,
+      icon: null,
+      PersonID: context.rootGetters['Stats/Get_Person_List'][0].PersonID,
+      Active: 1,
+      ID: uuidv1(),
+      CreatedAt: new Date().toUTCString(),
+      UpdatedAt: new Date(),
+      Deleted: false,
+      Version: null,
+      NeedsSync: true
+    }
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    item.UpdatedAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    item = {...defaults, ...item}
+    if (item.MetricSetID === null) item.MetricSetID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
+    context.commit('SET_METRICSET', item)
+    APIinstance.mergeStats.mergeMetricSet(item)
+  },
+  saveMetricSetMetricDetail (context, payload) {
+    let item = {}
+    if (typeof (payload) === 'undefined') {
+      item = context.state.MetricSetMetricDetailItem
+    } else {
+      item = payload
+    }
+    let defaults = {
+      MetricSetMetricDetailID: null,
+      Active: 1,
+      MetricSetID: null,
+      MetricDetailID: null,
+      PersonID: context.rootGetters['Stats/Get_Person_List'][0].PersonID,
+      ID: uuidv1(),
+      CreatedAt: new Date().toUTCString(),
+      UpdatedAt: new Date(),
+      Deleted: false,
+      Version: null,
+      NeedsSync: true
+    }
+    if (typeof item.UpdatedAt === 'undefined' || item.UpdatedAt === null) {
+      item.UpdatedAt = new Date()
+    } else {
+      item.UpdatedAt = new Date(item.UpdatedAt)
+    }
+    item.UpdatedAt = item.UpdatedAt.toUTCString()
+    item.UpdatedAt = (new Date()).toUTCString()
+    item.NeedsSync = true
+    item = {...defaults, ...item}
+    if (item.MetricSetMetricDetailID === null) item.MetricSetMetricDetailID = Math.round(Math.random() * 1073741824) + 1073741823 // Gets us a random number above 1073741823 but less than full positive int.
+    context.commit('SET_METRICSETMETRICDETAIL', item)
+    APIinstance.mergeStats.mergeMetricSetMetricDetail(item)
+  },
   saveMetricValue (context, payload) {
     let item = {}
     if (typeof (payload) === 'undefined') {

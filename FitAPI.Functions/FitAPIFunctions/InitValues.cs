@@ -9,6 +9,7 @@ namespace FitAPIFunctions
     class InitValues
     {
         public object Version;
+        /* Pasted from SQL */
         public object Exercise;
         public object Exercise_Sport;
         public object ExerciseLink;
@@ -18,12 +19,15 @@ namespace FitAPIFunctions
         public object Workout;
         public object Workout_Exercise;
         public object WorkoutStage;
+        public object DailyMeasurement;
         public object Metric;
+        public object MetricSet;
+        public object MetricSetMetricDetail;
         public object MetricValue;
         public object Person;
-        public object DailyMeasurement;
         public object SkinfoldMeasurement;
         public object TapeMeasurement;
         public object WeightMeasurement;
+        /* End pasted from SQL */
     }
 }

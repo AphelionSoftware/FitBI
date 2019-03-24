@@ -10,7 +10,7 @@ export default {
   },
   computed: {
     ...mapState(
-      'Core', ['MetricSet']
+      'Stats', ['MetricSet']
     )
   },
   methods: {

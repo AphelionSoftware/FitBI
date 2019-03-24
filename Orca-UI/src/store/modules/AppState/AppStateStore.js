@@ -29,6 +29,11 @@ const state = {
   coreExpiry: new Date('1 Jan 2000'),
   userSettingsTimeStamp: 0x0000000000000000,
   userSettingsExpiry: new Date('1 Jan 2000'),
+  appSwitch: {
+    appStats: true,
+    appKB: false,
+    appProgram: false
+  },
   user: '',
   config: {}
 }
@@ -152,6 +157,14 @@ const mutations = {
       }]
       localForage.setItem('AppState_UserSettings', forage)
     }
+  },
+  SET_APPSWITCH: function (state, payload) {
+    state.appSwitch = {...state.appSwitch, ...payload}
+    localForage.setItem('AppState_appSwitch', state.appSwitch)
+  },
+  SET_APPSWITCH_LIST: function (state, payload) {
+    state.appSwitch = {...state.appSwitch, ...payload}
+    localForage.setItem('AppState_appSwitch', state.appSwitch)
   },
   SET_SAVE (state, payload) {
     state.SaveAction = payload

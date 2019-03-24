@@ -35,6 +35,7 @@ namespace FitAPIFunctions
                                          commandType: CommandType.StoredProcedure))
                     {
                         objInit.Version = multi.Read<dynamic>().ToList();
+                        /* Pasted from SQL */
                         objInit.Exercise = multi.Read<dynamic>().ToList();
                         objInit.Exercise_Sport = multi.Read<dynamic>().ToList();
                         objInit.ExerciseLink = multi.Read<dynamic>().ToList();
@@ -46,11 +47,14 @@ namespace FitAPIFunctions
                         objInit.WorkoutStage = multi.Read<dynamic>().ToList();
                         objInit.DailyMeasurement = multi.Read<dynamic>().ToList();
                         objInit.Metric = multi.Read<dynamic>().ToList();
+                        objInit.MetricSet = multi.Read<dynamic>().ToList();
+                        objInit.MetricSetMetricDetail = multi.Read<dynamic>().ToList();
                         objInit.MetricValue = multi.Read<dynamic>().ToList();
                         objInit.Person = multi.Read<dynamic>().ToList();
                         objInit.SkinfoldMeasurement = multi.Read<dynamic>().ToList();
                         objInit.TapeMeasurement = multi.Read<dynamic>().ToList();
                         objInit.WeightMeasurement = multi.Read<dynamic>().ToList();
+                        /* Pasted from SQL */
                     }
 
 

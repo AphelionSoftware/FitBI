@@ -29,7 +29,7 @@ export default {
     countDateChange: {
       handler: function (newVal, oldVal) {
         if (newVal === 5) {
-          this.$q.notify('You can click on the year to fast track selecting a year further back')
+          this.$fit.notifyPerSecond('You can click on the year to fast track selecting a year further back')
         }
       }
     },

@@ -83,9 +83,9 @@ export default {
     clearLocalStorage: function () {
       // localForage.clearAll()
       this.$store.dispatch('AppState/Clear_LocalForage').then(() => {
-        this.$q.notify({message: 'LocalForage cleared'})
+        this.$fit.notifyPerSecond({message: 'LocalForage cleared'})
       })
-      // this.$q.notify({
+      // this.$fit.notifyPerSecond({
       //   message: 'Storage cleared',
       //   icon: 'fa-thumbs-up',
       //   timeout: 2400,
@@ -103,7 +103,7 @@ export default {
       handler: function (newVal, oldVal) {
         if (typeof newVal !== 'undefined' && typeof oldVal === 'undefined') { // Only fire once
           if (newVal.Height === null || newVal.Height === 0) {
-            this.$q.notify('Please enter your height for use in calculations')
+            this.$fit.notifyPerSecond('Please enter your height for use in calculations')
             this.$router.push('/stats/personedit')
           }
         }

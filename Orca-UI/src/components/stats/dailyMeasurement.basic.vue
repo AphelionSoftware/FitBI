@@ -191,6 +191,7 @@ export default {
             daily[key] = newVal[key]
           }
         })
+        this.$emit('input', this.dailyMeasurement)
       }
     },
     previousMeasurement: {
@@ -384,6 +385,7 @@ export default {
   created () {
   },
   mounted () {
+    this.$emit('input', this.dailyMeasurement)
   },
   beforeDestroy () {
   }

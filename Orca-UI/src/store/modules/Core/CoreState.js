@@ -15,8 +15,6 @@ const state = {
   MeasurementTypeCategoryList: [],
   MetricDetail: { },
   MetricDetailList: [],
-  MetricSet: { },
-  MetricSetList: [],
   StatType: { },
   StatTypeList: [],
   Time: { },

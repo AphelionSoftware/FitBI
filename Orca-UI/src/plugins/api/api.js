@@ -58,6 +58,7 @@ export default class {
       }).catch(this.ErrorHandler)
   }
   OnlineOfflineLoad () {
+    let config = this.config
     let core = store.getters['Core/Get_Flags']
     let stats = store.getters['Stats/Get_Flags']
     let exercise = store.getters['Exercise/Get_Flags']
@@ -138,10 +139,11 @@ export default class {
       if (flagUserSettings) {
         try {
           console.log(this.config.API_URL + this.config.userSettingsURL + subject + '?' + this.config.userSettingsToken)
+
           this.axios.get(this.config.userSettingsURL + subject + '?' + this.config.userSettingsToken).then(
             // this.axios.get(this.config.initURL + this.config.UserID + '?' + this.config.initToken).then(
             function (response) {
-              userSettingsSetup(JSON.parse(response.data))
+              userSettingsSetup(JSON.parse(response.data), config)
             }
           )
         } catch (ex) {
