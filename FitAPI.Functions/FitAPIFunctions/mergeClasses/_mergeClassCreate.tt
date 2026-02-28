@@ -9,7 +9,7 @@
 
 <#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
 <#
-// <copyright file="SchemaGen.tt" company="Mark Stacey">
+// <copyright file="_mergeClassCreate.tt" company="Mark Stacey">
 //  Copyright © . All Rights Reserved.
 // </copyright>
 var server = new Server(".\\SQL2017");
@@ -36,16 +36,16 @@ private class ValuesTemplate : Template
         string strFile  = @"
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
+using Microsoft.Data.SqlClient;
+
 using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using FitAPIFunctions.Schema;
 using System.Collections.Generic;
@@ -53,20 +53,25 @@ using System.Collections.Generic;
 
 namespace FitAPIFunctions
 {
-    public static class merge" + className + @"
+    public class merge" + className + @"
     {
-	    [FunctionName(""merge" + className + @""")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, ""get"", ""post"", Route = ""merge/" + className + @""")]HttpRequestMessage req, TraceWriter log)
+        private readonly ILogger<merge" + className + @"> _logger;
+
+        public merge" + className + @"(ILogger<merge" + className + @"> logger)
+        {
+            _logger = logger;
+        }
+	    [Function(""merge" + className + @""")]
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, ""get"", ""post"", Route = ""merge/" + className + @""")]HttpRequestData req)
 		{
-		StreamContent content = (StreamContent)req.Content;
-            var postData = await content.ReadAsStringAsync();
-            
+
+            var postData = await req.ReadAsStringAsync();
+
             var container = JsonConvert.DeserializeObject<FitAPIFunctions.Schema." + className + @"Container>(postData);
 
-		log.Info(""C# HTTP trigger function processed a request."");
+		_logger.LogInformation(""C# HTTP trigger function processed a request."");
             var sqlConnectionString =
-                ConfigurationManager
-                   .ConnectionStrings[""FitDB_conn""].ConnectionString;
+                Environment.GetEnvironmentVariable(""FitDB_conn"")!;
             string JSON = ""Running API call"";
             HttpStatusCode statusCode = HttpStatusCode.OK;
             try
@@ -78,30 +83,32 @@ namespace FitAPIFunctions
                     new
                     {
                         tvp_" + pTable.Name  + @" = container." + pTable.Name  + @".AsTableValuedParameter(""" + pTable.Schema  + @".tvp_" + pTable.Name  + @"""
-						, new List<string>(new string[] {";
-		var sorted = (from Column o in pTable.Columns orderby o.Name select o).ToList();   
-			int iLoop = 0;
-			foreach (Column cColumn in sorted)
-			{
-				strFile +=  (iLoop == 0 ? "" : ",") + @" """ + cColumn.Name + @"""";
-				iLoop++;
-			}
-			strFile += @" })
-						)
+					, new List<string>(new string[] {";
+		var sorted = (from Column o in pTable.Columns orderby o.Name select o).ToList();
+		int iLoop = 0;
+		foreach (Column cColumn in sorted)
+		{
+			strFile +=  (iLoop == 0 ? "" : ",") + @" """ + cColumn.Name + @"""";
+			iLoop++;
+		}
+		strFile += @" })
+					)
                     },
-                    commandType: CommandType.StoredProcedure);                    
+                    commandType: CommandType.StoredProcedure);
                 }
-			}
+		}
             catch (System.Exception ex)
             {
 				JSON = ""Error occurred"";
-                log.Error(""C# HTTP trigger function encountered an error "", ex);
+                _logger.LogError(ex, ""C# HTTP trigger function encountered an error "");
                 statusCode = HttpStatusCode.InternalServerError;
 
             }
             //Always return to not leave the client hanging
-            return req.CreateResponse(statusCode, JSON);
-            //  return;
+            var response = req.CreateResponse(statusCode);
+            response.Headers.Add(""Content-Type"", ""application/json; charset=utf-8"");
+            await response.WriteStringAsync(JSON);
+            return response;
 		}
 	}
 }

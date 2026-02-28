@@ -29,7 +29,7 @@ namespace FitAPIFunctions
         
 
         [Function("mergeExercise3")]
-        public async Task Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/Exercise3")]HttpRequestData req)
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/Exercise3")]HttpRequestData req)
         {
             
             var postData = await req.ReadAsStringAsync();
@@ -72,11 +72,10 @@ namespace FitAPIFunctions
 
             }
             //Always return to not leave the client hanging
-            //var response = req.CreateResponse(statusCode);
+            var response = req.CreateResponse(statusCode);
             response.Headers.Add("Content-Type", "application/json; charset=utf-8");
             await response.WriteStringAsync(JSON);
             return response;
-            return;
         }
     }
 }

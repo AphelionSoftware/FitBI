@@ -1,7 +1,7 @@
-﻿namespace FitAPIFunctions
+namespace FitAPIFunctions
 {
     class LatestTimestampsValues
     {
-        public object LatestTimestamps;
+        public object? LatestTimestamps;
     }
 }
