@@ -59,11 +59,9 @@ export default [...vueQuasarConfig]
 - `src/config.js` currently contains hardcoded credentials — these must be moved to env vars before any deployment.
 - See `.env.example` (to be created) as a template for required variables.
 
-## Key Upgrade Context
+## Active Upgrade
 
-The codebase was upgraded from a ~2018 stack in Feb 2026. See `UPGRADE.md` for the full migration guide, including:
-- Azure Functions v1 → v4 isolated worker breaking changes
-- Vue 2 → Vue 3 component migration notes
-- Vuex → Pinia migration patterns
-- Firebase 3 namespace API → Firebase 11 modular API
-- T4 template update requirements
+The codebase was upgraded from a ~2018 stack in Feb 2026. **The upgrade is not yet complete.**
+
+- `.claude/PLAN-upgrade.md` — restartable task checklist; **read this first** before starting any upgrade work. Find the first unchecked `- [ ]` item and continue from there.
+- `UPGRADE.md` — rationale and before/after code patterns for every change in the plan.
