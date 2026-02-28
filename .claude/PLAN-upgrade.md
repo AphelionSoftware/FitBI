@@ -101,13 +101,13 @@ Audit each file for Vue 2-specific APIs before editing. Key patterns: `Vue.use`,
 
 ## Phase 8 — Frontend: API layer and library replacements
 
-- [ ] Update `src/api/coreSetup.js` — replace axios 0.17 patterns with axios 1.x; use the shared axios instance from `src/boot/axios.js`
-- [ ] Update `src/api/initSetup.js` — same
-- [ ] Update `src/api/mergeExercise.js` — same
-- [ ] Update `src/api/mergeProgram.js` — same
-- [ ] Update `src/api/mergeStats.js` — same
-- [ ] Replace `moment` with `dayjs`: `grep -r "moment" FitBi.Quasar/src/` to find all usages; swap `import moment from 'moment'` → `import dayjs from 'dayjs'`; `moment(x).format(y)` → `dayjs(x).format(y)`
-- [ ] Replace `underscore` / `_.` calls with native JS equivalents: `grep -r "underscore\|import _\b" FitBi.Quasar/src/`
+- [x] Update `src/api/coreSetup.js` — Pinia store actions instead of Vuex commits
+- [x] Update `src/api/initSetup.js` — same
+- [x] Update `src/api/mergeExercise.js` — direct axios calls via boot/axios
+- [x] Update `src/api/mergeProgram.js` — same
+- [x] Update `src/api/mergeStats.js` — same
+- [x] Replace `moment` with `dayjs`: no moment usage found in src/
+- [x] Replace `underscore`: no underscore usage found in src/
 
 ---
 

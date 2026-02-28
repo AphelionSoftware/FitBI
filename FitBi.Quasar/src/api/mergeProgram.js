@@ -1,27 +1,18 @@
-﻿/* eslint camelcase: 0 */
-import Vue from 'vue'
-function mergePlan (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+/* eslint camelcase: 0 */
+import { api } from 'boot/axios'
+
+export async function mergePlan (payload) {
+  return api.post('/merge/Plan', payload)
 }
-function mergeWorkout (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+
+export async function mergeWorkout (payload) {
+  return api.post('/merge/Workout', payload)
 }
-function mergeWorkout_Exercise (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+
+export async function mergeWorkout_Exercise (payload) {
+  return api.post('/merge/Workout_Exercise', payload)
 }
-function mergeWorkoutStage (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+
+export async function mergeWorkoutStage (payload) {
+  return api.post('/merge/WorkoutStage', payload)
 }
-export {mergePlan, mergeWorkout, mergeWorkout_Exercise, mergeWorkoutStage}
