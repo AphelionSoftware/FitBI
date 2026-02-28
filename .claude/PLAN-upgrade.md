@@ -17,8 +17,8 @@ See `UPGRADE.md` for the rationale and before/after code patterns for every chan
 - [x] `FitAPI.Functions/FitAPIFunctions/LatestTimestamps.cs` — same as above
 - [x] `FitAPI.Functions/FitAPIFunctions/mergeClasses/*.cs` — all 14 merge class files migrated to v4 API
 - [x] `FitAPI.Functions/FitAPIFunctions/helpers/SqlMapperTvpExtension.cs` — Microsoft.Data.SqlClient, nullable annotations
-- [ ] `FitAPI.Functions/FitAPIFunctions/local.settings.json` — verify format is v4 isolated; must contain `FUNCTIONS_WORKER_RUNTIME: dotnet-isolated`, `FitDB_conn`, `sp_Core`, `sp_Init`, `sp_LatestTimestamps`, and all `sp_merge_*` keys. Add `Encrypt=false;TrustServerCertificate=True` to the connection string for local dev.
-- [ ] `TemplateCreator/Properties/AssemblyInfo.cs` — delete this file; SDK-style projects auto-generate assembly attributes and keeping it causes duplicate attribute compile errors
+- [x] `FitAPI.Functions/FitAPIFunctions/local.settings.json` — verify format is v4 isolated; must contain `FUNCTIONS_WORKER_RUNTIME: dotnet-isolated`, `FitDB_conn`, `sp_Core`, `sp_Init`, `sp_LatestTimestamps`, and all `sp_merge_*` keys. Add `Encrypt=false;TrustServerCertificate=True` to the connection string for local dev.
+- [x] `TemplateCreator/Properties/AssemblyInfo.cs` — delete this file; SDK-style projects auto-generate assembly attributes and keeping it causes duplicate attribute compile errors
 
 ---
 
