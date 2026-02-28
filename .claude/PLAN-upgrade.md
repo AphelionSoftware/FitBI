@@ -37,16 +37,16 @@ These templates regenerate source files. Until they are updated, running "Run Cu
 
 ## Phase 3 — Frontend: build system and bootstrap
 
-- [ ] Delete `FitBi.Quasar/build/` directory — old Webpack 2 build scripts; Quasar 2 + Vite replaces entirely
-- [ ] Delete `FitBi.Quasar/config/` directory — old Webpack dev/prod config; Quasar 2 uses `quasar.config.js` instead
-- [ ] Create `FitBi.Quasar/.nvmrc` — single line: `20`
-- [ ] Create `FitBi.Quasar/quasar.config.js` — Quasar 2 Vite config (see template in `UPGRADE.md` §3.1); register boot files `axios`, `firebase`, `pinia`; set `vueRouterMode: 'history'`; reference `@quasar/extras` for icons and fonts
-- [ ] Create `FitBi.Quasar/src/boot/` directory
-- [ ] Create `FitBi.Quasar/src/boot/axios.js` — create and export a configured axios instance; use `import.meta.env.VITE_API_BASE_URL` and `import.meta.env.VITE_API_KEY` for the base URL and auth key
-- [ ] Create `FitBi.Quasar/src/boot/pinia.js` — `import { createPinia } from 'pinia'; export default ({ app }) => { app.use(createPinia()) }`
-- [ ] Create `FitBi.Quasar/src/boot/firebase.js` — initialise Firebase app with modular API (`initializeApp`); export `db` and `auth` instances using `import.meta.env.VITE_FIREBASE_*` vars
-- [ ] Rewrite `FitBi.Quasar/src/main.js` — Quasar 2 / Vue 3 bootstrap is handled by the framework; `main.js` should only export the root `App` component and any app-level plugins not covered by boot files. Follow the Quasar 2 entry point convention.
-- [ ] Move `FitBi.Quasar/src/index.html` → `FitBi.Quasar/index.html` — Vite expects `index.html` at the project root, not inside `src/`
+- [x] Delete `FitBi.Quasar/build/` directory — old Webpack 2 build scripts; Quasar 2 + Vite replaces entirely
+- [x] Delete `FitBi.Quasar/config/` directory — old Webpack dev/prod config; Quasar 2 uses `quasar.config.js` instead
+- [x] Create `FitBi.Quasar/.nvmrc` — single line: `20`
+- [x] Create `FitBi.Quasar/quasar.config.js` — Quasar 2 Vite config (see template in `UPGRADE.md` §3.1); register boot files `axios`, `firebase`, `pinia`; set `vueRouterMode: 'history'`; reference `@quasar/extras` for icons and fonts
+- [x] Create `FitBi.Quasar/src/boot/` directory
+- [x] Create `FitBi.Quasar/src/boot/axios.js` — create and export a configured axios instance; use `import.meta.env.VITE_API_BASE_URL` and `import.meta.env.VITE_API_KEY` for the base URL and auth key
+- [x] Create `FitBi.Quasar/src/boot/pinia.js` — `import { createPinia } from 'pinia'; export default ({ app }) => { app.use(createPinia()) }`
+- [x] Create `FitBi.Quasar/src/boot/firebase.js` — initialise Firebase app with modular API (`initializeApp`); export `db` and `auth` instances using `import.meta.env.VITE_FIREBASE_*` vars
+- [x] Rewrite `FitBi.Quasar/src/main.js` — Quasar 2 / Vue 3 bootstrap is handled by the framework; `main.js` should only export the root `App` component and any app-level plugins not covered by boot files. Follow the Quasar 2 entry point convention.
+- [x] Move `FitBi.Quasar/src/index.html` → `FitBi.Quasar/index.html` — Vite expects `index.html` at the project root, not inside `src/`
 
 ---
 
