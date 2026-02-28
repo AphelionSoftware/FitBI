@@ -72,11 +72,11 @@ These templates regenerate source files. Until they are updated, running "Run Cu
 
 ## Phase 6 — Frontend: Firebase 3 → 11
 
-- [ ] Audit Firebase usage: `grep -r "import firebase\|from 'firebase'" FitBi.Quasar/src/` — list every file
-- [ ] Rewrite `src/token.js` — replace namespace API (`firebase.auth()`) with modular API (`getAuth`, `signInWithEmailAndPassword`, etc.); import from `firebase/auth`
-- [ ] Update `src/api/sync.js` — replace any Firebase Realtime Database or Firestore namespace calls with modular equivalents (`getDatabase`/`ref`/`onValue` or `getFirestore`/`collection`/`onSnapshot`)
-- [ ] Update `src/api/api.js` — remove `azure-mobile-apps-client` entirely; all sync operations move to direct axios calls to `FitAPI.Functions` endpoints
-- [ ] Remove `azure-mobile-apps-client` from any remaining imports across `src/`
+- [x] Audit Firebase usage: only in old main.js (replaced) and boot/firebase.js (already v11 modular)
+- [x] token.js: does not use Firebase (contains Azure Functions access token); will move to .env in Phase 9
+- [x] src/api/sync.js: empty file, no Firebase calls
+- [x] src/api/api.js: no azure-mobile-apps-client imports; rewrite in Phase 8
+- [x] No azure-mobile-apps-client imports found in src/
 
 ---
 
