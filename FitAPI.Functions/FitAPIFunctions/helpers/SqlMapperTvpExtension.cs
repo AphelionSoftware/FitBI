@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -14,15 +14,15 @@ public static class Extensions
     /// <typeparam name="T">type of enumerbale</typeparam>
     /// <param name="enumerable">list of values</param>
     /// <param name="typeName">database type name</param>
-    /// <param name="orderedColumnNames">if more than one column in a TVP, 
+    /// <param name="orderedColumnNames">if more than one column in a TVP,
     /// columns order must mtach order of columns in TVP</param>
     /// <returns>a custom query parameter</returns>
     public static SqlMapper.ICustomQueryParameter AsTableValuedParameter<T>
         (this IEnumerable<T> enumerable,
-        string typeName, IEnumerable<string> orderedColumnNames = null)
+        string typeName, IEnumerable<string>? orderedColumnNames = null)
     {
         var dataTable = new DataTable();
-        if (typeof(T).IsValueType || typeof(T).FullName.Equals("System.String"))
+        if (typeof(T).IsValueType || typeof(T).FullName!.Equals("System.String"))
         {
             dataTable.Columns.Add(orderedColumnNames == null ?
                 "NONAME" : orderedColumnNames.First(), typeof(T));
@@ -38,7 +38,7 @@ public static class Extensions
             PropertyInfo[] readableProperties = properties.Where
                 (w => w.CanRead).ToArray();
             if (readableProperties.Length > 1 && orderedColumnNames == null)
-                throw new System.ArgumentException(@"Ordered list of column names 
+                throw new System.ArgumentException(@"Ordered list of column names
                 must be provided when TVP contains more than one column");
             var columnNames = (orderedColumnNames ??
                 readableProperties.Select(s => s.Name)).ToArray();

@@ -16,7 +16,6 @@
     "url": "https://github.com/AphelionSoftware/FitBI/issues"
   },
   "homepage": "https://github.com/AphelionSoftware/FitBI#readme",
-  "dependencies": {
-    "loopback-cli": "^4.0.0"
-  }
+  "dependencies": {}
+
 }

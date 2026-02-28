@@ -1,29 +1,28 @@
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
+using Microsoft.Data.SqlClient;
+
 using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
 
 namespace FitAPIFunctions
 {
     public static class LatestTimestamps
     {
-        [FunctionName("LatestTimestamps")]
-        public static HttpResponseMessage Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "setup/LatestTimestamps/{pUserID}")]HttpRequestMessage req, string pUserID, TraceWriter log)
+        [Function("LatestTimestamps")]
+        public static HttpResponseData Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "setup/LatestTimestamps/{pUserID}")]HttpRequestData req, string pUserID)
         {
             LatestTimestampsValues objUpdates = new LatestTimestampsValues();
-            log.Info("C# HTTP trigger function processed a request.");
+            _logger.LogInformation("C# HTTP trigger function processed a request.");
             var sqlConnectionString =
-                ConfigurationManager
-                   .ConnectionStrings["FitDB_conn"].ConnectionString;
-            var sp_Latest_Updates = ConfigurationManager.AppSettings["sp_Latest_Updates"];
+                Environment.GetEnvironmentVariable("FitDB_conn")!;
+            var sp_Latest_Updates = Environment.GetEnvironmentVariable("sp_Latest_Updates")!;
             string JSON = "Error occurred";
             HttpStatusCode statusCode = HttpStatusCode.OK;
             try
@@ -44,11 +43,14 @@ namespace FitAPIFunctions
             }
             catch (System.Exception ex)
             {
-                log.Error("C# HTTP trigger function encountered an error ", ex);
+                _logger.LogError(ex, "C# HTTP trigger function encountered an error ");
                 statusCode = HttpStatusCode.InternalServerError;
             }
             //Always return to not leave the client hanging
-            return req.CreateResponse(statusCode, JSON);
+            var response = req.CreateResponse(statusCode);
+            response.Headers.Add("Content-Type", "application/json; charset=utf-8");
+            await response.WriteStringAsync(JSON);
+            return response;
         }
     }
 }

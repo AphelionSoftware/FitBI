@@ -1,15 +1,15 @@
 ﻿using System.Linq;
 using System.Net;
-using System.Net.Http;
+
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
+using Microsoft.Data.SqlClient;
+
 using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using FitAPIFunctions.Schema;
 using System.Collections.Generic;
@@ -18,22 +18,27 @@ using System;
 
 namespace FitAPIFunctions
 {
-    public static class mergeExercise3
+    public class mergeExercise3
     {
+        private readonly ILogger<mergeExercise3> _logger;
+
+        public mergeExercise3(ILogger<mergeExercise3> logger)
+        {
+            _logger = logger;
+        }
         
 
-        [FunctionName("mergeExercise3")]
-        public async static Task Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/Exercise3")]HttpRequestMessage req, TraceWriter log)
+        [Function("mergeExercise3")]
+        public async Task Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/Exercise3")]HttpRequestData req)
         {
-            StreamContent content = (StreamContent)req.Content;
-            var postData = await content.ReadAsStringAsync();
+            
+            var postData = await req.ReadAsStringAsync();
 
             ExerciseContainer result = JsonConvert.DeserializeObject<ExerciseContainer>(postData);
 
-            log.Info("C# HTTP trigger function processed a request.");
+            _logger.LogInformation("C# HTTP trigger function processed a request.");
             var sqlConnectionString =
-                ConfigurationManager
-                   .ConnectionStrings["FitDB_conn"].ConnectionString;
+                Environment.GetEnvironmentVariable("FitDB_conn")!;
             string JSON = "Error occurred";
             HttpStatusCode statusCode = HttpStatusCode.OK;
             try
@@ -62,12 +67,15 @@ namespace FitAPIFunctions
             }
             catch (System.Exception ex)
             {
-                log.Error("C# HTTP trigger function encountered an error ", ex);
+                _logger.LogError(ex, "C# HTTP trigger function encountered an error ");
                 statusCode = HttpStatusCode.InternalServerError;
 
             }
             //Always return to not leave the client hanging
-            //return req.CreateResponse(statusCode, JSON);
+            //var response = req.CreateResponse(statusCode);
+            response.Headers.Add("Content-Type", "application/json; charset=utf-8");
+            await response.WriteStringAsync(JSON);
+            return response;
             return;
         }
     }
