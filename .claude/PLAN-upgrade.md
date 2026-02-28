@@ -59,14 +59,14 @@ These templates regenerate source files. Until they are updated, running "Run Cu
 
 ## Phase 5 — Frontend: Vuex → Pinia
 
-- [ ] Create `FitBi.Quasar/src/stores/` directory
-- [ ] Rewrite `src/vuex/modules/Core/CoreStore.js` + `CoreActions.js` → `src/stores/core.js` — Pinia `defineStore('core', { state, getters, actions })`
-- [ ] Rewrite `src/vuex/modules/Exercise/ExerciseStore.js` + `ExerciseActions.js` → `src/stores/exercise.js`
-- [ ] Rewrite `src/vuex/modules/Program/ProgramStore.js` + `ProgramActions.js` → `src/stores/program.js`
-- [ ] Rewrite `src/vuex/modules/Stats/StatsStore.js` + `StatsActions.js` → `src/stores/stats.js`
-- [ ] Rewrite `src/vuex/modules/weight-measurement.js` → `src/stores/weightMeasurement.js`
-- [ ] Delete `src/vuex/` directory entirely once all stores are migrated and references updated
-- [ ] Delete `src/helpers/vuex-map-fields/` directory — no longer needed with Pinia
+- [x] Create `FitBi.Quasar/src/stores/` directory
+- [x] Rewrite CoreStore.js + CoreActions.js → src/stores/coreStore.js — Pinia `defineStore('core', { state, getters, actions })`
+- [x] Rewrite ExerciseStore.js + ExerciseActions.js → src/stores/exerciseStore.js (Pinia)
+- [x] Rewrite ProgramStore.js + ProgramActions.js → src/stores/programStore.js (Pinia)
+- [x] Rewrite StatsStore.js + StatsActions.js → src/stores/statsStore.js (Pinia)
+- [x] Rewrite weight-measurement.js → src/stores/weightMeasurementStore.js (Pinia)
+- [x] Delete src/vuex/ directory entirely
+- [x] Delete src/helpers/vuex-map-fields/ directory
 
 ---
 
