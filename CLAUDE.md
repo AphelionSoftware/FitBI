@@ -21,6 +21,7 @@ All conventions live in `.claude/rules/`. Rules are sourced from the shared [dot
 |------|---------|-----------|
 | `.claude/rules/workflow.md` | Planning before execution, resuming interrupted tasks, todo list discipline | All work |
 | `.claude/rules/git.md` | Branch names, Conventional Commits format, PR/MR process, tags | All repos |
+| `.claude/rules/csharp.md` | Type/member naming, Azure Functions conventions, Dapper, nullability, async | FitAPI.Functions, TemplateCreator |
 | `.claude/rules/vue.md` | Component prefixes (`Base`, `The`), composables (`useXxx`), props, events, Pinia stores | FitBi.Quasar |
 | `.claude/rules/quasar.md` | Pages (`XxxPage`), layouts (`XxxLayout`), boot files, env vars | FitBi.Quasar |
 | `.claude/rules/supabase.md` | Table/column naming (reference only — project uses SQL Server, not Supabase) | — |
