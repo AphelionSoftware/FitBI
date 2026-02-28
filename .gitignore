@@ -202,3 +202,6 @@ FakesAssemblies/
 FitBi.Quasar/.env
 FitBi.Quasar/.env.local
 FitBi.Quasar/.env.*.local
+
+# Quasar CLI generated cache (auto-regenerated on dev/build)
+FitBi.Quasar/.quasar/
