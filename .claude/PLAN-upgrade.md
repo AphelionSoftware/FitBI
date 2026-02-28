@@ -52,8 +52,8 @@ These templates regenerate source files. Until they are updated, running "Run Cu
 
 ## Phase 4 — Frontend: router
 
-- [ ] Rewrite `FitBi.Quasar/src/router.js` — replace `new Router({ ... })` with `createRouter({ history: createWebHistory(), routes })` (see `UPGRADE.md` §3.4); route names camelCase, paths kebab-case per `quasar.md`
-- [ ] Search all `.vue` files for `this.$router` and `this.$route` — replace with `useRouter()` and `useRoute()` composables from `vue-router`
+- [x] Rewrite `FitBi.Quasar/src/router.js` — replace `new Router({ ... })` with `createRouter({ history: createWebHistory(), routes })` (see `UPGRADE.md` §3.4); route names camelCase, paths kebab-case per `quasar.md`
+- [x] Search all `.vue` files for `this.$router` and `this.$route` — replace with `useRouter()` and `useRoute()` composables from `vue-router`
 
 ---
 
