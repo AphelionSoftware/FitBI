@@ -4,41 +4,41 @@ import { useExerciseStore } from 'stores/exerciseStore'
 const routes = [
   {
     path: '/',
-    component: () => import('src/components/fit-layout-primary.vue')
+    component: () => import('src/components/FitLayoutPrimary.vue')
   },
   {
     path: '/weight',
-    component: () => import('src/components/pages/fit-weight.vue')
+    component: () => import('src/components/pages/FitWeightPage.vue')
   },
   {
     path: '/measurements',
-    component: () => import('src/components/pages/fit-measurements.vue')
+    component: () => import('src/components/pages/FitMeasurementsPage.vue')
   },
   {
     path: '/record',
-    component: () => import('src/components/fit-layout-primary.vue'),
+    component: () => import('src/components/FitLayoutPrimary.vue'),
     children: [
       {
         path: 'weigh-in',
-        component: () => import('src/components/pages/fit-weight.vue')
+        component: () => import('src/components/pages/FitWeightPage.vue')
       },
       {
         path: 'workout',
-        component: () => import('src/components/pages/fit-weight.vue')
+        component: () => import('src/components/pages/FitWeightPage.vue')
       }
     ]
   },
   {
     path: '/kb',
-    component: () => import('src/components/fit-layout-primary.vue'),
+    component: () => import('src/components/FitLayoutPrimary.vue'),
     children: [
       {
         path: 'exercises',
-        component: () => import('src/components/pages/fit-exercises.vue')
+        component: () => import('src/components/pages/FitExercisesPage.vue')
       },
       {
         path: 'exercise-edit/:exerciseid',
-        component: () => import('src/components/pages/kb/exercise.edit.vue'),
+        component: () => import('src/components/pages/kb/ExerciseEditPage.vue'),
         props: true,
         beforeEnter: (to, _from, next) => {
           const exerciseStore = useExerciseStore()

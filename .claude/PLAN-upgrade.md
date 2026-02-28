@@ -84,18 +84,18 @@ These templates regenerate source files. Until they are updated, running "Run Cu
 
 Audit each file for Vue 2-specific APIs before editing. Key patterns: `Vue.use`, `this.$set`, `$listeners`, `$children`, `filters`, `beforeDestroy`/`destroyed`, `new Vue`.
 
-- [ ] `src/App.vue`
-- [ ] `src/components/fit-layout-primary.vue`
-- [ ] `src/components/fit-pane-weight.vue`
-- [ ] `src/components/pages/fit-exercises.vue`
-- [ ] `src/components/pages/fit-measurements.vue`
-- [ ] `src/components/pages/fit-weight.vue`
-- [ ] `src/components/pages/kb/exercise.edit.vue`
-- [ ] `src/components/single-measure.vue`
-- [ ] `src/components/Error404.vue`
-- [ ] `src/components/Index.vue`
-- [ ] Rename component files to PascalCase per `vue.md` (e.g. `fit-layout-primary.vue` → `FitLayoutPrimary.vue`) and update all imports
-- [ ] Rename page components with `Page` suffix per `quasar.md` (e.g. `fit-weight.vue` → `FitWeightPage.vue`)
+- [x] `src/App.vue`
+- [x] `src/components/fit-layout-primary.vue`
+- [x] `src/components/fit-pane-weight.vue`
+- [x] `src/components/pages/fit-exercises.vue`
+- [x] `src/components/pages/fit-measurements.vue`
+- [x] `src/components/pages/fit-weight.vue`
+- [x] `src/components/pages/kb/exercise.edit.vue`
+- [x] `src/components/single-measure.vue`
+- [x] `src/components/Error404.vue`
+- [x] `src/components/Index.vue`
+- [x] Rename component files to PascalCase per `vue.md` (e.g. `fit-layout-primary.vue` → `FitLayoutPrimary.vue`) and update all imports
+- [x] Rename page components with `Page` suffix per `quasar.md` (e.g. `fit-weight.vue` → `FitWeightPage.vue`)
 
 ---
 
