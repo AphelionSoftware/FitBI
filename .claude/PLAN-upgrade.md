@@ -129,8 +129,8 @@ Audit each file for Vue 2-specific APIs before editing. Key patterns: `Vue.use`,
 
 ## Phase 11 — CI/CD
 
-- [ ] Create `.github/workflows/ci.yml` — three jobs: `backend` (ubuntu, dotnet 8, `dotnet build`), `frontend` (ubuntu, node 20, `npm ci && npm run build`), `template-creator` (windows-latest, dotnet 8, `dotnet build`). See full YAML in `UPGRADE.md` §5.
-- [ ] Create `.github/workflows/docker.yml` (optional) — build and push the `FitBi.Quasar` Docker image on merge to `main`
+- [x] Create `.github/workflows/ci.yml`: three jobs (backend net8.0, frontend node20, template-creator windows-latest)
+- [x] Create `.github/workflows/docker.yml`: build and push FitBi.Quasar Docker image on merge to master
 
 ---
 
