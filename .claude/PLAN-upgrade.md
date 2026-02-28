@@ -26,12 +26,12 @@ See `UPGRADE.md` for the rationale and before/after code patterns for every chan
 
 These templates regenerate source files. Until they are updated, running "Run Custom Tool" in Visual Studio will overwrite the v4-compatible `.cs` and `.js` files with old code.
 
-- [ ] `FitAPI.Functions/FitAPIFunctions/mergeClasses/_mergeClassCreate.tt` — update generated class from `public static class` to instance class with `ILogger<T>` constructor; replace `TraceWriter`, `HttpRequestMessage`/`HttpResponseMessage`, `ConfigurationManager`, `System.Data.SqlClient` with their v4 equivalents (see `mergeClasses/mergeWeightMeasurement.cs` as the target pattern)
-- [ ] `FitAPI.Functions/FitAPIFunctions/jsGen/store/_storeGenerator.tt` — change generated output from Vuex module (`state/mutations/actions/getters`) to Pinia store (`defineStore` with `state()`, `actions`, `getters`). Output file paths should change from `src/vuex/modules/*/` to `src/stores/`.
-- [ ] `FitAPI.Functions/FitAPIFunctions/jsGen/store/_actionGenerator.tt` — if actions are generated separately from store state, merge into the Pinia store file or delete if `_storeGenerator.tt` covers both
-- [ ] `FitAPI.Functions/FitAPIFunctions/jsGen/api/_apiGenerator.tt` — update generated axios calls to use axios 1.x patterns; remove any `azure-mobile-apps-client` imports; ensure generated files use `import.meta.env.VITE_*` for the base URL
-- [ ] `FitAPI.Functions/FitAPIFunctions/jsGen/api/_mergePaths.tt` — update imports and axios usage in generated merge API files
-- [ ] `FitAPI.Functions/FitAPIFunctions/SchemaClasses/_SchemaGen.tt` — check for any `System.Data.SqlClient` or `System.Configuration` references; replace with `Microsoft.Data.SqlClient` and `Environment.GetEnvironmentVariable`
+- [x] `FitAPI.Functions/FitAPIFunctions/mergeClasses/_mergeClassCreate.tt` — update generated class from `public static class` to instance class with `ILogger<T>` constructor; replace `TraceWriter`, `HttpRequestMessage`/`HttpResponseMessage`, `ConfigurationManager`, `System.Data.SqlClient` with their v4 equivalents (see `mergeClasses/mergeWeightMeasurement.cs` as the target pattern)
+- [x] `FitAPI.Functions/FitAPIFunctions/jsGen/store/_storeGenerator.tt` — change generated output from Vuex module (`state/mutations/actions/getters`) to Pinia store (`defineStore` with `state()`, `actions`, `getters`). Output file paths should change from `src/vuex/modules/*/` to `src/stores/`.
+- [x] `FitAPI.Functions/FitAPIFunctions/jsGen/store/_actionGenerator.tt` — if actions are generated separately from store state, merge into the Pinia store file or delete if `_storeGenerator.tt` covers both
+- [x] `FitAPI.Functions/FitAPIFunctions/jsGen/api/_apiGenerator.tt` — update generated axios calls to use axios 1.x patterns; remove any `azure-mobile-apps-client` imports; ensure generated files use `import.meta.env.VITE_*` for the base URL
+- [x] `FitAPI.Functions/FitAPIFunctions/jsGen/api/_mergePaths.tt` — update imports and axios usage in generated merge API files
+- [x] `FitAPI.Functions/FitAPIFunctions/SchemaClasses/_SchemaGen.tt` — check for any `System.Data.SqlClient` or `System.Configuration` references; replace with `Microsoft.Data.SqlClient` and `Environment.GetEnvironmentVariable`
 
 ---
 
