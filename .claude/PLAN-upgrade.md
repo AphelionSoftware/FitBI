@@ -122,12 +122,8 @@ Audit each file for Vue 2-specific APIs before editing. Key patterns: `Vue.use`,
 
 ## Phase 10 — Frontend: linting
 
-- [ ] Create `FitBi.Quasar/eslint.config.js`:
-  ```js
-  import vueQuasarConfig from '../.linters/eslint-vue-quasar.js'
-  export default [...vueQuasarConfig]
-  ```
-- [ ] Run `npm run lint` from `FitBi.Quasar/` and fix all reported errors
+- [x] Create `FitBi.Quasar/eslint.config.js`: imports from ../.linters/eslint-vue-quasar.js; disables camelcase for DB column names
+- [ ] Run `npm run lint` from `FitBi.Quasar/` and fix all reported errors (requires npm install first)
 
 ---
 
