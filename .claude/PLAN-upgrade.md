@@ -113,10 +113,10 @@ Audit each file for Vue 2-specific APIs before editing. Key patterns: `Vue.use`,
 
 ## Phase 9 — Security: credentials
 
-- [ ] Audit `src/config.js` — list every hardcoded value (API keys, user IDs, function access codes)
-- [ ] Create `FitBi.Quasar/.env.example` — one `VITE_*` key per hardcoded value, with a placeholder value and comment
-- [ ] Update `src/config.js` — replace every hardcoded value with `import.meta.env.VITE_*`; the file may reduce to just re-exports or be deleted entirely
-- [ ] Add `FitBi.Quasar/.env` to `.gitignore` (root `.gitignore` or `FitBi.Quasar/.gitignore`)
+- [x] Audit `src/config.js`: listed all hardcoded values (API URLs, function access codes, UserID: 3)
+- [x] Create `FitBi.Quasar/.env.example` with VITE_* keys and placeholder values
+- [x] Update `src/config.js`: replaced all hardcoded values with import.meta.env.VITE_*
+- [x] Add FitBi.Quasar/.env and .env.local to root .gitignore
 
 ---
 

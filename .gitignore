@@ -197,3 +197,8 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+
+# Vite / Quasar frontend environment variables (contain secrets)
+FitBi.Quasar/.env
+FitBi.Quasar/.env.local
+FitBi.Quasar/.env.*.local
