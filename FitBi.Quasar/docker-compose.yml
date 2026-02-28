@@ -1,13 +1,9 @@
-version: '2'
+version: '3.9'
 
 services:
   app:
     build: .
-    image: your-docker-org/your-app-name
-    command: sh
-    volumes:
-      - .:/opt/app
-      - /opt/app/node_modules
+    image: fitbi-frontend
     ports:
-      - 8080:8080
-    tty: true
+      - "8080:8080"
+    restart: unless-stopped

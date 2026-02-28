@@ -1,16 +1,16 @@
 ﻿
 using System.Linq;
 using System.Net;
-using System.Net.Http;
+
 using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
+using Microsoft.Data.SqlClient;
+
 using Dapper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.Azure.WebJobs.Host;
+using Microsoft.Azure.Functions.Worker;
+using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using FitAPIFunctions.Schema;
 using System.Collections.Generic;
@@ -18,20 +18,25 @@ using System.Collections.Generic;
 
 namespace FitAPIFunctions
 {
-    public static class mergeWeightMeasurement
+    public class mergeWeightMeasurement
     {
-	    [FunctionName("mergeWeightMeasurement")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/WeightMeasurement")]HttpRequestMessage req, TraceWriter log)
+        private readonly ILogger<mergeWeightMeasurement> _logger;
+
+        public mergeWeightMeasurement(ILogger<mergeWeightMeasurement> logger)
+        {
+            _logger = logger;
+        }
+	    [Function("mergeWeightMeasurement")]
+        public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "merge/WeightMeasurement")]HttpRequestData req)
 		{
-		StreamContent content = (StreamContent)req.Content;
-            var postData = await content.ReadAsStringAsync();
+		
+            var postData = await req.ReadAsStringAsync();
             
             var container = JsonConvert.DeserializeObject<FitAPIFunctions.Schema.WeightMeasurementContainer>(postData);
 
-		log.Info("C# HTTP trigger function processed a request.");
+		_logger.LogInformation("C# HTTP trigger function processed a request.");
             var sqlConnectionString =
-                ConfigurationManager
-                   .ConnectionStrings["FitDB_conn"].ConnectionString;
+                Environment.GetEnvironmentVariable("FitDB_conn")!;
             string JSON = "Running API call";
             HttpStatusCode statusCode = HttpStatusCode.OK;
             try
@@ -52,12 +57,15 @@ namespace FitAPIFunctions
             catch (System.Exception ex)
             {
 				JSON = "Error occurred";
-                log.Error("C# HTTP trigger function encountered an error ", ex);
+                _logger.LogError(ex, "C# HTTP trigger function encountered an error ");
                 statusCode = HttpStatusCode.InternalServerError;
 
             }
             //Always return to not leave the client hanging
-            return req.CreateResponse(statusCode, JSON);
+            var response = req.CreateResponse(statusCode);
+            response.Headers.Add("Content-Type", "application/json; charset=utf-8");
+            await response.WriteStringAsync(JSON);
+            return response;
             //  return;
 		}
 	}
