@@ -35,7 +35,12 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: FitBi.Quasar/package-lock.json
+          cache-dependency-path: |
+            FitBi.Quasar/package-lock.json
+            package-lock.json
+      - name: Install root linter dependencies
+        run: npm ci
+        working-directory: ${{ github.workspace }}
       - name: Install dependencies
         run: npm ci
       - name: Lint
