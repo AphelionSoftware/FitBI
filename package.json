@@ -16,6 +16,11 @@
     "url": "https://github.com/AphelionSoftware/FitBI/issues"
   },
   "homepage": "https://github.com/AphelionSoftware/FitBI#readme",
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "eslint-plugin-vue": "^9.32.0",
+    "eslint-plugin-unicorn": "^57.0.0",
+    "typescript-eslint": "^8.0.0"
+  }
 
 }
