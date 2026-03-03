@@ -8,14 +8,13 @@
 
 <script>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { onBeforeRouteLeave } from 'vue-router'
 import { useExerciseStore } from 'stores/exerciseStore'
 
 export default {
   name: 'ExerciseEditPage',
 
   setup () {
-    const router = useRouter()
     const store = useExerciseStore()
 
     const Name = computed({
@@ -31,26 +30,23 @@ export default {
       set: (v) => { store.ExerciseItem.Description = v }
     })
 
-    return { Name, Code, Description }
-  },
+    onBeforeRouteLeave(() => {
+      const item = store.ExerciseItem
+      const id = item.ExerciseID
+      const saved = id !== undefined && JSON.stringify(store.Exercise[id]) === JSON.stringify(item)
 
-  beforeRouteLeave (to, from, next) {
-    const store = useExerciseStore()
-    const item = store.ExerciseItem
-    const id = item.ExerciseID
-    const saved = id !== undefined && JSON.stringify(store.Exercise[id]) === JSON.stringify(item)
-
-    if (saved || id === undefined) {
-      next()
-    } else {
+      if (saved || id === undefined) {
+        return true
+      }
       const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
       if (answer) {
         store.saveExercise()
-        next()
-      } else {
-        next(false)
+        return true
       }
-    }
+      return false
+    })
+
+    return { Name, Code, Description }
   }
 }
 </script>
