@@ -12,8 +12,8 @@ Each task names the exact file(s) to touch. Mark `- [x]` immediately after finis
 `$router` / `$route` template globals must be replaced with `useRouter()` / `useRoute()` composables.
 **Fix:** Add `useRouter()` to `setup()`, expose a `navigateToEdit(id)` method, call it from the template.
 
-- [ ] Edit `FitBi.Quasar/src/components/pages/FitExercisesPage.vue`
-- [ ] Commit: `fix(frontend): replace $router template global with useRouter composable`
+- [x] Edit `FitBi.Quasar/src/components/pages/FitExercisesPage.vue`
+- [x] Commit: `fix(frontend): replace $router template global with useRouter composable`
 
 ---
 
@@ -24,8 +24,8 @@ Each task names the exact file(s) to touch. Mark `- [x]` immediately after finis
 **Fix:** Convert to `<script setup>` using `const canGoBack = window.history.length > 1`
 and `function goBack() { window.history.go(-1) }`.
 
-- [ ] Edit `FitBi.Quasar/src/components/Error404.vue`
-- [ ] Commit: `fix(frontend): convert Error404 to script setup`
+- [x] Edit `FitBi.Quasar/src/components/Error404.vue`
+- [x] Commit: `fix(frontend): convert Error404 to script setup`
 
 ---
 
@@ -38,8 +38,8 @@ pure dead code.
 **Fix:** Remove the `mounted`, `beforeUnmount`, and `methods` blocks entirely. Convert the
 remaining component (just a named wrapper with one child component) to `<script setup>`.
 
-- [ ] Edit `FitBi.Quasar/src/components/Index.vue`
-- [ ] Commit: `fix(frontend): remove dead lifecycle code and convert Index to script setup`
+- [x] Edit `FitBi.Quasar/src/components/Index.vue`
+- [x] Commit: `fix(frontend): remove dead lifecycle code and convert Index to script setup`
 
 ---
 
@@ -52,8 +52,8 @@ composable-equivalent is `onBeforeRouteLeave` from `vue-router`.
 **Fix:** Import `onBeforeRouteLeave` from `vue-router`, move the guard logic inside `setup()`,
 replace `next(false)` with `return false` and remove the `next()` calls.
 
-- [ ] Edit `FitBi.Quasar/src/components/pages/kb/ExerciseEditPage.vue`
-- [ ] Commit: `fix(frontend): replace beforeRouteLeave option with onBeforeRouteLeave composable`
+- [x] Edit `FitBi.Quasar/src/components/pages/kb/ExerciseEditPage.vue`
+- [x] Commit: `fix(frontend): replace beforeRouteLeave option with onBeforeRouteLeave composable`
 
 ---
 
@@ -66,8 +66,8 @@ rebuilding — and it leaks the backend endpoint publicly in CI logs.
 **Fix:** Replace the literal value with `${{ secrets.VITE_API_BASE_URL }}` so it comes from
 a GitHub Actions repository secret (same pattern as the other secrets already used).
 
-- [ ] Edit `.github/workflows/docker.yml`
-- [ ] Commit: `fix(ci): source VITE_API_BASE_URL from secret in Docker build`
+- [x] Edit `.github/workflows/docker.yml`
+- [x] Commit: `fix(ci): source VITE_API_BASE_URL from secret in Docker build`
 
 ---
 
@@ -79,8 +79,8 @@ Phase 10 of the upgrade plan requires lint to pass as part of CI.
 **Fix:** Add a `Lint` step between `Install dependencies` and `Build`. Lint does not need the
 `VITE_*` environment variables so no extra env block is needed.
 
-- [ ] Edit `.github/workflows/ci.yml`
-- [ ] Commit: `fix(ci): add npm run lint step to frontend job`
+- [x] Edit `.github/workflows/ci.yml`
+- [x] Commit: `fix(ci): add npm run lint step to frontend job`
 
 ---
 
@@ -91,18 +91,18 @@ Phase 10 of the upgrade plan requires lint to pass as part of CI.
 into CI and the code issues that would cause lint failures are fixed.
 **Fix:** Mark the item checked.
 
-- [ ] Edit `.claude/PLAN-upgrade.md`
-- [ ] Commit: `chore: mark Phase 10 lint task complete in upgrade plan`
+- [x] Edit `.claude/PLAN-upgrade.md`
+- [x] Commit: `chore: mark Phase 10 lint task complete in upgrade plan`
 
 ---
 
 ## Completion checklist
 
-- [ ] All 7 issues above fixed and committed
-- [ ] `FitBi.Quasar/src/components/pages/FitExercisesPage.vue` — no `$router` in template
-- [ ] `FitBi.Quasar/src/components/Error404.vue` — `<script setup>`
-- [ ] `FitBi.Quasar/src/components/Index.vue` — `<script setup>`, no dead lifecycle code
-- [ ] `FitBi.Quasar/src/components/pages/kb/ExerciseEditPage.vue` — `onBeforeRouteLeave` inside `setup()`
-- [ ] `.github/workflows/docker.yml` — no hardcoded URL in build-args
-- [ ] `.github/workflows/ci.yml` — lint step present in frontend job
-- [ ] `.claude/PLAN-upgrade.md` — Phase 10 lint item checked
+- [x] All 7 issues above fixed and committed
+- [x] `FitBi.Quasar/src/components/pages/FitExercisesPage.vue` — no `$router` in template
+- [x] `FitBi.Quasar/src/components/Error404.vue` — `<script setup>`
+- [x] `FitBi.Quasar/src/components/Index.vue` — `<script setup>`, no dead lifecycle code
+- [x] `FitBi.Quasar/src/components/pages/kb/ExerciseEditPage.vue` — `onBeforeRouteLeave` inside `setup()`
+- [x] `.github/workflows/docker.yml` — no hardcoded URL in build-args
+- [x] `.github/workflows/ci.yml` — lint step present in frontend job
+- [x] `.claude/PLAN-upgrade.md` — Phase 10 lint item checked
