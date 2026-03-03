@@ -53,9 +53,12 @@ export default [
       // Component names must be multi-word to avoid conflicts with HTML elements
       'vue/multi-word-component-names': 'error',
 
-      // Component references in templates: PascalCase
+      // Component references in templates: PascalCase for locally-registered
+      // components. registeredComponentsOnly: true excludes globally-registered
+      // framework components (Quasar's QBtn etc., Vue Router's RouterView) which
+      // are not listed in any component's `components` option.
       'vue/component-name-in-template-casing': ['error', 'PascalCase', {
-        registeredComponentsOnly: false,
+        registeredComponentsOnly: true,
       }],
 
       // Component name in defineComponent / export default: PascalCase
