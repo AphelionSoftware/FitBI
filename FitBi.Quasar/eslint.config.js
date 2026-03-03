@@ -11,7 +11,7 @@ export default [
     }
   },
   {
-    // Ignore generated/legacy files
-    ignores: ['src/api/sync.js', 'src/main.js', 'src/token.js']
+    // Ignore generated/legacy files and build output
+    ignores: ['src/api/sync.js', 'src/main.js', 'src/token.js', 'dist/**']
   }
 ]
