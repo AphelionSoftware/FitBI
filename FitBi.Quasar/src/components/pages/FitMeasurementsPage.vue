@@ -1,11 +1,24 @@
 <template>
   <q-page class="layout-padding docs-tab-pane row justify-center">
-    <q-tabs v-model="selectedTab" color="primary" align="justify">
-      <q-tab name="tab-weight" icon="scale" />
-      <q-tab name="tab-body" icon="accessibility" />
+    <q-tabs
+      v-model="selectedTab"
+      color="primary"
+      align="justify"
+    >
+      <q-tab
+        name="tab-weight"
+        icon="scale"
+      />
+      <q-tab
+        name="tab-body"
+        icon="accessibility"
+      />
       <q-tab name="tab-other" />
     </q-tabs>
-    <q-tab-panels v-model="selectedTab" animated>
+    <q-tab-panels
+      v-model="selectedTab"
+      animated
+    >
       <q-tab-panel name="tab-weight">
         <!-- Weight measurements panel -->
       </q-tab-panel>

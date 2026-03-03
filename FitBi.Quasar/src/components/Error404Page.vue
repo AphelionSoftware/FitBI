@@ -3,7 +3,12 @@
     <div class="error-code bg-primary flex items-center justify-center">
       404
     </div>
-    <q-btn v-if="canGoBack" flat label="Go back" @click="goBack" />
+    <q-btn
+      v-if="canGoBack"
+      flat
+      label="Go back"
+      @click="goBack"
+    />
   </div>
 </template>
 

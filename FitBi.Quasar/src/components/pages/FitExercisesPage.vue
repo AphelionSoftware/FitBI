@@ -1,8 +1,13 @@
 <template>
   <q-page class="layout-padding">
     <q-list>
-      <q-item-label header>Exercises</q-item-label>
-      <q-item v-for="exercise in exercises" :key="exercise.ExerciseID">
+      <q-item-label header>
+        Exercises
+      </q-item-label>
+      <q-item
+        v-for="exercise in exercises"
+        :key="exercise.ExerciseID"
+      >
         <q-item-section avatar>
           <q-icon
             class="cursor-pointer"

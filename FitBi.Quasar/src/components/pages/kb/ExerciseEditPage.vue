@@ -1,8 +1,18 @@
 <template>
   <q-page class="layout-padding">
-    <q-input v-model="Name" stack-label="Name" />
-    <q-input v-model="Code" stack-label="Code" />
-    <q-input v-model.lazy="Description" stack-label="Description" type="textarea" />
+    <q-input
+      v-model="Name"
+      stack-label="Name"
+    />
+    <q-input
+      v-model="Code"
+      stack-label="Code"
+    />
+    <q-input
+      v-model.lazy="Description"
+      stack-label="Description"
+      type="textarea"
+    />
   </q-page>
 </template>
 
