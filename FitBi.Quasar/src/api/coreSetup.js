@@ -1,9 +1,11 @@
-﻿import store from 'vuex/store'
-export default function (coreValues) {
-  store.commit('Core/SET_BODYPART_LIST', coreValues.BodyPart)
-  store.commit('Core/SET_BODYPARTTYPE_LIST', coreValues.BodyPartType)
-  store.commit('Core/SET_MEASUREMENTTYPE_LIST', coreValues.MeasurementType)
-  store.commit('Core/SET_MEASUREMENTTYPECATEGORY_LIST', coreValues.MeasurementTypeCategory)
-  store.commit('Core/SET_UNIT_LIST', coreValues.Unit)
-  store.commit('Core/SET_UNITTYPE_LIST', coreValues.UnitType)
+import { useCoreStore } from 'stores/coreStore'
+
+export default function coreSetup (coreValues) {
+  const store = useCoreStore()
+  store.setBodyPartList(coreValues.BodyPart)
+  store.setBodyPartTypeList(coreValues.BodyPartType)
+  store.setMeasurementTypeList(coreValues.MeasurementType)
+  store.setMeasurementTypeCategoryList(coreValues.MeasurementTypeCategory)
+  store.setUnitList(coreValues.Unit)
+  store.setUnitTypeList(coreValues.UnitType)
 }

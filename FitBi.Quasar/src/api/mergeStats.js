@@ -1,33 +1,22 @@
-﻿/* eslint camelcase: 0 */
-import Vue from 'vue'
-function mergeMetric (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+/* eslint camelcase: 0 */
+import { api } from 'boot/axios'
+
+export async function mergeMetric (payload) {
+  return api.post('/merge/Metric', payload)
 }
-function mergePerson (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+
+export async function mergePerson (payload) {
+  return api.post('/merge/Person', payload)
 }
-function mergeSkinfoldMeasurement (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+
+export async function mergeSkinfoldMeasurement (payload) {
+  return api.post('/merge/SkinfoldMeasurement', payload)
 }
-function mergeTapeMeasurement (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+
+export async function mergeTapeMeasurement (payload) {
+  return api.post('/merge/TapeMeasurement', payload)
 }
-function mergeWeightMeasurement (payload) {
-  Vue.$API.http.post('/merge/Exercise?' + Vue.$API.config.token.mergeExerciseToken, payload).then(
-      function (response) {
-        debugger
-      })
+
+export async function mergeWeightMeasurement (payload) {
+  return api.post('/merge/WeightMeasurement', payload)
 }
-export {mergeMetric, mergePerson, mergeSkinfoldMeasurement, mergeTapeMeasurement, mergeWeightMeasurement}

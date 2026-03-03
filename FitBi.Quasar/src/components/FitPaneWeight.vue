@@ -1,9 +1,10 @@
 <template>
-  <router-view />
+  <q-layout>
+  </q-layout>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'FitPaneWeight'
 }
 </script>

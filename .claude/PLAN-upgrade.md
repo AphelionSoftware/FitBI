@@ -1,0 +1,144 @@
+# Upgrade Plan — FitBI Full Stack
+
+**How to resume:** Read this file, find the first unchecked `- [ ]` item, and continue from there.
+Each task names the exact file(s) to touch. Mark `- [x]` immediately after finishing each step, then commit.
+
+See `UPGRADE.md` for the rationale and before/after code patterns for every change below.
+
+---
+
+## Phase 1 — Backend cleanup
+
+- [x] `FitAPI.Functions/FitAPIFunctions/FitAPIFunctions.csproj` — net8.0, v4 isolated worker packages, OutputType Exe
+- [x] `FitAPI.Functions/FitAPIFunctions/host.json` — version 2.0 format
+- [x] `FitAPI.Functions/FitAPIFunctions/Program.cs` — created; HostBuilder entry point
+- [x] `FitAPI.Functions/FitAPIFunctions/Core.cs` — instance class, ILogger<T>, HttpRequestData/ResponseData, Environment.GetEnvironmentVariable, Microsoft.Data.SqlClient
+- [x] `FitAPI.Functions/FitAPIFunctions/Init.cs` — same as above
+- [x] `FitAPI.Functions/FitAPIFunctions/LatestTimestamps.cs` — same as above
+- [x] `FitAPI.Functions/FitAPIFunctions/mergeClasses/*.cs` — all 14 merge class files migrated to v4 API
+- [x] `FitAPI.Functions/FitAPIFunctions/helpers/SqlMapperTvpExtension.cs` — Microsoft.Data.SqlClient, nullable annotations
+- [x] `FitAPI.Functions/FitAPIFunctions/local.settings.json` — verify format is v4 isolated; must contain `FUNCTIONS_WORKER_RUNTIME: dotnet-isolated`, `FitDB_conn`, `sp_Core`, `sp_Init`, `sp_LatestTimestamps`, and all `sp_merge_*` keys. Add `Encrypt=false;TrustServerCertificate=True` to the connection string for local dev.
+- [x] `TemplateCreator/Properties/AssemblyInfo.cs` — delete this file; SDK-style projects auto-generate assembly attributes and keeping it causes duplicate attribute compile errors
+
+---
+
+## Phase 2 — T4 template updates
+
+These templates regenerate source files. Until they are updated, running "Run Custom Tool" in Visual Studio will overwrite the v4-compatible `.cs` and `.js` files with old code.
+
+- [x] `FitAPI.Functions/FitAPIFunctions/mergeClasses/_mergeClassCreate.tt` — update generated class from `public static class` to instance class with `ILogger<T>` constructor; replace `TraceWriter`, `HttpRequestMessage`/`HttpResponseMessage`, `ConfigurationManager`, `System.Data.SqlClient` with their v4 equivalents (see `mergeClasses/mergeWeightMeasurement.cs` as the target pattern)
+- [x] `FitAPI.Functions/FitAPIFunctions/jsGen/store/_storeGenerator.tt` — change generated output from Vuex module (`state/mutations/actions/getters`) to Pinia store (`defineStore` with `state()`, `actions`, `getters`). Output file paths should change from `src/vuex/modules/*/` to `src/stores/`.
+- [x] `FitAPI.Functions/FitAPIFunctions/jsGen/store/_actionGenerator.tt` — if actions are generated separately from store state, merge into the Pinia store file or delete if `_storeGenerator.tt` covers both
+- [x] `FitAPI.Functions/FitAPIFunctions/jsGen/api/_apiGenerator.tt` — update generated axios calls to use axios 1.x patterns; remove any `azure-mobile-apps-client` imports; ensure generated files use `import.meta.env.VITE_*` for the base URL
+- [x] `FitAPI.Functions/FitAPIFunctions/jsGen/api/_mergePaths.tt` — update imports and axios usage in generated merge API files
+- [x] `FitAPI.Functions/FitAPIFunctions/SchemaClasses/_SchemaGen.tt` — check for any `System.Data.SqlClient` or `System.Configuration` references; replace with `Microsoft.Data.SqlClient` and `Environment.GetEnvironmentVariable`
+
+---
+
+## Phase 3 — Frontend: build system and bootstrap
+
+- [x] Delete `FitBi.Quasar/build/` directory — old Webpack 2 build scripts; Quasar 2 + Vite replaces entirely
+- [x] Delete `FitBi.Quasar/config/` directory — old Webpack dev/prod config; Quasar 2 uses `quasar.config.js` instead
+- [x] Create `FitBi.Quasar/.nvmrc` — single line: `20`
+- [x] Create `FitBi.Quasar/quasar.config.js` — Quasar 2 Vite config (see template in `UPGRADE.md` §3.1); register boot files `axios`, `firebase`, `pinia`; set `vueRouterMode: 'history'`; reference `@quasar/extras` for icons and fonts
+- [x] Create `FitBi.Quasar/src/boot/` directory
+- [x] Create `FitBi.Quasar/src/boot/axios.js` — create and export a configured axios instance; use `import.meta.env.VITE_API_BASE_URL` and `import.meta.env.VITE_API_KEY` for the base URL and auth key
+- [x] Create `FitBi.Quasar/src/boot/pinia.js` — `import { createPinia } from 'pinia'; export default ({ app }) => { app.use(createPinia()) }`
+- [x] Create `FitBi.Quasar/src/boot/firebase.js` — initialise Firebase app with modular API (`initializeApp`); export `db` and `auth` instances using `import.meta.env.VITE_FIREBASE_*` vars
+- [x] Rewrite `FitBi.Quasar/src/main.js` — Quasar 2 / Vue 3 bootstrap is handled by the framework; `main.js` should only export the root `App` component and any app-level plugins not covered by boot files. Follow the Quasar 2 entry point convention.
+- [x] Move `FitBi.Quasar/src/index.html` → `FitBi.Quasar/index.html` — Vite expects `index.html` at the project root, not inside `src/`
+
+---
+
+## Phase 4 — Frontend: router
+
+- [x] Rewrite `FitBi.Quasar/src/router.js` — replace `new Router({ ... })` with `createRouter({ history: createWebHistory(), routes })` (see `UPGRADE.md` §3.4); route names camelCase, paths kebab-case per `quasar.md`
+- [x] Search all `.vue` files for `this.$router` and `this.$route` — replace with `useRouter()` and `useRoute()` composables from `vue-router`
+
+---
+
+## Phase 5 — Frontend: Vuex → Pinia
+
+- [x] Create `FitBi.Quasar/src/stores/` directory
+- [x] Rewrite CoreStore.js + CoreActions.js → src/stores/coreStore.js — Pinia `defineStore('core', { state, getters, actions })`
+- [x] Rewrite ExerciseStore.js + ExerciseActions.js → src/stores/exerciseStore.js (Pinia)
+- [x] Rewrite ProgramStore.js + ProgramActions.js → src/stores/programStore.js (Pinia)
+- [x] Rewrite StatsStore.js + StatsActions.js → src/stores/statsStore.js (Pinia)
+- [x] Rewrite weight-measurement.js → src/stores/weightMeasurementStore.js (Pinia)
+- [x] Delete src/vuex/ directory entirely
+- [x] Delete src/helpers/vuex-map-fields/ directory
+
+---
+
+## Phase 6 — Frontend: Firebase 3 → 11
+
+- [x] Audit Firebase usage: only in old main.js (replaced) and boot/firebase.js (already v11 modular)
+- [x] token.js: does not use Firebase (contains Azure Functions access token); will move to .env in Phase 9
+- [x] src/api/sync.js: empty file, no Firebase calls
+- [x] src/api/api.js: no azure-mobile-apps-client imports; rewrite in Phase 8
+- [x] No azure-mobile-apps-client imports found in src/
+
+---
+
+## Phase 7 — Frontend: Vue component migration
+
+Audit each file for Vue 2-specific APIs before editing. Key patterns: `Vue.use`, `this.$set`, `$listeners`, `$children`, `filters`, `beforeDestroy`/`destroyed`, `new Vue`.
+
+- [x] `src/App.vue`
+- [x] `src/components/fit-layout-primary.vue`
+- [x] `src/components/fit-pane-weight.vue`
+- [x] `src/components/pages/fit-exercises.vue`
+- [x] `src/components/pages/fit-measurements.vue`
+- [x] `src/components/pages/fit-weight.vue`
+- [x] `src/components/pages/kb/exercise.edit.vue`
+- [x] `src/components/single-measure.vue`
+- [x] `src/components/Error404.vue`
+- [x] `src/components/Index.vue`
+- [x] Rename component files to PascalCase per `vue.md` (e.g. `fit-layout-primary.vue` → `FitLayoutPrimary.vue`) and update all imports
+- [x] Rename page components with `Page` suffix per `quasar.md` (e.g. `fit-weight.vue` → `FitWeightPage.vue`)
+
+---
+
+## Phase 8 — Frontend: API layer and library replacements
+
+- [x] Update `src/api/coreSetup.js` — Pinia store actions instead of Vuex commits
+- [x] Update `src/api/initSetup.js` — same
+- [x] Update `src/api/mergeExercise.js` — direct axios calls via boot/axios
+- [x] Update `src/api/mergeProgram.js` — same
+- [x] Update `src/api/mergeStats.js` — same
+- [x] Replace `moment` with `dayjs`: no moment usage found in src/
+- [x] Replace `underscore`: no underscore usage found in src/
+
+---
+
+## Phase 9 — Security: credentials
+
+- [x] Audit `src/config.js`: listed all hardcoded values (API URLs, function access codes, UserID: 3)
+- [x] Create `FitBi.Quasar/.env.example` with VITE_* keys and placeholder values
+- [x] Update `src/config.js`: replaced all hardcoded values with import.meta.env.VITE_*
+- [x] Add FitBi.Quasar/.env and .env.local to root .gitignore
+
+---
+
+## Phase 10 — Frontend: linting
+
+- [x] Create `FitBi.Quasar/eslint.config.js`: imports from ../.linters/eslint-vue-quasar.js; disables camelcase for DB column names
+- [ ] Run `npm run lint` from `FitBi.Quasar/` and fix all reported errors (requires npm install first)
+
+---
+
+## Phase 11 — CI/CD
+
+- [x] Create `.github/workflows/ci.yml`: three jobs (backend net8.0, frontend node20, template-creator windows-latest)
+- [x] Create `.github/workflows/docker.yml`: build and push FitBi.Quasar Docker image on merge to master
+
+---
+
+## Completion checklist
+
+- [ ] All phases above complete
+- [ ] `dotnet build FitAPI.Functions/FitAPIFunctions.sln` passes on Linux
+- [ ] `npm ci && npm run build` passes in `FitBi.Quasar/`
+- [ ] `dotnet build TemplateCreator/TemplateCreator.csproj` passes on Windows
+- [ ] No secrets committed (`git log -p | grep -i "key\|secret\|password\|token"` returns nothing sensitive)
+- [ ] CI green on the PR branch

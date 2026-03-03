@@ -11,7 +11,7 @@
 
 <#@ import namespace="Microsoft.SqlServer.Management.Smo" #>
 <#
-// <copyright file="SchemaGen.tt" company="Mark Stacey">
+// <copyright file="_storeGenerator.tt" company="Mark Stacey">
 //  Copyright © . All Rights Reserved.
 // </copyright>
 var server = new Server(".\\SQL2017");
@@ -20,31 +20,29 @@ var server = new Server(".\\SQL2017");
 
 #>
 <#
-	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\vuex\\modules\\";
+	// NOTE: Update basePath to match your local repo root before running.
+	string basePath = "C:\\Git\\FitBI\\FitBi.Quasar\\src\\stores\\";
 	string jsGenPath = "C:\\Git\\FitBI\\FitAPI.Functions\\FitAPIFunctions\\jsGen\\store\\";
 	Schema[] sorted = (from Schema s in database.Schemas where s.Name == "Core" || s.Name == "Exercise" || s.Name == "Program" || s.Name == "Stats" orderby s.Name select s).ToArray();
             foreach (Schema sSchema in sorted)
             {
                 string fileName = sSchema.Name ;
+				string storeFile = fileName.Substring(0,1).ToLower() + fileName.Substring(1) + "Store.js";
 
-				if (!Directory.Exists(basePath + fileName )){
-					Directory.CreateDirectory(basePath + fileName );
-				}
-				if (!File.Exists(basePath + fileName + @"\\" + fileName + "Actions.js")){
-					File.Create(basePath + fileName + @"\\" + fileName + "Actions.js");
+				if (!Directory.Exists(basePath)){
+					Directory.CreateDirectory(basePath);
 				}
 
                 var lt = new ValuesTemplate(database, sSchema, fileName);
-				lt.RenderToFile(fileName + @"\\" + fileName + "Store.js");
-								
-				
-				
+				lt.RenderToFile(storeFile);
+
             }
 			foreach (Schema sSchema in sorted)
             {
 			string fileName = sSchema.Name ;
-			File.Copy( jsGenPath + fileName + @"\\" + fileName + "Store.js",
-						 basePath + fileName + @"\\" + fileName + "Store.js",
+			string storeFile = fileName.Substring(0,1).ToLower() + fileName.Substring(1) + "Store.js";
+			File.Copy( jsGenPath + storeFile,
+						 basePath + storeFile,
 						 true);
             }
 
@@ -54,89 +52,67 @@ private class ValuesTemplate : Template
 {
     public ValuesTemplate(Database db, Schema sSchema, string className)
     {
-     string strFile = @"import Vue from 'vue'
-import Vuex from 'vuex'
-// Import the `getField` getter and the `updateField`
-// mutation function from the `vuex-map-fields` module.
-import { getField, updateField } from '../../../helpers/vuex-map-fields/index'
-// import { getField, updateField } from 'vuex-map-fields'
-import actions from './" + className + @"Actions'
+     string storeName = className.Substring(0,1).ToLower() + className.Substring(1);
+     string storeId = storeName;
+     string strFile = @"import { defineStore } from 'pinia'
+import { api } from 'boot/axios'
 
-Vue.use(Vuex)
-
-const state = {";
+export const use" + className + @"Store = defineStore('" + storeId + @"', {
+  state: () => ({";
             Table[] tTables = (from Table tTable in db.Tables where tTable.Schema == sSchema.Name select tTable).ToArray();
             foreach (Table tTable in tTables)
             {
                 strFile += @"
-  " + tTable.Name + @": { },
-  " + tTable.Name + @"List: [],
-  " + tTable.Name + @"Item: {},";
+    " + tTable.Name + @": {},
+    " + tTable.Name + @"List: [],
+    " + tTable.Name + @"Item: {},";
             }
-            strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing space
+            strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing comma
 
             strFile += @"
-}
-// #region Getters
-const getters = {
-  getField";
+  }),
+
+  getters: {";
             foreach (Table tTable in tTables)
             {
-                strFile += @",
-  Get_" + tTable.Name + @"_ByRouteID: function (state, getters, rootState) {
-    return state." + tTable.Name + @"[+rootState.route.params." + tTable.Name.ToLower() + @"id]
-  },
-  Get_" + tTable.Name + @"Item: function () {
-    return state." + tTable.Name + @"Item
-  },
-  Get_" + tTable.Name + @"_All: function () {
-    return state." + tTable.Name + @"
-  },
-  Get_" + tTable.Name + @"_List: function () {
-    return state." + tTable.Name + @"
-  },
-  Get_" + tTable.Name + @"_Item: function () {
-    return state." + tTable.Name + @"Item
-  }";
+                strFile += @"
+    get" + tTable.Name + @"ByRouteId: (state) => (id) => state." + tTable.Name + @"[id],
+    get" + tTable.Name + @"Item: (state) => state." + tTable.Name + @"Item,
+    get" + tTable.Name + @"All: (state) => Object.values(state." + tTable.Name + @"),
+    get" + tTable.Name + @"List: (state) => Object.values(state." + tTable.Name + @"),";
             }
+            strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing comma
+
             strFile += @"
-}
-// #endregion
-// #region Mutations
-const mutations = {
-  updateField";
+  },
+
+  actions: {";
             foreach (Table tTable in tTables)
             {
-                strFile += @",
-  GET_" + tTable.Name.ToUpper() + @" (state, payload) {
-    state." + tTable.Name + @"Item = state." + tTable.Name + @"[payload." + tTable.Name.ToLower() + @"id]
-  },
-  SET_" + tTable.Name.ToUpper() + @" (state, payload) {
-    state." + tTable.Name + @"[payload." + tTable.Name + @"ID] = payload
-  },
-  SET_" + tTable.Name.ToUpper() + @"_LIST: function (state, fullList) {
-    if (typeof (fullList) !== 'undefined') {
-      fullList.forEach(function (element) {
-        Vue.set(state." + tTable.Name + @", element." + tTable.Name + @"ID, element)
-        state." + tTable.Name + @"List.push(element." + tTable.Name + @"ID)
-      }, this)
-    }
-  }";
+                strFile += @"
+    set" + tTable.Name + @"List(fullList) {
+      if (fullList) {
+        fullList.forEach((element) => {
+          this." + tTable.Name + @"[element." + tTable.Name + @"ID] = element
+          this." + tTable.Name + @"List.push(element." + tTable.Name + @"ID)
+        })
+      }
+    },
+    get" + tTable.Name + @"ByID(id) {
+      this." + tTable.Name + @"Item = this." + tTable.Name + @"[id] ?? {}
+    },
+    save" + tTable.Name + @"() {
+      const item = this." + tTable.Name + @"Item
+      item.UpdatedAt = new Date().toUTCString()
+      item.NeedsSync = true
+      this." + tTable.Name + @"[item." + tTable.Name + @"ID] = item
+    },";
             }
+            strFile = strFile.Substring(0, strFile.Length - 1); //Remove trailing comma
 
             strFile += @"
-}
-// #endregion
-
-const store = {
-  namespaced: true,
-  state,
-  getters,
-  mutations,
-  actions
-}
-
-export default store
+  }
+})
 ";
 
             this.FileName = strFile;
