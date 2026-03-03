@@ -7,7 +7,7 @@
           <q-icon
             class="cursor-pointer"
             name="edit"
-            @click="$router.push('/kb/exercise-edit/' + exercise.ExerciseID)"
+            @click="navigateToEdit(exercise.ExerciseID)"
           />
         </q-item-section>
         <q-item-section>{{ exercise.Name }}</q-item-section>
@@ -18,15 +18,22 @@
 
 <script>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useExerciseStore } from 'stores/exerciseStore'
 
 export default {
   name: 'FitExercisesPage',
 
   setup () {
+    const router = useRouter()
     const exerciseStore = useExerciseStore()
     const exercises = computed(() => exerciseStore.getExerciseAll)
-    return { exercises }
+
+    function navigateToEdit (id) {
+      router.push('/kb/exercise-edit/' + id)
+    }
+
+    return { exercises, navigateToEdit }
   }
 }
 </script>
