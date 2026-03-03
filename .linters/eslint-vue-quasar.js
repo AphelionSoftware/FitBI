@@ -26,10 +26,25 @@
 import pluginVue from 'eslint-plugin-vue'
 import tseslint from 'typescript-eslint'
 import unicorn from 'eslint-plugin-unicorn'
+import vueParser from 'vue-eslint-parser'
 
 export default [
   ...pluginVue.configs['flat/recommended'],
   ...tseslint.configs.recommended,
+
+  // tseslint.configs.recommended sets the TypeScript parser globally, which
+  // overrides the vue-eslint-parser set by pluginVue for .vue files.
+  // Re-apply vue-eslint-parser as the outer parser for .vue files, with the
+  // TypeScript parser used inside <script lang="ts"> blocks.
+  {
+    files: ['**/*.vue'],
+    languageOptions: {
+      parser: vueParser,
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
+  },
 
   // ── Global rules ────────────────────────────────────────────────────────────
   {
