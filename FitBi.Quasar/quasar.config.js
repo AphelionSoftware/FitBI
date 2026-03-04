@@ -6,7 +6,8 @@ export default configure(function (/* ctx */) {
     boot: [
       'pinia',
       'axios',
-      'firebase'
+      'firebase',
+      'init'
     ],
 
     css: [],
