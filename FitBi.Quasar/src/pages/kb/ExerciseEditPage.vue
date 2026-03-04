@@ -48,7 +48,7 @@ export default {
       if (saved || id === undefined) {
         return true
       }
-      const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+      const answer = window.confirm('You have unsaved changes. Save and leave?')
       if (answer) {
         store.saveExercise()
         return true
