@@ -42,6 +42,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .colRight { text-align: right }
 </style>
