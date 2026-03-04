@@ -2,68 +2,68 @@ import { defineStore } from 'pinia'
 
 export const useStatsStore = defineStore('stats', {
   state: () => ({
-    Metric: {},
-    MetricList: [],
-    MetricItem: {},
-    Person: {},
-    PersonList: [],
-    PersonItem: {},
-    SkinfoldMeasurement: {},
-    SkinfoldMeasurementList: [],
-    SkinfoldMeasurementItem: {},
-    TapeMeasurement: {},
-    TapeMeasurementList: [],
-    TapeMeasurementItem: {},
-    WeightMeasurement: {},
-    WeightMeasurementList: [],
-    WeightMeasurementItem: {}
+    metric: {},
+    metricList: [],
+    metricItem: {},
+    person: {},
+    personList: [],
+    personItem: {},
+    skinfoldMeasurement: {},
+    skinfoldMeasurementList: [],
+    skinfoldMeasurementItem: {},
+    tapeMeasurement: {},
+    tapeMeasurementList: [],
+    tapeMeasurementItem: {},
+    weightMeasurement: {},
+    weightMeasurementList: [],
+    weightMeasurementItem: {}
   }),
 
   getters: {
-    getMetricAll: (state) => Object.values(state.Metric),
-    getPersonAll: (state) => Object.values(state.Person),
-    getPersonByID: (state) => (id) => state.Person[id],
-    getWeightMeasurementAll: (state) => Object.values(state.WeightMeasurement)
+    getMetricAll: (state) => Object.values(state.metric),
+    getPersonAll: (state) => Object.values(state.person),
+    getPersonByID: (state) => (id) => state.person[id],
+    getWeightMeasurementAll: (state) => Object.values(state.weightMeasurement)
   },
 
   actions: {
     setMetricList (fullList) {
       if (fullList) {
         fullList.forEach((element) => {
-          this.Metric[element.MetricID] = element
-          this.MetricList.push(element.MetricID)
+          this.metric[element.MetricID] = element
+          this.metricList.push(element.MetricID)
         })
       }
     },
     setPersonList (fullList) {
       if (fullList) {
         fullList.forEach((element) => {
-          this.Person[element.PersonID] = element
-          this.PersonList.push(element.PersonID)
+          this.person[element.PersonID] = element
+          this.personList.push(element.PersonID)
         })
       }
     },
     setSkinfoldMeasurementList (fullList) {
       if (fullList) {
         fullList.forEach((element) => {
-          this.SkinfoldMeasurement[element.SkinfoldMeasurementID] = element
-          this.SkinfoldMeasurementList.push(element.SkinfoldMeasurementID)
+          this.skinfoldMeasurement[element.SkinfoldMeasurementID] = element
+          this.skinfoldMeasurementList.push(element.SkinfoldMeasurementID)
         })
       }
     },
     setTapeMeasurementList (fullList) {
       if (fullList) {
         fullList.forEach((element) => {
-          this.TapeMeasurement[element.TapeMeasurementID] = element
-          this.TapeMeasurementList.push(element.TapeMeasurementID)
+          this.tapeMeasurement[element.TapeMeasurementID] = element
+          this.tapeMeasurementList.push(element.TapeMeasurementID)
         })
       }
     },
     setWeightMeasurementList (fullList) {
       if (fullList) {
         fullList.forEach((element) => {
-          this.WeightMeasurement[element.WeightMeasurementID] = element
-          this.WeightMeasurementList.push(element.WeightMeasurementID)
+          this.weightMeasurement[element.WeightMeasurementID] = element
+          this.weightMeasurementList.push(element.WeightMeasurementID)
         })
       }
     }
