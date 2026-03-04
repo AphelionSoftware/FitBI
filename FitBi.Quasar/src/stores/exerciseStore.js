@@ -33,7 +33,7 @@ export const useExerciseStore = defineStore('exercise', {
       }
     },
     loadExerciseByID (id) {
-      this.exerciseItem = this.exercise[id] ?? {}
+      this.exerciseItem = id !== undefined ? { ...this.exercise[id] } : {}
     },
     saveExercise () {
       const item = this.exerciseItem
