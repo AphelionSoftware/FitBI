@@ -20,39 +20,25 @@ const routes = [
         name: 'measurements',
         path: 'measurements',
         component: () => import('src/pages/FitMeasurementsPage.vue')
-      }
-    ]
-  },
-  {
-    name: 'record',
-    path: '/record',
-    component: () => import('src/layouts/MainLayout.vue'),
-    children: [
+      },
       {
         name: 'weighIn',
-        path: 'weigh-in',
+        path: 'record/weigh-in',
         component: () => import('src/pages/FitWeightPage.vue')
       },
       {
         name: 'workout',
-        path: 'workout',
+        path: 'record/workout',
         component: () => import('src/pages/FitWeightPage.vue')
-      }
-    ]
-  },
-  {
-    name: 'kb',
-    path: '/kb',
-    component: () => import('src/layouts/MainLayout.vue'),
-    children: [
+      },
       {
         name: 'exercises',
-        path: 'exercises',
+        path: 'kb/exercises',
         component: () => import('src/pages/FitExercisesPage.vue')
       },
       {
         name: 'exerciseEdit',
-        path: 'exercise-edit/:exerciseId',
+        path: 'kb/exercise-edit/:exerciseId',
         component: () => import('src/pages/kb/ExerciseEditPage.vue'),
         props: true,
         beforeEnter: (to, _from, next) => {
