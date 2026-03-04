@@ -28,6 +28,8 @@ export const useStatsStore = defineStore('stats', {
 
   actions: {
     setMetricList (fullList) {
+      this.metric = {}
+      this.metricList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.metric[element.MetricID] = element
@@ -36,6 +38,8 @@ export const useStatsStore = defineStore('stats', {
       }
     },
     setPersonList (fullList) {
+      this.person = {}
+      this.personList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.person[element.PersonID] = element
@@ -44,6 +48,8 @@ export const useStatsStore = defineStore('stats', {
       }
     },
     setSkinfoldMeasurementList (fullList) {
+      this.skinfoldMeasurement = {}
+      this.skinfoldMeasurementList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.skinfoldMeasurement[element.SkinfoldMeasurementID] = element
@@ -52,6 +58,8 @@ export const useStatsStore = defineStore('stats', {
       }
     },
     setTapeMeasurementList (fullList) {
+      this.tapeMeasurement = {}
+      this.tapeMeasurementList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.tapeMeasurement[element.TapeMeasurementID] = element
@@ -60,6 +68,8 @@ export const useStatsStore = defineStore('stats', {
       }
     },
     setWeightMeasurementList (fullList) {
+      this.weightMeasurement = {}
+      this.weightMeasurementList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.weightMeasurement[element.WeightMeasurementID] = element

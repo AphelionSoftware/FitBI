@@ -45,6 +45,8 @@ export const useCoreStore = defineStore('core', {
 
   actions: {
     setActiveList (fullList) {
+      this.active = {}
+      this.activeList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.active[element.ActiveID] = element
@@ -53,6 +55,8 @@ export const useCoreStore = defineStore('core', {
       }
     },
     setBodyPartList (fullList) {
+      this.bodyPart = {}
+      this.bodyPartList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.bodyPart[element.BodyPartID] = element
@@ -61,6 +65,8 @@ export const useCoreStore = defineStore('core', {
       }
     },
     setBodyPartTypeList (fullList) {
+      this.bodyPartType = {}
+      this.bodyPartTypeList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.bodyPartType[element.BodyPartTypeID] = element
@@ -69,6 +75,8 @@ export const useCoreStore = defineStore('core', {
       }
     },
     setDatesList (fullList) {
+      this.dates = {}
+      this.datesList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.dates[element.DatesID] = element
@@ -77,6 +85,8 @@ export const useCoreStore = defineStore('core', {
       }
     },
     setMeasurementTypeList (fullList) {
+      this.measurementType = {}
+      this.measurementTypeList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.measurementType[element.MeasurementTypeID] = element
@@ -85,6 +95,8 @@ export const useCoreStore = defineStore('core', {
       }
     },
     setMeasurementTypeCategoryList (fullList) {
+      this.measurementTypeCategory = {}
+      this.measurementTypeCategoryList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.measurementTypeCategory[element.MeasurementTypeCategoryID] = element
@@ -93,6 +105,8 @@ export const useCoreStore = defineStore('core', {
       }
     },
     setTimeList (fullList) {
+      this.time = {}
+      this.timeList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.time[element.TimeID] = element
@@ -101,6 +115,8 @@ export const useCoreStore = defineStore('core', {
       }
     },
     setUnitList (fullList) {
+      this.unit = {}
+      this.unitList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.unit[element.UnitID] = element
@@ -109,6 +125,8 @@ export const useCoreStore = defineStore('core', {
       }
     },
     setUnitTypeList (fullList) {
+      this.unitType = {}
+      this.unitTypeList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.unitType[element.UnitTypeID] = element

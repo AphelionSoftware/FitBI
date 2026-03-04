@@ -26,6 +26,8 @@ export const useExerciseStore = defineStore('exercise', {
 
   actions: {
     setExerciseList (fullList) {
+      this.exercise = {}
+      this.exerciseList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.exercise[element.ExerciseID] = element
@@ -44,6 +46,8 @@ export const useExerciseStore = defineStore('exercise', {
       await mergeExercise(item)
     },
     setExerciseSportList (fullList) {
+      this.exerciseSport = {}
+      this.exerciseSportList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.exerciseSport[element.Exercise_SportID] = element
@@ -52,6 +56,8 @@ export const useExerciseStore = defineStore('exercise', {
       }
     },
     setExerciseTypeList (fullList) {
+      this.exerciseType = {}
+      this.exerciseTypeList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.exerciseType[element.ExerciseTypeID] = element
@@ -60,6 +66,8 @@ export const useExerciseStore = defineStore('exercise', {
       }
     },
     setSportList (fullList) {
+      this.sport = {}
+      this.sportList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.sport[element.SportID] = element

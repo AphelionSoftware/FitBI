@@ -26,6 +26,8 @@ export const useProgramStore = defineStore('program', {
 
   actions: {
     setPlanList (fullList) {
+      this.plan = {}
+      this.planList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.plan[element.PlanID] = element
@@ -34,6 +36,8 @@ export const useProgramStore = defineStore('program', {
       }
     },
     setWorkoutList (fullList) {
+      this.workout = {}
+      this.workoutList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.workout[element.WorkoutID] = element
@@ -42,6 +46,8 @@ export const useProgramStore = defineStore('program', {
       }
     },
     setWorkoutExerciseList (fullList) {
+      this.workoutExercise = {}
+      this.workoutExerciseList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.workoutExercise[element.Workout_ExerciseID] = element
@@ -50,6 +56,8 @@ export const useProgramStore = defineStore('program', {
       }
     },
     setWorkoutStageList (fullList) {
+      this.workoutStage = {}
+      this.workoutStageList = []
       if (fullList) {
         fullList.forEach((element) => {
           this.workoutStage[element.WorkoutStageID] = element
