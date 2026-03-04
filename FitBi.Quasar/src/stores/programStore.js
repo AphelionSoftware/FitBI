@@ -17,11 +17,11 @@ export const useProgramStore = defineStore('program', {
   }),
 
   getters: {
-    getPlanAll: (state) => Object.values(state.plan),
-    getPlanByID: (state) => (id) => state.plan[id],
-    getWorkoutAll: (state) => Object.values(state.workout),
-    getWorkoutByID: (state) => (id) => state.workout[id],
-    getWorkoutStageAll: (state) => Object.values(state.workoutStage)
+    allPlans: (state) => Object.values(state.plan),
+    planById: (state) => (id) => state.plan[id],
+    allWorkouts: (state) => Object.values(state.workout),
+    workoutById: (state) => (id) => state.workout[id],
+    allWorkoutStages: (state) => Object.values(state.workoutStage)
   },
 
   actions: {

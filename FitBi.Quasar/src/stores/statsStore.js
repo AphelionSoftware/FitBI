@@ -20,10 +20,10 @@ export const useStatsStore = defineStore('stats', {
   }),
 
   getters: {
-    getMetricAll: (state) => Object.values(state.metric),
-    getPersonAll: (state) => Object.values(state.person),
-    getPersonByID: (state) => (id) => state.person[id],
-    getWeightMeasurementAll: (state) => Object.values(state.weightMeasurement)
+    allMetrics: (state) => Object.values(state.metric),
+    allPersons: (state) => Object.values(state.person),
+    personById: (state) => (id) => state.person[id],
+    allWeightMeasurements: (state) => Object.values(state.weightMeasurement)
   },
 
   actions: {

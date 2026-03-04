@@ -17,10 +17,10 @@ export const useExerciseStore = defineStore('exercise', {
   }),
 
   getters: {
-    getExerciseAll: (state) => Object.values(state.exercise),
+    allExercises: (state) => Object.values(state.exercise),
     exerciseById: (state) => (id) => state.exercise[id],
-    getExerciseTypeAll: (state) => Object.values(state.exerciseType),
-    getSportAll: (state) => Object.values(state.sport)
+    allExerciseTypes: (state) => Object.values(state.exerciseType),
+    allSports: (state) => Object.values(state.sport)
   },
 
   actions: {

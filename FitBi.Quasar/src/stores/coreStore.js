@@ -32,15 +32,15 @@ export const useCoreStore = defineStore('core', {
   }),
 
   getters: {
-    getActiveAll: (state) => Object.values(state.active),
-    getBodyPartAll: (state) => Object.values(state.bodyPart),
-    getBodyPartByID: (state) => (id) => state.bodyPart[id],
-    getBodyPartTypeAll: (state) => Object.values(state.bodyPartType),
-    getMeasurementTypeAll: (state) => Object.values(state.measurementType),
-    getMeasurementTypeCategoryAll: (state) => Object.values(state.measurementTypeCategory),
-    getUnitAll: (state) => Object.values(state.unit),
-    getUnitByID: (state) => (id) => state.unit[id],
-    getUnitTypeAll: (state) => Object.values(state.unitType)
+    allActive: (state) => Object.values(state.active),
+    allBodyParts: (state) => Object.values(state.bodyPart),
+    bodyPartById: (state) => (id) => state.bodyPart[id],
+    allBodyPartTypes: (state) => Object.values(state.bodyPartType),
+    allMeasurementTypes: (state) => Object.values(state.measurementType),
+    allMeasurementTypeCategories: (state) => Object.values(state.measurementTypeCategory),
+    allUnits: (state) => Object.values(state.unit),
+    unitById: (state) => (id) => state.unit[id],
+    allUnitTypes: (state) => Object.values(state.unitType)
   },
 
   actions: {

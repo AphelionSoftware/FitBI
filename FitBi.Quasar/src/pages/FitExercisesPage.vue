@@ -32,7 +32,7 @@ export default {
   setup () {
     const router = useRouter()
     const exerciseStore = useExerciseStore()
-    const exercises = computed(() => exerciseStore.getExerciseAll)
+    const exercises = computed(() => exerciseStore.allExercises)
 
     function navigateToEdit (id) {
       router.push({ name: 'exerciseEdit', params: { exerciseId: id } })
