@@ -5,14 +5,14 @@ import { useStatsStore } from 'stores/statsStore'
 export default function initSetup (initValues) {
   const exerciseStore = useExerciseStore()
   exerciseStore.setExerciseList(initValues.Exercise)
-  exerciseStore.setExercise_SportList(initValues.Exercise_Sport)
+  exerciseStore.setExerciseSportList(initValues.Exercise_Sport)
   exerciseStore.setExerciseTypeList(initValues.ExerciseType)
   exerciseStore.setSportList(initValues.Sport)
 
   const programStore = useProgramStore()
   programStore.setPlanList(initValues.Plan)
   programStore.setWorkoutList(initValues.Workout)
-  programStore.setWorkout_ExerciseList(initValues.Workout_Exercise)
+  programStore.setWorkoutExerciseList(initValues.Workout_Exercise)
   programStore.setWorkoutStageList(initValues.WorkoutStage)
 
   const statsStore = useStatsStore()

@@ -41,7 +41,7 @@ export const useExerciseStore = defineStore('exercise', {
       item.NeedsSync = true
       this.exercise[item.ExerciseID] = item
     },
-    setExercise_SportList (fullList) {
+    setExerciseSportList (fullList) {
       if (fullList) {
         fullList.forEach((element) => {
           this.exerciseSport[element.Exercise_SportID] = element

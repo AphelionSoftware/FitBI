@@ -41,7 +41,7 @@ export const useProgramStore = defineStore('program', {
         })
       }
     },
-    setWorkout_ExerciseList (fullList) {
+    setWorkoutExerciseList (fullList) {
       if (fullList) {
         fullList.forEach((element) => {
           this.workoutExercise[element.Workout_ExerciseID] = element
