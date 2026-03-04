@@ -35,7 +35,7 @@ export default {
     const exercises = computed(() => exerciseStore.getExerciseAll)
 
     function navigateToEdit (id) {
-      router.push('/kb/exercise-edit/' + id)
+      router.push({ name: 'exerciseEdit', params: { exerciseId: id } })
     }
 
     return { exercises, navigateToEdit }
