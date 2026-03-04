@@ -171,3 +171,50 @@ The `workout` child route reuses `FitWeightPage.vue`. No workout page exists yet
 - [x] **Fix 18** — Remove redundant `style="text-align:right"` inline style from `FitWeightPage.vue`
 - [x] **Fix 19** — Delete comment-only `src/main.js`
 - [x] **Fix 20** — Move `weight` and `measurements` routes under the `MainLayout` parent route
+
+---
+
+## Round 4 Bugs (targeted bug review)
+
+### 23. Critical — loadExerciseByID assigns by reference, breaking save detection
+`loadExerciseByID` does `this.exerciseItem = this.exercise[id] ?? {}` — a reference copy.
+`exerciseItem` and `exercise[id]` are the **same object in memory**. When the user edits
+(e.g. `store.exerciseItem.Name = v`) both are mutated identically. In `onBeforeRouteLeave`,
+`JSON.stringify(store.exercise[id]) === JSON.stringify(item)` compares the object to
+itself — always `true`. Therefore:
+- The "Save and leave?" dialog never fires (guard always returns early)
+- `saveExercise()` is never called from the guard
+- `NeedsSync = true` is never set — edits are never queued for API sync
+Fix: deep-clone the exercise object: `this.exerciseItem = id !== undefined ? { ...this.exercise[id] } : {}`
+File: `src/stores/exerciseStore.js`
+
+### 24. High — Three MainLayout instances in router cause state reset on navigation
+The router has three separate parent routes each using `MainLayout`:
+  `/` group, `/record` group, `/kb` group
+Navigating between groups (e.g. sidebar click from `/weight` to `/kb/exercises`)
+causes Vue Router to unmount and remount `MainLayout`, resetting `leftDrawerOpen`
+to `false` — the sidebar snaps shut on every cross-group navigation.
+Fix: consolidate all page routes as children of a single root MainLayout route.
+File: `src/router/index.js`
+
+### 25. Medium — coreSetup.js silently drops Active, Dates, Time API data
+`coreSetup()` calls 6 of the 9 store actions available in `coreStore`. The calls to
+`setActiveList`, `setDatesList`, `setTimeList` are missing. Any `Active`, `Dates`,
+`Time` data returned by the `/setup/Core` API endpoint is silently ignored.
+File: `src/api/coreSetup.js`
+
+### 26. Low — FitWeightPage.vue CSS is unscoped
+`<style>` (not `<style scoped>`) makes `.colRight` a global CSS class, polluting the
+stylesheet and potentially affecting other components that happen to use the same class name.
+File: `src/pages/FitWeightPage.vue`
+
+### 27. Trivial — mergeStats.js has stale `eslint camelcase: 0` disable comment
+The comment was needed when mergeExercise.js/mergeProgram.js had underscore function names.
+mergeStats.js always had camelCase names, so the comment was never needed and can be removed.
+File: `src/api/mergeStats.js`
+
+- [x] **Fix 23** — Clone exercise in `loadExerciseByID`: `{ ...this.exercise[id] }` instead of reference assignment
+- [x] **Fix 24** — Flatten all page routes under one root `MainLayout` in `router/index.js`
+- [x] **Fix 25** — Add missing `setActiveList`, `setDatesList`, `setTimeList` calls to `coreSetup.js`
+- [x] **Fix 26** — Change `<style>` to `<style scoped>` in `FitWeightPage.vue`
+- [x] **Fix 27** — Remove stale `/* eslint camelcase: 0 */` from `mergeStats.js`
