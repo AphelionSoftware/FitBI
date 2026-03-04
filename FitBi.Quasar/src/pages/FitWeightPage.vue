@@ -21,7 +21,6 @@
     <div
       id="rightcolumn"
       class="colRight"
-      style="text-align:right"
     />
   </q-page>
 </template>
