@@ -120,3 +120,54 @@ File: `src/pages/kb/ExerciseEditPage.vue`
 - [x] **Fix 12** — Rename `setExercise_SportList` → `setExerciseSportList` and `setWorkout_ExerciseList` → `setWorkoutExerciseList`; update `initSetup.js`
 - [x] **Fix 13** — Rename all `getXxx`/`getXxxAll` getters to noun/adjective form across all stores; update callers
 - [x] **Fix 14** — Fix misleading confirm message in `ExerciseEditPage.vue`
+
+---
+
+## Round 3 Issues (found during second review pass)
+
+### 15. Bug — No error handling in init boot file
+`src/boot/init.js` calls two async API endpoints during app startup with no try/catch.
+If either call fails (network error, server down, bad credentials), the unhandled rejection
+crashes the Quasar boot chain and the app never loads. Must wrap in try/catch and log.
+File: `src/boot/init.js`
+
+### 16. Convention — `bodyfatunit`, `bodyfatpercent`, `bodyfat` are not camelCase
+`weightMeasurementStore.js` state has `bodyfatunit` (should be `bodyFatUnit`) and getters
+`bodyfatpercent` / `bodyfat` (should be `bodyFatPercent` / `bodyFat`). No external callers.
+File: `src/stores/weightMeasurementStore.js`
+
+### 17. Convention — Underscore function names in merge API files
+`mergeExercise_Sport` in `mergeExercise.js` and `mergeWorkout_Exercise` in `mergeProgram.js`
+use underscores. No callers yet; safe to rename. The `/* eslint camelcase: 0 */` disable
+comment in each file also becomes unnecessary after the rename.
+Files: `src/api/mergeExercise.js`, `src/api/mergeProgram.js`
+
+### 18. Code quality — Duplicate text-align styling in FitWeightPage.vue
+The `rightcolumn` div has both `style="text-align:right"` (inline) and CSS class `.colRight`
+which also sets `text-align: right`. The inline style is redundant.
+File: `src/pages/FitWeightPage.vue`
+
+### 19. Dead code — main.js is comment-only
+`src/main.js` contains only comments explaining that Quasar handles the entry point.
+It serves no functional purpose; delete it.
+File: `src/main.js`
+
+### 20. Bug — `/weight` and `/measurements` routes render without layout
+Routes `weight` and `measurements` map directly to page components with no `MainLayout`
+wrapper. Users reaching these paths get a page with no sidebar. They're also unreachable
+from the sidebar (no nav links). Move them as children under the root `MainLayout` route.
+File: `src/router/index.js`
+
+### 21. Design gap (noted, not auto-fixed) — home route shows empty layout
+The `home` route (`/`) renders `MainLayout` with no default child, so `<router-view>`
+renders nothing. A redirect to `/record/weigh-in` or a real dashboard page is needed.
+
+### 22. Design gap (noted, not auto-fixed) — `workout` route uses FitWeightPage as placeholder
+The `workout` child route reuses `FitWeightPage.vue`. No workout page exists yet.
+
+- [x] **Fix 15** — Wrap `init.js` boot in try/catch so a failed API call degrades gracefully
+- [x] **Fix 16** — Rename `bodyfatunit` → `bodyFatUnit`, `bodyfatpercent` → `bodyFatPercent`, `bodyfat` → `bodyFat` in `weightMeasurementStore.js`
+- [x] **Fix 17** — Rename `mergeExercise_Sport` → `mergeExerciseSport` and `mergeWorkout_Exercise` → `mergeWorkoutExercise`; remove now-unnecessary `eslint camelcase: 0` comments
+- [x] **Fix 18** — Remove redundant `style="text-align:right"` inline style from `FitWeightPage.vue`
+- [x] **Fix 19** — Delete comment-only `src/main.js`
+- [x] **Fix 20** — Move `weight` and `measurements` routes under the `MainLayout` parent route
