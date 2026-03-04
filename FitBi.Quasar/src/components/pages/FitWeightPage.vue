@@ -1,7 +1,10 @@
 <template>
   <q-page class="row justify-around">
     <div id="leftcolumn">
-      <q-list inset-separator class="no-border">
+      <q-list
+        inset-separator
+        class="no-border"
+      >
         <q-item>
           <q-item-section label="Weight">
             <q-knob
@@ -15,7 +18,11 @@
         </q-item>
       </q-list>
     </div>
-    <div id="rightcolumn" class="colRight" style="text-align:right" />
+    <div
+      id="rightcolumn"
+      class="colRight"
+      style="text-align:right"
+    />
   </q-page>
 </template>
 

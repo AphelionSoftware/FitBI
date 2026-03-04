@@ -26,10 +26,25 @@
 import pluginVue from 'eslint-plugin-vue'
 import tseslint from 'typescript-eslint'
 import unicorn from 'eslint-plugin-unicorn'
+import vueParser from 'vue-eslint-parser'
 
 export default [
   ...pluginVue.configs['flat/recommended'],
   ...tseslint.configs.recommended,
+
+  // tseslint.configs.recommended sets the TypeScript parser globally, which
+  // overrides the vue-eslint-parser set by pluginVue for .vue files.
+  // Re-apply vue-eslint-parser as the outer parser for .vue files, with the
+  // TypeScript parser used inside <script lang="ts"> blocks.
+  {
+    files: ['**/*.vue'],
+    languageOptions: {
+      parser: vueParser,
+      parserOptions: {
+        parser: tseslint.parser,
+      },
+    },
+  },
 
   // ── Global rules ────────────────────────────────────────────────────────────
   {
@@ -38,9 +53,12 @@ export default [
       // Component names must be multi-word to avoid conflicts with HTML elements
       'vue/multi-word-component-names': 'error',
 
-      // Component references in templates: PascalCase
+      // Component references in templates: PascalCase for locally-registered
+      // components. registeredComponentsOnly: true excludes globally-registered
+      // framework components (Quasar's QBtn etc., Vue Router's RouterView) which
+      // are not listed in any component's `components` option.
       'vue/component-name-in-template-casing': ['error', 'PascalCase', {
-        registeredComponentsOnly: false,
+        registeredComponentsOnly: true,
       }],
 
       // Component name in defineComponent / export default: PascalCase

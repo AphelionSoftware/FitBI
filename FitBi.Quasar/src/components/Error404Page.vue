@@ -3,25 +3,20 @@
     <div class="error-code bg-primary flex items-center justify-center">
       404
     </div>
-    <q-btn v-if="canGoBack" flat label="Go back" @click="goBack" />
+    <q-btn
+      v-if="canGoBack"
+      flat
+      label="Go back"
+      @click="goBack"
+    />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Error404',
+<script setup>
+const canGoBack = window.history.length > 1
 
-  data () {
-    return {
-      canGoBack: window.history.length > 1
-    }
-  },
-
-  methods: {
-    goBack () {
-      window.history.go(-1)
-    }
-  }
+function goBack () {
+  window.history.go(-1)
 }
 </script>
 

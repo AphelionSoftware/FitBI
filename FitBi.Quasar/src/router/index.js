@@ -50,7 +50,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    component: () => import('src/components/Error404.vue')
+    component: () => import('src/components/Error404Page.vue')
   }
 ]
 
