@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { mergeExercise } from 'src/api/mergeExercise'
 
 export const useExerciseStore = defineStore('exercise', {
   state: () => ({
@@ -35,11 +36,12 @@ export const useExerciseStore = defineStore('exercise', {
     loadExerciseByID (id) {
       this.exerciseItem = id !== undefined ? { ...this.exercise[id] } : {}
     },
-    saveExercise () {
+    async saveExercise () {
       const item = this.exerciseItem
       item.UpdatedAt = new Date().toUTCString()
       item.NeedsSync = true
-      this.exercise[item.ExerciseID] = item
+      this.exercise[item.ExerciseID] = { ...item }
+      await mergeExercise(item)
     },
     setExerciseSportList (fullList) {
       if (fullList) {

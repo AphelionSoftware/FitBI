@@ -40,7 +40,7 @@ export default {
       set: (v) => { store.exerciseItem.Description = v }
     })
 
-    onBeforeRouteLeave(() => {
+    onBeforeRouteLeave(async () => {
       const item = store.exerciseItem
       const id = item.ExerciseID
       const saved = id !== undefined && JSON.stringify(store.exercise[id]) === JSON.stringify(item)
@@ -50,7 +50,7 @@ export default {
       }
       const answer = window.confirm('You have unsaved changes. Save and leave?')
       if (answer) {
-        store.saveExercise()
+        await store.saveExercise()
         return true
       }
       return false
