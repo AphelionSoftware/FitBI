@@ -3,19 +3,25 @@ import { useExerciseStore } from 'stores/exerciseStore'
 
 const routes = [
   {
-    name: 'home',
     path: '/',
-    component: () => import('src/layouts/MainLayout.vue')
-  },
-  {
-    name: 'weight',
-    path: '/weight',
-    component: () => import('src/pages/FitWeightPage.vue')
-  },
-  {
-    name: 'measurements',
-    path: '/measurements',
-    component: () => import('src/pages/FitMeasurementsPage.vue')
+    component: () => import('src/layouts/MainLayout.vue'),
+    children: [
+      {
+        name: 'home',
+        path: '',
+        redirect: { name: 'weighIn' }
+      },
+      {
+        name: 'weight',
+        path: 'weight',
+        component: () => import('src/pages/FitWeightPage.vue')
+      },
+      {
+        name: 'measurements',
+        path: 'measurements',
+        component: () => import('src/pages/FitMeasurementsPage.vue')
+      }
+    ]
   },
   {
     name: 'record',
