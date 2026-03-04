@@ -4,7 +4,7 @@ import { useExerciseStore } from 'stores/exerciseStore'
 const routes = [
   {
     path: '/',
-    component: () => import('src/components/FitLayoutPrimary.vue')
+    component: () => import('src/layouts/MainLayout.vue')
   },
   {
     path: '/weight',
@@ -16,7 +16,7 @@ const routes = [
   },
   {
     path: '/record',
-    component: () => import('src/components/FitLayoutPrimary.vue'),
+    component: () => import('src/layouts/MainLayout.vue'),
     children: [
       {
         path: 'weigh-in',
@@ -30,7 +30,7 @@ const routes = [
   },
   {
     path: '/kb',
-    component: () => import('src/components/FitLayoutPrimary.vue'),
+    component: () => import('src/layouts/MainLayout.vue'),
     children: [
       {
         path: 'exercises',

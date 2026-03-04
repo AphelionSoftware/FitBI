@@ -87,7 +87,7 @@
 import { ref } from 'vue'
 
 export default {
-  name: 'FitLayoutPrimary',
+  name: 'MainLayout',
 
   setup () {
     const leftDrawerOpen = ref(false)
