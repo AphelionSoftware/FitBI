@@ -18,7 +18,7 @@ export const useExerciseStore = defineStore('exercise', {
 
   getters: {
     getExerciseAll: (state) => Object.values(state.Exercise),
-    getExerciseByID: (state) => (id) => state.Exercise[id],
+    exerciseById: (state) => (id) => state.Exercise[id],
     getExerciseTypeAll: (state) => Object.values(state.ExerciseType),
     getSportAll: (state) => Object.values(state.Sport)
   },
@@ -32,7 +32,7 @@ export const useExerciseStore = defineStore('exercise', {
         })
       }
     },
-    getExerciseByID (id) {
+    loadExerciseByID (id) {
       this.ExerciseItem = this.Exercise[id] ?? {}
     },
     saveExercise () {

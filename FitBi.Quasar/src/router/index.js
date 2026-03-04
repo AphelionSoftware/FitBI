@@ -42,7 +42,7 @@ const routes = [
         props: true,
         beforeEnter: (to, _from, next) => {
           const exerciseStore = useExerciseStore()
-          exerciseStore.getExerciseByID(to.params.exerciseid)
+          exerciseStore.loadExerciseByID(to.params.exerciseid)
           next()
         }
       }
