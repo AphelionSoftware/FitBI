@@ -6,5 +6,5 @@
 </template>
 
 <script setup>
-import FitWeightPage from './pages/FitWeightPage.vue'
+import FitWeightPage from './FitWeightPage.vue'
 </script>

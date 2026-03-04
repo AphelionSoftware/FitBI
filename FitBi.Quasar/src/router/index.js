@@ -8,11 +8,11 @@ const routes = [
   },
   {
     path: '/weight',
-    component: () => import('src/components/pages/FitWeightPage.vue')
+    component: () => import('src/pages/FitWeightPage.vue')
   },
   {
     path: '/measurements',
-    component: () => import('src/components/pages/FitMeasurementsPage.vue')
+    component: () => import('src/pages/FitMeasurementsPage.vue')
   },
   {
     path: '/record',
@@ -20,11 +20,11 @@ const routes = [
     children: [
       {
         path: 'weigh-in',
-        component: () => import('src/components/pages/FitWeightPage.vue')
+        component: () => import('src/pages/FitWeightPage.vue')
       },
       {
         path: 'workout',
-        component: () => import('src/components/pages/FitWeightPage.vue')
+        component: () => import('src/pages/FitWeightPage.vue')
       }
     ]
   },
@@ -34,11 +34,11 @@ const routes = [
     children: [
       {
         path: 'exercises',
-        component: () => import('src/components/pages/FitExercisesPage.vue')
+        component: () => import('src/pages/FitExercisesPage.vue')
       },
       {
         path: 'exercise-edit/:exerciseid',
-        component: () => import('src/components/pages/kb/ExerciseEditPage.vue'),
+        component: () => import('src/pages/kb/ExerciseEditPage.vue'),
         props: true,
         beforeEnter: (to, _from, next) => {
           const exerciseStore = useExerciseStore()
@@ -50,7 +50,7 @@ const routes = [
   },
   {
     path: '/:pathMatch(.*)*',
-    component: () => import('src/components/Error404Page.vue')
+    component: () => import('src/pages/Error404Page.vue')
   }
 ]
 
