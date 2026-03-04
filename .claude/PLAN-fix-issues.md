@@ -113,10 +113,10 @@ File: `src/pages/kb/ExerciseEditPage.vue`
 - [x] **Fix 5** — Add `name:` property to every route in `router/index.js` (camelCase)
 - [x] **Fix 6** — Rename `:exerciseid` → `:exerciseId` in route path and `beforeEnter`; update `router/index.js`
 - [x] **Fix 7** — Replace string-concat navigation in `FitExercisesPage.vue` with named-route object
-- [ ] **Fix 8** — Add `src/boot/init.js` that calls `loadCoreData` and `loadInitData`; register in `quasar.config.js`
-- [ ] **Fix 9** — Remove dead sidebar items (`/record/eat`, `/program/calendar`) from `MainLayout.vue`
-- [ ] **Fix 10** — Delete `src/pages/IndexPage.vue`
-- [ ] **Fix 11** — Rename all store state to camelCase in all 5 stores; update `ExerciseEditPage.vue`
-- [ ] **Fix 12** — Rename `setExercise_SportList` → `setExerciseSportList` and `setWorkout_ExerciseList` → `setWorkoutExerciseList`; update `initSetup.js`
-- [ ] **Fix 13** — Rename all `getXxx`/`getXxxAll` getters to noun/adjective form across all stores; update callers
-- [ ] **Fix 14** — Fix misleading confirm message in `ExerciseEditPage.vue`
+- [x] **Fix 8** — Add `src/boot/init.js` that calls `loadCoreData` and `loadInitData`; register in `quasar.config.js`
+- [x] **Fix 9** — Remove dead sidebar items (`/record/eat`, `/program/calendar`) from `MainLayout.vue`
+- [x] **Fix 10** — Delete `src/pages/IndexPage.vue`
+- [x] **Fix 11** — Rename all store state to camelCase in all 5 stores; update `ExerciseEditPage.vue`
+- [x] **Fix 12** — Rename `setExercise_SportList` → `setExerciseSportList` and `setWorkout_ExerciseList` → `setWorkoutExerciseList`; update `initSetup.js`
+- [x] **Fix 13** — Rename all `getXxx`/`getXxxAll` getters to noun/adjective form across all stores; update callers
+- [x] **Fix 14** — Fix misleading confirm message in `ExerciseEditPage.vue`
