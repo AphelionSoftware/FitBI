@@ -1,67 +1,77 @@
 import { defineStore } from 'pinia'
+import { mergeExercise } from 'src/api/mergeExercise'
 
 export const useExerciseStore = defineStore('exercise', {
   state: () => ({
-    Exercise: {},
-    ExerciseList: [],
-    ExerciseItem: {},
-    Exercise_Sport: {},
-    Exercise_SportList: [],
-    Exercise_SportItem: {},
-    ExerciseType: {},
-    ExerciseTypeList: [],
-    ExerciseTypeItem: {},
-    Sport: {},
-    SportList: [],
-    SportItem: {}
+    exercise: {},
+    exerciseList: [],
+    exerciseItem: {},
+    exerciseSport: {},
+    exerciseSportList: [],
+    exerciseSportItem: {},
+    exerciseType: {},
+    exerciseTypeList: [],
+    exerciseTypeItem: {},
+    sport: {},
+    sportList: [],
+    sportItem: {}
   }),
 
   getters: {
-    getExerciseAll: (state) => Object.values(state.Exercise),
-    getExerciseByID: (state) => (id) => state.Exercise[id],
-    getExerciseTypeAll: (state) => Object.values(state.ExerciseType),
-    getSportAll: (state) => Object.values(state.Sport)
+    allExercises: (state) => Object.values(state.exercise),
+    exerciseById: (state) => (id) => state.exercise[id],
+    allExerciseTypes: (state) => Object.values(state.exerciseType),
+    allSports: (state) => Object.values(state.sport)
   },
 
   actions: {
     setExerciseList (fullList) {
+      this.exercise = {}
+      this.exerciseList = []
       if (fullList) {
         fullList.forEach((element) => {
-          this.Exercise[element.ExerciseID] = element
-          this.ExerciseList.push(element.ExerciseID)
+          this.exercise[element.ExerciseID] = element
+          this.exerciseList.push(element.ExerciseID)
         })
       }
     },
-    getExerciseByID (id) {
-      this.ExerciseItem = this.Exercise[id] ?? {}
+    loadExerciseByID (id) {
+      this.exerciseItem = id !== undefined ? { ...this.exercise[id] } : {}
     },
-    saveExercise () {
-      const item = this.ExerciseItem
+    async saveExercise () {
+      const item = this.exerciseItem
       item.UpdatedAt = new Date().toUTCString()
       item.NeedsSync = true
-      this.Exercise[item.ExerciseID] = item
+      this.exercise[item.ExerciseID] = { ...item }
+      await mergeExercise(item)
     },
-    setExercise_SportList (fullList) {
+    setExerciseSportList (fullList) {
+      this.exerciseSport = {}
+      this.exerciseSportList = []
       if (fullList) {
         fullList.forEach((element) => {
-          this.Exercise_Sport[element.Exercise_SportID] = element
-          this.Exercise_SportList.push(element.Exercise_SportID)
+          this.exerciseSport[element.Exercise_SportID] = element
+          this.exerciseSportList.push(element.Exercise_SportID)
         })
       }
     },
     setExerciseTypeList (fullList) {
+      this.exerciseType = {}
+      this.exerciseTypeList = []
       if (fullList) {
         fullList.forEach((element) => {
-          this.ExerciseType[element.ExerciseTypeID] = element
-          this.ExerciseTypeList.push(element.ExerciseTypeID)
+          this.exerciseType[element.ExerciseTypeID] = element
+          this.exerciseTypeList.push(element.ExerciseTypeID)
         })
       }
     },
     setSportList (fullList) {
+      this.sport = {}
+      this.sportList = []
       if (fullList) {
         fullList.forEach((element) => {
-          this.Sport[element.SportID] = element
-          this.SportList.push(element.SportID)
+          this.sport[element.SportID] = element
+          this.sportList.push(element.SportID)
         })
       }
     }

@@ -41,27 +41,6 @@
           </q-item-section>
           <q-item-section>Workout</q-item-section>
         </q-item>
-        <q-item
-          clickable
-          :to="'/record/eat'"
-        >
-          <q-item-section avatar>
-            <q-icon name="restaurant" />
-          </q-item-section>
-          <q-item-section>Log meal</q-item-section>
-        </q-item>
-        <q-item-label header>
-          Program
-        </q-item-label>
-        <q-item
-          clickable
-          :to="'/program/calendar'"
-        >
-          <q-item-section avatar>
-            <q-icon name="calendar_today" />
-          </q-item-section>
-          <q-item-section>Calendar</q-item-section>
-        </q-item>
         <q-item-label header>
           Knowledge Base
         </q-item-label>
@@ -87,7 +66,7 @@
 import { ref } from 'vue'
 
 export default {
-  name: 'FitLayoutPrimary',
+  name: 'MainLayout',
 
   setup () {
     const leftDrawerOpen = ref(false)

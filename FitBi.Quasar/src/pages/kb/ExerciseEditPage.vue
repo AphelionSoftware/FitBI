@@ -28,29 +28,29 @@ export default {
     const store = useExerciseStore()
 
     const Name = computed({
-      get: () => store.ExerciseItem.Name,
-      set: (v) => { store.ExerciseItem.Name = v }
+      get: () => store.exerciseItem.Name,
+      set: (v) => { store.exerciseItem.Name = v }
     })
     const Code = computed({
-      get: () => store.ExerciseItem.Code,
-      set: (v) => { store.ExerciseItem.Code = v }
+      get: () => store.exerciseItem.Code,
+      set: (v) => { store.exerciseItem.Code = v }
     })
     const Description = computed({
-      get: () => store.ExerciseItem.Description,
-      set: (v) => { store.ExerciseItem.Description = v }
+      get: () => store.exerciseItem.Description,
+      set: (v) => { store.exerciseItem.Description = v }
     })
 
-    onBeforeRouteLeave(() => {
-      const item = store.ExerciseItem
+    onBeforeRouteLeave(async () => {
+      const item = store.exerciseItem
       const id = item.ExerciseID
-      const saved = id !== undefined && JSON.stringify(store.Exercise[id]) === JSON.stringify(item)
+      const saved = id !== undefined && JSON.stringify(store.exercise[id]) === JSON.stringify(item)
 
       if (saved || id === undefined) {
         return true
       }
-      const answer = window.confirm('Do you really want to leave? you have unsaved changes!')
+      const answer = window.confirm('You have unsaved changes. Save and leave?')
       if (answer) {
-        store.saveExercise()
+        await store.saveExercise()
         return true
       }
       return false

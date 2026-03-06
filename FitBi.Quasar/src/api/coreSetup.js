@@ -8,4 +8,7 @@ export default function coreSetup (coreValues) {
   store.setMeasurementTypeCategoryList(coreValues.MeasurementTypeCategory)
   store.setUnitList(coreValues.Unit)
   store.setUnitTypeList(coreValues.UnitType)
+  store.setActiveList(coreValues.Active)
+  store.setDatesList(coreValues.Dates)
+  store.setTimeList(coreValues.Time)
 }

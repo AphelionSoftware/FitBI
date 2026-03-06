@@ -1,4 +1,3 @@
-/* eslint camelcase: 0 */
 import { api } from 'boot/axios'
 
 export async function mergeMetric (payload) {

@@ -32,14 +32,14 @@ export const useWeightMeasurementStore = defineStore('weightMeasurement', {
       max: 250,
       unit: 'cm'
     },
-    bodyfatunit: '%'
+    bodyFatUnit: '%'
   }),
 
   getters: {
     weightValue: (state) => state.weight.model,
     weightObj: (state) => state.weight,
-    bodyfatpercent: () => 5,
-    bodyfat: () => 5
+    bodyFatPercent: () => 5,
+    bodyFat: () => 5
   },
 
   actions: {

@@ -4,53 +4,55 @@ import { useExerciseStore } from 'stores/exerciseStore'
 const routes = [
   {
     path: '/',
-    component: () => import('src/components/FitLayoutPrimary.vue')
-  },
-  {
-    path: '/weight',
-    component: () => import('src/components/pages/FitWeightPage.vue')
-  },
-  {
-    path: '/measurements',
-    component: () => import('src/components/pages/FitMeasurementsPage.vue')
-  },
-  {
-    path: '/record',
-    component: () => import('src/components/FitLayoutPrimary.vue'),
+    component: () => import('src/layouts/MainLayout.vue'),
     children: [
       {
-        path: 'weigh-in',
-        component: () => import('src/components/pages/FitWeightPage.vue')
+        name: 'home',
+        path: '',
+        redirect: { name: 'weighIn' }
       },
       {
-        path: 'workout',
-        component: () => import('src/components/pages/FitWeightPage.vue')
-      }
-    ]
-  },
-  {
-    path: '/kb',
-    component: () => import('src/components/FitLayoutPrimary.vue'),
-    children: [
-      {
-        path: 'exercises',
-        component: () => import('src/components/pages/FitExercisesPage.vue')
+        name: 'weight',
+        path: 'weight',
+        component: () => import('src/pages/FitWeightPage.vue')
       },
       {
-        path: 'exercise-edit/:exerciseid',
-        component: () => import('src/components/pages/kb/ExerciseEditPage.vue'),
+        name: 'measurements',
+        path: 'measurements',
+        component: () => import('src/pages/FitMeasurementsPage.vue')
+      },
+      {
+        name: 'weighIn',
+        path: 'record/weigh-in',
+        component: () => import('src/pages/FitWeightPage.vue')
+      },
+      {
+        name: 'workout',
+        path: 'record/workout',
+        component: () => import('src/pages/FitWeightPage.vue')
+      },
+      {
+        name: 'exercises',
+        path: 'kb/exercises',
+        component: () => import('src/pages/FitExercisesPage.vue')
+      },
+      {
+        name: 'exerciseEdit',
+        path: 'kb/exercise-edit/:exerciseId',
+        component: () => import('src/pages/kb/ExerciseEditPage.vue'),
         props: true,
         beforeEnter: (to, _from, next) => {
           const exerciseStore = useExerciseStore()
-          exerciseStore.getExerciseByID(to.params.exerciseid)
+          exerciseStore.loadExerciseByID(to.params.exerciseId)
           next()
         }
       }
     ]
   },
   {
+    name: 'error404',
     path: '/:pathMatch(.*)*',
-    component: () => import('src/components/Error404Page.vue')
+    component: () => import('src/pages/Error404Page.vue')
   }
 ]
 

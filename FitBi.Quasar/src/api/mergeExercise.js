@@ -1,11 +1,10 @@
-/* eslint camelcase: 0 */
 import { api } from 'boot/axios'
 
 export async function mergeExercise (payload) {
   return api.post('/merge/Exercise', payload)
 }
 
-export async function mergeExercise_Sport (payload) {
+export async function mergeExerciseSport (payload) {
   return api.post('/merge/Exercise_Sport', payload)
 }
 

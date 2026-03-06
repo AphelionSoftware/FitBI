@@ -21,7 +21,6 @@
     <div
       id="rightcolumn"
       class="colRight"
-      style="text-align:right"
     />
   </q-page>
 </template>
@@ -43,6 +42,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .colRight { text-align: right }
 </style>
