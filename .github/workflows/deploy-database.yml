@@ -1,0 +1,50 @@
+name: Deploy Database
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'Database/**'
+      - '.github/workflows/deploy-database.yml'
+  workflow_dispatch:
+    inputs:
+      block_on_data_loss:
+        description: 'Block deployment if data loss is possible'
+        required: false
+        default: 'true'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  deploy-database:
+    name: Build dacpac & deploy to Azure SQL
+    # SSDT .sqlproj requires MSBuild with SSDT workload, present on windows-latest (VS 2022)
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build dacpac
+        run: >
+          msbuild Database/FitBI.DB/FitBI.DB/FitBI.DB.sqlproj
+          /p:Configuration=Release
+          /p:Platform="Any CPU"
+        shell: pwsh
+
+      - name: Deploy dacpac to Azure SQL
+        uses: azure/sql-action@v2.3
+        with:
+          connection-string: ${{ secrets.AZURE_SQL_CONNECTION_STRING }}
+          path: Database/FitBI.DB/FitBI.DB/bin/Release/FitBI.DB.dacpac
+          action: publish
+          # BlockOnPossibleDataLoss=true (default) prevents accidental column/table drops.
+          # The workflow_dispatch input overrides this for intentional destructive migrations.
+          # On push triggers the conservative default (true) is always used.
+          arguments: >
+            /p:BlockOnPossibleDataLoss=${{ github.event.inputs.block_on_data_loss || 'true' }}
+            /p:DropObjectsNotInSource=false
