@@ -106,7 +106,7 @@ FitBI is deployed across four services. The table below maps each component to i
    ```
 5. Add this as GitHub Secret `AZURE_SQL_CONNECTION_STRING`.
 
-> **⚠️ Data loss warning:** The deployment workflow uses `/p:BlockOnPossibleDataLoss=false` to allow schema changes that could drop columns. Review every database PR carefully before merging to master. Change to `true` if you want CI to block on destructive changes.
+> **⚠️ Data loss warning:** The deployment workflow defaults to `/p:BlockOnPossibleDataLoss=true`, which blocks the deployment if any change could cause data loss (e.g. dropping a column). When a destructive migration is intentional, trigger the workflow manually via `workflow_dispatch` and select `block_on_data_loss: false`. Never merge destructive schema changes to master without first verifying the data impact.
 
 ### SSDT build note
 
