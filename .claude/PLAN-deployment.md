@@ -68,24 +68,122 @@ FitBI is deployed across four services. The table below maps each component to i
 
 ---
 
-## Phase 2 — Azure Functions deployment pipeline
+## Phase 2 — Provision Azure infrastructure (new deployment)
 
-### One-time Azure setup (manual, done once per environment)
+All resources should go in the same Azure region. The commands below use Azure CLI (`az`).
+Install it from [aka.ms/installazurecli](https://aka.ms/installazurecli) and run `az login` first.
+Choose a region close to your users, e.g. `australiaeast`, `eastus`, `westeurope`.
 
-1. In the Azure Portal, navigate to the **fitapifunctions** Function App.
-2. Download the **Publish Profile** → Overview → Get publish profile → save the XML.
-3. Add the full XML content as GitHub Secret `AZURE_FUNCTION_PUBLISH_PROFILE`.
-4. Verify **App Settings** in the Function App contain:
-   - `FitDB_conn` — Azure SQL connection string
-   - `sp_Core`, `sp_Init`, `sp_LatestTimestamps` — stored procedure names
-   - All `sp_merge_*` keys from the merge function classes
-   - `FUNCTIONS_WORKER_RUNTIME` = `dotnet-isolated`
+> **Sequence matters:** database must exist and have schema deployed before the Function App can connect to it.
+
+### Step 1 — Resource group and shared variables
+
+```bash
+az group create \
+  --name fitbi-rg \
+  --location <your-region>
+```
+
+Pick names for the resources below and note them — you'll reuse them throughout:
+- **SQL server name**: must be globally unique, e.g. `fitbi-sql` → becomes `fitbi-sql.database.windows.net`
+- **Function App name**: must be globally unique, e.g. `fitapifunctions` → becomes `fitapifunctions.azurewebsites.net`
+- **Storage account name**: 3–24 lowercase alphanumeric, globally unique, e.g. `fitbistorage`
+
+### Step 2 — Azure SQL Server and database
+
+```bash
+# Create the SQL Server (choose a strong admin password)
+az sql server create \
+  --resource-group fitbi-rg \
+  --name <sql-server-name> \
+  --location <your-region> \
+  --admin-user fitbiadmin \
+  --admin-password "<your-strong-password>"
+
+# Allow Azure services to connect (needed for GitHub Actions and Function App)
+az sql server firewall-rule create \
+  --resource-group fitbi-rg \
+  --server <sql-server-name> \
+  --name AllowAzureServices \
+  --start-ip-address 0.0.0.0 \
+  --end-ip-address 0.0.0.0
+
+# Create the database (Basic tier ~$5/month, sufficient for personal use)
+az sql db create \
+  --resource-group fitbi-rg \
+  --server <sql-server-name> \
+  --name FitBI \
+  --tier Basic \
+  --capacity 5
+```
+
+### Step 3 — Deploy database schema
+
+Run the `deploy-database.yml` workflow manually from GitHub Actions (Actions tab → Deploy Database → Run workflow), **or** deploy the dacpac from Visual Studio:
+- Right-click `FitBI.DB` project → **Publish** → set the target connection string → **Publish**
+
+The schema must be deployed before Step 5 (Function App App Settings reference it).
+
+### Step 4 — Storage account (required by Functions runtime)
+
+```bash
+az storage account create \
+  --resource-group fitbi-rg \
+  --name <storage-account-name> \
+  --location <your-region> \
+  --sku Standard_LRS
+```
+
+### Step 5 — Function App
+
+```bash
+# Create the Function App (.NET 8 isolated, Consumption plan)
+az functionapp create \
+  --resource-group fitbi-rg \
+  --name <function-app-name> \
+  --storage-account <storage-account-name> \
+  --consumption-plan-location <your-region> \
+  --runtime dotnet-isolated \
+  --runtime-version 8 \
+  --functions-version 4 \
+  --os-type Windows
+```
+
+### Step 6 — Configure Function App Settings
+
+The merge function classes have SP names hardcoded (e.g. `API.merge_Stats_WeightMeasurement`).
+Only three SP names and the connection string are read from environment variables:
+
+```bash
+az functionapp config appsettings set \
+  --resource-group fitbi-rg \
+  --name <function-app-name> \
+  --settings \
+    "FitDB_conn=Server=tcp:<sql-server-name>.database.windows.net,1433;Initial Catalog=FitBI;Persist Security Info=False;User ID=fitbiadmin;Password=<your-strong-password>;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" \
+    "sp_Core=API.sp_Core" \
+    "sp_Init=API.sp_Init" \
+    "sp_LatestTimestamps=API.sp_LatestTimestamps"
+```
+
+> `FUNCTIONS_WORKER_RUNTIME=dotnet-isolated` and `AzureWebJobsStorage` are set automatically by `az functionapp create`.
+
+### Step 7 — Get the publish profile for GitHub Actions
+
+**Portal:** Azure Portal → search `<function-app-name>` → Function App → Overview → **Get publish profile** → copy the full XML content.
+
+Add it as GitHub Secret `AZURE_FUNCTION_PUBLISH_PROFILE`.
+
+### Step 8 — Update VITE_API_BASE_URL
+
+The Function App URL is `https://<function-app-name>.azurewebsites.net/api`.
+Set this as GitHub Secret `VITE_API_BASE_URL` (replaces the placeholder value).
 
 ### GitHub Secrets to add (API)
 
 | Secret | Value |
 |--------|-------|
-| `AZURE_FUNCTION_PUBLISH_PROFILE` | Full XML content from Azure Portal → Function App → Get publish profile |
+| `AZURE_FUNCTION_PUBLISH_PROFILE` | Full XML from Azure Portal → Function App → Get publish profile |
+| `VITE_API_BASE_URL` | `https://<function-app-name>.azurewebsites.net/api` |
 
 ### Files created in this phase
 
@@ -95,18 +193,18 @@ FitBI is deployed across four services. The table below maps each component to i
 
 ## Phase 3 — Database schema deployment pipeline
 
-### One-time Azure setup (manual, done once per environment)
+### One-time Azure setup
 
-1. In the Azure Portal, locate the **Azure SQL Server** that hosts the FitBI database.
-2. Create a **deployment login** with `db_owner` permission on the FitBI database (or use the server admin).
-3. Ensure the server firewall allows connections from Azure Services (toggle: "Allow Azure services and resources to access this server").
-4. Construct the connection string:
-   ```
-   Server=tcp:<server>.database.windows.net,1433;Initial Catalog=<dbname>;Persist Security Info=False;User ID=<login>;Password=<password>;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
-   ```
-5. Add this as GitHub Secret `AZURE_SQL_CONNECTION_STRING`.
+Already covered in Phase 2 Steps 2–3. The GitHub Secret needed is the ADO.NET connection string
+constructed from the values chosen in Phase 2:
 
-> **⚠️ Data loss warning:** The deployment workflow uses `/p:BlockOnPossibleDataLoss=false` to allow schema changes that could drop columns. Review every database PR carefully before merging to master. Change to `true` if you want CI to block on destructive changes.
+```
+Server=tcp:<sql-server-name>.database.windows.net,1433;Initial Catalog=FitBI;Persist Security Info=False;User ID=fitbiadmin;Password=<your-strong-password>;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+```
+
+Add this as GitHub Secret `AZURE_SQL_CONNECTION_STRING`.
+
+> **⚠️ Data loss warning:** The deployment workflow defaults to `/p:BlockOnPossibleDataLoss=true`, which blocks the deployment if any change could cause data loss (e.g. dropping a column). When a destructive migration is intentional, trigger the workflow manually via `workflow_dispatch` and select `block_on_data_loss: false`. Never merge destructive schema changes to master without first verifying the data impact.
 
 ### SSDT build note
 
@@ -117,7 +215,7 @@ Building it requires MSBuild with the SSDT workload, which is present on `window
 
 | Secret | Value |
 |--------|-------|
-| `AZURE_SQL_CONNECTION_STRING` | Full ADO.NET connection string with `db_owner` permissions |
+| `AZURE_SQL_CONNECTION_STRING` | ADO.NET connection string from Phase 2 Step 3 (with `db_owner` / server admin credentials) |
 
 ### Files created in this phase
 
